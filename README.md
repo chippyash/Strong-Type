@@ -77,7 +77,7 @@ Supported type tags are:
 Create one directly:
 
 <pre>
-    use chippyash\Type\Number\ComplexType;
+    use chippyash\Type\Number\Complex\ComplexType;
     use chippyash\Type\String\DigitType;
     use chippyash\Type\Number\FloatType;
     $c = new ComplexType(new FloatType(-2), new FloatType(3));
@@ -89,7 +89,7 @@ Create a complex type via the Complex Type Factory (n.b. the Type Factory uses
 this, but using it directly may give you finer grain control in some circumstances.)
 
 <pre>
-    use chippyash\Type\Number\ComplexTypeFactory;
+    use chippyash\Type\Number\Complex\ComplexTypeFactory;
     $c = ComplexTypeFactory::create('13-2.67i');
     //same as
     $c = ComplexTypeFactory::fromString('13-2.67i');
@@ -105,7 +105,7 @@ Create a rational type via the Rational Type Factory (n.b. the Type Factory uses
 this, but using it directly may give you finer grain control in some circumstances.)
 
 <pre>
-    use chippyash\Type\Number\RationalTypeFactory;
+    use chippyash\Type\Number\Rational\RationalTypeFactory;
     $r = RationalTypeFactory::create(M_1_PI);    //results in 113/355
     $r = RationalTypeFactory::fromFloat(M_1_PI); //ditto
     $r = RationalTypeFactory::fromFloat(M_1_PI, 1e-17);  //results in 78256779/245850922
