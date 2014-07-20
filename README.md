@@ -2,6 +2,9 @@
 
 ## Quality Assurance
 
+[![Build Status](https://travis-ci.org/chippyash/Strong-Type.svg?branch=master)](https://travis-ci.org/chippyash/Strong-Type)
+[![Coverage Status](https://coveralls.io/repos/chippyash/Strong-Type/badge.png)](https://coveralls.io/r/chippyash/Strong-Type)
+
 
 ## What?
 
