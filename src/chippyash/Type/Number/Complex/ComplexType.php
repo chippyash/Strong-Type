@@ -13,7 +13,7 @@ namespace chippyash\Type\Number\Complex;
 
 use chippyash\Type\Number\Complex\ComplexTypeInterface;
 use chippyash\Type\Number\FloatType;
-use chippyash\Type\Exceptions\InvalidTypeException;
+use chippyash\Type\Number\NumericTypeInterface;
 
 /**
  * A complex number - algabraic form
@@ -24,7 +24,7 @@ use chippyash\Type\Exceptions\InvalidTypeException;
  *
  * @link http://en.wikipedia.org/wiki/Complex_number
  */
-class ComplexType implements ComplexTypeInterface
+class ComplexType implements ComplexTypeInterface, NumericTypeInterface
 {
 
     /**

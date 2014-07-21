@@ -42,6 +42,7 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
             <directory>../vendor</directory>
             <!-- don't cover interfaces -->
             <file>../src/chippyash/Type/TypeInterface.php</file>
+            <file>../src/chippyash/Type/Number/NumericTypeInterface.php</file>
             <file>../src/chippyash/Type/Number/Rational/RationalTypeInterface.php</file>
             <file>../src/chippyash/Type/Number/Complex/ComplexTypeInterface.php</file>
         </blacklist>
