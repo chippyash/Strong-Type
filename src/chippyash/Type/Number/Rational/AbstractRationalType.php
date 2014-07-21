@@ -15,6 +15,7 @@ namespace chippyash\Type\Number\Rational;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\BoolType;
 use chippyash\Type\Number\Rational\RationalTypeInterface;
+use chippyash\Type\Number\NumericTypeInterface;
 
 /**
  * Abstract rational number type
@@ -22,7 +23,7 @@ use chippyash\Type\Number\Rational\RationalTypeInterface;
  *
  * Using an abstract base as I will implement variants that utilise gmp and bcmath extensions
  */
-abstract class AbstractRationalType implements RationalTypeInterface
+abstract class AbstractRationalType implements RationalTypeInterface, NumericTypeInterface
 {
     /**
      * numerator
