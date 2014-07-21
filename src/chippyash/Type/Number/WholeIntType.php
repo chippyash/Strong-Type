@@ -12,11 +12,12 @@ namespace chippyash\Type\Number;
 
 use \chippyash\Type\AbstractType;
 use chippyash\Type\Exceptions\InvalidTypeException;
+use chippyash\Type\Number\NumericTypeInterface;
 
 /**
  * Whole Integer Type
  */
-class WholeIntType extends AbstractType
+class WholeIntType extends AbstractType implements NumericTypeInterface
 {
 
     protected function typeOf($value)
