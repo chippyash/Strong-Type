@@ -72,6 +72,16 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     }
 
     /**
+     * Is this number
+     * @return boolean
+     * @link http://en.wikipedia.org/wiki/Gaussian_integer
+     */
+    public function isGaussian()
+    {
+        return (intval($this->real) == $this->real  && intval($this->imaginary) == $this->imaginary);
+    }
+
+    /**
      * Proxy to get()
      *
      * @return string

@@ -134,4 +134,18 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $c());
         $this->assertEquals('1+2i', $c());
     }
+
+    public function testIsGaussianForBothPartsBeingIntegerValuesReturnsTrue()
+    {
+        $c = new ComplexType(new FloatType(1), new FloatType(2));
+        $this->assertTrue($c->isGaussian());
+    }
+
+    public function testIsGaussianForOnePartNotBeingIntegerValuesReturnsFalse()
+    {
+        $c = new ComplexType(new FloatType(1.000001), new FloatType(2));
+        $this->assertFalse($c->isGaussian());
+        $c2 = new ComplexType(new FloatType(1), new FloatType(2.000001));
+        $this->assertFalse($c2->isGaussian());
+    }
 }

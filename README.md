@@ -146,6 +146,11 @@ requires the same parameters as setFromType().
 There is no PHP native equivalent for a ComplexType, therefore the get() method proxies to the
 \__toString() method and returns something in the form [-]a(+|-)bi e.g. '-2+3.6i'
 
+Complex numbers support some additional attributes:
+
+*  isZero(): r() == i() == 0
+*  isGaussian(): is_int(r()) && is_int(i())
+
 ### Changing the library
 
 1.  fork it
@@ -202,3 +207,7 @@ To run the tests:
 V0...  pre releases
 
 V1.0.0 Original release
+
+V1.0.1 Remove requirement for zendfilter package to reduce dependency footprint
+
+       Add NumericTypeInterface to support other usages of library
