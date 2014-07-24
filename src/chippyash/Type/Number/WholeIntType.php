@@ -10,14 +10,13 @@
 
 namespace chippyash\Type\Number;
 
-use \chippyash\Type\AbstractType;
 use chippyash\Type\Exceptions\InvalidTypeException;
-use chippyash\Type\Number\NumericTypeInterface;
+use chippyash\Type\Number\IntType;
 
 /**
  * Whole Integer Type
  */
-class WholeIntType extends AbstractType implements NumericTypeInterface
+class WholeIntType extends IntType
 {
 
     protected function typeOf($value)

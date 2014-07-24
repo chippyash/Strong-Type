@@ -29,7 +29,7 @@ class DigitType extends AbstractType
      */
     protected function typeOf($value)
     {
-        return $this->filter($value);
+        return (string) $this->filter($value);
     }
 
     /**
