@@ -82,6 +82,15 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     }
 
     /**
+     * Return conjugate of this number
+     * @return chippyash\Type\Number\Complex\ComplexType
+     */
+    public function conjugate()
+    {
+        return new self(new FloatType($this->real), new FloatType($this->imaginary * -1));
+    }
+
+    /**
      * Proxy to get()
      *
      * @return string
