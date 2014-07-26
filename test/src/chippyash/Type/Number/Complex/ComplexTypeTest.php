@@ -148,4 +148,36 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $c2 = new ComplexType(new FloatType(1), new FloatType(2.000001));
         $this->assertFalse($c2->isGaussian());
     }
+    
+    public function testModulusForZeroComplexNumberIsZero()
+    {
+        $c = new ComplexType(new FloatType(0), new FloatType(0));
+        $this->assertEquals(0, $c->modulus()->get());
+    }
+    
+    public function testTriangleInequalityForModulus()
+    {
+        $c1 = new ComplexType(new FloatType(1), new FloatType(2));
+        $c2 = new ComplexType(new FloatType(3), new FloatType(4));
+        $c1addc2 = new ComplexType(new FloatType($c1->r() + $c2->r()), new FloatType($c1->i() + $c2->i()));
+        $mod1 = $c1->modulus();
+        $mod2 = $c2->modulus();
+        $modc1addc2 = $c1addc2->modulus();
+        
+        $this->assertTrue($modc1addc2() <= ($mod1() + $mod2()));
+    }
+    
+    public function testCommutativeMultiplicationAttributeForModulus()
+    {
+        $c1 = new ComplexType(new FloatType(1), new FloatType(2));
+        $c2 = new ComplexType(new FloatType(3), new FloatType(4));
+        $c1mulc2 = new ComplexType(
+                new FloatType(($c1->r() * $c2->r()) - ($c1->i() * $c2->i())),
+                new FloatType(($c1->i() * $c2->r()) + ($c1->r() * $c2->i())));
+        $mod1 = $c1->modulus();
+        $mod2 = $c2->modulus();
+        $modc1mulc2 = $c1mulc2->modulus();
+        
+        $this->assertEquals($modc1mulc2(), $mod1() * $mod2());
+    }
 }

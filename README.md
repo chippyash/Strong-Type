@@ -151,9 +151,10 @@ Complex numbers support some additional attributes:
 *  isZero(): r() == i() == 0
 *  isGaussian(): is_int(r()) && is_int(i())
 
-and a method
+and two methods
 
 *  conjugate(): returns conjugate of the complex number
+*  modulus(): returns the modulus, also known as absolute value or magnitude of the complex number
 
 ### Changing the library
 
@@ -219,3 +220,5 @@ V1.0.1 Remove requirement for zendfilter package to reduce dependency footprint
 V1.0.2 Add conjugate method to complex type
 
        rebase wholeInt and naturalInt type on intType
+
+V1.0.3 Add modulus method to complex type

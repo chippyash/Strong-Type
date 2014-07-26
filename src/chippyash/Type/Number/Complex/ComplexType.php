@@ -91,6 +91,16 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     }
 
     /**
+     * Return the modulus, also known as absolute value or magnitude of this number
+     * 
+     * @return \chippyash\Type\Number\FloatType
+     */
+    public function modulus()
+    {
+        return new FloatType(sqrt(pow($this->real, 2)+pow($this->imaginary, 2)));
+    }
+    
+    /**
      * Proxy to get()
      *
      * @return string
