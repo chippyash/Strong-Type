@@ -222,3 +222,5 @@ V1.0.2 Add conjugate method to complex type
        rebase wholeInt and naturalInt type on intType
 
 V1.0.3 Add modulus method to complex type
+
+V1.0.4 Fix RationalTypefactory::fromFloat not recognising zero
