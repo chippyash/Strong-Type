@@ -146,6 +146,7 @@ abstract class TypeFactory {
 
     /**
      * Create a Complex number
+     * If imaginary part is null, a complex equivalent real number is created r+0i
      *
      * @param string|numeric|IntType|FloatType $realPart
      * @param numeric|IntType|FloatType $imaginaryPart
@@ -153,6 +154,9 @@ abstract class TypeFactory {
      */
     public static function createComplex($realPart, $imaginaryPart = null)
     {
+        if (!is_string($realPart) && is_null($imaginaryPart)) {
+            return ComplexTypeFactory::create($realPart, 0);
+        }
         return ComplexTypeFactory::create($realPart, $imaginaryPart);
     }
 

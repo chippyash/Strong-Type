@@ -14,6 +14,7 @@ namespace chippyash\Type\Number\Complex;
 use chippyash\Type\Number\Complex\ComplexTypeInterface;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\NumericTypeInterface;
+use chippyash\Type\Exceptions\NotRealComplexException;
 
 /**
  * A complex number - algabraic form
@@ -101,6 +102,16 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     }
     
     /**
+     * Is this number a real number?  i.e. is it in form n+0i
+     * 
+     * @return boolean
+     */
+    public function isReal()
+    {
+        return ($this->imaginary == 0.0);
+    }
+    
+    /**
      * Proxy to get()
      *
      * @return string
@@ -117,19 +128,27 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function __toString()
     {
+        if ($this->isReal()) {
+            return "{$this->real}";
+        }
+        
         $op = ($this->imaginary < 0 ? '' : '+');
 
         return "{$this->real}{$op}{$this->imaginary}i";
     }
 
     /**
-     * Get PHP native representation.  As there isn't one
-     * we'll proxy to to __toString
+     * Get PHP native representation.  
+     * Return float if this isReal() else there isn't one
+     * so we'll proxy to __toString
      *
      * @retun string
      */
     public function get()
     {
+        if ($this->isReal()) {
+            return $this->real;
+        }
         return $this->__toString();
     }
 
@@ -179,5 +198,22 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
         $this->imaginary *= -1;
         
         return $this;
-    }    
+    }
+    
+    /**
+     * if this complex number isReal() then return float equivalent
+     * else throw an excepton
+     * 
+     * @return float
+     * 
+     * @throws NotRealComplexException
+     */
+    public function toFloat()
+    {
+        if ($this->isReal()) {
+            return $this->real;
+        } else {
+            throw new NotRealComplexException();
+        }
+    }
 }

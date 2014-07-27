@@ -149,17 +149,21 @@ NB, ComplexType amends the set() method to proxy to SetFromTypes, i.e. calling C
 requires the same parameters as setFromType().
 
 There is no PHP native equivalent for a ComplexType, therefore the get() method proxies to the
-\__toString() method and returns something in the form [-]a(+|-)bi e.g. '-2+3.6i'
+\__toString() method and returns something in the form [-]a(+|-)bi e.g. '-2+3.6i' except where
+The ComplexType->isReal() in which case get will return a float.  If you need to disambiguate
+then use ComplexType::toFloat() which will throw an exception if the number is not real.
 
 Complex numbers support some additional attributes:
 
 *  isZero(): r() == i() == 0
 *  isGaussian(): is_int(r()) && is_int(i())
+*  isReal(): i() == 0 (real numbers expressed as complex type in form n+0i)
 
-and two methods
+and three methods
 
 *  conjugate(): returns conjugate of the complex number
 *  modulus(): returns the modulus, also known as absolute value or magnitude of the complex number
+*  toFloat(): returns PHP float equivalent if isReal() else throws chippyash\Type\Exceptions\NotRealComplexException
 
 ### Changing the library
 
@@ -231,3 +235,7 @@ V1.0.3 Add modulus method to complex type
 V1.0.4 Fix RationalTypefactory::fromFloat not recognising zero
 
 V1.0.5 Add negate() method to numeric types
+
+V1.0.6 Add isReal() method for complex numbers
+
+        add toFloat() method for complex numbers if number isReal()
