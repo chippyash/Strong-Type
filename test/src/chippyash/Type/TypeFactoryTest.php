@@ -67,6 +67,12 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $var->get());
         $this->assertEquals('54+2i', $var->get());
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $var);
+    
+        $var = TypeFactory::create('complex', 54);
+        $this->assertInternalType('float', $var->get());
+        $this->assertEquals(54, $var->get());
+        $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $var);
+
     }
 
     /**
