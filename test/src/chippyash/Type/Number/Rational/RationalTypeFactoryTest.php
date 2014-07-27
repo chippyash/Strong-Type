@@ -123,4 +123,11 @@ class RationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
                 '78256779/245850922',
                 (string) RationalTypeFactory::fromFloat(M_1_PI, new FloatType(1e-17)));
     }
+    
+    public function testFromFloatWithZeroValueReturnsFloatType()
+    {
+        $this->assertEquals(
+                '0/1',
+                (string) RationalTypeFactory::fromFloat(0.0));
+    }
 }
