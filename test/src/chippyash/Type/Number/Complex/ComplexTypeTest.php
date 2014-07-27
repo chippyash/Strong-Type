@@ -149,6 +149,17 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($c2->isGaussian());
     }
     
+    public function testConjugateReturnsCorrectComplexType()
+    {
+        $c = new ComplexType(new FloatType(2), new FloatType(3));
+        $conj = $c->conjugate();
+        $this->assertInstanceOf(
+                'chippyash\Type\Number\Complex\ComplexType',
+                $conj);
+        $this->assertEquals(2, $conj->r());
+        $this->assertEquals(-3, $conj->i());
+    }
+    
     public function testModulusForZeroComplexNumberIsZero()
     {
         $c = new ComplexType(new FloatType(0), new FloatType(0));
