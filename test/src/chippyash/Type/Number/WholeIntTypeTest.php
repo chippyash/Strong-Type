@@ -32,4 +32,13 @@ class WholeIntTypeTest extends \PHPUnit_Framework_TestCase
         $t = new WholeIntType(-1);
     }
 
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Negate not supported for Whole Int Types
+     */
+    public function testCannotNegateTheNumber()
+    {
+        $t = new WholeIntType(12);
+        $t->negate();
+    }    
 }

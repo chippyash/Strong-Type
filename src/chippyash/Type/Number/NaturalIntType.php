@@ -19,6 +19,16 @@ use chippyash\Type\Number\IntType;
 class NaturalIntType extends IntType
 {
 
+    /**
+     * Negates the number
+     * 
+     * @throws \BadMethodCallException
+     */
+    public function negate()
+    {
+        throw new \BadMethodCallException('Negate not supported for Natural Int Types');
+    }
+        
     protected function typeOf($value)
     {
         $v = intval($value);

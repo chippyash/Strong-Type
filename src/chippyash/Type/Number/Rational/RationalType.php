@@ -108,6 +108,18 @@ class RationalType extends AbstractRationalType
     }
 
     /**
+     * Negates the number
+     * 
+     * @returns chippyash\Type\Number\Rational\RationalType Fluent Interface
+     */
+    public function negate()
+    {
+        $this->num *= -1;
+        
+        return $this;
+    }
+    
+    /**
      * Reduce this number to it's lowest form
      */
     protected function reduce()

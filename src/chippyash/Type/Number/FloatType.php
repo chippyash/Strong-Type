@@ -19,6 +19,18 @@ use chippyash\Type\Number\NumericTypeInterface;
 class FloatType extends AbstractType implements NumericTypeInterface
 {
 
+    /**
+     * Negates the number
+     * 
+     * @returns chippyash\Type\Number\FloatType Fluent Interface
+     */
+    public function negate()
+    {
+        $this->value *= -1;
+        
+        return $this;
+    }
+    
     protected function typeOf($value)
     {
         return floatval($value);

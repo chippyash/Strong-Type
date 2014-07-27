@@ -168,4 +168,16 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
         return $this;
     }
 
+    /**
+     * Negates the number
+     * 
+     * @returns chippyash\Type\Number\Complex\ComplexType Fluent Interface
+     */
+    public function negate()
+    {
+        $this->real *= -1;
+        $this->imaginary *= -1;
+        
+        return $this;
+    }    
 }

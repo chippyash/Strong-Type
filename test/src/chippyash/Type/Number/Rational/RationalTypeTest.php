@@ -71,4 +71,10 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('float', $r->get());
         $this->assertEquals(0.5, $r->get());
     }
+    
+    public function testCanNegateTheNumber()
+    {
+        $r = new RationalType(new IntType(1), new IntType(2));
+        $this->assertEquals(-0.5, $r->negate()->get());
+    }      
 }
