@@ -10,6 +10,14 @@
 namespace chippyash\Type\Number;
 
 /**
- * A dummy interface to mark numeric types
+ * A interface to mark numeric types
  */
-interface NumericTypeInterface {}
+interface NumericTypeInterface {
+    
+    /**
+     * negates the number
+     * 
+     * @returns chippyash\Type\Number\NumericTypeInterface Fluent Interface
+     */
+    public function negate();
+}

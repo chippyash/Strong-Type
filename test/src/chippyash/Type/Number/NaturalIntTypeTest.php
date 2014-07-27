@@ -29,4 +29,13 @@ class NaturalIntTypeTest extends \PHPUnit_Framework_TestCase
         $t = new NaturalIntType(0);
     }
 
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Negate not supported for Natural Int Types
+     */
+    public function testCannotNegateTheNumber()
+    {
+        $t = new NaturalIntType(12);
+        $t->negate();
+    }
 }

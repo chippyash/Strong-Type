@@ -17,4 +17,9 @@ class FloatTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $t->get());
     }
 
+    public function testCanNegateTheNumber()
+    {
+        $t = new FloatType(2.0);
+        $this->assertEquals(-2.0, $t->negate()->get());
+    }    
 }

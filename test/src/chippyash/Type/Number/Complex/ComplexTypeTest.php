@@ -191,4 +191,10 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals($modc1mulc2(), $mod1() * $mod2());
     }
+    
+    public function testCanNegateTheNumber()
+    {
+        $c = new ComplexType(new FloatType(1), new FloatType(2));
+        $this->assertEquals('-1-2i', $c->negate()->get());
+    }       
 }

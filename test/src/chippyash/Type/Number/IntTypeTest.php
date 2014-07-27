@@ -22,5 +22,11 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('int', $t->get());
         $this->assertEquals(34, $t->get());
     }
+    
+    public function testCanNegateTheNumber()
+    {
+        $t = new IntType(2);
+        $this->assertEquals(-2, $t->negate()->get());
+    }
 
 }

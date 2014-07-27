@@ -125,6 +125,11 @@ All types support the TypeInterface:
 *  \__toString() - Magic toString method. Return value as a string
 *  \__invoke() - Proxy to get(), allows you to write $c() instead of $c->get()
 
+Numeric types, that is IntType, WholeIntType, NaturalIntType, FloatType, RationalType
+and ComplexType support the NumericTypeInterface which defines the method
+
+*  negate(): negate the number - NB Negation is will throw a \BadMethodCallException for WholeInt and NaturalInt types as they cannot be negative
+
 Additionally, the RationalType supports the RationalTypeInterface:
 
 *  setFromTypes(IntType $num, IntType $den, BoolType $reduce = null) - strict typed setter method
@@ -224,3 +229,5 @@ V1.0.2 Add conjugate method to complex type
 V1.0.3 Add modulus method to complex type
 
 V1.0.4 Fix RationalTypefactory::fromFloat not recognising zero
+
+V1.0.5 Add negate() method to numeric types
