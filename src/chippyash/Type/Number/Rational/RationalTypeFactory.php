@@ -99,7 +99,9 @@ abstract class RationalTypeFactory
         if ($float instanceof FloatType) {
             $float = $float();
         }
-
+        if ($float == 0.0) {
+            return new RationalType(new IntType(0), new IntType(1));
+        }
         if ($tolerance instanceof FloatType) {
             $tolerance = $tolerance();
         }
