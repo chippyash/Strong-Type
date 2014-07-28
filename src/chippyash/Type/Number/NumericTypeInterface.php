@@ -13,11 +13,16 @@ namespace chippyash\Type\Number;
  * A interface to mark numeric types
  */
 interface NumericTypeInterface {
-    
+
     /**
-     * negates the number
-     * 
+     * Negates the number
+     *
      * @returns chippyash\Type\Number\NumericTypeInterface Fluent Interface
      */
     public function negate();
+
+    /**
+     * Return the number as a Complex number i.e. n+0i
+     */
+    public function toComplex();
 }

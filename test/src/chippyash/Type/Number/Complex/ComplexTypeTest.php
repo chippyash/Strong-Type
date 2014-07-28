@@ -126,7 +126,7 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $c2 = new ComplexType(new FloatType(1), new FloatType(2.000001));
         $this->assertFalse($c2->isGaussian());
     }
-    
+
     public function testConjugateReturnsCorrectComplexType()
     {
         $c = new ComplexType(new FloatType(2), new FloatType(3));
@@ -137,13 +137,13 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $conj->r());
         $this->assertEquals(-3, $conj->i());
     }
-    
+
     public function testModulusForZeroComplexNumberIsZero()
     {
         $c = new ComplexType(new FloatType(0), new FloatType(0));
         $this->assertEquals(0, $c->modulus()->get());
     }
-    
+
     public function testTriangleInequalityForModulus()
     {
         $c1 = new ComplexType(new FloatType(1), new FloatType(2));
@@ -152,10 +152,10 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $mod1 = $c1->modulus();
         $mod2 = $c2->modulus();
         $modc1addc2 = $c1addc2->modulus();
-        
+
         $this->assertTrue($modc1addc2() <= ($mod1() + $mod2()));
     }
-    
+
     public function testCommutativeMultiplicationAttributeForModulus()
     {
         $c1 = new ComplexType(new FloatType(1), new FloatType(2));
@@ -166,28 +166,28 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $mod1 = $c1->modulus();
         $mod2 = $c2->modulus();
         $modc1mulc2 = $c1mulc2->modulus();
-        
+
         $this->assertEquals($modc1mulc2(), $mod1() * $mod2());
     }
-    
+
     public function testCanNegateTheNumber()
     {
         $c = new ComplexType(new FloatType(1), new FloatType(2));
         $this->assertEquals('-1-2i', $c->negate()->get());
     }
-    
+
     public function testIsRealReturnsTrueForRealNumber()
     {
         $c = new ComplexType(new FloatType(1), new FloatType(0));
         $this->assertTrue($c->isReal());
     }
-    
+
     public function testIsRealReturnsFalseForNotRealNumber()
     {
         $c = new ComplexType(new FloatType(1), new FloatType(1));
         $this->assertFalse($c->isReal());
     }
-    
+
     public function testGetReturnsFloatForRealNumber()
     {
         $c = new ComplexType(new FloatType(1), new FloatType(0));
@@ -200,12 +200,12 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $test = (string) $c;
         $this->assertInternalType('string', $test);
         $this->assertEquals('1+2i', $test);
-        
+
         $c = new ComplexType(new FloatType(1), new FloatType(0));
         $test = (string) $c;
         $this->assertInternalType('string', $test);
         $this->assertEquals('1', $test);
-        
+
     }
 
     public function testGetReturnsStringForComplexNumber()
@@ -228,14 +228,14 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('float', $c());
         $this->assertEquals('1', $c());
     }
-    
+
     public function testToFloatReturnsFloatForRealComplexNumber()
     {
         $c = new ComplexType(new FloatType(1), new FloatType(0));
         $this->assertInternalType('float', $c->toFloat());
         $this->assertEquals(1, $c->toFloat());
     }
-          
+
     /**
      * @expectedException chippyash\Type\Exceptions\NotRealComplexException
      * @expectedExceptionMessage Not a Real complex type
@@ -245,6 +245,11 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $c = new ComplexType(new FloatType(1), new FloatType(1));
         $c->toFloat();
     }
-            
 
+    public function testToComplexReturnsCloneOfSelf()
+    {
+        $c = new ComplexType(new FloatType(1), new FloatType(1));
+        $c2 = $c->toComplex();
+        $this->assertEquals($c, $c2);
+    }
 }
