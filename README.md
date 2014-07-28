@@ -126,7 +126,7 @@ All types support the TypeInterface:
 *  \__invoke() - Proxy to get(), allows you to write $c() instead of $c->get()
 
 Numeric types, that is IntType, WholeIntType, NaturalIntType, FloatType, RationalType
-and ComplexType support the NumericTypeInterface which defines the method
+and ComplexType support the NumericTypeInterface which defines the methods
 
 *  negate(): negate the number - NB Negation is will throw a \BadMethodCallException for WholeInt and NaturalInt types as they cannot be negative
 *  toComplex(): returns a complex real representation of the number (e.g. 2+0i).  For
@@ -196,7 +196,7 @@ Install [Composer](https://getcomposer.org/)
 add
 
 <pre>
-    "chippyash/strong-type": "~1.0.0"
+    "chippyash/strong-type": ">=1.0.7"
 </pre>
 
 to your composer.json "requires" section
