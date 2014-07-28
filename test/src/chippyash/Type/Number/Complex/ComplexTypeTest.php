@@ -252,4 +252,16 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $c2 = $c->toComplex();
         $this->assertEquals($c, $c2);
     }
+
+    public function testAbsReturnsAbsoluteValue()
+    {
+        $c1 = new ComplexType(new FloatType(1), new FloatType(2));
+        $c2 = new ComplexType(new FloatType(-1), new FloatType(2));
+        $c3 = new ComplexType(new FloatType(1), new FloatType(-2));
+        $c4 = new ComplexType(new FloatType(-1), new FloatType(-2));
+        $this->assertEquals($c1->modulus(), $c1->abs());
+        $this->assertEquals($c1->modulus(), $c2->abs());
+        $this->assertEquals($c1->modulus(), $c3->abs());
+        $this->assertEquals($c1->modulus(), $c4->abs());
+    }
 }

@@ -119,7 +119,17 @@ class RationalType extends AbstractRationalType
 
         return $this;
     }
-    
+
+    /**
+     * Return the absolute value of the number
+     *
+     * @returns chippyash\Type\Number\Rational\RationalType
+     */
+    public function abs()
+    {
+        return new self(new IntType(abs($this->num)), new IntType(abs($this->den)));
+    }
+
     /**
      * Reduce this number to it's lowest form
      */

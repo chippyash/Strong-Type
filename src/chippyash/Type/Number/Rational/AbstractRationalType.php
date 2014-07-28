@@ -136,7 +136,15 @@ abstract class AbstractRationalType implements RationalTypeInterface, NumericTyp
     abstract public function __toString();
 
     /**
+     * Return the absolute value of the number
+     *
+     * @returns chippyash\Type\Number\Rational\AbstractRationalType
+     */
+    abstract public function abs();
+
+    /**
      * Reduce this number to it's lowest form
      */
     abstract protected function reduce();
+
 }

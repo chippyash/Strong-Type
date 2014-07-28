@@ -40,6 +40,16 @@ class FloatType extends AbstractType implements NumericTypeInterface
         return new ComplexType(new self($this->value), new self(0));
     }
 
+    /**
+     * Return the absolute value of the number
+     *
+     * @returns chippyash\Type\Number\FloatType
+     */
+    public function abs()
+    {
+        return new self(abs($this->value));
+    }
+
     protected function typeOf($value)
     {
         return floatval($value);

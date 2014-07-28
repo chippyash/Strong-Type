@@ -25,4 +25,11 @@ interface NumericTypeInterface {
      * Return the number as a Complex number i.e. n+0i
      */
     public function toComplex();
+
+    /**
+     * Return the absolute value of the number
+     *
+     * @returns chippyash\Type\Number\NumericTypeInterface
+     */
+    public function abs();
 }

@@ -32,4 +32,12 @@ class FloatTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $c->r());
         $this->assertEquals(0, $c->i());
     }
+
+    public function testAbsReturnsAbsoluteValue()
+    {
+        $t1 = new FloatType(2.6);
+        $t2 = new FloatType(-2.6);
+        $this->assertEquals($t1, $t1->abs());
+        $this->assertEquals($t1, $t2->abs());
+    }
 }
