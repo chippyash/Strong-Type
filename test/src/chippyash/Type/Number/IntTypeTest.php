@@ -39,4 +39,11 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $c->i());
     }
 
+    public function testAbsReturnsAbsoluteValue()
+    {
+        $t1 = new IntType(2);
+        $t2 = new IntType(-2);
+        $this->assertEquals($t1, $t1->abs());
+        $this->assertEquals($t1, $t2->abs());
+    }
 }

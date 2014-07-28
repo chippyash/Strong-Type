@@ -102,6 +102,18 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     }
 
     /**
+     * Return the absolute value of the number
+     * Proxy to modulus
+     * Required for NumericTypeInterface
+     *
+     * @returns \chippyash\Type\Number\FloatType
+     */
+    public function abs()
+    {
+        return $this->modulus();
+    }
+
+    /**
      * Is this number a real number?  i.e. is it in form n+0i
      *
      * @return boolean

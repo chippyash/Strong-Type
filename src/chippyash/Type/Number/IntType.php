@@ -41,6 +41,16 @@ class IntType extends AbstractType implements NumericTypeInterface
         return new ComplexType(new FloatType($this->value), new FloatType(0));
     }
 
+    /**
+     * Return the absolute value of the number
+     *
+     * @returns chippyash\Type\Number\IntType
+     */
+    public function abs()
+    {
+        return new self(abs($this->value));
+    }
+
     protected function typeOf($value)
     {
         return intval($value);
