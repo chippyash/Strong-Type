@@ -67,10 +67,15 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $var->get());
         $this->assertEquals('54+2i', $var->get());
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $var);
-    
+
         $var = TypeFactory::create('complex', 54);
         $this->assertInternalType('float', $var->get());
         $this->assertEquals(54, $var->get());
+        $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $var);
+
+        $var = TypeFactory::create('complex', '1-5i');
+        $this->assertInternalType('string', $var->get());
+        $this->assertEquals('1-5i', $var->get());
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $var);
 
     }
@@ -177,7 +182,45 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType',
                 Typefactory::createComplex(54, 2));
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType',
+                Typefactory::createComplex(54)); //real number 54+0i
+        $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType',
                 Typefactory::createComplex('54+2i'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage 'foo' is no valid numeric for IntType
+     */
+    public function testCreateIntWithNonNumericThrowsException()
+    {
+        TypeFactory::createInt('foo');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage 'foo' is no valid numeric for WholeIntType
+     */
+    public function testCreateWholeIntWithNonNumericThrowsException()
+    {
+        TypeFactory::createWhole('foo');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage 'foo' is no valid numeric for NaturalIntType
+     */
+    public function testCreateNaturalIntWithNonNumericThrowsException()
+    {
+        TypeFactory::createNatural('foo');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage 'foo' is no valid numeric for FloatType
+     */
+    public function testCreateFloatWithNonNumericThrowsException()
+    {
+        TypeFactory::createFloat('foo');
     }
 
 }

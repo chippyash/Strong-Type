@@ -72,9 +72,14 @@ abstract class TypeFactory {
      *
      * @param mixed $value
      * @return \chippyash\Type\Number\IntType
+     *
+     * @throws \InvalidArgumentException
      */
     public static function createInt($value)
     {
+        if (!is_numeric($value)) {
+            throw new \InvalidArgumentException("'{$value}' is no valid numeric for IntType");
+        }
         return new IntType($value);
     }
 
@@ -83,9 +88,14 @@ abstract class TypeFactory {
      *
      * @param mixed $value
      * @return \chippyash\Type\Number\FloatType
+     *
+     * @throws \InvalidArgumentException
      */
     public static function createFloat($value)
     {
+        if (!is_numeric($value)) {
+            throw new \InvalidArgumentException("'{$value}' is no valid numeric for FloatType");
+        }
         return new FloatType($value);
     }
 
@@ -127,9 +137,14 @@ abstract class TypeFactory {
      *
      * @param mixed $value
      * @return \chippyash\Type\Number\WholeIntType
+     *
+     * @throws \InvalidArgumentException
      */
     public static function createWhole($value)
     {
+        if (!is_numeric($value)) {
+            throw new \InvalidArgumentException("'{$value}' is no valid numeric for WholeIntType");
+        }
         return new WholeIntType($value);
     }
 
@@ -138,9 +153,14 @@ abstract class TypeFactory {
      *
      * @param mixed $value
      * @return \chippyash\Type\Number\NaturalIntType
+     *
+     * @throws \InvalidArgumentException
      */
     public static function createNatural($value)
     {
+        if (!is_numeric($value)) {
+            throw new \InvalidArgumentException("'{$value}' is no valid numeric for NaturalIntType");
+        }
         return new NaturalIntType($value);
     }
 

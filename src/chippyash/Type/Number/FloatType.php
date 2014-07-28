@@ -12,6 +12,7 @@ namespace chippyash\Type\Number;
 
 use \chippyash\Type\AbstractType;
 use chippyash\Type\Number\NumericTypeInterface;
+use chippyash\Type\Number\Complex\ComplexType;
 
 /**
  * Floating number Type
@@ -21,16 +22,24 @@ class FloatType extends AbstractType implements NumericTypeInterface
 
     /**
      * Negates the number
-     * 
+     *
      * @returns chippyash\Type\Number\FloatType Fluent Interface
      */
     public function negate()
     {
         $this->value *= -1;
-        
+
         return $this;
     }
-    
+
+    /**
+     * Return the number as a Complex number i.e. n+0i
+     */
+    public function toComplex()
+    {
+        return new ComplexType(new self($this->value), new self(0));
+    }
+
     protected function typeOf($value)
     {
         return floatval($value);

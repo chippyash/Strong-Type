@@ -93,24 +93,24 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
 
     /**
      * Return the modulus, also known as absolute value or magnitude of this number
-     * 
+     *
      * @return \chippyash\Type\Number\FloatType
      */
     public function modulus()
     {
         return new FloatType(sqrt(pow($this->real, 2)+pow($this->imaginary, 2)));
     }
-    
+
     /**
      * Is this number a real number?  i.e. is it in form n+0i
-     * 
+     *
      * @return boolean
      */
     public function isReal()
     {
         return ($this->imaginary == 0.0);
     }
-    
+
     /**
      * Proxy to get()
      *
@@ -131,14 +131,14 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
         if ($this->isReal()) {
             return "{$this->real}";
         }
-        
+
         $op = ($this->imaginary < 0 ? '' : '+');
 
         return "{$this->real}{$op}{$this->imaginary}i";
     }
 
     /**
-     * Get PHP native representation.  
+     * Get PHP native representation.
      * Return float if this isReal() else there isn't one
      * so we'll proxy to __toString
      *
@@ -189,23 +189,23 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
 
     /**
      * Negates the number
-     * 
+     *
      * @returns chippyash\Type\Number\Complex\ComplexType Fluent Interface
      */
     public function negate()
     {
         $this->real *= -1;
         $this->imaginary *= -1;
-        
+
         return $this;
     }
-    
+
     /**
      * if this complex number isReal() then return float equivalent
      * else throw an excepton
-     * 
+     *
      * @return float
-     * 
+     *
      * @throws NotRealComplexException
      */
     public function toFloat()
@@ -215,5 +215,14 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
         } else {
             throw new NotRealComplexException();
         }
+    }
+
+    /**
+     * Return the number as a Complex number i.e. a clone of this one
+     * Required for NumericTypeInterface
+     */
+    public function toComplex()
+    {
+        return clone $this;
     }
 }

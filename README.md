@@ -129,6 +129,8 @@ Numeric types, that is IntType, WholeIntType, NaturalIntType, FloatType, Rationa
 and ComplexType support the NumericTypeInterface which defines the method
 
 *  negate(): negate the number - NB Negation is will throw a \BadMethodCallException for WholeInt and NaturalInt types as they cannot be negative
+*  toComplex(): returns a complex real representation of the number (e.g. 2+0i).  For
+complex types, simply clones the existing object.
 
 Additionally, the RationalType supports the RationalTypeInterface:
 
@@ -239,3 +241,5 @@ V1.0.5 Add negate() method to numeric types
 V1.0.6 Add isReal() method for complex numbers
 
         add toFloat() method for complex numbers if number isReal()
+
+V1.0.7 Add toComplex() method for numeric types

@@ -117,4 +117,18 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValue('foo'));
         $this->assertEquals('foo', $o->__toString());
     }
+
+    public function testToComplexReturnsComplexType()
+    {
+        $o = $this->object;
+        $o->expects($this->once())
+                ->method('get')
+                ->will($this->returnValue(2));
+        $c = $o->toComplex();
+        $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
+        $this->assertEquals('2', (string) $c);
+        $this->assertEquals(2, $c->r());
+        $this->assertEquals(0, $c->i());
+
+    }
 }

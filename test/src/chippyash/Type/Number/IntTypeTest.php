@@ -22,11 +22,21 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('int', $t->get());
         $this->assertEquals(34, $t->get());
     }
-    
+
     public function testCanNegateTheNumber()
     {
         $t = new IntType(2);
         $this->assertEquals(-2, $t->negate()->get());
+    }
+
+    public function testToComplexReturnsComplexType()
+    {
+        $t = new IntType(2);
+        $c = $t->toComplex();
+        $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
+        $this->assertEquals('2', (string) $c);
+        $this->assertEquals(2, $c->r());
+        $this->assertEquals(0, $c->i());
     }
 
 }

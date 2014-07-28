@@ -21,5 +21,15 @@ class FloatTypeTest extends \PHPUnit_Framework_TestCase
     {
         $t = new FloatType(2.0);
         $this->assertEquals(-2.0, $t->negate()->get());
-    }    
+    }
+
+    public function testToComplexReturnsComplexType()
+    {
+        $t = new FloatType(2.0);
+        $c = $t->toComplex();
+        $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
+        $this->assertEquals('2', (string) $c);
+        $this->assertEquals(2, $c->r());
+        $this->assertEquals(0, $c->i());
+    }
 }

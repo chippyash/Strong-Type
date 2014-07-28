@@ -18,6 +18,7 @@ use chippyash\Type\Number\Rational\AbstractRationalType;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\BoolType;
 
+
 /**
  * A rational number (i.e a fraction)
  * This is the native PHP type.  If you have GMP installed, consider using
@@ -109,13 +110,13 @@ class RationalType extends AbstractRationalType
 
     /**
      * Negates the number
-     * 
+     *
      * @returns chippyash\Type\Number\Rational\RationalType Fluent Interface
      */
     public function negate()
     {
         $this->num *= -1;
-        
+
         return $this;
     }
     
