@@ -41,8 +41,10 @@ in most circumstances to have to pass around these types internally, except of
 course where it makes sense to do so, e.g. unwrap the native type at the point
 of use.
 
-A secondary purpose is to act as a simple filter.  For instance the DigitType
-simply strips the construction value of any non digit elements.
+A secondary purpose is to support the chippyash/Math-Matrix and chippyash/Math-Type-Calculator
+libraries. This is why you will see some small addendum being made to this library
+on a continual basis.  In due course I'll add support for the numeric types recognising
+gmp and bcmath extension availability automatically.
 
 ## When
 
@@ -65,6 +67,8 @@ Create a type via the Type Factory:
     $rat = TypeFactory::create('rational', 2, 3);
 </pre>
 
+etc, etc
+
 Supported type tags are:
 
 *  bool (or boolean)
@@ -81,15 +85,20 @@ Create one directly:
 
 <pre>
     use chippyash\Type\Number\Complex\ComplexType;
+    use chippyash\Type\Number\Rational\Rationaltype;
     use chippyash\Type\String\DigitType;
     use chippyash\Type\Number\FloatType;
+    use chippyash\Type\Number\IntType;
     $c = new ComplexType(new FloatType(-2), new FloatType(3));
     $d = new DigitType(34);
     $d2 = new DigitType('34foo'); // == '34'
+    $r = new RationalType(new IntType(1), new IntType(2));
 </pre>
 
+etc, etc
+
 Create a complex type via the Complex Type Factory (n.b. the Type Factory uses
-this, but using it directly may give you finer grain control in some circumstances.)
+this)
 
 <pre>
     use chippyash\Type\Number\Complex\ComplexTypeFactory;
@@ -140,7 +149,7 @@ Additionally, the RationalType supports the RationalTypeInterface:
 *  denominator() - return the integer value denominator
 
 NB, AbstractRationalType amends the set() method to proxy to setFromTypes(), i.e. calling RationalType::set()
-requires the same parameters as setFromType()
+requires the same parameters as setFromTypes()
 
 Additionally the ComplexType supports the ComplexTypeInterface:
 
@@ -149,7 +158,7 @@ Additionally the ComplexType supports the ComplexTypeInterface:
 *  i() - return the imaginary part as a float
 
 NB, ComplexType amends the set() method to proxy to SetFromTypes, i.e. calling ComplexType::set()
-requires the same parameters as setFromType().
+requires the same parameters as setFromTypes().
 
 There is no PHP native equivalent for a ComplexType, therefore the get() method proxies to the
 \__toString() method and returns something in the form [-]a(+|-)bi e.g. '-2+3.6i' except where
@@ -165,7 +174,8 @@ Complex numbers support some additional attributes:
 and three methods
 
 *  conjugate(): returns conjugate of the complex number
-*  modulus(): returns the modulus, also known as absolute value or magnitude of the complex number
+*  modulus(): returns the modulus, also known as absolute value or magnitude of the complex number.
+For complex numbers abs() === modulus()
 *  toFloat(): returns PHP float equivalent if isReal() else throws chippyash\Type\Exceptions\NotRealComplexException
 
 ### Changing the library
