@@ -13,6 +13,8 @@ namespace chippyash\Type\Number;
 use \chippyash\Type\AbstractType;
 use chippyash\Type\Number\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
+use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\RationalTypeFactory;
 
 /**
  * Floating number Type
@@ -34,10 +36,15 @@ class FloatType extends AbstractType implements NumericTypeInterface
 
     /**
      * Return the number as a Complex number i.e. n+0i
+     *
+     * @returns chippyash\Type\Number\Complex\ComplexType
      */
     public function toComplex()
     {
-        return new ComplexType(new self($this->value), new self(0));
+        return new ComplexType(
+                RationalTypeFactory::fromFloat($this->value, 1E-17),
+                new RationalType(new IntType(0), new IntType(1))
+                );
     }
 
     /**

@@ -13,7 +13,7 @@ namespace chippyash\Type\Number;
 use chippyash\Type\AbstractType;
 use chippyash\Type\Number\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
-use chippyash\Type\Number\FloatType;
+use chippyash\Type\Number\Rational\RationalType;
 
 /**
  * Integer Type
@@ -38,7 +38,11 @@ class IntType extends AbstractType implements NumericTypeInterface
      */
     public function toComplex()
     {
-        return new ComplexType(new FloatType($this->value), new FloatType(0));
+        $one = new self(1);
+        return new ComplexType(
+                new RationalType($this, $one),
+                new RationalType(new IntType(0), $one)
+                );
     }
 
     /**

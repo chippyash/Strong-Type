@@ -54,13 +54,14 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\chippyash\Type\Number\NaturalIntType', $var);
 
         $var = TypeFactory::create('rational', 54);
-        $this->assertInternalType('float', $var->get());
-        $this->assertEquals(54.0, $var->get());
+        $this->assertInternalType('int', $var->get());
+        $this->assertEquals(54, $var->get());
         $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $var);
 
+        //will reduce
         $var = TypeFactory::create('rational', 54, 2);
-        $this->assertInternalType('float', $var->get());
-        $this->assertEquals(27.0, $var->get());
+        $this->assertInternalType('int', $var->get());
+        $this->assertEquals(27, $var->get());
         $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $var);
 
         $var = TypeFactory::create('complex', 54, 2);
@@ -69,7 +70,7 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $var);
 
         $var = TypeFactory::create('complex', 54);
-        $this->assertInternalType('float', $var->get());
+        $this->assertInternalType('int', $var->get());
         $this->assertEquals(54, $var->get());
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $var);
 

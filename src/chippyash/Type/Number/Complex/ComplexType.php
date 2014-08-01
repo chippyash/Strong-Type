@@ -12,8 +12,10 @@
 namespace chippyash\Type\Number\Complex;
 
 use chippyash\Type\Number\Complex\ComplexTypeInterface;
-use chippyash\Type\Number\FloatType;
+use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\NumericTypeInterface;
+use chippyash\Type\Number\IntType;
 use chippyash\Type\Exceptions\NotRealComplexException;
 
 /**
@@ -23,6 +25,9 @@ use chippyash\Type\Exceptions\NotRealComplexException;
  * where a and b are real numbers and i is the imaginary unit,
  * which satisfies the equation i² = −1
  *
+ * Complex numbers use real numbers expressed as a RationalType.  This allows
+ * for greater arithmetic stability
+ *
  * @link http://en.wikipedia.org/wiki/Complex_number
  */
 class ComplexType implements ComplexTypeInterface, NumericTypeInterface
@@ -30,24 +35,24 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
 
     /**
      * Real part
-     * @var float
+     * @var RationalType
      */
     protected $real;
 
     /**
      * Imaginary part
-     * @var float
+     * @var RationalType
      */
     protected $imaginary;
 
-    public function __construct(FloatType $real, FloatType $imaginary)
+    public function __construct(RationalType $real, RationalType $imaginary)
     {
         $this->setFromTypes($real, $imaginary);
     }
 
     /**
      * Return real part
-     * @return float
+     * @return RationalType
      */
     public function r()
     {
@@ -56,7 +61,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
 
     /**
      * Return imaginary part
-     * @return float
+     * @return RationalType
      */
     public function i()
     {
@@ -69,17 +74,18 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function isZero()
     {
-        return ($this->real == 0 && $this->imaginary == 0);
+        return ($this->real->numerator() == 0 && $this->imaginary->numerator() == 0);
     }
 
     /**
-     * Is this number
+     * Is this number Gaussian, i.e r & i are both equivelent to integers
+     *
      * @return boolean
      * @link http://en.wikipedia.org/wiki/Gaussian_integer
      */
     public function isGaussian()
     {
-        return (intval($this->real) == $this->real  && intval($this->imaginary) == $this->imaginary);
+        return ($this->real->denominator() == 1  && $this->imaginary->denominator() == 1);
     }
 
     /**
@@ -88,17 +94,42 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function conjugate()
     {
-        return new self(new FloatType($this->real), new FloatType($this->imaginary * -1));
+        return new self($this->real, $this->imaginary->negate());
     }
 
     /**
      * Return the modulus, also known as absolute value or magnitude of this number
+     * = sqrt(r^2 + i^2);
      *
-     * @return \chippyash\Type\Number\FloatType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     public function modulus()
     {
-        return new FloatType(sqrt(pow($this->real, 2)+pow($this->imaginary, 2)));
+        if ($this->isReal()) {
+            //sqrt(r^2 + 0^2) = sqrt(r^2) = abs(r)
+            return $this->real->abs();
+        }
+        //r^2 & i^2
+        $sqrR = ['n'=>pow($this->real->numerator(), 2), 'd'=>pow($this->real->denominator(),2)];
+        $sqrI = ['n'=>pow($this->imaginary->numerator(), 2), 'd'=>pow($this->imaginary->denominator(),2)];
+        //r^2 + i^2
+        $den = $this->lcm($sqrR['d'], $sqrI['d']);
+        $num = ($sqrR['n'] * $den / $sqrR['d']) +
+               ($sqrI['n'] * $den / $sqrI['d']);
+
+        //sqrt(num/den) = sqrt(num)/sqrt(den)
+        //now this a fudge - we ought to be able to get a proper square root using
+        //factors etc but what we do instead is to do an approximation by converting
+        //to intermediate rationals using as much precision as we can i.e.
+        // rN = RationaType(sqrt(num))
+        // rD = RationalType(sqrt(den))
+        // mod = rN/1 * 1/rD
+        $rN = RationalTypeFactory::fromFloat(sqrt($num), 1e-17);
+        $rD = RationalTypeFactory::fromFloat(sqrt($den), 1e-17);
+        $modN = $rN->numerator() * $rD->denominator();
+        $modD = $rN->denominator() * $rD->numerator();
+
+        return RationalTypeFactory::create($modN, $modD);
     }
 
     /**
@@ -120,7 +151,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function isReal()
     {
-        return ($this->imaginary == 0.0);
+        return ($this->imaginary->numerator() == 0);
     }
 
     /**
@@ -135,18 +166,23 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
 
     /**
      * String representation of complex number
+     * If isReal() then string representation of the real part
+     * else r(+/-)ii
      *
      * @return string
      */
     public function __toString()
     {
+        $r = (string) $this->real;
+
         if ($this->isReal()) {
-            return "{$this->real}";
+            return $r;
         }
 
-        $op = ($this->imaginary < 0 ? '' : '+');
+        $op = ($this->imaginary->numerator() < 0 ? '' : '+');
+        $i = (string) $this->imaginary;
 
-        return "{$this->real}{$op}{$this->imaginary}i";
+        return "{$r}{$op}{$i}i";
     }
 
     /**
@@ -159,7 +195,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     public function get()
     {
         if ($this->isReal()) {
-            return $this->real;
+            return $this->real->get();
         }
         return $this->__toString();
     }
@@ -186,15 +222,15 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     /**
      * Set values for complex number
      *
-     * @param \chippyash\Type\Number\FloatType $real numerator
-     * @param \chippyash\Type\Number\FloatType $imaginary denominator
+     * @param \chippyash\Type\Number\Rational\RationalType $real real part
+     * @param \chippyash\Type\Number\Rational\RationalType $imaginary imaginary part
      *
-     * @return chippyash\Type\Number\Complex\ComplexTypeInterface Fluent Interface
+     * @return chippyash\Type\Number\Complex\ComplexType Fluent Interface
      */
-    public function setFromTypes(FloatType $real, FloatType $imaginary)
+    public function setFromTypes(RationalType $real, RationalType $imaginary)
     {
-        $this->real = $real();
-        $this->imaginary = $imaginary();
+        $this->real = $real;
+        $this->imaginary = $imaginary;
 
         return $this;
     }
@@ -206,8 +242,8 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function negate()
     {
-        $this->real *= -1;
-        $this->imaginary *= -1;
+        $this->real->negate();
+        $this->imaginary->negate();
 
         return $this;
     }
@@ -223,7 +259,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     public function toFloat()
     {
         if ($this->isReal()) {
-            return $this->real;
+            return $this->real->get();
         } else {
             throw new NotRealComplexException();
         }
@@ -236,5 +272,27 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     public function toComplex()
     {
         return clone $this;
+    }
+    /**
+     * Return Greatest Common Denominator of two numbers
+     *
+     * @param int $a
+     * @param int $b
+     * @return int
+     */
+    private function gcd($a, $b)
+    {
+        return $b ? $this->gcd($b, $a % $b) : $a;
+    }
+
+    /**
+     * Return Least Common Multiple of two numbers
+     * @param int $a
+     * @param int $b
+     * @return int
+     */
+    private function lcm($a, $b)
+    {
+        return \abs(($a * $b) / $this->gcd($a, $b));
     }
 }

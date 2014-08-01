@@ -33,12 +33,6 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase
         $r = new RationalType(new IntType(1), new IntType(1), 0);
     }
 
-    public function testConstructHasOptionalThirdParameter()
-    {
-        $r = new RationalType(new IntType(4), new IntType(2));
-        $this->assertEquals('2/1', $r);
-    }
-
     public function testConstructWithThirdParameterSetFalseWillNotReduce()
     {
         $r = new RationalType(new IntType(4), new IntType(2),

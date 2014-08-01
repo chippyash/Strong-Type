@@ -87,25 +87,33 @@ class RationalType extends AbstractRationalType
     }
 
     /**
-     * Get the basic value of the object type properly
-     * In this case, the type is a float
+     * Get the basic PHP value of the object type properly
+     * In this case, the type is an int or float
      *
-     * @return float
+     * @return int|float
      */
     public function get()
     {
-        return floatval($this->num / $this->den);
+        if ($this->isInteger()) {
+            return intval($this->num);
+        } else {
+            return floatval($this->num / $this->den);
+        }
     }
 
     /**
      * Magic method - convert to string
-     * Returns "<num>/<den>"
+     * Returns "<num>/<den>" or "<num>" if isInteger()
      *
      * @return string
      */
     public function __toString()
     {
-        return "{$this->num}/{$this->den}";
+        if ($this->isInteger()) {
+            return "{$this->num}";
+        } else {
+            return "{$this->num}/{$this->den}";
+        }
     }
 
     /**
@@ -128,6 +136,16 @@ class RationalType extends AbstractRationalType
     public function abs()
     {
         return new self(new IntType(abs($this->num)), new IntType(abs($this->den)));
+    }
+
+    /**
+     * Is this Rational an expression of an integer, i.e. n/1
+     *
+     * @return boolean
+     */
+    public function isInteger()
+    {
+        return ($this->den === 1);
     }
 
     /**
