@@ -30,13 +30,13 @@ class RationalType extends AbstractRationalType
 
     /**
      * numerator
-     * @var int
+     * @var IntType
      */
     protected $num;
 
     /**
      * denominator
-     * @var int
+     * @var IntType
      */
     protected $den;
 
@@ -51,13 +51,13 @@ class RationalType extends AbstractRationalType
      */
     public function setFromTypes(IntType $num, IntType $den, BoolType $reduce = null)
     {
-        $this->num = $num->get();
-        $this->den = $den->get();
+        $this->num = clone $num;
+        $this->den = clone $den;
 
-        if ($this->den < 0) {
+        if ($this->den->get() < 0) {
             //normalise the sign
-            $this->num *= -1;
-            $this->den *= -1;
+            $this->num->negate();
+            $this->den->negate();
         }
 
         if (empty($reduce) || $reduce->get()) {
@@ -69,7 +69,7 @@ class RationalType extends AbstractRationalType
 
     /**
      * Get the numerator
-     * @return int
+     * @return chippyash\Type\Number\IntType
      */
     public function numerator()
     {
@@ -79,7 +79,7 @@ class RationalType extends AbstractRationalType
     /**
      * Get the denominator
      *
-     * @return int
+     * @return chippyash\Type\Number\IntType
      */
     public function denominator()
     {
@@ -95,9 +95,9 @@ class RationalType extends AbstractRationalType
     public function get()
     {
         if ($this->isInteger()) {
-            return intval($this->num);
+            return intval($this->num->get());
         } else {
-            return floatval($this->num / $this->den);
+            return floatval($this->num->get() / $this->den->get());
         }
     }
 
@@ -109,10 +109,12 @@ class RationalType extends AbstractRationalType
      */
     public function __toString()
     {
+        $n = $this->num->get();
         if ($this->isInteger()) {
-            return "{$this->num}";
+            return "{$n}";
         } else {
-            return "{$this->num}/{$this->den}";
+            $d = $this->den->get();
+            return "{$n}/{$d}";
         }
     }
 
@@ -123,7 +125,7 @@ class RationalType extends AbstractRationalType
      */
     public function negate()
     {
-        $this->num *= -1;
+        $this->num->negate();
 
         return $this;
     }
@@ -135,7 +137,7 @@ class RationalType extends AbstractRationalType
      */
     public function abs()
     {
-        return new self(new IntType(abs($this->num)), new IntType(abs($this->den)));
+        return new self($this->num->abs(), $this->den->abs());
     }
 
     /**
@@ -145,7 +147,7 @@ class RationalType extends AbstractRationalType
      */
     public function isInteger()
     {
-        return ($this->den === 1);
+        return ($this->den->get() === 1);
     }
 
     /**
@@ -153,10 +155,10 @@ class RationalType extends AbstractRationalType
      */
     protected function reduce()
     {
-        $gcd = $this->gcd($this->num, $this->den);
+        $gcd = $this->gcd($this->num->get(), $this->den->get());
         if ($gcd > 1) {
-            $this->num /= $gcd;
-            $this->den /= $gcd;
+            $this->num->set($this->num->get() / $gcd) ;
+            $this->den->set($this->den->get() / $gcd);
         }
     }
 

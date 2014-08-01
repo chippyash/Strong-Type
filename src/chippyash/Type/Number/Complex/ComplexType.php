@@ -74,7 +74,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function isZero()
     {
-        return ($this->real->numerator() == 0 && $this->imaginary->numerator() == 0);
+        return ($this->real->numerator()->get() == 0 && $this->imaginary->numerator()->get() == 0);
     }
 
     /**
@@ -85,7 +85,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function isGaussian()
     {
-        return ($this->real->denominator() == 1  && $this->imaginary->denominator() == 1);
+        return ($this->real->denominator()->get() == 1  && $this->imaginary->denominator()->get() == 1);
     }
 
     /**
@@ -110,8 +110,8 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
             return $this->real->abs();
         }
         //r^2 & i^2
-        $sqrR = ['n'=>pow($this->real->numerator(), 2), 'd'=>pow($this->real->denominator(),2)];
-        $sqrI = ['n'=>pow($this->imaginary->numerator(), 2), 'd'=>pow($this->imaginary->denominator(),2)];
+        $sqrR = ['n'=>pow($this->real->numerator()->get(), 2), 'd'=>pow($this->real->denominator()->get(),2)];
+        $sqrI = ['n'=>pow($this->imaginary->numerator()->get(), 2), 'd'=>pow($this->imaginary->denominator()->get(),2)];
         //r^2 + i^2
         $den = $this->lcm($sqrR['d'], $sqrI['d']);
         $num = ($sqrR['n'] * $den / $sqrR['d']) +
@@ -126,8 +126,8 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
         // mod = rN/1 * 1/rD
         $rN = RationalTypeFactory::fromFloat(sqrt($num), 1e-17);
         $rD = RationalTypeFactory::fromFloat(sqrt($den), 1e-17);
-        $modN = $rN->numerator() * $rD->denominator();
-        $modD = $rN->denominator() * $rD->numerator();
+        $modN = $rN->numerator()->get() * $rD->denominator()->get();
+        $modD = $rN->denominator()->get() * $rD->numerator()->get();
 
         return RationalTypeFactory::create($modN, $modD);
     }
@@ -151,7 +151,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function isReal()
     {
-        return ($this->imaginary->numerator() == 0);
+        return ($this->imaginary->numerator()->get() == 0);
     }
 
     /**
@@ -179,7 +179,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
             return $r;
         }
 
-        $op = ($this->imaginary->numerator() < 0 ? '' : '+');
+        $op = ($this->imaginary->numerator()->get() < 0 ? '' : '+');
         $i = (string) $this->imaginary;
 
         return "{$r}{$op}{$i}i";

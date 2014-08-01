@@ -43,20 +43,20 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase
     public function testNumeratorReturnsInteger()
     {
         $r = new RationalType(new IntType(4), new IntType(2));
-        $this->assertEquals(2, $r->numerator());
+        $this->assertEquals(2, $r->numerator()->get());
     }
 
     public function testDenominatorReturnsInteger()
     {
         $r = new RationalType(new IntType(4), new IntType(2));
-        $this->assertEquals(1, $r->denominator());
+        $this->assertEquals(1, $r->denominator()->get());
     }
 
     public function testNegativeDenominatorNormalizesToNegativeNumerator()
     {
         $r = new RationalType(new IntType(4), new IntType(-3));
-        $this->assertEquals(-4, $r->numerator());
-        $this->assertEquals(3, $r->denominator());
+        $this->assertEquals(-4, $r->numerator()->get());
+        $this->assertEquals(3, $r->denominator()->get());
     }
 
     public function testGetReturnsFloat()
