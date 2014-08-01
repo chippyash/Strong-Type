@@ -46,4 +46,51 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($t1, $t1->abs());
         $this->assertEquals($t1, $t2->abs());
     }
+    
+    /**
+     * @dataProvider factors
+     */
+    public function testFactorsReturnsAnArrayOfFactorsOfTheNumber($n, array $factors)
+    {
+        $i = new IntType($n);
+        $this->assertEquals($factors, $i->factors());
+    }
+    
+    /**
+     * @dataProvider factors
+     */
+    public function testPrimeFactorsReturnsAnArrayOfFactorsOfTheNumber($n, array $ignore, array $pFactors)
+    {
+        $i = new IntType($n);
+        //unwrap the factors - phpUnit does not pass keys in!
+        $pf = [];
+        foreach($pFactors as $factor) {
+            $k = key($factor);
+            $pf[$k] = $factor[$k];
+        }
+        $this->assertEquals($pf, $i->primeFactors());
+    }
+    
+    /**
+     * Example factorizations
+     * 
+     * @return array [[n, factors, primefactors],...]
+     */
+    public function factors()
+    {
+        return [
+            [2,[1, 2],[[2=>1]]],
+            [3,[1, 3],[[3=>1]]],
+            [4,[1, 2, 4],[[2=>2]]],
+            [5,[1,5],[[5=>1]]],
+            [6,[1, 2, 3, 6],[[2=>1], [3=>1]]],
+            [7,[1, 7],[[7=>1]]],
+            [8,[1, 2, 4, 8],[[2=>3]]],
+            [9,[1, 3, 9],[[3=>2]]],
+            [10,[1, 2, 5,10],[[5=>1],[2=>1]]],
+            [138,[1, 2, 3, 6, 23, 46, 69, 138], [[2=>1],[3=>1],[23=>1]]],
+            [1643,[1, 31, 53, 1643],[[31=>1],[53=>1]]],
+            [1644,[1, 2, 3, 4, 6, 12, 137, 274, 411, 548, 822, 1644],[[2=>2], [3=>1], [137=>1]]]
+        ];
+    }
 }

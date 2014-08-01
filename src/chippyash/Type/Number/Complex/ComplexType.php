@@ -273,6 +273,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     {
         return clone $this;
     }
+    
     /**
      * Return Greatest Common Denominator of two numbers
      *

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Hard type support
  * For when you absolutely want to know what you are getting
@@ -40,9 +41,8 @@ class IntType extends AbstractType implements NumericTypeInterface
     {
         $one = new self(1);
         return new ComplexType(
-                new RationalType($this, $one),
-                new RationalType(new IntType(0), $one)
-                );
+                new RationalType($this, $one), new RationalType(new IntType(0), $one)
+        );
     }
 
     /**
@@ -59,4 +59,69 @@ class IntType extends AbstractType implements NumericTypeInterface
     {
         return intval($value);
     }
+
+    /**
+     * Return all factors of this number (sorted)
+     * 
+     * @return array [factor,factor, ...]
+     */
+    public function factors()
+    {
+        $n = $this->value;
+        $limit = floor(sqrt(abs($n)));
+        $ret = [];
+        for ($x = 1; $x <= $limit; $x++) {
+            if ($n % $x == 0) {
+                $z = $n / $x;
+                $ret[$x] = $x;
+                $ret[$z] = $z;
+            }
+        }
+        ksort($ret);
+        return array_values($ret);
+    }
+
+    /**
+     * Return all prime factors of this number
+     * 
+     * Adapted from
+     * @link http://www.thatsgeeky.com/2011/03/prime-factoring-with-php/
+     * 
+     * @return array [primeFactor => exponent,...]
+     */
+    public function primeFactors()
+    {
+        // max_n = 2^31-1 = 2147483647
+        $n = $this->value;
+        $d = 2;
+        $factors = [];
+        $dmax = floor(sqrt($n));
+        $sieve = [];
+        $sieve = array_fill(1, $dmax, 1);
+        do {
+            $r = false;
+            while ($n % $d == 0) {
+                $factors[$d] = (isset($factors[$d]) ? $factors[$d] + 1 : 1);
+                $n/=$d;
+                $r = true;
+            }
+            if ($r) {
+                $dmax = floor(sqrt($n));
+            }
+            if ($n > 1) {
+                for ($i = $d; $i <= $dmax; $i+=$d) {
+                    $sieve[$i] = 0;
+                }
+                do {
+                    $d++;
+                } while ($d < $dmax && $sieve[$d] != 1 );
+                if ($d > $dmax) {
+                    $factors[$n] = (isset($factors[$n]) ? $factors[$n] + 1 : 1);
+                }
+            }
+        } while ($n > 1 && $d <= $dmax);
+        
+        return $factors;
+    }
+
 }

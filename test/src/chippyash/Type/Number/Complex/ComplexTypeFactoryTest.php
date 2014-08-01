@@ -4,6 +4,7 @@ namespace chippyash\Test\Type\Number\Complex;
 
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Complex\ComplexType;
+use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\IntType;
 
@@ -81,6 +82,8 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
             [new FloatType(2.3),2.3],
             [new FloatType(2.3),new IntType(2)],
             [new FloatType(2.3),new FloatType(2.3)],
+            //rational type
+            [new RationalType(new IntType(1), new IntType(2)), new RationalType(new IntType(3), new IntType(2))]
         ];
     }
 }

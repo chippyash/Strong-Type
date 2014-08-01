@@ -334,6 +334,18 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $c->toFloat();
     }
 
+    public function testToFloatReturnsFloatForRealFloatComplexNumber()
+    {
+        $c = new ComplexType($this->createRationalType(1,2), $this->createRationalType(0));
+        $this->assertInternalType('float', $c->toFloat());
+    }
+
+    public function testToFloatReturnsIntegerForIntegerFloatComplexNumber()
+    {
+        $c = new ComplexType($this->createRationalType(1), $this->createRationalType(0));
+        $this->assertInternalType('int', $c->toFloat());
+    }
+
     public function testToComplexReturnsCloneOfSelf()
     {
         $c = new ComplexType($this->createRationalType(1), $this->createRationalType(1));
@@ -352,7 +364,7 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($c1->modulus(), $c3->abs());
         $this->assertEquals($c1->modulus(), $c4->abs());
     }
-
+    
     /**
      * Create a rational type
      *
