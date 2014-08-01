@@ -15,7 +15,6 @@ use chippyash\Type\Number\Complex\ComplexTypeInterface;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\NumericTypeInterface;
-use chippyash\Type\Number\IntType;
 use chippyash\Type\Exceptions\NotRealComplexException;
 
 /**
