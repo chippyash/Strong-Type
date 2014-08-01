@@ -18,6 +18,7 @@ use chippyash\Type\Number\Rational\RationalTypeInterface;
 use chippyash\Type\Number\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
 use chippyash\Type\Number\FloatType;
+use chippyash\Type\Number\Rational\RationalType;
 
 /**
  * Abstract rational number type
@@ -92,7 +93,11 @@ abstract class AbstractRationalType implements RationalTypeInterface, NumericTyp
      */
     public function toComplex()
     {
-        return new ComplexType(new FloatType($this->get()), new FloatType(0));
+        $one = new IntType(1);
+        return new ComplexType(
+                new RationalType(new IntType($this->get()), $one),
+                new RationalType(new IntType(0), $one)
+                );
     }
 
     /**

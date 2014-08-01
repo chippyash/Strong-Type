@@ -10,7 +10,7 @@
 namespace chippyash\Type\Number\Complex;
 
 use chippyash\Type\TypeInterface;
-use chippyash\Type\Number\FloatType;
+use chippyash\Type\Number\Rational\RationalType;
 
 /**
  * Interface for chippyash\Type\Number\Complex\ComplexType types
@@ -21,23 +21,23 @@ interface ComplexTypeInterface extends TypeInterface
     /**
      * Set values for complex number
      *
-     * @param \chippyash\Type\Number\FloatType $real numerator
-     * @param \chippyash\Type\Number\FloatType $imaginary denominator
+     * @param \chippyash\Type\Number\Rational\RationalType $real numerator
+     * @param \chippyash\Type\Number\Rational\RationalType $imaginary denominator
      *
      * @return chippyash\Type\Number\Complex\ComplexTypeInterface Fluent Interface
      */
-    public function setFromTypes(FloatType $real, FloatType $imaginary);
+    public function setFromTypes(RationalType $real, RationalType $imaginary);
 
     /**
      * Get the real part
-     * @return float
+     * @return RationalType
      */
     public function r();
 
     /**
      * Get the imaginary part
      *
-     * @return float
+     * @return RationalType
      */
     public function i();
 

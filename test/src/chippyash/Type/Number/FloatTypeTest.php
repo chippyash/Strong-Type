@@ -29,8 +29,8 @@ class FloatTypeTest extends \PHPUnit_Framework_TestCase
         $c = $t->toComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
         $this->assertEquals('2', (string) $c);
-        $this->assertEquals(2, $c->r());
-        $this->assertEquals(0, $c->i());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
     }
 
     public function testAbsReturnsAbsoluteValue()

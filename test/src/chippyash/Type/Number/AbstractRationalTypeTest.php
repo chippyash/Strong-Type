@@ -127,8 +127,8 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
         $c = $o->toComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
         $this->assertEquals('2', (string) $c);
-        $this->assertEquals(2, $c->r());
-        $this->assertEquals(0, $c->i());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
 
     }
 }

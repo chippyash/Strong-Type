@@ -11,6 +11,8 @@
 namespace chippyash\Type\Number\Complex;
 
 use chippyash\Type\Exceptions\InvalidTypeException;
+use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\Complex\ComplexType;
@@ -56,7 +58,7 @@ abstract class ComplexTypeFactory
     }
 
     /**
-     * Create a rational number from a string in form '[+,-]<num>(+,-)<num>i'
+     * Create a complex number from a string in form '[+,-]<num>(+,-)<num>i'
      * The trailing 'i' character is required
      * No spaces are allowed in the string
      *
@@ -77,8 +79,8 @@ abstract class ComplexTypeFactory
             );
         }
 
-        $re = $matches[2];
-        $im = $matches[4];
+        $re = floatval($matches[2]);
+        $im = floatval($matches[4]);
 
         if ($matches[1] && $matches[1] == '-') {
             $re *= -1;
@@ -86,35 +88,41 @@ abstract class ComplexTypeFactory
         if ($matches[3] && $matches[3] == '-') {
             $im *= -1;
         }
-
-        return new ComplexType(new FloatType($re), new FloatType($im));
+        return new ComplexType(
+                RationalTypeFactory::fromFloat($re),
+                RationalTypeFactory::fromFloat($im));
     }
 
     /**
-     * Convert to FloatType
+     * Convert to RationalType
      *
      * @param mixed $t
      *
-     * @return \chippyash\Type\Number\FloatType
+     * @return \chippyash\Type\Number\RationalType
      *
      * @throws InvalidTypeException
      */
     protected static function convertType($t)
     {
+        if ($t instanceof RationalType) {
+            return $t;
+        }
         if (is_numeric($t)) {
-            $r = new FloatType($t);
+            if (is_int($t)) {
+                return new RationalType(new IntType($t), new IntType(1));
+            }
+            if (is_float($t)) {
+                return RationalTypeFactory::fromFloat($t, 1e-17);
+            }
         }
         if ($t instanceof FloatType) {
-            $r = $t;
+            return RationalTypeFactory::fromFloat($t(), 1e-17);
         }
         if ($t instanceof IntType) {
-            $r = new FloatType($t());
-        }
-        if (!isset($r)) {
-            $typeT = gettype($t);
-            throw new InvalidTypeException("{$typeT} for Complex type construction");
+            return new RationalType(new IntType($t()), new IntType(1));
         }
 
-        return $r;
+        $typeT = gettype($t);
+        throw new InvalidTypeException("{$typeT} for Complex type construction");
     }
 }

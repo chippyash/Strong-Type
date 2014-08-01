@@ -25,9 +25,9 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $c = ComplexTypeFactory::create('-2.0-2.0452i');
         $this->assertInstanceOf(self::CTYPE_NAME, $c);
-        $this->assertEquals('-2-2.0452i', $c());
-        $this->assertEquals(-2.0, $c->r());
-        $this->assertEquals(-2.0452, $c->i());
+        $this->assertEquals('-2-5113/2500i', $c());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
     }
 
     /**
