@@ -15,61 +15,68 @@ include "../vendor/autoload.php";
 
 use chippyash\Type\Number\IntType;
 
-$n = new IntType(16449741);
-echo "n = {$n}\n";
-    
-//find the prime factors
-$pFactors = $n->primeFactors();
-echo "= ";
-$line = "√(";
-foreach ($pFactors as $prime => $exponent) {
-    for ($e=0; $e<$exponent; $e++) {
+$nn = [];
+for ($x=1; $x<101; $x++) {
+    $nn[] = $x;
+}
+$nn[] = 16449741; //just a big number
+foreach ($nn as $ni) {
+    $n = new IntType($ni);
+    echo "n = {$n}\n";
+
+    //find the prime factors
+    $pFactors = $n->primeFactors();
+    echo "= ";
+    $line = "√(";
+    foreach ($pFactors as $prime => $exponent) {
+        for ($e=0; $e<$exponent; $e++) {
+            $line .= "{$prime} x ";
+        }
+    }
+    $line = rtrim($line, 'x ');
+    echo "{$line})\n";
+
+    //reduce
+    $left = [];
+    $right = [];
+    foreach ($pFactors as $prime => $exponent) {
+        do {
+            if ($exponent > 1) {
+                $left[] = $prime;
+                $exponent -=2;
+            }
+        } while ($exponent > 1);
+        if ($exponent == 1) {
+            $right[] = $prime;
+        }
+    }
+    $line = "= ";
+    foreach ($left as $prime) {
         $line .= "{$prime} x ";
     }
-}
-$line = rtrim($line, 'x ');
-echo "{$line})\n";
-
-//reduce
-$left = [];
-$right = [];
-foreach ($pFactors as $prime => $exponent) {
-    do {
-        if ($exponent > 1) {
-            $left[] = $prime;
-            $exponent -=2;
-        }
-    } while ($exponent > 1);
-    if ($exponent == 1) {
-        $right[] = $prime;
+    $line = rtrim($line, 'x ') . "√(";
+    foreach ($right as $prime) {
+        $line .= "{$prime} x ";
     }
-}
-$line = "= ";
-foreach ($left as $prime) {
-    $line .= "{$prime} x ";
-}
-$line = rtrim($line, 'x ') . "√(";
-foreach ($right as $prime) {
-    $line .= "{$prime} x ";
-}
-$line = rtrim($line, 'x ');
-echo "{$line})\n";
+    $line = rtrim($line, 'x ');
+    echo "{$line})\n";
 
-//final
-$lterm = 1;
-foreach ($left as $prime) {
-    $lterm *= $prime;
+    //final
+    $lterm = 1;
+    foreach ($left as $prime) {
+        $lterm *= $prime;
+    }
+    $rterm = 1;
+    foreach ($right as $prime) {
+        $rterm *= $prime;
+    }
+    $ssign = '√';
+    if ($lterm == 1) {
+        $lterm = '';
+    }
+    if ($rterm == 1) {
+        $rterm = '';
+        $ssign = '';
+    }
+    echo "= {$lterm}{$ssign}{$rterm}\n\n";
 }
-$rterm = 1;
-foreach ($right as $prime) {
-    $rterm *= $prime;
-}
-$ssign = '√';
-if ($lterm == 1) {
-    $lterm = '';
-}
-if ($rterm == 1) {
-    $rterm = '';
-    $ssign = '';
-}
-echo "= {$lterm}{$ssign}{$rterm}\n";
