@@ -121,9 +121,12 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
     public function testToComplexReturnsComplexType()
     {
         $o = $this->object;
-        $o->expects($this->once())
-                ->method('get')
-                ->will($this->returnValue(2));
+        $o->expects($this->any())
+                ->method('numerator')
+                ->will($this->returnValue(new IntType(2)));
+        $o->expects($this->any())
+                ->method('denominator')
+                ->will($this->returnValue(new IntType(1)));
         $c = $o->toComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
         $this->assertEquals('2', (string) $c);
