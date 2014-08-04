@@ -16,6 +16,8 @@ use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\NumericTypeInterface;
 use chippyash\Type\Exceptions\NotRealComplexException;
+use chippyash\Type\Number\FloatType;
+use chippyash\Type\Number\IntType;
 
 /**
  * A complex number - algabraic form
@@ -267,12 +269,60 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     /**
      * Return the number as a Complex number i.e. a clone of this one
      * Required for NumericTypeInterface
+     *
+     * @return chippyash\Type\Number\Complex\ComplexType
      */
-    public function toComplex()
+    public function asComplex()
     {
         return clone $this;
     }
-    
+
+    /**
+     * Return number as Rational number.
+     * NB, numerator and denominator will be caste as IntTypes
+     *
+     * @returns chippyash\Type\Number\Rational\RationalType
+     *
+     * @throws NotRealComplexException
+     */
+    public function asRational()
+    {
+        if ($this->isReal()) {
+            return clone $this->real;
+        } else {
+            throw new NotRealComplexException();
+        }
+    }
+
+    /**
+     * Return number as an IntType number.
+     * If number isReal() will return floor(r())
+     *
+     * @returns chippyash\Type\Number\IntType
+     */
+    public function asIntType()
+    {
+        if ($this->isReal()) {
+            return new IntType(floor($this->real->get()));
+        } else {
+            throw new NotRealComplexException();
+        }
+    }
+
+    /**
+     * Return number as a FloatType number.
+     *
+     * @returns chippyash\Type\Number\FloatType
+     */
+    public function asFloatType()
+    {
+        if ($this->isReal()) {
+            return new FloatType($this->real->get());
+        } else {
+            throw new NotRealComplexException();
+        }
+    }
+
     /**
      * Return Greatest Common Denominator of two numbers
      *

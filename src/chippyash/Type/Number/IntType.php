@@ -37,12 +37,43 @@ class IntType extends AbstractType implements NumericTypeInterface
     /**
      * Return the number as a Complex number i.e. n+0i
      */
-    public function toComplex()
+    public function asComplex()
     {
         $one = new self(1);
         return new ComplexType(
                 new RationalType($this, $one), new RationalType(new IntType(0), $one)
         );
+    }
+
+    /**
+     * Return number as Rational number.
+     * NB, numerator and denominator will be caste as IntTypes
+     *
+     * @returns chippyash\Type\Number\Rational\RationalType
+     */
+    public function asRational()
+    {
+        return new RationalType(new IntType($this->value), new IntType(1));
+    }
+
+    /**
+     * Return number as an IntType number.
+     *
+     * @returns chippyash\Type\Number\IntType
+     */
+    public function asIntType()
+    {
+        return clone $this;
+    }
+
+    /**
+     * Return number as a FloatType number.
+     *
+     * @returns chippyash\Type\Number\FloatType
+     */
+    public function asFloatType()
+    {
+        return new FloatType($this->value);
     }
 
     /**
@@ -62,7 +93,7 @@ class IntType extends AbstractType implements NumericTypeInterface
 
     /**
      * Return all factors of this number (sorted)
-     * 
+     *
      * @return array [factor,factor, ...]
      */
     public function factors()
@@ -83,10 +114,10 @@ class IntType extends AbstractType implements NumericTypeInterface
 
     /**
      * Return all prime factors of this number
-     * 
+     *
      * Adapted from
      * @link http://www.thatsgeeky.com/2011/03/prime-factoring-with-php/
-     * 
+     *
      * @return array [primeFactor => exponent,...]
      */
     public function primeFactors()
@@ -120,7 +151,7 @@ class IntType extends AbstractType implements NumericTypeInterface
                 }
             }
         } while ($n > 1 && $d <= $dmax);
-        
+
         return $factors;
     }
 

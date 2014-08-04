@@ -29,14 +29,40 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-2, $t->negate()->get());
     }
 
-    public function testToComplexReturnsComplexType()
+    public function testAsComplexReturnsComplexType()
     {
         $t = new IntType(2);
-        $c = $t->toComplex();
+        $c = $t->AsComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
         $this->assertEquals('2', (string) $c);
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
+    }
+
+    public function testAsRationalReturnsRationalType()
+    {
+        $t = new IntType(2);
+        $r = $t->AsRational();
+        $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $r);
+        $this->assertEquals('2', (string) $r);
+        $this->assertInstanceOf('chippyash\Type\Number\IntType', $r->numerator());
+        $this->assertInstanceOf('chippyash\Type\Number\IntType', $r->denominator());
+    }
+
+    public function testAsFloatTypeReturnsFloatType()
+    {
+        $t = new IntType(2);
+        $f = $t->asFloatType();
+        $this->assertInstanceOf('\chippyash\Type\Number\FloatType', $f);
+        $this->assertEquals('2', (string) $f);
+    }
+
+    public function testAsIntTypeReturnsIntType()
+    {
+        $t = new IntType(2);
+        $i = $t->asIntType();
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
+        $this->assertEquals($t, $i);
     }
 
     public function testAbsReturnsAbsoluteValue()
@@ -46,7 +72,7 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($t1, $t1->abs());
         $this->assertEquals($t1, $t2->abs());
     }
-    
+
     /**
      * @dataProvider factors
      */
@@ -55,7 +81,7 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         $i = new IntType($n);
         $this->assertEquals($factors, $i->factors());
     }
-    
+
     /**
      * @dataProvider factors
      */
@@ -70,10 +96,10 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals($pf, $i->primeFactors());
     }
-    
+
     /**
      * Example factorizations
-     * 
+     *
      * @return array [[n, factors, primefactors],...]
      */
     public function factors()

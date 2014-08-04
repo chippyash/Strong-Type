@@ -81,4 +81,5 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($r1, $r2->abs());
         $this->assertEquals($r1, $r3->abs());
     }
+
 }
