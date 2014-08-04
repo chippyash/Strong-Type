@@ -242,6 +242,23 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($modc1mulc2(), $mod1() * $mod2());
     }
 
+    public function testModulusReturnsCorrectResult()
+    {
+        $c1 = new ComplexType(
+                new RationalType(new IntType(2), new IntType(1)),
+                new RationalType(new IntType(12), new IntType(1))
+                );
+        $c2 = new ComplexType(
+                new RationalType(new IntType(12), new IntType(1)),
+                new RationalType(new IntType(12), new IntType(1))
+                );
+        //convert to integer to get over any inconsistencies between machines
+        //real value 12.165525060596
+        $this->assertEquals(12, $c1->modulus()->asIntType()->get());
+        //real value 16.970562748477
+        $this->assertEquals(16, $c2->modulus()->asIntType()->get());
+    }
+
     public function testCanNegateTheNumber()
     {
         $c = new ComplexType($this->createRationalType(1), $this->createRationalType(2));
