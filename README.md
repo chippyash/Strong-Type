@@ -138,8 +138,11 @@ Numeric types, that is IntType, WholeIntType, NaturalIntType, FloatType, Rationa
 and ComplexType support the NumericTypeInterface which defines the methods
 
 *  negate(): negate the number - NB Negation is will throw a \BadMethodCallException for WholeInt and NaturalInt types as they cannot be negative
-*  toComplex(): returns a complex real representation of the number (e.g. 2+0i).  For
+*  asComplex(): returns a complex real representation of the number (e.g. 2+0i).  For
 complex types, simply clones the existing object.
+*  asRational(): returns rational representation of the number.  For rational types, simply clones the existing object.
+*  asIntType(): returns number caste as IntType.  For IntType, simply clones the existing objeoct.
+*  asFloatType(): returns number caste as FloatType.  For FloatType, simply clones the existing objeoct.
 *  abs(): return the absolute value of the number
 
 Additionally, the RationalType supports the RationalTypeInterface:
@@ -207,7 +210,7 @@ Install [Composer](https://getcomposer.org/)
 add
 
 <pre>
-    "chippyash/strong-type": ">=1.0.8"
+    "chippyash/strong-type": ">=1.0.9"
 </pre>
 
 to your composer.json "requires" section
@@ -256,3 +259,5 @@ V1.0.6 Add isReal() method for complex numbers
 V1.0.7 Add toComplex() method for numeric types
 
 V1.0.8 Add abs() method for numeric types
+
+V1.0.9 Add asRational, asFloatType and asIntType methods for numeric types. Rename toComplex -> asComplex method

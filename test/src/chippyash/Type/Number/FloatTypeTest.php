@@ -23,14 +23,40 @@ class FloatTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-2.0, $t->negate()->get());
     }
 
-    public function testToComplexReturnsComplexType()
+    public function testAsComplexReturnsComplexType()
     {
         $t = new FloatType(2.0);
-        $c = $t->toComplex();
+        $c = $t->asComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
         $this->assertEquals('2', (string) $c);
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
+    }
+
+    public function testAsRationalReturnsRationalType()
+    {
+        $t = new FloatType(2.0);
+        $r = $t->AsRational();
+        $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $r);
+        $this->assertEquals('2', (string) $r);
+        $this->assertInstanceOf('chippyash\Type\Number\IntType', $r->numerator());
+        $this->assertInstanceOf('chippyash\Type\Number\IntType', $r->denominator());
+    }
+
+    public function testAsFloatTypeReturnsFloatType()
+    {
+        $t = new FloatType(2.0);
+        $f = $t->asFloatType();
+        $this->assertInstanceOf('\chippyash\Type\Number\FloatType', $f);
+        $this->assertEquals($t, $f);
+    }
+
+    public function testAsIntTypeReturnsIntType()
+    {
+        $t = new FloatType(2.0);
+        $i = $t->asIntType();
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
+        $this->assertEquals(2, (string) $i);
     }
 
     public function testAbsReturnsAbsoluteValue()

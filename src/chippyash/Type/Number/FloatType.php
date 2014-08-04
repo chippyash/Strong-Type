@@ -39,12 +39,43 @@ class FloatType extends AbstractType implements NumericTypeInterface
      *
      * @returns chippyash\Type\Number\Complex\ComplexType
      */
-    public function toComplex()
+    public function asComplex()
     {
         return new ComplexType(
-                RationalTypeFactory::fromFloat($this->value, 1E-17),
+                $this->asRational(),
                 new RationalType(new IntType(0), new IntType(1))
                 );
+    }
+
+    /**
+     * Return number as Rational number.
+     * NB, numerator and denominator will be caste as IntTypes
+     *
+     * @returns chippyash\Type\Number\Rational\RationalType
+     */
+    public function asRational()
+    {
+        return RationalTypeFactory::fromFloat($this->value, 1E-17);
+    }
+
+    /**
+     * Return number as an IntType number.
+     *
+     * @returns chippyash\Type\Number\IntType
+     */
+    public function asIntType()
+    {
+        return new IntType($this->value);
+    }
+
+    /**
+     * Return number as a FloatType number.
+     *
+     * @returns chippyash\Type\Number\FloatType
+     */
+    public function asFloatType()
+    {
+        return clone $this;
     }
 
     /**

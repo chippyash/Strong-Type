@@ -118,7 +118,7 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $o->__toString());
     }
 
-    public function testToComplexReturnsComplexType()
+    public function testAsComplexReturnsComplexType()
     {
         $o = $this->object;
         $o->expects($this->any())
@@ -127,11 +127,39 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
         $o->expects($this->any())
                 ->method('denominator')
                 ->will($this->returnValue(new IntType(1)));
-        $c = $o->toComplex();
+        $c = $o->asComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
         $this->assertEquals('2', (string) $c);
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
+    }
 
+    public function testAsRationalReturnsRationalType()
+    {
+        $o = $this->object;
+        $r = $o->AsRational();
+        $this->assertEquals($o, $r);
+    }
+
+    public function testAsFloatTypeReturnsFloatType()
+    {
+        $o = $this->object;
+        $o->expects($this->any())
+                ->method('get')
+                ->will($this->returnValue(2));
+        $f = $o->asFloatType();
+        $this->assertInstanceOf('\chippyash\Type\Number\FloatType', $f);
+        $this->assertEquals(2, (string) $f);
+    }
+
+    public function testAsIntTypeReturnsIntType()
+    {
+        $o = $this->object;
+        $o->expects($this->any())
+                ->method('get')
+                ->will($this->returnValue(2));
+        $i = $o->AsIntType();
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
+        $this->assertEquals(2, (string) $i);
     }
 }

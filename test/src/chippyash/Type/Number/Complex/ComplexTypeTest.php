@@ -346,11 +346,67 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('int', $c->toFloat());
     }
 
-    public function testToComplexReturnsCloneOfSelf()
+    public function testAsComplexReturnsCloneOfSelf()
     {
         $c = new ComplexType($this->createRationalType(1), $this->createRationalType(1));
-        $c2 = $c->toComplex();
+        $c2 = $c->asComplex();
         $this->assertEquals($c, $c2);
+    }
+
+    public function testAsRationalReturnsRationalType()
+    {
+        $t = new ComplexType($this->createRationalType(2), $this->createRationalType(0));
+        $r = $t->AsRational();
+        $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $r);
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $r->numerator());
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $r->denominator());
+        $this->assertEquals(2, (string) $r);
+    }
+
+    public function testAsFloatTypeReturnsFloatType()
+    {
+        $t = new ComplexType($this->createRationalType(2), $this->createRationalType(0));
+        $f = $t->asFloatType();
+        $this->assertInstanceOf('\chippyash\Type\Number\FloatType', $f);
+        $this->assertEquals(2, (string) $f);
+    }
+
+    public function testAsIntTypeReturnsIntType()
+    {
+        $t = new ComplexType($this->createRationalType(2), $this->createRationalType(0));
+        $i = $t->asIntType();
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
+        $this->assertEquals(2, (string) $i);
+    }
+
+    /**
+     * @expectedException chippyash\Type\Exceptions\NotRealComplexException
+     * @expectedExceptionMessage Not a Real complex type
+     */
+    public function testAsRationalForNonRealThrowsException()
+    {
+        $t = new ComplexType($this->createRationalType(2), $this->createRationalType(1));
+        $r = $t->AsRational();
+    }
+
+    /**
+     * @expectedException chippyash\Type\Exceptions\NotRealComplexException
+     * @expectedExceptionMessage Not a Real complex type
+     */
+    public function testAsFloatTypeForNonRealThrowsException()
+    {
+        $t = new ComplexType($this->createRationalType(2), $this->createRationalType(1));
+        $r = $t->asFloatType();
+    }
+
+    /**
+     * @expectedException chippyash\Type\Exceptions\NotRealComplexException
+     * @expectedExceptionMessage Not a Real complex type
+     */
+    public function testAsIntTypeForNonRealThrowsException()
+    {
+        $t = new ComplexType($this->createRationalType(2), $this->createRationalType(1));
+        $r = $t->asIntType();
     }
 
     public function testAbsReturnsAbsoluteValue()
@@ -364,7 +420,7 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($c1->modulus(), $c3->abs());
         $this->assertEquals($c1->modulus(), $c4->abs());
     }
-    
+
     /**
      * Create a rational type
      *

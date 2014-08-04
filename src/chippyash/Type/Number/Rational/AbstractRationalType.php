@@ -91,12 +91,44 @@ abstract class AbstractRationalType implements RationalTypeInterface, NumericTyp
     /**
      * Return the number as a Complex number i.e. n+0i
      */
-    public function toComplex()
+    public function asComplex()
     {
         return new ComplexType(
                 new RationalType($this->numerator(), $this->denominator()),
                 new RationalType(new IntType(0), new IntType(1))
                 );
+    }
+
+    /**
+     * Return number as Rational number.
+     * NB, numerator and denominator will be caste as IntTypes
+     *
+     * @returns chippyash\Type\Number\Rational\RationalType
+     */
+    public function asRational()
+    {
+        return clone $this;
+    }
+
+    /**
+     * Return number as an IntType number.
+     * Will return floor(n/d)
+     *
+     * @returns chippyash\Type\Number\IntType
+     */
+    public function asIntType()
+    {
+        return new IntType(floor($this->get()));
+    }
+
+    /**
+     * Return number as a FloatType number.
+     *
+     * @returns chippyash\Type\Number\FloatType
+     */
+    public function asFloatType()
+    {
+        return new FloatType($this->get());
     }
 
     /**
