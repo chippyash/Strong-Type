@@ -19,6 +19,7 @@ use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\BoolType;
+use chippyash\Type\Number\NumericTypeInterface;
 
 /**
  * Static Factory for creating types
@@ -77,6 +78,9 @@ abstract class TypeFactory {
      */
     public static function createInt($value)
     {
+        if ($value instanceof NumericTypeInterface) {
+            return $value->asIntType();
+        }
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for IntType");
         }
@@ -93,6 +97,9 @@ abstract class TypeFactory {
      */
     public static function createFloat($value)
     {
+        if ($value instanceof NumericTypeInterface) {
+            return $value->asFloatType();
+        }
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for FloatType");
         }
@@ -142,6 +149,9 @@ abstract class TypeFactory {
      */
     public static function createWhole($value)
     {
+        if ($value instanceof NumericTypeInterface) {
+            $value = $value->asIntType()->get();
+        }
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for WholeIntType");
         }
@@ -158,6 +168,9 @@ abstract class TypeFactory {
      */
     public static function createNatural($value)
     {
+        if ($value instanceof NumericTypeInterface) {
+            $value = $value->asIntType()->get();
+        }
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for NaturalIntType");
         }
@@ -174,6 +187,9 @@ abstract class TypeFactory {
      */
     public static function createComplex($realPart, $imaginaryPart = null)
     {
+        if ($realPart instanceof NumericTypeInterface) {
+            return $realPart->asComplex();
+        }
         if (!is_string($realPart) && is_null($imaginaryPart)) {
             return ComplexTypeFactory::create($realPart, 0);
         }
@@ -190,6 +206,9 @@ abstract class TypeFactory {
      */
     public static function createRational($numerator, $denominator = 1)
     {
+        if ($numerator instanceof NumericTypeInterface) {
+            return $numerator->asRational();
+        }
         //check because the create() method can pass in a null
         $denominator = (is_null($denominator) ? 1 : $denominator);
         return RationalTypeFactory::create($numerator, $denominator);

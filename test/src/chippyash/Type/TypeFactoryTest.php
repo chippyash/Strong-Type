@@ -224,4 +224,26 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
         TypeFactory::createFloat('foo');
     }
 
+    /**
+     * @dataProvider numericTypes
+     */
+    public function testCreateWithNumericTypeInterfaceParameterReturnsNumericTypeInterface($required, $nType)
+    {
+        $this->assertInstanceOf(
+                'chippyash\Type\Number\NumericTypeInterface',
+                TypeFactory::create($required, $nType));
+    }
+
+    public function numericTypes()
+    {
+        $type = TypeFactory::create('complex', '2+0i');
+        return [
+            ['int', $type],
+            ['whole', $type],
+            ['natural', $type],
+            ['float', $type],
+            ['rational', $type],
+            ['complex', $type],
+        ];
+    }
 }
