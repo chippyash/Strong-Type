@@ -210,7 +210,7 @@ Install [Composer](https://getcomposer.org/)
 add
 
 <pre>
-    "chippyash/strong-type": ">=1.0.10"
+    "chippyash/strong-type": ">=1.0.11"
 </pre>
 
 to your composer.json "requires" section
@@ -263,3 +263,5 @@ V1.0.8 Add abs() method for numeric types
 V1.0.9 Add asRational, asFloatType and asIntType methods for numeric types. Rename toComplex -> asComplex method
 
 V1.0.10 Refactor Typefactory to use as... methods
+
+V1.0.11 Ensure isolation of type parts in as... methods
