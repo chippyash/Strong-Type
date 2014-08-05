@@ -145,6 +145,11 @@ complex types, simply clones the existing object.
 *  asFloatType(): returns number caste as FloatType.  For FloatType, simply clones the existing objeoct.
 *  abs(): return the absolute value of the number
 
+IntTypes support two additional methods:
+
+*  factors(): array: returns a sorted array of factors of the number
+*  primeFactors(): array: returns \[primeFactor => exponent,...\] i.e the primeFactor => number of times it occurs
+
 Additionally, the RationalType supports the RationalTypeInterface:
 
 *  setFromTypes(IntType $num, IntType $den, BoolType $reduce = null) - strict typed setter method
