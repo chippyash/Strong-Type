@@ -41,7 +41,7 @@ class IntType extends AbstractType implements NumericTypeInterface
     {
         $one = new self(1);
         return new ComplexType(
-                new RationalType($this, $one), new RationalType(new IntType(0), $one)
+                new RationalType(clone $this, $one), new RationalType(new IntType(0), $one)
         );
     }
 
