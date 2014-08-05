@@ -89,7 +89,7 @@ Create one directly:
     use chippyash\Type\String\DigitType;
     use chippyash\Type\Number\FloatType;
     use chippyash\Type\Number\IntType;
-    $c = new ComplexType(new FloatType(-2), new FloatType(3));
+    $c = new ComplexType(new RationalType(new IntType(-2), new IntType(1)), new RationalType(new IntType(3), new IntType(4));
     $d = new DigitType(34);
     $d2 = new DigitType('34foo'); // == '34'
     $r = new RationalType(new IntType(1), new IntType(2));
@@ -109,7 +109,7 @@ this)
     $c = ComplexTypeFactory::create(2.4, new IntType(-6));
     $c = ComplexTypeFactory::create(2, -61.78);
     $c = ComplexTypeFactory::create(new FloatType(2), -61.78);
-    //i.e. any pair of numeric, intType or FloatType values can be used to create
+    //i.e. any pair of numeric, intType, FloatType or RationalType values can be used to create
     //a complex type via the factory
 </pre>
 
@@ -161,16 +161,16 @@ requires the same parameters as setFromTypes()
 
 Additionally the ComplexType supports the ComplexTypeInterface:
 
-*  setFromTypes(FloatType $real, FloatType $imaginary) - strict typed setter method
-*  r() - return the real part as a float
-*  i() - return the imaginary part as a float
+*  setFromTypes(RationalType $real, RationalType $imaginary) - strict typed setter method
+*  r() - return the real part as a RationalType
+*  i() - return the imaginary part as a RationalType
 
 NB, ComplexType amends the set() method to proxy to SetFromTypes, i.e. calling ComplexType::set()
 requires the same parameters as setFromTypes().
 
 There is no PHP native equivalent for a ComplexType, therefore the get() method proxies to the
 \__toString() method and returns something in the form [-]a(+|-)bi e.g. '-2+3.6i' except where
-The ComplexType->isReal() in which case get will return a float.  If you need to disambiguate
+The ComplexType->isReal() in which case get() will return a float or an int.  If you need to disambiguate
 then use ComplexType::toFloat() which will throw an exception if the number is not real.
 
 Complex numbers support some additional attributes:
