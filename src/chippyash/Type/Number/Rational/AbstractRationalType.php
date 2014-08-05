@@ -94,7 +94,7 @@ abstract class AbstractRationalType implements RationalTypeInterface, NumericTyp
     public function asComplex()
     {
         return new ComplexType(
-                new RationalType($this->numerator(), $this->denominator()),
+                new RationalType(clone $this->numerator(), clone $this->denominator()),
                 new RationalType(new IntType(0), new IntType(1))
                 );
     }
