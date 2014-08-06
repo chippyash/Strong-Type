@@ -52,6 +52,10 @@ The current library covers basic data types plus some extensions.
 
 If you want more, either suggest it, or better still, fork it and provide a pull request.
 
+Check out [chippyash/Math-Type-Calculator](https://github.com/chippyash/Math-Type-Calculator) for a library that
+provides arithmetic support for the numeric strong types in this library.
+
+
 ## How
 
 ### Coding Basics
