@@ -55,6 +55,11 @@ If you want more, either suggest it, or better still, fork it and provide a pull
 Check out [chippyash/Math-Type-Calculator](https://github.com/chippyash/Math-Type-Calculator) for a library that
 provides arithmetic support for the numeric strong types in this library.
 
+Check out [chippyash/Matrix](https://github.com/chippyash/Matrix) for Matrix data type support.
+
+Check out [chippyash/Logical-Matrix](https://github.com/chippyash/Logical-matrix) for logical matrix operations
+
+Check out [chippyash/Math-Matrix](https://github.com/chippyash/Math-Matrix) for mathematical matrix operations
 
 ## How
 
