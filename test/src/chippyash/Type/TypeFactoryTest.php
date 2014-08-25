@@ -3,6 +3,9 @@
 namespace chippyash\Test\Type;
 
 use chippyash\Type\TypeFactory;
+use chippyash\Type\Number\IntType;
+use chippyash\Type\Number\Rational\RationalTypeFactory;
+use chippyash\Type\Number\Complex\ComplexTypeFactory;
 
 class TypeFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -230,7 +233,7 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateWithNumericTypeInterfaceParameterReturnsNumericTypeInterface($required, $nType)
     {
         $this->assertInstanceOf(
-                'chippyash\Type\Number\NumericTypeInterface',
+                'chippyash\Type\Interfaces\NumericTypeInterface',
                 TypeFactory::create($required, $nType));
     }
 
@@ -245,5 +248,32 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
             ['rational', $type],
             ['complex', $type],
         ];
+    }
+
+    public function testSetCacheSetsCachingOnDependentTypes()
+    {
+        $cache = $this->getMock('Zend\Cache\Storage\StorageInterface');
+        TypeFactory::setCache($cache);
+        $this->checkCacheByReflection($cache, new IntType(0));
+        $this->checkCacheByReflection($cache, RationalTypeFactory::create(0));
+        $this->checkCacheByReflection($cache, ComplexTypeFactory::create(0,0));
+    }
+
+    protected function checkCacheByReflection($cache, $class)
+    {
+        $refl = new \ReflectionClass($class);
+        $iProperties = $refl->getProperties(\ReflectionProperty::IS_PROTECTED);
+        $found = false;
+        foreach ($iProperties as $property) {
+            if ($property->getName() == 'cache') {
+                $property->setAccessible(true);
+                $found = true;
+                $this->assertEquals($cache, $property->getValue());
+                break;
+            }
+        }
+        if (!$found) {
+            $this->fail('Failed to assert that setting cache works!');
+        }
     }
 }
