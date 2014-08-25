@@ -8,25 +8,33 @@
  * @link http://github.com/FlorianWolters/PHP-Component-Number-Fraction
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
 
 namespace chippyash\Type\Number\Rational;
 
-use chippyash\Type\Number\Rational\AbstractRationalType;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\BoolType;
+use chippyash\Type\Interfaces\RationalTypeInterface;
+use chippyash\Type\Interfaces\NumericTypeInterface;
+use chippyash\Type\Number\Complex\ComplexType;
+use chippyash\Type\Number\FloatType;
+use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Traits\Cacheable;
 
 
 /**
  * A rational number (i.e a fraction)
+ * Does not extend AbstractType, as it requires two parts, but follows it closely
+ *
  * This is the native PHP type.  If you have GMP installed, consider using
- * RationalGCDType
+ * GMPRationalType
  *
  */
-class RationalType extends AbstractRationalType
+class RationalType implements RationalTypeInterface, NumericTypeInterface
 {
+    use Cacheable;
 
     /**
      * numerator
@@ -39,6 +47,19 @@ class RationalType extends AbstractRationalType
      * @var IntType
      */
     protected $den;
+
+    /**
+     * Construct new rational
+     * Use the RationalTypeFactory to create rationals from native PHP types
+     *
+     * @param \chippyash\Type\Number\IntType $num numerator
+     * @param \chippyash\Type\Number\IntType $den denominator
+     * @param \chippyash\Type\BoolType $reduce -optional: default = true
+     */
+    public function __construct(IntType $num, IntType $den, BoolType $reduce = null)
+    {
+        $this->setFromTypes($num, $den, $reduce);
+    }
 
     /**
      * Set values for rational
@@ -102,6 +123,41 @@ class RationalType extends AbstractRationalType
     }
 
     /**
+     * Magic invoke method
+     * Proxy to get()
+     * @see get
+     *
+     * @return mixed
+     */
+    public function __invoke()
+    {
+        return $this->get();
+    }
+
+    /**
+     * This extends the chippyash\Type\Interfaces\TypeInterface set method and finds the
+     * arguments to satisfy setFromTypes()
+     *
+     * Expected parameters
+     * @see setFromTypes
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function set($value)
+    {
+        $nArgs = func_num_args();
+        if ($nArgs < 2) {
+            throw new \InvalidArgumentException('set() expects at least two parameters');
+        }
+        $args = func_get_args();
+        if ($nArgs == 2) {
+            return $this->setFromTypes($args[0], $args[1]);
+        }
+
+        return  $this->setFromTypes($args[0], $args[1], $args[2]);
+    }
+
+    /**
      * Magic method - convert to string
      * Returns "<num>/<den>" or "<num>" if isInteger()
      *
@@ -140,6 +196,50 @@ class RationalType extends AbstractRationalType
         return new self($this->num->abs(), $this->den->abs());
     }
 
+
+    /**
+     * Return the number as a Complex number i.e. n+0i
+     */
+    public function asComplex()
+    {
+        return new ComplexType(
+                new RationalType(clone $this->numerator(), clone $this->denominator()),
+                new RationalType(new IntType(0), new IntType(1))
+                );
+    }
+
+    /**
+     * Return number as Rational number.
+     * NB, numerator and denominator will be caste as IntTypes
+     *
+     * @returns chippyash\Type\Number\Rational\RationalType
+     */
+    public function asRational()
+    {
+        return clone $this;
+    }
+
+    /**
+     * Return number as an IntType number.
+     * Will return floor(n/d)
+     *
+     * @returns chippyash\Type\Number\IntType
+     */
+    public function asIntType()
+    {
+        return new IntType(floor($this->get()));
+    }
+
+    /**
+     * Return number as a FloatType number.
+     *
+     * @returns chippyash\Type\Number\FloatType
+     */
+    public function asFloatType()
+    {
+        return new FloatType($this->get());
+    }
+
     /**
      * Is this Rational an expression of an integer, i.e. n/1
      *
@@ -148,6 +248,31 @@ class RationalType extends AbstractRationalType
     public function isInteger()
     {
         return ($this->den->get() === 1);
+    }
+
+    /**
+     * Return this number ^ $exp
+     *
+     * @return chippyash\Type\Number\Rational\RationalType
+     */
+    public function pow(IntType $exp)
+    {
+        return new self($this->num->pow($exp), $this->den->pow($exp));
+    }
+
+    /**
+     * Return square root of the number
+     *
+     * @return chippyash\Type\Number\Rational\RationalType
+     */
+    public function sqrt()
+    {
+        //we get two rationals
+        $n = $this->num->sqrt();
+        $d = $this->den->sqrt();
+        return RationalTypeFactory::create(
+                $n->numerator()->get() * $d->denominator()->get(),
+                $d->numerator()->get() * $n->denominator()->get());
     }
 
     /**

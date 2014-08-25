@@ -4,7 +4,7 @@
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
 
@@ -86,6 +86,26 @@ class FloatType extends AbstractType implements NumericTypeInterface
     public function abs()
     {
         return new self(abs($this->value));
+    }
+
+    /**
+     * Return this number ^ $exp
+     *
+     * @return chippyash\Type\Number\FloatType
+     */
+    public function pow(IntType $exp)
+    {
+        return new self(pow($this->value, $exp()));
+    }
+
+    /**
+     * Return square root of the number
+     *
+     * @return chippyash\Type\Number\FloatType
+     */
+    public function sqrt()
+    {
+        return new self(sqrt($this->value));
     }
 
     protected function typeOf($value)

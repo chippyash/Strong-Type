@@ -9,6 +9,11 @@
  */
 namespace chippyash\Type\Interfaces;
 
+<<<<<<< HEAD
+=======
+use Zend\Cache\Storage\StorageInterface as CacheStorageInterface;
+
+>>>>>>> initial commit for gmp support
 /**
  * Interface for chippyash\Type types
  */
@@ -46,5 +51,15 @@ interface TypeInterface
      */
     public function __toString();
 
+<<<<<<< HEAD
+=======
+    /**
+     * Set cache storage
+     *
+     * @param \Zend\Cache\Storage\StorageInterface $cache
+     * @return chippyash\Type\Traits\Cacheable Fluent Interface
+     */
+    public function setCache(CacheStorageInterface $cache);
+>>>>>>> initial commit for gmp support
 
 }
