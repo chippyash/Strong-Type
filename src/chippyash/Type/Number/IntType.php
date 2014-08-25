@@ -1,11 +1,10 @@
 <?php
-
 /*
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
 
@@ -15,6 +14,7 @@ use chippyash\Type\AbstractType;
 use chippyash\Type\Interfaces\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
 use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\RationalTypeFactory;
 
 /**
  * Integer Type
@@ -36,12 +36,16 @@ class IntType extends AbstractType implements NumericTypeInterface
 
     /**
      * Return the number as a Complex number i.e. n+0i
+     *
+     * @returns chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()
     {
-        $one = new self(1);
         return new ComplexType(
-                new RationalType(clone $this, $one), new RationalType(new IntType(0), $one)
+                new RationalType(
+                        clone $this, new static(1)),
+                new RationalType(
+                        new self(0), new static(1))
         );
     }
 
@@ -53,7 +57,7 @@ class IntType extends AbstractType implements NumericTypeInterface
      */
     public function asRational()
     {
-        return new RationalType(new IntType($this->value), new IntType(1));
+        return new RationalType(clone $this, new static(1));
     }
 
     /**
@@ -83,12 +87,7 @@ class IntType extends AbstractType implements NumericTypeInterface
      */
     public function abs()
     {
-        return new self(abs($this->value));
-    }
-
-    protected function typeOf($value)
-    {
-        return intval($value);
+        return new static(abs($this->value));
     }
 
     /**
@@ -153,6 +152,34 @@ class IntType extends AbstractType implements NumericTypeInterface
         } while ($n > 1 && $d <= $dmax);
 
         return $factors;
+    }
+
+    /**
+     * Return this number ^ $exp
+     *
+     * @return chippyash\Type\Number\IntType
+     */
+    public function pow(IntType $exp)
+    {
+        return new static(pow($this->value, $exp()));
+    }
+
+    /**
+     * Return square root of the number
+     *
+     * Health warning: square roots of non perfect square numbers are
+     * inevitably a compromise and likely to have a margin of error
+     *
+     * @return chippyash\Type\Number\Rational\RationalType
+     */
+    public function sqrt()
+    {
+        return RationalTypeFactory::fromFloat(sqrt($this->value), 1e-17);
+    }
+
+    protected function typeOf($value)
+    {
+        return intval($value);
     }
 
 }
