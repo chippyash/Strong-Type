@@ -2,76 +2,74 @@
 
 namespace chippyash\Test\Type\Number;
 
-use chippyash\Type\Number\IntType;
-use chippyash\Type\Number\Rational\RationalTypeFactory;
+use chippyash\Type\Number\GMPIntType;
 
-class IntTypeTest extends \PHPUnit_Framework_TestCase
+class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testIntTypeConvertsValuesToInteger()
+    public function testGMPIntTypeConvertsValuesToInteger()
     {
-        $t = new IntType(12);
+        $t = new GMPIntType(12);
         $this->assertInternalType('int', $t->get());
         $this->assertEquals(12, $t->get());
-        $t = new IntType('foo');
+        $t = new GMPIntType('foo');
         $this->assertInternalType('int', $t->get());
         $this->assertEquals(0, $t->get());
-        $t = new IntType('34');
+        $t = new GMPIntType('34');
         $this->assertInternalType('int', $t->get());
         $this->assertEquals(34, $t->get());
-        $t = new IntType('34.6');
+        $t = new GMPIntType('34.6');
         $this->assertInternalType('int', $t->get());
         $this->assertEquals(34, $t->get());
     }
 
     public function testCanNegateTheNumber()
     {
-        $t = new IntType(2);
+        $t = new GMPIntType(2);
         $this->assertEquals(-2, $t->negate()->get());
     }
 
     public function testAsComplexReturnsComplexType()
     {
-        $t = new IntType(2);
+        $t = new GMPIntType(2);
         $c = $t->AsComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
-        $this->assertEquals('2', (string) $c);
+        $this->assertEquals('2+0i', (string) $c);
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
     }
 
     public function testAsRationalReturnsRationalType()
     {
-        $t = new IntType(2);
+        $t = new GMPIntType(2);
         $r = $t->AsRational();
         $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $r);
         $this->assertEquals('2', (string) $r);
-        $this->assertInstanceOf('chippyash\Type\Number\IntType', $r->numerator());
-        $this->assertInstanceOf('chippyash\Type\Number\IntType', $r->denominator());
+        $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', $r->numerator());
+        $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', $r->denominator());
     }
 
     public function testAsFloatTypeReturnsFloatType()
     {
-        $t = new IntType(2);
+        $t = new GMPIntType(2);
         $f = $t->asFloatType();
         $this->assertInstanceOf('\chippyash\Type\Number\FloatType', $f);
         $this->assertEquals('2', (string) $f);
     }
 
-    public function testAsIntTypeReturnsIntType()
+    public function testAsGMPIntTypeReturnsGMPIntType()
     {
-        $t = new IntType(2);
-        $i = $t->asIntType();
-        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
-        $this->assertEquals($t, $i);
+        $t = new GMPIntType(2);
+        $this->assertInstanceOf('\chippyash\Type\Number\GMPIntType', $t);
+        $this->assertEquals(2, $t->get());
     }
 
     public function testAbsReturnsAbsoluteValue()
     {
-        $t1 = new IntType(2);
-        $t2 = new IntType(-2);
-        $this->assertEquals($t1, $t1->abs());
-        $this->assertEquals($t1, $t2->abs());
+        $t1 = new GMPIntType(2);
+        $t2 = new GMPIntType(-2);
+        $this->assertEquals($t1(), $t1->abs()->get());
+        $this->assertEquals($t1(), $t2->abs()->get());
     }
 
     /**
@@ -79,7 +77,7 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testFactorsReturnsAnArrayOfFactorsOfTheNumber($n, array $factors)
     {
-        $i = new IntType($n);
+        $i = new GMPIntType($n);
         $this->assertEquals($factors, $i->factors());
     }
 
@@ -88,7 +86,7 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrimeFactorsReturnsAnArrayOfFactorsOfTheNumber($n, array $ignore, array $pFactors)
     {
-        $i = new IntType($n);
+        $i = new GMPIntType($n);
         //unwrap the factors - phpUnit does not pass keys in!
         $pf = [];
         foreach($pFactors as $factor) {
@@ -118,48 +116,6 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
             [138,[1, 2, 3, 6, 23, 46, 69, 138], [[2=>1],[3=>1],[23=>1]]],
             [1643,[1, 31, 53, 1643],[[31=>1],[53=>1]]],
             [1644,[1, 2, 3, 4, 6, 12, 137, 274, 411, 548, 822, 1644],[[2=>2], [3=>1], [137=>1]]]
-        ];
-    }
-
-    /**
-     * @dataProvider exponentsPow
-     * @param int $exp
-     */
-    public function testPowReturnsCorrectResult($exp, $result)
-    {
-        $i = new IntType(2);
-        $this->assertEquals($result, $i->pow(new IntType($exp))->get());
-    }
-
-    public function exponentsPow()
-    {
-        return [
-            [2, 4],
-            [3, 8],
-            [4, 16]
-        ];
-    }
-
-    /**
-     * @dataProvider squareRoots
-     * @param int $num
-     * @param string $result
-     */
-    public function testSqrtReturnsCorrectResult($num, $result)
-    {
-        $expected = RationalTypeFactory::fromString($result);
-        $i = new IntType($num);
-        $this->assertEquals($expected, $i->sqrt());
-    }
-
-    public function squareRoots()
-    {
-        return [
-            [1, '1/1'],
-            [2, '131836323/93222358'],
-            [3,'10240062466522008/5912102821565065'],
-            [4,'2/1'],
-            [59782,'1894802244/7749589']
         ];
     }
 }

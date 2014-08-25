@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Hard type support
  * For when you absolutely want to know what you are getting
@@ -11,51 +10,51 @@
 
 namespace chippyash\Type\Number\Complex;
 
-use chippyash\Type\Interfaces\ComplexTypeInterface;
+use chippyash\Type\Number\Complex\ComplexType;
 use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
-use chippyash\Type\Interfaces\NumericTypeInterface;
 use chippyash\Type\Exceptions\NotRealComplexException;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\IntType;
-use chippyash\Type\Traits\Cacheable;
+use chippyash\Type\Interfaces\GMPInterface;
+use chippyash\Type\Number\GMPIntType;
 
 /**
- * A complex number - algabraic form
+ * A complex number - algabraic form - GMP version
  *
  * A complex number is a number that can be expressed in the form a + bi,
  * where a and b are real numbers and i is the imaginary unit,
  * which satisfies the equation i² = −1
  *
- * Complex numbers use real numbers expressed as a RationalType.  This allows
+ * Complex numbers use real numbers expressed as a GMPRationalType.  This allows
  * for greater arithmetic stability
  *
  * @link http://en.wikipedia.org/wiki/Complex_number
  */
-class ComplexType implements ComplexTypeInterface, NumericTypeInterface
+class GMPComplexType extends ComplexType implements GMPInterface
 {
-    use Cacheable;
 
     /**
      * Real part
-     * @var RationalType
+     * @var GMPRationalType
      */
     protected $real;
 
     /**
      * Imaginary part
-     * @var RationalType
+     * @var GMPRationalType
      */
     protected $imaginary;
 
-    public function __construct(RationalType $real, RationalType $imaginary)
+    public function __construct(GMPRationalType $real, GMPRationalType $imaginary)
     {
         $this->setFromTypes($real, $imaginary);
     }
 
     /**
      * Return real part
-     * @return RationalType
+     * @return GMPRationalType
      */
     public function r()
     {
@@ -64,7 +63,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
 
     /**
      * Return imaginary part
-     * @return RationalType
+     * @return GMPRationalType
      */
     public function i()
     {
@@ -77,7 +76,9 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function isZero()
     {
-        return ($this->real->numerator()->get() == 0 && $this->imaginary->numerator()->get() == 0);
+        $zero = gmp_init(0);
+        return (gmp_cmp($this->real->numerator()->gmp(), $zero) == 0 &&
+                gmp_cmp($this->imaginary->numerator()->gmp(), $zero) == 0);
     }
 
     /**
@@ -88,7 +89,9 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function isGaussian()
     {
-        return ($this->real->denominator()->get() == 1  && $this->imaginary->denominator()->get() == 1);
+        $one = gmp_init(1);
+        return (gmp_cmp($this->real->denominator()->gmp(), $one) == 0  &&
+                gmp_cmp($this->imaginary->denominator()->gmp(), $one) == 0);
     }
 
     /**
@@ -106,7 +109,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      * Return the modulus, also known as absolute value or magnitude of this number
      * = sqrt(r^2 + i^2);
      *
-     * @return \chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\GMPRationalType
      */
     public function modulus()
     {
@@ -114,27 +117,29 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
             //sqrt(r^2 + 0^2) = sqrt(r^2) = abs(r)
             return $this->real->abs();
         }
-        //r^2 & i^2
-        $sqrR = ['n'=>pow($this->real->numerator()->get(), 2), 'd'=>pow($this->real->denominator()->get(),2)];
-        $sqrI = ['n'=>pow($this->imaginary->numerator()->get(), 2), 'd'=>pow($this->imaginary->denominator()->get(),2)];
+        //get r^2 and i^2
+        $sqrR = ['n'=>gmp_pow($this->real->numerator()->gmp(), 2), 'd'=>gmp_pow($this->real->denominator()->gmp(),2)];
+        $sqrI = ['n'=>gmp_pow($this->imaginary->numerator()->gmp(), 2), 'd'=>gmp_pow($this->imaginary->denominator()->gmp(),2)];
         //r^2 + i^2
-        $den = $this->lcm($sqrR['d'], $sqrI['d']);
-        $num = ($sqrR['n'] * $den / $sqrR['d']) +
-               ($sqrI['n'] * $den / $sqrI['d']);
+        $den = new GMPIntType($this->lcm($sqrR['d'], $sqrI['d']));
+        $num = new GMPIntType(gmp_add(
+                gmp_div_q(gmp_mul($sqrR['n'], $den), $sqrR['d']),
+                gmp_div_q(gmp_mul($sqrI['n'], $den), $sqrI['d'])
+               ));
 
         //sqrt(num/den) = sqrt(num)/sqrt(den)
         //now this a fudge - we ought to be able to get a proper square root using
         //factors etc but what we do instead is to do an approximation by converting
         //to intermediate rationals using as much precision as we can i.e.
-        // rN = RationaType(sqrt(num))
-        // rD = RationalType(sqrt(den))
+        // rN = GMPRationaType(sqrt(num))
+        // rD = GMPRationalType(sqrt(den))
         // mod = rN/1 * 1/rD
-        $rN = RationalTypeFactory::fromFloat(sqrt($num), 1e-17);
-        $rD = RationalTypeFactory::fromFloat(sqrt($den), 1e-17);
-        $modN = $rN->numerator()->get() * $rD->denominator()->get();
-        $modD = $rN->denominator()->get() * $rD->numerator()->get();
+        $rN = $num->sqrt();
+        $rD = $den->sqrt();
+        $modN = gmp_mul($rN->numerator()->gmp(), $rD->denominator()->gmp());
+        $modD = gmp_mul($rN->denominator()->gmp(), $rD->denominator()->gmp());
 
-        return RationalTypeFactory::create($modN, $modD);
+        return new self($modN, $modD);
     }
 
     /**
@@ -156,7 +161,9 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function isReal()
     {
-        return ($this->imaginary->numerator()->get() == 0);
+        $im = $this->imaginary->gmp();
+        $zero = new GMPIntType(0);
+        return ((gmp_cmp($im[0], $zero->gmp()) == 0) && (gmp_cmp($im[1], $zero->gmp()) == 0));
     }
 
     /**
@@ -226,16 +233,31 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
 
     /**
      * Set values for complex number
+     * Will convert non GMP Rationals to GMPRationalType
      *
      * @param \chippyash\Type\Number\Rational\RationalType $real real part
      * @param \chippyash\Type\Number\Rational\RationalType $imaginary imaginary part
      *
-     * @return chippyash\Type\Number\Complex\ComplexType Fluent Interface
+     * @return chippyash\Type\Number\Complex\GMPComplexType Fluent Interface
      */
     public function setFromTypes(RationalType $real, RationalType $imaginary)
     {
-        $this->real = clone $real;
-        $this->imaginary = clone $imaginary;
+        if (!$real instanceof GMPRationalType) {
+            $this->real = new GMPRationalType(
+                    new GMPIntType($real->numerator()->get()),
+                    new GMPIntType($real->denominator()->get())
+                    );
+        } else {
+            $this->real = clone $real;
+        }
+        if (!$imaginary instanceof GMPRationalType) {
+            $this->imaginary = new GMPRationalType(
+                    new GMPIntType($imaginary->numerator()->get()),
+                    new GMPIntType($imaginary->denominator()->get())
+                    );
+        } else {
+            $this->imaginary = clone $imaginary;
+        }
 
         return $this;
     }
@@ -285,7 +307,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      * Return number as Rational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\Rational\RationalType
+     * @returns chippyash\Type\Number\Rational\GMPRationalType
      *
      * @throws NotRealComplexException
      */
@@ -299,15 +321,15 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     }
 
     /**
-     * Return number as an IntType number.
+     * Return number as an GMPIntType number.
      * If number isReal() will return floor(r())
      *
-     * @returns chippyash\Type\Number\IntType
+     * @returns chippyash\Type\Number\GMPIntType
      */
     public function asIntType()
     {
         if ($this->isReal()) {
-            return new IntType(floor($this->real->get()));
+            return new GMPIntType(floor($this->real->get()));
         } else {
             throw new NotRealComplexException();
         }
@@ -328,116 +350,33 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     }
 
     /**
-     * Return the angle (sometimes known as the argument) of the number
-     * when expressed in polar notation
-     * 
-     * The return value is a rational expressing theta as radians
-     * 
-     * @return chippyash\Type\Number\Rational\RationalType
-     */
-    public function theta()
-    {
-        return RationalTypeFactory::fromFloat(
-                atan2(
-                    $this->imaginary->asFloatType()->get(), 
-                    $this->real->asFloatType()->get()
-                    )
-                );
-    }
-    
-    /**
-     * Return the radius (soemtimes known as Rho) of the number
-     * when expressed in polar notation
-     * 
-     * @proxy modulus()
-     * 
-     * @return chippyash\Type\Number\Rational\RationalType
-     */
-    public function radius()
-    {
-        return $this->modulus();
-    }
-    
-    /**
-     * Returns complex number expressed in polar form
-     * 
-     * radius == this->modulus()
-     * theta is angle expressed in radians
-     * 
-     * @return array[radius => RationalType, theta => RationalType] 
-     */
-    public function asPolar()
-    {
-        return ['radius'=>$this->modulus(), 'theta'=>$this->theta()];
-    }
-    
-    /**
-     * Returns the polar quadrant for the complex number
-     * Returns 1, 2, 3 or 4 dependent on the quadrant
-     * 
-     * @return int
-     */
-    public function polarQuadrant()
-    {
-        $signR = ($this->real->numerator()->get() > 0 ? '+' : '-');
-        $signI = ($this->imaginary->numerator()->get() > 0 ? '+' : '-');
-        switch ("{$signR}{$signI}") {
-            case '++': return 1;
-            case '-+': return 2;
-            case '--': return 3;
-            case '+-': return 4;
-        }
-    }
-    
-    /**
-     * Return complex number expressed as a string in polar form
-     * i.e. r(cosθ + i⋅sinθ)
-     */
-    public function polarString()
-    {
-        if ($this->isZero()) {
-            return '0';
-        }
-        
-        $r = $this->checkIntType($this->radius()->asFloatType()->get());
-        $t = $this->checkIntType($this->theta()->asFloatType()->get());
-        if (is_int($t)) {
-            $tpattern = 'cos %1$d + i⋅sin %1$d';
-        } else {
-            $tpattern = 'cos %1$f + i⋅sin %1$f';
-        }
-        if ($r == 1) {
-            return sprintf($tpattern, $t);
-        }
-        if (is_int($r)) {
-            $rpattern = '%2$d';
-        } else {
-            $rpattern = '%2$f';
-        }
-        $pattern = "{$rpattern}({$tpattern})";
-        return sprintf($pattern, $t, $r);
-    }
-    
-    private function checkIntType($value)
-    {
-        $test = intval($value);
-        if (($value - $test) == 0) {
-            return $test;
-        }
-        
-        return $value;
-    }
-    
-    /**
-     * Return Greatest Common Denominator of two numbers
+     * Return this number ^ $exp
      *
-     * @param int $a
-     * @param int $b
-     * @return int
+     * @return chippyash\Type\Number\Complex\GMPComplexType
      */
-    private function gcd($a, $b)
+    public function pow(IntType $exp)
     {
-        return $b ? $this->gcd($b, $a % $b) : $a;
+        return new self($this->real->pow($exp), $this->imaginary->pow($exp));
+    }
+
+    /**
+     * Return square root of the number
+     *
+     * @return chippyash\Type\Number\Complex\GMPComplexType
+     */
+    public function sqrt()
+    {
+        return new self($this->real->sqrt(), $this->imaginary->sqrt());
+    }
+
+    /**
+     * Return the value of number aarray of gmp resources|objects
+     *
+     * @return gmp array [[num,den],[num,den]]
+     */
+    public function gmp()
+    {
+        return [$this->real->gmp(), $this->imaginary->gmp()];
     }
 
     /**
@@ -448,6 +387,7 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     private function lcm($a, $b)
     {
-        return \abs(($a * $b) / $this->gcd($a, $b));
+        return gmp_abs(gmp_div_q(gmp_mul($a, $b),gmp_gcd($a, $b)));
     }
+
 }

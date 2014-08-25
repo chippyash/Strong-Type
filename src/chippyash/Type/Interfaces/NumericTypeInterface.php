@@ -9,6 +9,8 @@
  */
 namespace chippyash\Type\Interfaces;
 
+use chippyash\Type\Number\IntType;
+
 /**
  * A interface to mark numeric types
  */
@@ -56,4 +58,18 @@ interface NumericTypeInterface {
      * @returns chippyash\Type\Interfaces\NumericTypeInterface
      */
     public function abs();
+
+    /**
+     * Return this number ^ $exp
+     *
+     * @return chippyash\Type\Interfaces\NumericTypeInterface
+     */
+    public function pow(IntType $exp);
+
+    /**
+     * Return square root of the number
+     *
+     * @return chippyash\Type\Number\Rational\RationalType
+     */
+    public function sqrt();
 }
