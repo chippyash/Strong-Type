@@ -4,19 +4,22 @@
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
 
 namespace chippyash\Type;
 
-use chippyash\Type\TypeInterface;
+use chippyash\Type\Interfaces\TypeInterface;
+use chippyash\Type\Traits\Cacheable;
 
 /**
  * An abstract PHP type as an object
  */
 abstract class AbstractType implements TypeInterface
 {
+    use Cacheable;
+    
     /**
      * Value of the type
      *

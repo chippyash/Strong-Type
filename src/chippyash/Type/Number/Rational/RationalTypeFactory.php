@@ -4,7 +4,7 @@
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
 
@@ -23,9 +23,17 @@ abstract class RationalTypeFactory
 
     /**
      * default error tolerance for fromFloat()
-     * @see fromFloat
      */
-    const CF_DEFAULT_TOLERANCE = 1.e-6;
+    const CF_DEFAULT_TOLERANCE = 1.e-15;
+
+    /**
+     * Default error tolerance for from float
+     * @see setDefaultFromFloatTolerance()
+     * @see fromFloat()
+     *
+     * @var int
+     */
+    protected static $defaultTolerance = self::CF_DEFAULT_TOLERANCE;
 
     /**
      * Rational type factory
@@ -87,14 +95,14 @@ abstract class RationalTypeFactory
      * Use Continued Fractions method of determining the rational number
      *
      * @param float|FloatType $float
-     * @param float|FloatType $tolerance
+     * @param float|FloatType $tolerance - Default is whatever is currently set but normally self::CF_DEFAULT_TOLERANCE
      *
      * @return chippyash\Type\Number\Rational\RationalType
      *
      * @throws InvalidArgumentException
      */
     public static function fromFloat($float,
-            $tolerance = self::CF_DEFAULT_TOLERANCE)
+            $tolerance = null)
     {
         if ($float instanceof FloatType) {
             $float = $float();
@@ -104,6 +112,8 @@ abstract class RationalTypeFactory
         }
         if ($tolerance instanceof FloatType) {
             $tolerance = $tolerance();
+        } elseif (is_null($tolerance)) {
+            $tolerance = self::$defaultTolerance;
         }
 
         $negative = ($float < 0);
@@ -143,7 +153,7 @@ abstract class RationalTypeFactory
      * @param string $string
      *
      * @return chippyash\Type\Number\Rational\RationalType
-     * 
+     *
      * @throws InvalidArgumentException
      */
     public static function fromString($string)
@@ -171,4 +181,14 @@ abstract class RationalTypeFactory
                 new IntType($denominator));
     }
 
+    /**
+     * Set the default tolerance for all fromFloat() operations
+     * N.B. This sets a static so only needs to be done once
+     *
+     * @param int $tolerance
+     */
+    public static function setDefaultFromFloatTolerance($tolerance)
+    {
+        self::$defaultTolerance = $tolerance;
+    }
 }
