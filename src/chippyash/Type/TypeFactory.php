@@ -4,7 +4,7 @@
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
 namespace chippyash\Type;
@@ -20,6 +20,7 @@ use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\BoolType;
 use chippyash\Type\Interfaces\NumericTypeInterface;
+use Zend\Cache\Storage\StorageInterface as CacheStorageInterface;
 
 /**
  * Static Factory for creating types
@@ -214,4 +215,17 @@ abstract class TypeFactory {
         return RationalTypeFactory::create($numerator, $denominator);
     }
 
+    /**
+     * Set the cache storage adapter for all artifacts that can use it
+     * Simply call this at the beginning of your program to set caching for
+     * all subsequent operations
+     *
+     * @param \Zend\Cache\Storage\StorageInterface $cache
+     */
+    public static function setCache(CacheStorageInterface $cache)
+    {
+        self::createInt(0)->setCache($cache);
+        ComplexTypeFactory::create(0,0)->setCache($cache);
+        RationalTypeFactory::create(0)->setCache($cache);
+    }
 }
