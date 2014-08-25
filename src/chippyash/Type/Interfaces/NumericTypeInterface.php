@@ -9,11 +9,8 @@
  */
 namespace chippyash\Type\Interfaces;
 
-<<<<<<< HEAD
-=======
 use chippyash\Type\Number\IntType;
 
->>>>>>> initial commit for gmp support
 /**
  * A interface to mark numeric types
  */
@@ -61,8 +58,6 @@ interface NumericTypeInterface {
      * @returns chippyash\Type\Interfaces\NumericTypeInterface
      */
     public function abs();
-<<<<<<< HEAD
-=======
 
     /**
      * Return this number ^ $exp
@@ -77,5 +72,4 @@ interface NumericTypeInterface {
      * @return chippyash\Type\Number\Rational\RationalType
      */
     public function sqrt();
->>>>>>> initial commit for gmp support
 }
