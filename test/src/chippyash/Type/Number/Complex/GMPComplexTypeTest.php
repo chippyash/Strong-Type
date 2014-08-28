@@ -151,7 +151,7 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
     {
         $r = $this->createGMPRationalType(0);
         $c = new GMPComplexType($r, $r);
-        $this->assertEquals($r, $c->modulus());
+        $this->assertEquals((string) $r, (string) $c->modulus());
     }
 
     /**
@@ -254,9 +254,9 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
                 );
         //convert to integer to get over any inconsistencies between machines
         //real value 12.165525060596
-        $this->assertEquals(12, $c1->modulus()->asGMPIntType()->get());
+        $this->assertEquals(12, $c1->modulus()->asIntType()->get());
         //real value 16.970562748477
-        $this->assertEquals(16, $c2->modulus()->asGMPIntType()->get());
+        $this->assertEquals(16, $c2->modulus()->asIntType()->get());
     }
 
     public function testCanNegateTheNumber()
@@ -289,29 +289,29 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
 //        $this->assertInternalType('float', $c->get());
 //    }
 
-    public function testMagicToStringReturnsString()
-    {
-        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
-        $test = (string) $c;
-        $this->assertInternalType('string', $test);
-        $this->assertEquals('1+2i', $test);
-
-        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(0));
-        $test = (string) $c;
-        $this->assertInternalType('string', $test);
-        $this->assertEquals('1', $test);
-
-        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
-        $test = (string) $c;
-        $this->assertInternalType('string', $test);
-        $this->assertEquals('5/2', $test);
-
-        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(-2));
-        $test = (string) $c;
-        $this->assertInternalType('string', $test);
-        $this->assertEquals('5/2-2i', $test);
-
-    }
+//    public function testMagicToStringReturnsString()
+//    {
+//        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
+//        $test = (string) $c;
+//        $this->assertInternalType('string', $test);
+//        $this->assertEquals('1+2i', $test);
+//
+//        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(0));
+//        $test = (string) $c;
+//        $this->assertInternalType('string', $test);
+//        $this->assertEquals('1', $test);
+//
+//        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
+//        $test = (string) $c;
+//        $this->assertInternalType('string', $test);
+//        $this->assertEquals('5/2', $test);
+//
+//        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(-2));
+//        $test = (string) $c;
+//        $this->assertInternalType('string', $test);
+//        $this->assertEquals('5/2-2i', $test);
+//
+//    }
 
     public function testGetReturnsStringForComplexNumber()
     {
@@ -432,10 +432,10 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $c2 = new GMPComplexType($this->createGMPRationalType(-1), $this->createGMPRationalType(2));
         $c3 = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(-2));
         $c4 = new GMPComplexType($this->createGMPRationalType(-1), $this->createGMPRationalType(-2));
-        $this->assertEquals($c1->modulus(), $c1->abs());
-        $this->assertEquals($c1->modulus(), $c2->abs());
-        $this->assertEquals($c1->modulus(), $c3->abs());
-        $this->assertEquals($c1->modulus(), $c4->abs());
+        $this->assertEquals((string) $c1->modulus(), (string) $c1->abs());
+        $this->assertEquals((string) $c1->modulus(), (string) $c2->abs());
+        $this->assertEquals((string) $c1->modulus(), (string) $c3->abs());
+        $this->assertEquals((string) $c1->modulus(), (string) $c4->abs());
     }
 
     /**

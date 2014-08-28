@@ -204,12 +204,18 @@ class GMPIntType extends IntType implements GMPInterface
 
     /**
      * Return square root of the number
+     * Because teh GMP library doesn't deal with square roots very well
+     * e.g. it will return the equivelent of 3/2 for sqrt(2), we use the
+     * underlying IntType method to create the new rational.
      *
-     * @return chippyash\Type\Number\GMPIntType
+     * @return chippyash\Type\Number\Rational\GMPRationalType
      */
     public function sqrt()
     {
-        return new self(gmp_sqrt($this->value));
+        $i = new IntType(gmp_strval($this->value));
+        $sqrt = $i->sqrt();
+        $r = new GMPRationalType($sqrt->numerator(), $sqrt->denominator());
+        return $r;
     }
 
     protected function typeOf($value)
