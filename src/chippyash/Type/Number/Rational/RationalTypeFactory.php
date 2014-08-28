@@ -25,7 +25,7 @@ abstract class RationalTypeFactory
      * default error tolerance for fromFloat()
      * @see fromFloat
      */
-    const CF_DEFAULT_TOLERANCE = 1.e-6;
+    const CF_DEFAULT_TOLERANCE = 1.e-15;
 
     /**
      * Rational type factory

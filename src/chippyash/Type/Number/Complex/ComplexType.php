@@ -324,6 +324,107 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
     }
 
     /**
+     * Return the angle (sometimes known as the argument) of the number
+     * when expressed in polar notation
+     * 
+     * The return value is a rational expressing theta as radians
+     * 
+     * @return chippyash\Type\Number\Rational\RationalType
+     */
+    public function theta()
+    {
+        return RationalTypeFactory::fromFloat(
+                atan2(
+                    $this->imaginary->asFloatType()->get(), 
+                    $this->real->asFloatType()->get()
+                    )
+                );
+    }
+    
+    /**
+     * Return the radius (soemtimes known as Rho) of the number
+     * when expressed in polar notation
+     * 
+     * @proxy modulus()
+     * 
+     * @return chippyash\Type\Number\Rational\RationalType
+     */
+    public function radius()
+    {
+        return $this->modulus();
+    }
+    
+    /**
+     * Returns complex number expressed in polar form
+     * 
+     * radius == this->modulus()
+     * theta is angle expressed in radians
+     * 
+     * @return array[radius => RationalType, theta => RationalType] 
+     */
+    public function asPolar()
+    {
+        return ['radius'=>$this->modulus(), 'theta'=>$this->theta()];
+    }
+    
+    /**
+     * Returns the polar quadrant for the complex number
+     * Returns 1, 2, 3 or 4 dependent on the quadrant
+     * 
+     * @return int
+     */
+    public function polarQuadrant()
+    {
+        $signR = ($this->real->numerator()->get() > 0 ? '+' : '-');
+        $signI = ($this->imaginary->numerator()->get() > 0 ? '+' : '-');
+        switch ("{$signR}{$signI}") {
+            case '++': return 1;
+            case '-+': return 2;
+            case '--': return 3;
+            case '+-': return 4;
+        }
+    }
+    
+    /**
+     * Return complex number expressed as a string in polar form
+     * i.e. r(cosθ + i⋅sinθ)
+     */
+    public function polarString()
+    {
+        if ($this->isZero()) {
+            return '0';
+        }
+        
+        $r = $this->checkIntType($this->radius()->asFloatType()->get());
+        $t = $this->checkIntType($this->theta()->asFloatType()->get());
+        if (is_int($t)) {
+            $tpattern = 'cos %1$d + i⋅sin %1$d';
+        } else {
+            $tpattern = 'cos %1$f + i⋅sin %1$f';
+        }
+        if ($r == 1) {
+            return sprintf($tpattern, $t);
+        }
+        if (is_int($r)) {
+            $rpattern = '%2$d';
+        } else {
+            $rpattern = '%2$f';
+        }
+        $pattern = "{$rpattern}({$tpattern})";
+        return sprintf($pattern, $t, $r);
+    }
+    
+    private function checkIntType($value)
+    {
+        $test = intval($value);
+        if (($value - $test) == 0) {
+            return $test;
+        }
+        
+        return $value;
+    }
+    
+    /**
      * Return Greatest Common Denominator of two numbers
      *
      * @param int $a

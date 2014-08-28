@@ -94,6 +94,29 @@ abstract class ComplexTypeFactory
     }
 
     /**
+     * Create complex type from polar co-ordinates
+     * 
+     * @param \chippyash\Type\Number\Rational\RationalType $radius
+     * @param \chippyash\Type\Number\Rational\RationalType $theta angle expressed in radians
+     * 
+     * @return \chippyash\Type\Number\Complex\ComplexType
+     */
+    public static function fromPolar(RationalType $radius, RationalType $theta)
+    {
+        $cos = RationalTypeFactory::fromFloat(cos($theta->asFloatType()->get()));
+        $sin = RationalTypeFactory::fromFloat(sin($theta->asFloatType()->get()));
+        $r = RationalTypeFactory::create(
+                new IntType($radius->numerator()->get() * $cos->numerator()->get()),
+                new IntType($radius->denominator()->get() * $cos->denominator()->get())
+                );
+        $i = RationalTypeFactory::create(
+                new IntType($radius->numerator()->get() * $sin->numerator()->get()),
+                new IntType($radius->denominator()->get() * $sin->denominator()->get())
+                );
+        return new ComplexType($r, $i);
+    }
+    
+    /**
      * Convert to RationalType
      *
      * @param mixed $t

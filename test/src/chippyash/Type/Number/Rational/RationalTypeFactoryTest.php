@@ -107,7 +107,7 @@ class RationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromFloatUsesDefaultToleranceIfNotGiven()
     {
-        $this->assertEquals('113/355', (string) RationalTypeFactory::fromFloat(M_1_PI));
+        $this->assertEquals('25510582/80143857', (string) RationalTypeFactory::fromFloat(M_1_PI));
     }
 
     public function testFromFloatUsesAcceptsPhpFloatToleranceValue()
