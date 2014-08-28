@@ -34,7 +34,7 @@ class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
         $t = new GMPIntType(2);
         $c = $t->AsComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
-        $this->assertEquals('2+0i', (string) $c);
+        $this->assertEquals('2', (string) $c);
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
     }
@@ -57,11 +57,11 @@ class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2', (string) $f);
     }
 
-    public function testAsGMPIntTypeReturnsGMPIntType()
+    public function testAsIntTypeReturnsGMPIntType()
     {
         $t = new GMPIntType(2);
         $this->assertInstanceOf('\chippyash\Type\Number\GMPIntType', $t);
-        $this->assertEquals(2, $t->get());
+        $this->assertEquals('2', (string) $t->asIntType());
     }
 
     public function testAbsReturnsAbsoluteValue()
@@ -117,5 +117,21 @@ class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
             [1643,[1, 31, 53, 1643],[[31=>1],[53=>1]]],
             [1644,[1, 2, 3, 4, 6, 12, 137, 274, 411, 548, 822, 1644],[[2=>2], [3=>1], [137=>1]]]
         ];
+    }
+    
+    public function testSqrtReturnsGMPRationalType()
+    {
+        $i = new GMPIntType(5);
+        $s = $i->sqrt();
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $s);
+        $this->assertEquals('70711162/31622993', (string) $s);
+    }
+    
+    public function testPowReturnsGMPIntType()
+    {
+        $i = new GMPIntType(5);
+        $p = $i->pow(new GMPIntType(3));
+        $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', $p);
+        $this->assertEquals('125', (string) $p);
     }
 }
