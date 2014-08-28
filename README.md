@@ -129,12 +129,17 @@ this, but using it directly may give you finer grain control in some circumstanc
     use chippyash\Type\Number\Rational\RationalTypeFactory;
     $r = RationalTypeFactory::create(M_1_PI);    //results in 25510582/80143857
     $r = RationalTypeFactory::fromFloat(M_1_PI); //ditto
+    $r = RationalTypeFactory::fromFloat(M_1_PI, 1e-5); //results in 113/355
     $r = RationalTypeFactory::fromFloat(M_1_PI, 1e-17);  //results in 78256779/245850922
 
     $r = RationalTypeFactory::create('2/3');
     //same as
     $r = RationalTypeFactory::fromString('2/3');
 </pre>
+
+RationalTypeFactory::fromFloat obeys the current setting of RationalTypeFactory::$defaultTolerance.  The default
+value is 1e-15.  You can change this by calling RationalTypeFactory::setDefaultFromFloatTolerance() at the beginning 
+of your program.
 
 All types support the TypeInterface:
 

@@ -130,4 +130,15 @@ class RationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
                 '0',
                 (string) RationalTypeFactory::fromFloat(0.0));
     }
+    
+    /**
+     * @runInSeparateProcess
+     */
+    public function testSetDefaultFromFloatToleranceIsStatic()
+    {
+        RationalTypeFactory::setDefaultFromFloatTolerance(1e-5);
+        $this->assertEquals('113/355', (string) RationalTypeFactory::fromFloat(M_1_PI));
+        RationalTypeFactory::setDefaultFromFloatTolerance(1e-15);
+        $this->assertEquals('25510582/80143857', (string) RationalTypeFactory::fromFloat(M_1_PI));
+    }
 }

@@ -21,7 +21,7 @@ use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\BoolType;
-
+use chippyash\Type\Traits\GmpTypeCheck;
 
 /**
  * A rational number (i.e a fraction)
@@ -30,7 +30,8 @@ use chippyash\Type\BoolType;
  */
 class GMPRationalType extends RationalType implements GMPInterface
 {
-
+    use GmpTypeCheck;
+    
     /**
      * numerator
      * @var GMPIntType
@@ -43,6 +44,31 @@ class GMPRationalType extends RationalType implements GMPInterface
      */
     protected $den;
 
+
+    /**
+     * Construct new GMP rational
+     * num and den can be IntType, GMPIntType, int or gmp native type
+     *
+     * @param mixed $num numerator
+     * @param mixed $den denominator
+     * @param \chippyash\Type\BoolType $reduce -optional: default = true
+     */
+    public function __construct($num, $den, BoolType $reduce = null)
+    {
+        if ($this->gmpTypeCheck($num)) {
+            $n = new GMPIntType($num);
+        } else {
+            $n = $num;
+        }
+        if ($this->gmpTypeCheck($den)) {
+            $d = new GMPIntType($den);
+        } else {
+            $d = $den;
+        }
+        
+        $this->setFromTypes($n, $d, $reduce);
+    }
+    
     /**
      * Set values for rational
      * Will convert non GMP integer types to GMPIntType
@@ -235,7 +261,11 @@ class GMPRationalType extends RationalType implements GMPInterface
      */
     public function sqrt()
     {
-        return new self($this->num->sqrt(), $this->den->sqrt());
+        $num = $this->num->sqrt();
+        $den = $this->den->sqrt();
+        $newNum = gmp_mul($num->numerator()->gmp(), $den->denominator()->gmp());
+        $newDen = gmp_mul($num->denominator()->gmp(), $den->numerator()->gmp());
+        return new self($newNum, $newDen);
     }
 
     /**

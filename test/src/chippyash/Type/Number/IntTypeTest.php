@@ -4,6 +4,7 @@ namespace chippyash\Test\Type\Number;
 
 use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
+use chippyash\Type\Number\Complex\ComplexTypeFactory;
 
 class IntTypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -141,25 +142,45 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider squareRoots
+     * @dataProvider posSquareRoots
      * @param int $num
      * @param string $result
      */
-    public function testSqrtReturnsCorrectResult($num, $result)
+    public function testPositiveSqrtReturnsCorrectRationalResult($num, $result)
     {
         $expected = RationalTypeFactory::fromString($result);
         $i = new IntType($num);
         $this->assertEquals($expected, $i->sqrt());
     }
 
-    public function squareRoots()
+    public function posSquareRoots()
     {
         return [
             [1, '1/1'],
-            [2, '131836323/93222358'],
-            [3,'10240062466522008/5912102821565065'],
+            [2, '22619537/15994428'],
+            [3,'37220045/21489003'],
             [4,'2/1'],
-            [59782,'1894802244/7749589']
+            [59782,'319780118/1307875']
+        ];
+    }
+    
+    /**
+     * @dataProvider negSquareRoots
+     * @param int $num
+     * @param string $result
+     */
+    public function testNegativeSqrtReturnsCorrectComplexResult($num, $result)
+    {
+        $expected = ComplexTypeFactory::fromString($result);
+        $i = new IntType($num);
+        $this->assertEquals($expected, $i->sqrt());
+    }    
+    
+    public function negSquareRoots()
+    {
+        return [
+            [-9, '0+3i'],
+            [-10, '0+39480499/12484830i'],
         ];
     }
 }

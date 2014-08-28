@@ -436,7 +436,68 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($c1->modulus(), $c3->abs());
         $this->assertEquals($c1->modulus(), $c4->abs());
     }
-
+    
+    /**
+     * @dataProvider polars
+     */
+    public function testAsPolarReturnsCorrectValues(ComplexType $c, $r, $t)
+    {
+        $polar = $c->asPolar();
+        $this->assertEquals($r, (string) $polar['radius']);
+        $this->assertEquals($t, (string) $polar['theta']);
+    }
+    
+    /**
+     * @dataProvider polars
+     */
+    public function testGetPolarQuadrantReturnsCorrectQuadrant(ComplexType $c, $r, $t, $q)
+    {
+        $this->assertEquals($q, $c->getPolarQuadrant());
+    }
+    
+    public function polars()
+    {
+        return [
+            //quadrant 1
+            [new ComplexType($this->createRationalType(5), $this->createRationalType(2)),'192119201/35675640','15238812/40048769', 1],
+            //quadrant 2
+            [new ComplexType($this->createRationalType(-5), $this->createRationalType(2)),'192119201/35675640','266613702/96561163', 2],
+            //quadrant 3
+            [new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)),'192119201/35675640','-266613702/96561163', 3],
+            //quadrant 4
+            [new ComplexType($this->createRationalType(5), $this->createRationalType(-2)),'192119201/35675640','-15238812/40048769', 4],
+        ];
+    }
+    
+//    public function testSquareRootOfNegativeRealComplexReturnsSqrtRealOfImaginary()
+//    {
+//        $c1 = new ComplexType($this->createRationalType(-4), $this->createRationalType(0));
+//        $this->assertEquals('2i', (string) $c1->sqrt());
+//    }
+//    
+//    public function testPowReturnsCorrectValue()
+//    {
+//        $c1 = new ComplexType($this->createRationalType(2), $this->createRationalType(3));
+//        $p = $c1->pow(new IntType(3));
+//        $this->assertEquals('8+27i', (string) $p);
+//        $c1 = new ComplexType($this->createRationalType(2, 3), $this->createRationalType(3, -4));
+//        $p = $c1->pow(new IntType(3));
+//        $this->assertEquals('8/27+27/64i', (string) $p);
+//    }
+//
+//    public function testSqrtReturnsCorrectValue()
+//    {
+//        $c1 = new ComplexType($this->createRationalType(2), $this->createRationalType(3));
+//        $s = $c1->sqrt();
+//        $this->assertEquals('22619537/15994428+37220045/21489003i', (string) $s);
+//        $c1 = new ComplexType($this->createRationalType(4), $this->createRationalType(9));
+//        $s = $c1->sqrt();
+//        $this->assertEquals('2+3i', (string) $s);
+//        $c1 = new ComplexType($this->createRationalType(4), $this->createRationalType(-9));
+//        $s = $c1->sqrt();
+//        $this->assertEquals('2+3i', (string) $s);
+//    }
+//    
     /**
      * @dataProvider polars
      */

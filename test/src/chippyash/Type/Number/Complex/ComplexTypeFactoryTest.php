@@ -23,11 +23,20 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
         ComplexTypeFactory::create('foo');
     }
 
-    public function testCreateWithValidStringAsFirstParameterReturnsComplexType()
+    public function testCreateWithValidStringContainingFloatAsFirstParameterReturnsComplexType()
     {
         $c = ComplexTypeFactory::create('-2.0-2.0452i');
         $this->assertInstanceOf(self::CTYPE_NAME, $c);
         $this->assertEquals('-2-5113/2500i', $c());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
+    }
+
+    public function testCreateWithValidStringContainingRationalAsFirstParameterReturnsComplexType()
+    {
+        $c = ComplexTypeFactory::create('-12/6-2/5i');
+        $this->assertInstanceOf(self::CTYPE_NAME, $c);
+        $this->assertEquals('-2-2/5i', $c());
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
     }

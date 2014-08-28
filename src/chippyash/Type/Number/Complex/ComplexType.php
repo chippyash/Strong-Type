@@ -178,15 +178,23 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
      */
     public function __toString()
     {
-        $r = (string) $this->real;
-
+        //zero imaginary part
         if ($this->isReal()) {
-            return $r;
+            return (string) $this->real;
         }
-
-        $op = ($this->imaginary->numerator()->get() < 0 ? '' : '+');
+        
         $i = (string) $this->imaginary;
-
+        
+        //zero real part
+        if ($this->real->numerator()->get() === 0) {
+            return "{$i}i";
+        }
+        
+        //both parts present
+        $r = (string) $this->real;
+        $i = (string) $this->imaginary;
+        $op = ($this->imaginary->numerator()->get() > 0 ? '+' : '');
+        
         return "{$r}{$op}{$i}i";
     }
 
