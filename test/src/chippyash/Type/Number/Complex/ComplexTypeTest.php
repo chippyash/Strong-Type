@@ -438,6 +438,70 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider polars
+     */
+    public function testRadiusReturnsCorrectValue(ComplexType $c, $r)
+    {
+        $this->assertEquals($r, (string) $c->radius());
+    }
+    
+    /**
+     * @dataProvider polars
+     */
+    public function testThetaReturnsCorrectValue(ComplexType $c, $r, $t)
+    {
+        $this->assertEquals($t, (string) $c->theta());
+    }
+    
+    /**
+     * @dataProvider polars
+     */
+    public function testAsPolarReturnsCorrectValues(ComplexType $c, $r, $t)
+    {
+        $polar = $c->asPolar();
+        $this->assertEquals($r, (string) $polar['radius']);
+        $this->assertEquals($t, (string) $polar['theta']);
+    }
+    
+    /**
+     * @dataProvider polars
+     */
+    public function testPolarQuadrantReturnsCorrectQuadrant(ComplexType $c, $r, $t, $q)
+    {
+        $this->assertEquals($q, $c->polarQuadrant());
+    }
+
+    public function testPolarStringForZeroComplexReturnsZeroString()
+    {
+        $c = new ComplexType($this->createRationalType(0),$this->createRationalType(0));
+        $this->assertEquals('0',$c->polarString());
+    }
+    
+    public function testPolarStringForNonZeroComplexReturnsNonZeroString()
+    {
+        $c = new ComplexType($this->createRationalType(1),$this->createRationalType(0));        
+        $this->assertEquals('cos 0 + i⋅sin 0',$c->polarString());
+        $c = new ComplexType($this->createRationalType(5),$this->createRationalType(0));        
+        $this->assertEquals('5(cos 0 + i⋅sin 0)',$c->polarString());
+        $c = new ComplexType($this->createRationalType(5),$this->createRationalType(2));        
+        $this->assertEquals('5.385165(cos 0.380506 + i⋅sin 0.380506)',$c->polarString());
+    }
+    
+    public function polars()
+    {
+        return [
+            //quadrant 1
+            [new ComplexType($this->createRationalType(5), $this->createRationalType(2)),'192119201/35675640','15238812/40048769', 1],
+            //quadrant 2
+            [new ComplexType($this->createRationalType(-5), $this->createRationalType(2)),'192119201/35675640','266613702/96561163', 2],
+            //quadrant 3
+            [new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)),'192119201/35675640','-266613702/96561163', 3],
+            //quadrant 4
+            [new ComplexType($this->createRationalType(5), $this->createRationalType(-2)),'192119201/35675640','-15238812/40048769', 4],
+        ];
+    }
+    
+    /**
      * Create a rational type
      *
      * @param int $n

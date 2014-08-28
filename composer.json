@@ -2,7 +2,7 @@
     "name": "chippyash/strong-type",
     "description": "Strong type support. For when you absolutely want to know what you are getting",
     "license": "GPL 3.0",
-    "keywords": ["strong","hard","declared","types","maths"],
+    "keywords": ["strong","hard","declared","types","maths", "complex", "polar"],
     "authors": [
         {
             "name": "Ashley Kitson",

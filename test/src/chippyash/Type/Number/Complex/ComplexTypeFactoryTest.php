@@ -5,6 +5,7 @@ namespace chippyash\Test\Type\Number\Complex;
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Complex\ComplexType;
 use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\IntType;
 
@@ -84,6 +85,31 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
             [new FloatType(2.3),new FloatType(2.3)],
             //rational type
             [new RationalType(new IntType(1), new IntType(2)), new RationalType(new IntType(3), new IntType(2))]
+        ];
+    }
+    
+    /**
+     * @dataProvider polars
+     */
+    public function testCreateFromPolarReturnsComplexType($r, $t)
+    {
+        $radius = RationalTypeFactory::fromString($r);
+        $theta = RationalTypeFactory::fromString($t);
+        $p = ComplexTypeFactory::fromPolar($radius, $theta);
+        $this->assertInstanceOf(self::CTYPE_NAME, $p);
+    }
+    
+    public function polars()
+    {
+        return [
+            //quadrant 1
+            ['192119201/35675640','15238812/40048769'],
+            //quadrant 2
+            ['192119201/35675640','266613702/96561163'],
+            //quadrant 3
+            ['192119201/35675640','-266613702/96561163'],
+            //quadrant 4
+            ['192119201/35675640','-15238812/40048769'],
         ];
     }
 }

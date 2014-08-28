@@ -127,7 +127,7 @@ this, but using it directly may give you finer grain control in some circumstanc
 
 <pre>
     use chippyash\Type\Number\Rational\RationalTypeFactory;
-    $r = RationalTypeFactory::create(M_1_PI);    //results in 113/355
+    $r = RationalTypeFactory::create(M_1_PI);    //results in 25510582/80143857
     $r = RationalTypeFactory::fromFloat(M_1_PI); //ditto
     $r = RationalTypeFactory::fromFloat(M_1_PI, 1e-17);  //results in 78256779/245850922
 
@@ -173,6 +173,16 @@ Additionally the ComplexType supports the ComplexTypeInterface:
 *  setFromTypes(RationalType $real, RationalType $imaginary) - strict typed setter method
 *  r() - return the real part as a RationalType
 *  i() - return the imaginary part as a RationalType
+*  isZero() - Is this number equal to zero?
+*  isReal() - Is this number a real number?  i.e. is it in form n+0i
+*  isGuassian() - Is this number Gaussian, i.e r & i are both equivelent to integers
+*  conjugate() - Return conjugate of this number
+*  modulus() - Return the modulus, also known as absolute value or magnitude of this number
+*  theta() - Return the angle (sometimes known as the argument) of the number when expressed in polar notation
+*  radius() - Return the radius (sometimes known as Rho) of the number when expressed in polar notation
+*  asPolar() - Returns complex number expressed in polar form
+*  polarQuadrant() - Returns the polar quadrant for the complex number
+*  polarString() - Return complex number expressed as a string in polar form i.e. r(cosθ + i⋅sinθ)
 
 NB, ComplexType amends the set() method to proxy to SetFromTypes, i.e. calling ComplexType::set()
 requires the same parameters as setFromTypes().
@@ -182,18 +192,8 @@ There is no PHP native equivalent for a ComplexType, therefore the get() method 
 The ComplexType->isReal() in which case get() will return a float or an int.  If you need to disambiguate
 then use ComplexType::toFloat() which will throw an exception if the number is not real.
 
-Complex numbers support some additional attributes:
-
-*  isZero(): r() == i() == 0
-*  isGaussian(): is_int(r()) && is_int(i())
-*  isReal(): i() == 0 (real numbers expressed as complex type in form n+0i)
-
-and three methods
-
-*  conjugate(): returns conjugate of the complex number
-*  modulus(): returns the modulus, also known as absolute value or magnitude of the complex number.
-For complex numbers abs() === modulus()
-*  toFloat(): returns PHP float equivalent if isReal() else throws chippyash\Type\Exceptions\NotRealComplexException
+Polar form complex numbers are supported by the polar methods in ComplexType and also by the
+ComplexTypeFactory::fromPolar(RationalType $radius, RationalType $theta) method.
 
 ### Changing the library
 
@@ -279,3 +279,6 @@ V1.0.9 Add asRational, asFloatType and asIntType methods for numeric types. Rena
 V1.0.10 Refactor Typefactory to use as... methods
 
 V1.0.11 Ensure isolation of type parts in as... methods
+
+Add Polar form complex number support
+        move interfaces to separate folder
