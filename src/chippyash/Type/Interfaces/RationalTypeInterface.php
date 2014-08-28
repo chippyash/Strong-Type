@@ -4,12 +4,12 @@
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
-namespace chippyash\Type\Number\Rational;
+namespace chippyash\Type\Interfaces;
 
-use chippyash\Type\TypeInterface;
+use chippyash\Type\Interfaces\TypeInterface;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\BoolType;
 
@@ -26,7 +26,7 @@ interface RationalTypeInterface extends TypeInterface
      * @param \chippyash\Type\Number\IntType $den denominator
      * @param \chippyash\Type\BoolType $reduce -optional: default = true
      *
-     * @return chippyash\Type\Number\Rational\RationalTypeInterface Fluent Interface
+     * @return chippyash\Type\Interfaces\RationalTypeInterface Fluent Interface
      */
     public function setFromTypes(IntType $num, IntType $den, BoolType $reduce = null);
 

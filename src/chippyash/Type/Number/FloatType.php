@@ -11,7 +11,7 @@
 namespace chippyash\Type\Number;
 
 use \chippyash\Type\AbstractType;
-use chippyash\Type\Number\NumericTypeInterface;
+use chippyash\Type\Interfaces\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;

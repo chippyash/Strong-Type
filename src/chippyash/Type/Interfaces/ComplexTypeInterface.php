@@ -4,12 +4,12 @@
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
-namespace chippyash\Type\Number\Complex;
+namespace chippyash\Type\Interfaces;
 
-use chippyash\Type\TypeInterface;
+use chippyash\Type\Interfaces\TypeInterface;
 use chippyash\Type\Number\Rational\RationalType;
 
 /**
@@ -24,7 +24,7 @@ interface ComplexTypeInterface extends TypeInterface
      * @param \chippyash\Type\Number\Rational\RationalType $real numerator
      * @param \chippyash\Type\Number\Rational\RationalType $imaginary denominator
      *
-     * @return chippyash\Type\Number\Complex\ComplexTypeInterface Fluent Interface
+     * @return chippyash\Type\Interfaces\ComplexTypeInterface Fluent Interface
      */
     public function setFromTypes(RationalType $real, RationalType $imaginary);
 

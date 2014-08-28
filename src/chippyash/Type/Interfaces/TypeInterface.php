@@ -4,10 +4,10 @@
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
-namespace chippyash\Type;
+namespace chippyash\Type\Interfaces;
 
 /**
  * Interface for chippyash\Type types
@@ -19,7 +19,7 @@ interface TypeInterface
      * Forces type
      *
      * @param mixed $value
-     * @return chippyash\Type\TypeInterface Fluent Interface
+     * @return chippyash\Type\Interfaces\TypeInterface Fluent Interface
      */
     public function set($value);
 
@@ -45,5 +45,6 @@ interface TypeInterface
      * @return string
      */
     public function __toString();
+
 
 }

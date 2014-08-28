@@ -11,10 +11,10 @@
 
 namespace chippyash\Type\Number\Complex;
 
-use chippyash\Type\Number\Complex\ComplexTypeInterface;
+use chippyash\Type\Interfaces\ComplexTypeInterface;
+use chippyash\Type\Interfaces\NumericTypeInterface;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
-use chippyash\Type\Number\NumericTypeInterface;
 use chippyash\Type\Exceptions\NotRealComplexException;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\IntType;
