@@ -224,7 +224,7 @@ Install [Composer](https://getcomposer.org/)
 add
 
 <pre>
-    "chippyash/strong-type": ">=1.0.11"
+    "chippyash/strong-type": ">=1.1.0"
 </pre>
 
 to your composer.json "requires" section
@@ -280,5 +280,6 @@ V1.0.10 Refactor Typefactory to use as... methods
 
 V1.0.11 Ensure isolation of type parts in as... methods
 
-Add Polar form complex number support
+V1.1.0 Add Polar form complex number support
+        
         move interfaces to separate folder
