@@ -31,7 +31,7 @@ use chippyash\Type\Traits\GmpTypeCheck;
 class GMPRationalType extends RationalType implements GMPInterface
 {
     use GmpTypeCheck;
-    
+
     /**
      * numerator
      * @var GMPIntType
@@ -43,7 +43,6 @@ class GMPRationalType extends RationalType implements GMPInterface
      * @var GMPIntType
      */
     protected $den;
-
 
     /**
      * Construct new GMP rational

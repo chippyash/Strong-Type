@@ -89,6 +89,16 @@ class FloatType extends AbstractType implements NumericTypeInterface
     }
 
     /**
+     * Return this number ^ $exp
+     *
+     * @return chippyash\Type\Number\FloatType
+     */
+    public function pow(IntType $exp)
+    {
+        return new self(pow($this->value, $exp()));
+    }
+
+    /**
      * Return square root of the number
      *
      * @return chippyash\Type\Number\FloatType

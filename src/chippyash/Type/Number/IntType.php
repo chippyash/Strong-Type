@@ -156,6 +156,16 @@ class IntType extends AbstractType implements NumericTypeInterface
     }
 
     /**
+     * Return this number ^ $exp
+     *
+     * @return chippyash\Type\Number\IntType
+     */
+    public function pow(IntType $exp)
+    {
+        return new static(pow($this->value, $exp()));
+    }
+
+    /**
      * Return square root of the number
      *
      * Health warning: square roots of non perfect square numbers are

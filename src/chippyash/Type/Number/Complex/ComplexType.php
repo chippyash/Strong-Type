@@ -436,6 +436,26 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
         return $value;
     }
     
+     * Return this number ^ $exp
+     *
+     * @return chippyash\Type\Number\Complex\ComplexType
+     */
+    public function pow(IntType $exp)
+    {
+        return new self($this->real->pow($exp), $this->imaginary->pow($exp));
+    }
+
+    /**
+     * Return square root of the number
+     *
+     * @return chippyash\Type\Number\Complex\ComplexType
+     */
+    public function sqrt()
+    {
+
+        return new self($this->real->sqrt(), $this->imaginary->sqrt());
+    }
+
     /**
      * Return Greatest Common Denominator of two numbers
      *
