@@ -70,7 +70,7 @@ abstract class ComplexTypeFactory
     {
         $matches = [];
         $valid = \preg_match(
-                '#^([-,\+])?([0-9]*\.?[0-9]*)([-,\+]){1}([0-9]*\.?[0-9]*)i$#', \trim($string), $matches
+                '#^([-,\+])?([0-9]*[\.\/]?[0-9]*)([-,\+]){1}([0-9]*[\.\/]?[0-9]*)i$#', \trim($string), $matches
         );
 
         if ($valid !== 1) {
@@ -79,18 +79,19 @@ abstract class ComplexTypeFactory
             );
         }
 
-        $re = floatval($matches[2]);
-        $im = floatval($matches[4]);
+        $re = $matches[2];
+        $im = $matches[4];
 
         if ($matches[1] && $matches[1] == '-') {
-            $re *= -1;
+            $re = '-' . $re;
         }
         if ($matches[3] && $matches[3] == '-') {
-            $im *= -1;
+            $im = '-' . $im;
         }
+        
         return new ComplexType(
-                RationalTypeFactory::fromFloat($re),
-                RationalTypeFactory::fromFloat($im));
+                self::convertType($re),
+                self::convertType($im));
     }
 
     /**
@@ -134,15 +135,21 @@ abstract class ComplexTypeFactory
             if (is_int($t)) {
                 return new RationalType(new IntType($t), new IntType(1));
             }
-            if (is_float($t)) {
-                return RationalTypeFactory::fromFloat($t, 1e-17);
-            }
+            //default - convert to float
+            return RationalTypeFactory::fromFloat(floatval($t));
         }
         if ($t instanceof FloatType) {
-            return RationalTypeFactory::fromFloat($t(), 1e-17);
+            return RationalTypeFactory::fromFloat($t());
         }
         if ($t instanceof IntType) {
             return new RationalType(new IntType($t()), new IntType(1));
+        }
+        if (is_string($t)) {
+            try {
+                return RationalTypeFactory::fromString($t);
+            } catch (\InvalidArgumentException $e) {
+                throw new InvalidTypeException("{$t} for Complex type construction");
+            }
         }
 
         $typeT = gettype($t);

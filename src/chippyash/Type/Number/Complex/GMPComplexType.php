@@ -123,8 +123,8 @@ class GMPComplexType extends ComplexType implements GMPInterface
         //r^2 + i^2
         $den = new GMPIntType($this->lcm($sqrR['d'], $sqrI['d']));
         $num = new GMPIntType(gmp_add(
-                gmp_div_q(gmp_mul($sqrR['n'], $den), $sqrR['d']),
-                gmp_div_q(gmp_mul($sqrI['n'], $den), $sqrI['d'])
+                gmp_div_q(gmp_mul($sqrR['n'], $den->gmp()), $sqrR['d']),
+                gmp_div_q(gmp_mul($sqrI['n'], $den->gmp()), $sqrI['d'])
                ));
 
         //sqrt(num/den) = sqrt(num)/sqrt(den)
@@ -139,7 +139,7 @@ class GMPComplexType extends ComplexType implements GMPInterface
         $modN = gmp_mul($rN->numerator()->gmp(), $rD->denominator()->gmp());
         $modD = gmp_mul($rN->denominator()->gmp(), $rD->denominator()->gmp());
 
-        return new self($modN, $modD);
+        return new GMPRationalType(new GMPIntType($modN), new GMPIntType($modD));
     }
 
     /**
@@ -162,8 +162,11 @@ class GMPComplexType extends ComplexType implements GMPInterface
     public function isReal()
     {
         $im = $this->imaginary->gmp();
+        $im0 = gmp_strval($im[0]);
+        $im1 = gmp_strval($im[1]);
+                
         $zero = new GMPIntType(0);
-        return ((gmp_cmp($im[0], $zero->gmp()) == 0) && (gmp_cmp($im[1], $zero->gmp()) == 0));
+        return ((gmp_cmp($im[0], $zero->gmp()) == 0));
     }
 
     /**

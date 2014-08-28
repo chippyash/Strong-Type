@@ -154,7 +154,7 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
         $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
         $c = $o->asComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
-        $this->assertEquals('2+0i', (string) $c); //zero imaginary returns real value
+        $this->assertEquals('2', (string) $c); //zero imaginary returns real value
     }
 
     public function testAsRationalReturnsGMPRationalType()
