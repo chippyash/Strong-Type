@@ -19,7 +19,7 @@ use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\BoolType;
-use chippyash\Type\Number\NumericTypeInterface;
+use chippyash\Type\Interfaces\NumericTypeInterface;
 
 /**
  * Static Factory for creating types

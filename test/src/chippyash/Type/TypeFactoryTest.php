@@ -230,7 +230,7 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateWithNumericTypeInterfaceParameterReturnsNumericTypeInterface($required, $nType)
     {
         $this->assertInstanceOf(
-                'chippyash\Type\Number\NumericTypeInterface',
+                'chippyash\Type\Interfaces\NumericTypeInterface',
                 TypeFactory::create($required, $nType));
     }
 

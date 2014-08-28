@@ -10,7 +10,7 @@
 
 namespace chippyash\Type;
 
-use chippyash\Type\TypeInterface;
+use chippyash\Type\Interfaces\TypeInterface;
 
 /**
  * An abstract PHP type as an object

@@ -4,10 +4,10 @@
  * For when you absolutely want to know what you are getting
  *
  * @author Ashley Kitson <akitson@zf4.biz>
- * @copyright Ashley Kitson, UK, 2012
+ * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
  */
-namespace chippyash\Type\Number;
+namespace chippyash\Type\Interfaces;
 
 /**
  * A interface to mark numeric types
@@ -17,7 +17,7 @@ interface NumericTypeInterface {
     /**
      * Negates the number
      *
-     * @returns chippyash\Type\Number\NumericTypeInterface Fluent Interface
+     * @returns chippyash\Type\Interfaces\NumericTypeInterface Fluent Interface
      */
     public function negate();
 
@@ -53,7 +53,7 @@ interface NumericTypeInterface {
     /**
      * Return the absolute value of the number
      *
-     * @returns chippyash\Type\Number\NumericTypeInterface
+     * @returns chippyash\Type\Interfaces\NumericTypeInterface
      */
     public function abs();
 }

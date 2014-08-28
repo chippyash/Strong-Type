@@ -3,7 +3,6 @@
 namespace chippyash\Test\Type\Number\Complex;
 
 use chippyash\Type\Number\Complex\ComplexType;
-use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\IntType;
