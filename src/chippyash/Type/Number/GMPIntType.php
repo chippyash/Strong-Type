@@ -204,7 +204,7 @@ class GMPIntType extends IntType implements GMPInterface
 
     /**
      * Return square root of the number
-     * Because teh GMP library doesn't deal with square roots very well
+     * Because the GMP library doesn't deal with square roots very well
      * e.g. it will return the equivelent of 3/2 for sqrt(2), we use the
      * underlying IntType method to create the new rational.
      *

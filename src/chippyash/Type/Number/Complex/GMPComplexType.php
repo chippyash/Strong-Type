@@ -161,12 +161,9 @@ class GMPComplexType extends ComplexType implements GMPInterface
      */
     public function isReal()
     {
-        $im = $this->imaginary->gmp();
-        $im0 = gmp_strval($im[0]);
-        $im1 = gmp_strval($im[1]);
+        $im = $this->imaginary->numerator->gmp();
                 
-        $zero = new GMPIntType(0);
-        return ((gmp_cmp($im[0], $zero->gmp()) == 0));
+        return ((gmp_cmp($im, 0) == 0));
     }
 
     /**

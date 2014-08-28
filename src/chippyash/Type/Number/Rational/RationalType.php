@@ -251,6 +251,16 @@ class RationalType implements RationalTypeInterface, NumericTypeInterface
     }
 
     /**
+     * Return this number ^ $exp
+     *
+     * @return chippyash\Type\Number\Rational\RationalType
+     */
+    public function pow(IntType $exp)
+    {
+        return new self($this->num->pow($exp), $this->den->pow($exp));
+    }
+
+    /**
      * Return square root of the number
      *
      * @return chippyash\Type\Number\Rational\RationalType
