@@ -135,11 +135,11 @@ abstract class ComplexTypeFactory
                 return new RationalType(new IntType($t), new IntType(1));
             }
             if (is_float($t)) {
-                return RationalTypeFactory::fromFloat($t, 1e-17);
+                return RationalTypeFactory::fromFloat($t);
             }
         }
         if ($t instanceof FloatType) {
-            return RationalTypeFactory::fromFloat($t(), 1e-17);
+            return RationalTypeFactory::fromFloat($t());
         }
         if ($t instanceof IntType) {
             return new RationalType(new IntType($t()), new IntType(1));
