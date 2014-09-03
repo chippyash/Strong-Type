@@ -450,23 +450,9 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider polars
      */
-    public function testGetPolarQuadrantReturnsCorrectQuadrant(ComplexType $c, $r, $t, $q)
+    public function testpolarQuadrantReturnsCorrectQuadrant(ComplexType $c, $r, $t, $q)
     {
-        $this->assertEquals($q, $c->getPolarQuadrant());
-    }
-    
-    public function polars()
-    {
-        return [
-            //quadrant 1
-            [new ComplexType($this->createRationalType(5), $this->createRationalType(2)),'192119201/35675640','15238812/40048769', 1],
-            //quadrant 2
-            [new ComplexType($this->createRationalType(-5), $this->createRationalType(2)),'192119201/35675640','266613702/96561163', 2],
-            //quadrant 3
-            [new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)),'192119201/35675640','-266613702/96561163', 3],
-            //quadrant 4
-            [new ComplexType($this->createRationalType(5), $this->createRationalType(-2)),'192119201/35675640','-15238812/40048769', 4],
-        ];
+        $this->assertEquals($q, $c->polarQuadrant());
     }
     
 //    public function testSquareRootOfNegativeRealComplexReturnsSqrtRealOfImaginary()
@@ -512,24 +498,6 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
     public function testThetaReturnsCorrectValue(ComplexType $c, $r, $t)
     {
         $this->assertEquals($t, (string) $c->theta());
-    }
-    
-    /**
-     * @dataProvider polars
-     */
-    public function testAsPolarReturnsCorrectValues(ComplexType $c, $r, $t)
-    {
-        $polar = $c->asPolar();
-        $this->assertEquals($r, (string) $polar['radius']);
-        $this->assertEquals($t, (string) $polar['theta']);
-    }
-    
-    /**
-     * @dataProvider polars
-     */
-    public function testPolarQuadrantReturnsCorrectQuadrant(ComplexType $c, $r, $t, $q)
-    {
-        $this->assertEquals($q, $c->polarQuadrant());
     }
 
     public function testPolarStringForZeroComplexReturnsZeroString()

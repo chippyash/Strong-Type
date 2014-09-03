@@ -250,20 +250,20 @@ class RationalType implements RationalTypeInterface, NumericTypeInterface
         return ($this->den->get() === 1);
     }
 
-    /**
-     * Return square root of the number
-     *
-     * @return chippyash\Type\Number\Rational\RationalType
-     */
-    public function sqrt()
-    {
-        //we get two rationals
-        $n = $this->num->sqrt();
-        $d = $this->den->sqrt();
-        return RationalTypeFactory::create(
-                $n->numerator()->get() * $d->denominator()->get(),
-                $d->numerator()->get() * $n->denominator()->get());
-    }
+//    /**
+//     * Return square root of the number
+//     *
+//     * @return chippyash\Type\Number\Rational\RationalType
+//     */
+//    public function sqrt()
+//    {
+//        //we get two rationals
+//        $n = $this->num->sqrt();
+//        $d = $this->den->sqrt();
+//        return RationalTypeFactory::create(
+//                $n->numerator()->get() * $d->denominator()->get(),
+//                $d->numerator()->get() * $n->denominator()->get());
+//    }
 
     /**
      * Reduce this number to it's lowest form
