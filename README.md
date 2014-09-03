@@ -136,6 +136,10 @@ this, but using it directly may give you finer grain control in some circumstanc
     $r = RationalTypeFactory::fromString('2/3');
 </pre>
 
+NB. the RationalTypeFactory::fromFloat() method will use a default tolerance level of 1e-15.  As in the
+example above, you can set a different level, although on a 64 bit system, 1e-17 is about 
+the limit.
+
 All types support the TypeInterface:
 
 *  get() - return the value as a PHP native type (if possible)
@@ -224,7 +228,7 @@ Install [Composer](https://getcomposer.org/)
 add
 
 <pre>
-    "chippyash/strong-type": ">=1.1.0"
+    "chippyash/strong-type": "~1.1.1"
 </pre>
 
 to your composer.json "requires" section
@@ -283,3 +287,4 @@ V1.0.11 Ensure isolation of type parts in as... methods
 V1.1.0 Add Polar form complex number support
         
         move interfaces to separate folder
+V1.1.1 Remove hard coded tolerance levels to fromFloat. Use default 1e-15 instead.

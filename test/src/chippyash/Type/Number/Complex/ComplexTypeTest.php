@@ -491,13 +491,13 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
     {
         return [
             //quadrant 1
-            [new ComplexType($this->createRationalType(5), $this->createRationalType(2)),'192119201/35675640','15238812/40048769', 1],
+            [new ComplexType($this->createRationalType(5), $this->createRationalType(2)),'73997555/13741001','15238812/40048769', 1],
             //quadrant 2
-            [new ComplexType($this->createRationalType(-5), $this->createRationalType(2)),'192119201/35675640','266613702/96561163', 2],
+            [new ComplexType($this->createRationalType(-5), $this->createRationalType(2)),'73997555/13741001','266613702/96561163', 2],
             //quadrant 3
-            [new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)),'192119201/35675640','-266613702/96561163', 3],
+            [new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)),'73997555/13741001','-266613702/96561163', 3],
             //quadrant 4
-            [new ComplexType($this->createRationalType(5), $this->createRationalType(-2)),'192119201/35675640','-15238812/40048769', 4],
+            [new ComplexType($this->createRationalType(5), $this->createRationalType(-2)),'73997555/13741001','-15238812/40048769', 4],
         ];
     }
     

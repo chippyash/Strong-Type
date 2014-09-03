@@ -125,8 +125,8 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
         // rN = RationaType(sqrt(num))
         // rD = RationalType(sqrt(den))
         // mod = rN/1 * 1/rD
-        $rN = RationalTypeFactory::fromFloat(sqrt($num), 1e-17);
-        $rD = RationalTypeFactory::fromFloat(sqrt($den), 1e-17);
+        $rN = RationalTypeFactory::fromFloat(sqrt($num));
+        $rD = RationalTypeFactory::fromFloat(sqrt($den));
         $modN = $rN->numerator()->get() * $rD->denominator()->get();
         $modD = $rN->denominator()->get() * $rD->numerator()->get();
 
