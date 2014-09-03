@@ -122,65 +122,65 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @dataProvider exponentsPow
-     * @param int $exp
-     */
-    public function testPowReturnsCorrectResult($exp, $result)
-    {
-        $i = new IntType(2);
-        $this->assertEquals($result, $i->pow(new IntType($exp))->get());
-    }
-
-    public function exponentsPow()
-    {
-        return [
-            [2, 4],
-            [3, 8],
-            [4, 16]
-        ];
-    }
-
-    /**
-     * @dataProvider posSquareRoots
-     * @param int $num
-     * @param string $result
-     */
-    public function testPositiveSqrtReturnsCorrectRationalResult($num, $result)
-    {
-        $expected = RationalTypeFactory::fromString($result);
-        $i = new IntType($num);
-        $this->assertEquals($expected, $i->sqrt());
-    }
-
-    public function posSquareRoots()
-    {
-        return [
-            [1, '1/1'],
-            [2, '22619537/15994428'],
-            [3,'37220045/21489003'],
-            [4,'2/1'],
-            [59782,'319780118/1307875']
-        ];
-    }
-    
-    /**
-     * @dataProvider negSquareRoots
-     * @param int $num
-     * @param string $result
-     */
-    public function testNegativeSqrtReturnsCorrectComplexResult($num, $result)
-    {
-        $expected = ComplexTypeFactory::fromString($result);
-        $i = new IntType($num);
-        $this->assertEquals($expected, $i->sqrt());
-    }    
-    
-    public function negSquareRoots()
-    {
-        return [
-            [-9, '0+3i'],
-            [-10, '0+39480499/12484830i'],
-        ];
-    }
+//    /**
+//     * @dataProvider exponentsPow
+//     * @param int $exp
+//     */
+//    public function testPowReturnsCorrectResult($exp, $result)
+//    {
+//        $i = new IntType(2);
+//        $this->assertEquals($result, $i->pow(new IntType($exp))->get());
+//    }
+//
+//    public function exponentsPow()
+//    {
+//        return [
+//            [2, 4],
+//            [3, 8],
+//            [4, 16]
+//        ];
+//    }
+//
+//    /**
+//     * @dataProvider posSquareRoots
+//     * @param int $num
+//     * @param string $result
+//     */
+//    public function testPositiveSqrtReturnsCorrectRationalResult($num, $result)
+//    {
+//        $expected = RationalTypeFactory::fromString($result);
+//        $i = new IntType($num);
+//        $this->assertEquals($expected, $i->sqrt());
+//    }
+//
+//    public function posSquareRoots()
+//    {
+//        return [
+//            [1, '1/1'],
+//            [2, '22619537/15994428'],
+//            [3,'37220045/21489003'],
+//            [4,'2/1'],
+//            [59782,'319780118/1307875']
+//        ];
+//    }
+//    
+//    /**
+//     * @dataProvider negSquareRoots
+//     * @param int $num
+//     * @param string $result
+//     */
+//    public function testNegativeSqrtReturnsCorrectComplexResult($num, $result)
+//    {
+//        $expected = ComplexTypeFactory::fromString($result);
+//        $i = new IntType($num);
+//        $this->assertEquals($expected, $i->sqrt());
+//    }    
+//    
+//    public function negSquareRoots()
+//    {
+//        return [
+//            [-9, '0+3i'],
+//            [-10, '0+39480499/12484830i'],
+//        ];
+//    }
 }

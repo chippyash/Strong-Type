@@ -88,16 +88,6 @@ class FloatType extends AbstractType implements NumericTypeInterface
         return new self(abs($this->value));
     }
 
-    /**
-     * Return square root of the number
-     *
-     * @return chippyash\Type\Number\FloatType
-     */
-    public function sqrt()
-    {
-        return new self(sqrt($this->value));
-    }
-
     protected function typeOf($value)
     {
         return floatval($value);

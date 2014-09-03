@@ -192,31 +192,31 @@ class GMPIntType extends IntType implements GMPInterface
         return $this->value;
     }
 
-    /**
-     * Return this number ^ $exp
-     *
-     * @return chippyash\Type\Number\GMPIntType
-     */
-    public function pow(IntType $exp)
-    {
-        return new self(gmp_pow($this->value, $exp()));
-    }
+//    /**
+//     * Return this number ^ $exp
+//     *
+//     * @return chippyash\Type\Number\GMPIntType
+//     */
+//    public function pow(IntType $exp)
+//    {
+//        return new self(gmp_pow($this->value, $exp()));
+//    }
 
-    /**
-     * Return square root of the number
-     * Because teh GMP library doesn't deal with square roots very well
-     * e.g. it will return the equivelent of 3/2 for sqrt(2), we use the
-     * underlying IntType method to create the new rational.
-     *
-     * @return chippyash\Type\Number\Rational\GMPRationalType
-     */
-    public function sqrt()
-    {
-        $i = new IntType(gmp_strval($this->value));
-        $sqrt = $i->sqrt();
-        $r = new GMPRationalType($sqrt->numerator(), $sqrt->denominator());
-        return $r;
-    }
+//    /**
+//     * Return square root of the number
+//     * Because teh GMP library doesn't deal with square roots very well
+//     * e.g. it will return the equivelent of 3/2 for sqrt(2), we use the
+//     * underlying IntType method to create the new rational.
+//     *
+//     * @return chippyash\Type\Number\Rational\GMPRationalType
+//     */
+//    public function sqrt()
+//    {
+//        $i = new IntType(gmp_strval($this->value));
+//        $sqrt = $i->sqrt();
+//        $r = new GMPRationalType($sqrt->numerator(), $sqrt->denominator());
+//        return $r;
+//    }
 
     protected function typeOf($value)
     {

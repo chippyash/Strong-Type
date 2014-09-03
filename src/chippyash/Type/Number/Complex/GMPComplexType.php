@@ -134,8 +134,8 @@ class GMPComplexType extends ComplexType implements GMPInterface
         // rN = GMPRationaType(sqrt(num))
         // rD = GMPRationalType(sqrt(den))
         // mod = rN/1 * 1/rD
-        $rN = $num->sqrt();
-        $rD = $den->sqrt();
+        $rN = RationalTypeFactory::fromFloat(sqrt($num()));
+        $rD = RationalTypeFactory::fromFloat(sqrt($den()));
         $modN = gmp_mul($rN->numerator()->gmp(), $rD->denominator()->gmp());
         $modD = gmp_mul($rN->denominator()->gmp(), $rD->denominator()->gmp());
 

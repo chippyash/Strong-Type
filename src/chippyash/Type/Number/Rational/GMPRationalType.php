@@ -244,29 +244,29 @@ class GMPRationalType extends RationalType implements GMPInterface
             return new FloatType($this->get());
     }
 
-    /**
-     * Return this number ^ $exp
-     *
-     * @return chippyash\Type\Number\Rational\GMPRationalType
-     */
-    public function pow(IntType $exp)
-    {
-        return new self($this->num->pow($exp), $this->den->pow($exp));
-    }
-
-    /**
-     * Return square root of the number
-     *
-     * @return chippyash\Type\Number\Rational\GMPRationalType
-     */
-    public function sqrt()
-    {
-        $num = $this->num->sqrt();
-        $den = $this->den->sqrt();
-        $newNum = gmp_mul($num->numerator()->gmp(), $den->denominator()->gmp());
-        $newDen = gmp_mul($num->denominator()->gmp(), $den->numerator()->gmp());
-        return new self($newNum, $newDen);
-    }
+//    /**
+//     * Return this number ^ $exp
+//     *
+//     * @return chippyash\Type\Number\Rational\GMPRationalType
+//     */
+//    public function pow(IntType $exp)
+//    {
+//        return new self($this->num->pow($exp), $this->den->pow($exp));
+//    }
+//
+//    /**
+//     * Return square root of the number
+//     *
+//     * @return chippyash\Type\Number\Rational\GMPRationalType
+//     */
+//    public function sqrt()
+//    {
+//        $num = $this->num->sqrt();
+//        $den = $this->den->sqrt();
+//        $newNum = gmp_mul($num->numerator()->gmp(), $den->denominator()->gmp());
+//        $newDen = gmp_mul($num->denominator()->gmp(), $den->numerator()->gmp());
+//        return new self($newNum, $newDen);
+//    }
 
     /**
      * Reduce this number to it's lowest form
