@@ -60,4 +60,12 @@ class AbstractTypeTest extends \PHPUnit_Framework_TestCase
         $o = $this->object;
         $this->assertEquals(96, $o());
     }
+    
+    public function testCloneDoesCloneInnerValue()
+    {
+        $this->object->set(96);
+        $clone = clone $this->object;
+        $clone->set(104);
+        $this->assertNotEquals($clone(), $this->object->get());
+    }
 }

@@ -414,6 +414,15 @@ class ComplexType implements ComplexTypeInterface, NumericTypeInterface
         return sprintf($pattern, $t, $r);
     }
     
+    /**
+     * Magic clone method
+     * Ensure value gets cloned when object is cloned
+     */
+    public function __clone() {
+        $this->real = clone $this->real;
+        $this->imaginary = clone $this->imaginary;
+    }
+          
     private function checkIntType($value)
     {
         $test = intval($value);

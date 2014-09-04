@@ -501,6 +501,14 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         ];
     }
     
+    public function testCloneDoesCloneInnerValue()
+    {
+        $c1 = new ComplexType($this->createRationalType(2), $this->createRationalType(1));
+        $clone = clone $c1;
+        $clone->setFromTypes($this->createRationalType(5), $this->createRationalType(6));
+        $this->assertNotEquals($clone(), $c1());
+    }
+    
     /**
      * Create a rational type
      *

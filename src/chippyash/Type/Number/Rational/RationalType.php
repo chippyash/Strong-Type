@@ -151,6 +151,15 @@ class RationalType extends AbstractRationalType
     }
 
     /**
+     * Magic clone method
+     * Ensure value gets cloned when object is cloned
+     */
+    public function __clone() {
+        $this->num = clone $this->num;
+        $this->den = clone $this->den;
+    }
+      
+    /**
      * Reduce this number to it's lowest form
      */
     protected function reduce()
