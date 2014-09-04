@@ -228,7 +228,7 @@ Install [Composer](https://getcomposer.org/)
 add
 
 <pre>
-    "chippyash/strong-type": "~1.1.1"
+    "chippyash/strong-type": "~1.1.2"
 </pre>
 
 to your composer.json "requires" section
