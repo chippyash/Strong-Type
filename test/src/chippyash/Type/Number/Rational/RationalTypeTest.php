@@ -86,7 +86,7 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase
     {
         $r1 = new RationalType(new IntType(1), new IntType(2));
         $clone = clone $r1;
-        $clone->setFromTypes(new IntType(3), new IntType(4));
+        $clone->set(new IntType(3), new IntType(4));
         $this->assertNotEquals($clone(), $r1());
     }
 

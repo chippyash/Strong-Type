@@ -3,14 +3,14 @@
 namespace chippyash\Test\Type\Number;
 
 use chippyash\Type\Number\IntType;
-use chippyash\Type\BoolType;
+use chippyash\Type\Number\Rational\AbstractRationalType;
 
 class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
      * Mock
-     * @var chippyash\Type\Number\AbstractRationalType
+     * @var chippyash\Type\Number\Rational\AbstractRationalType
      */
     protected $object;
 
@@ -18,31 +18,29 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
     {
         $this->object = $this->getMockForAbstractClass(
                 'chippyash\Type\Number\Rational\AbstractRationalType',
-                [new IntType(3), new IntType(4), new BoolType(true)]);
+                [new IntType(3), new IntType(4)]);
     }
 
     public function testMagicInvokeProxiesToGet()
     {
         $o = $this->object;
         $o->expects($this->once())
-                ->method('get')
+                ->method('getAsNativeType')
                 ->will($this->returnValue(3 / 4));
         $this->assertEquals(3 / 4, $o());
     }
 
-    public function testSetFromTypesReturnsValue()
+    public function testSetReturnsObject()
     {
         $o = $this->object;
-        $o->expects($this->any())
-                ->method('setFromTypes')
-                ->will($this->returnValue('foo'));
-        $this->assertEquals('foo', $o->set(new IntType(3), new IntType(4)));
-        $this->assertEquals('foo', $o->set(new IntType(3), new IntType(4)), new BoolType(false));
+        $this->assertInstanceOf(
+                'chippyash\Type\Number\Rational\AbstractRationalType', 
+                $o->set(new IntType(3), new IntType(4)));
     }
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage set() expects at least two parameters
+     * @expectedExceptionMessage Expected 2 parameters, got 1
      */
     public function testSetExpectsAtLeastTwoParameters()
     {
@@ -50,86 +48,38 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Invalid Type (string) at position 0
      */
     public function testSetProxiesToSetFromTypesWithTwoParametersExpectsIntTypeParameters()
     {
         $this->object->set('foo','bar');
     }
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
-    public function testSetProxiesToSetFromTypesWithThreeParametersExpectsBoolTypeThirdParameter()
-    {
-        $this->object->set(new IntType(3), new IntType(4), 'foo');
-    }
-
-    public function testSetProxiesToSetFromTypesWithTwoCorrectParameters()
-    {
-        $o = $this->object;
-        $o->expects($this->once())
-                ->method('setFromTypes')
-                ->will($this->returnValue('foo'));
-        $this->assertEquals('foo', $o->set(new IntType(3), new IntType(4)));
-    }
-
-    public function testSetProxiesToSetFromTypesWithThreeCorrectParameters()
-    {
-        $o = $this->object;
-        $o->expects($this->once())
-                ->method('setFromTypes')
-                ->will($this->returnValue('foo'));
-        $this->assertEquals('foo', $o->set(new IntType(3), new IntType(4), new BoolType(false)));
-    }
 
     public function testNumeratorReturnsValue()
     {
-        $o = $this->object;
-        $o->expects($this->once())
-                ->method('numerator')
-                ->will($this->returnValue('foo'));
-        $this->assertEquals('foo', $o->numerator());
+        $this->assertEquals(new IntType(3), $this->object->numerator());
     }
 
     public function testDenominatorReturnsValue()
     {
-        $o = $this->object;
-        $o->expects($this->once())
-                ->method('denominator')
-                ->will($this->returnValue('foo'));
-        $this->assertEquals('foo', $o->denominator());
+        $this->assertEquals(new IntType(4), $this->object->denominator());
     }
 
     public function testGetReturnsValue()
     {
         $o = $this->object;
         $o->expects($this->once())
-                ->method('get')
+                ->method('getAsNativeType')
                 ->will($this->returnValue('foo'));
         $this->assertEquals('foo', $o->get());
     }
 
-    public function testMagicToStringReturnsValue()
-    {
-        $o = $this->object;
-        $o->expects($this->once())
-                ->method('__toString')
-                ->will($this->returnValue('foo'));
-        $this->assertEquals('foo', $o->__toString());
-    }
-
     public function testAsComplexReturnsComplexType()
     {
-        $o = $this->object;
-        $o->expects($this->any())
-                ->method('numerator')
-                ->will($this->returnValue(new IntType(2)));
-        $o->expects($this->any())
-                ->method('denominator')
-                ->will($this->returnValue(new IntType(1)));
-        $c = $o->asComplex();
+        $c = $this->object->asComplex();
         $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
-        $this->assertEquals('2', (string) $c);
+        $this->assertEquals('3/4', (string) $c);
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
         $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
     }
@@ -144,22 +94,22 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
     public function testAsFloatTypeReturnsFloatType()
     {
         $o = $this->object;
-        $o->expects($this->any())
-                ->method('get')
-                ->will($this->returnValue(2));
+        $o->expects($this->once())
+                ->method('getAsNativeType')
+                ->will($this->returnValue(0.75));       
         $f = $o->asFloatType();
         $this->assertInstanceOf('\chippyash\Type\Number\FloatType', $f);
-        $this->assertEquals(2, (string) $f);
+        $this->assertEquals(0.75, $f());
     }
 
     public function testAsIntTypeReturnsIntType()
     {
         $o = $this->object;
-        $o->expects($this->any())
-                ->method('get')
-                ->will($this->returnValue(2));
+        $o->expects($this->once())
+                ->method('getAsNativeType')
+                ->will($this->returnValue(0.75));  
         $i = $o->AsIntType();
         $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
-        $this->assertEquals(2, (string) $i);
+        $this->assertEquals(0, $i());
     }
 }
