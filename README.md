@@ -165,7 +165,6 @@ IntTypes support two additional methods:
 
 Additionally, the RationalType supports the RationalTypeInterface:
 
-*  setFromTypes(IntType $num, IntType $den, BoolType $reduce = null) - strict typed setter method
 *  numerator() - return the integer value numerator
 *  denominator() - return the integer value denominator
 
@@ -174,7 +173,6 @@ requires the same parameters as setFromTypes()
 
 Additionally the ComplexType supports the ComplexTypeInterface:
 
-*  setFromTypes(RationalType $real, RationalType $imaginary) - strict typed setter method
 *  r() - return the real part as a RationalType
 *  i() - return the imaginary part as a RationalType
 *  isZero() - Is this number equal to zero?
@@ -184,7 +182,7 @@ Additionally the ComplexType supports the ComplexTypeInterface:
 *  modulus() - Return the modulus, also known as absolute value or magnitude of this number
 *  theta() - Return the angle (sometimes known as the argument) of the number when expressed in polar notation
 *  radius() - Return the radius (sometimes known as Rho) of the number when expressed in polar notation
-*  asPolar() - Returns complex number expressed in polar form
+*  asPolar() - Returns complex number expressed in polar form i.e. an array \[radius, theta\]
 *  polarQuadrant() - Returns the polar quadrant for the complex number
 *  polarString() - Return complex number expressed as a string in polar form i.e. r(cosθ + i⋅sinθ)
 
