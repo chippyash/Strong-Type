@@ -1,9 +1,8 @@
 <?php
 
-namespace chippyash\Test\Type\Number;
+namespace chippyash\Test\Type\Number\Rational;
 
 use chippyash\Type\Number\IntType;
-use chippyash\Type\Number\Rational\AbstractRationalType;
 
 class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
 {

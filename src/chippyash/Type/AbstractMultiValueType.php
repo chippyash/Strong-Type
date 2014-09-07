@@ -94,7 +94,9 @@ abstract class AbstractMultiValueType extends AbstractType
      */
     public function __clone() {
         foreach ($this->value as &$v) {
-            $v = clone $v;
+            if (is_object($v)) {
+                $v = clone $v;
+            } //else $v has already been copied
         }
     }
     
@@ -126,7 +128,7 @@ abstract class AbstractMultiValueType extends AbstractType
      */
     final protected function typeOf($value)
     {
-        throw new \BadMethodCallException('typeOf method not defined for AbstractMultiValueType');
+        throw new \BadMethodCallException('typeOf() method not defined for AbstractMultiValueType');
     }
     
     /**
@@ -145,15 +147,21 @@ abstract class AbstractMultiValueType extends AbstractType
         }
         
         foreach ($params as $key=>$value) {
-            if (!$value instanceof $this->valueMap[$key]['class']) {
-                if (is_object($value)) {
+            if (is_object($value)) {
+                if (!$value instanceof $this->valueMap[$key]['class']) {
                     $c = get_class($value);
-                } else {
-                    $c = gettype($value);
+                    throw new \InvalidArgumentException("Invalid Type ({$c}) at position {$key}");
                 }
-                throw new \InvalidArgumentException("Invalid Type ({$c}) at position {$key}");
+                $this->value[$this->valueMap[$key]['name']] = clone $value;
+            } else {
+                $t = gettype($value);
+                if ($t != $this->valueMap[$key]['class']) {
+                    throw new \InvalidArgumentException("Invalid Type ({$t}) at position {$key}");
+                }
+                $this->value[$this->valueMap[$key]['name']] = $value;
             }
-            $this->value[$this->valueMap[$key]['name']] = clone $value;
+
+            
         }
         
     }

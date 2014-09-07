@@ -23,9 +23,6 @@ use chippyash\Type\Number\Rational\RationalType;
 
 /**
  * Abstract rational number type
- * Does not extend AbstractType, as it requires two parts, but follows it closely
- *
- * Using an abstract base as I will implement variants that utilise gmp and bcmath extensions
  */
 abstract class AbstractRationalType extends AbstractMultiValueType implements RationalTypeInterface, NumericTypeInterface
 {
