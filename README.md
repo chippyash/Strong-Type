@@ -287,7 +287,10 @@ V1.0.11 Ensure isolation of type parts in as... methods
 V1.1.0 Add Polar form complex number support
         
         move interfaces to separate folder
+
 V1.1.1 Remove hard coded tolerance levels to fromFloat. Use default 1e-15 instead.
 
-V1.1.2  ensure clone clones inner objects correctly
+V1.1.2 Ensure clone clones inner objects correctly
+
+V1.1.3 Refactor in preparation for supporting GMP types
 
