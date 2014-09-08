@@ -15,7 +15,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7.37",
-        "satooshi/php-coveralls" : "dev-master"
+        "satooshi/php-coveralls" : "dev-master",
+        "phpunit/phpunit-skeleton-generator": "2.0.1"
     },
     "autoload": {
         "psr-0": {

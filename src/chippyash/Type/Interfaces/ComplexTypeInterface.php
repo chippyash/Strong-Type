@@ -19,16 +19,6 @@ use chippyash\Type\Number\Rational\RationalType;
 interface ComplexTypeInterface extends TypeInterface
 {
     /**
-     * Set values for complex number
-     *
-     * @param \chippyash\Type\Number\Rational\RationalType $real numerator
-     * @param \chippyash\Type\Number\Rational\RationalType $imaginary denominator
-     *
-     * @return chippyash\Type\Interfaces\ComplexTypeInterface Fluent Interface
-     */
-    public function setFromTypes(RationalType $real, RationalType $imaginary);
-
-    /**
      * Get the real part
      * @return RationalType
      */

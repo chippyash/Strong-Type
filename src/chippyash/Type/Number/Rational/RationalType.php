@@ -26,28 +26,19 @@ use chippyash\Type\Traits\Cacheable;
 
 /**
  * A rational number (i.e a fraction)
- * Does not extend AbstractType, as it requires two parts, but follows it closely
- *
- * This is the native PHP type.  If you have GMP installed, consider using
- * GMPRationalType
  *
  */
 class RationalType implements RationalTypeInterface, NumericTypeInterface
 {
-    use Cacheable;
-
     /**
-     * numerator
-     * @var IntType
+     * map of values for this type
+     * @var array
      */
-    protected $num;
-
-    /**
-     * denominator
-     * @var IntType
-     */
-    protected $den;
-
+    protected $valueMap = [
+        0 => ['name' => 'num', 'class' => 'chippyash\Type\Number\IntType'],
+        1 => ['name' => 'den', 'class' => 'chippyash\Type\Number\IntType']
+    ];
+    
     /**
      * Construct new rational
      * Use the RationalTypeFactory to create rationals from native PHP types
@@ -62,63 +53,17 @@ class RationalType implements RationalTypeInterface, NumericTypeInterface
     }
 
     /**
-     * Set values for rational
-     *
-     * @param \chippyash\Type\Number\IntType $num numerator
-     * @param \chippyash\Type\Number\IntType $den denominator
-     * @param \chippyash\Type\BoolType $reduce -optional: default = true
-     *
-     * @return \chippyash\Type\Number\Rational\RationalType Fluent Interface
-     */
-    public function setFromTypes(IntType $num, IntType $den, BoolType $reduce = null)
-    {
-        $this->num = clone $num;
-        $this->den = clone $den;
-
-        if ($this->den->get() < 0) {
-            //normalise the sign
-            $this->num->negate();
-            $this->den->negate();
-        }
-
-        if (empty($reduce) || $reduce->get()) {
-            $this->reduce();
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get the numerator
-     * @return chippyash\Type\Number\IntType
-     */
-    public function numerator()
-    {
-        return $this->num;
-    }
-
-    /**
-     * Get the denominator
-     *
-     * @return chippyash\Type\Number\IntType
-     */
-    public function denominator()
-    {
-        return $this->den;
-    }
-
-    /**
      * Get the basic PHP value of the object type properly
      * In this case, the type is an int or float
      *
      * @return int|float
      */
-    public function get()
+    public function getAsNativeType()
     {
         if ($this->isInteger()) {
-            return intval($this->num->get());
+            return intval($this->value['num']->get());
         } else {
-            return floatval($this->num->get() / $this->den->get());
+            return floatval($this->value['num']->get() / $this->value['den']->get());
         }
     }
 
@@ -165,11 +110,11 @@ class RationalType implements RationalTypeInterface, NumericTypeInterface
      */
     public function __toString()
     {
-        $n = $this->num->get();
+        $n = $this->value['num']->get();
         if ($this->isInteger()) {
             return "{$n}";
         } else {
-            $d = $this->den->get();
+            $d = $this->value['den']->get();
             return "{$n}/{$d}";
         }
     }
@@ -181,7 +126,7 @@ class RationalType implements RationalTypeInterface, NumericTypeInterface
      */
     public function negate()
     {
-        $this->num->negate();
+        $this->value['num']->negate();
 
         return $this;
     }
@@ -193,7 +138,7 @@ class RationalType implements RationalTypeInterface, NumericTypeInterface
      */
     public function abs()
     {
-        return new self($this->num->abs(), $this->den->abs());
+        return new self($this->value['num']->abs(), $this->value['den']->abs());
     }
 
 
@@ -247,18 +192,18 @@ class RationalType implements RationalTypeInterface, NumericTypeInterface
      */
     public function isInteger()
     {
-        return ($this->den->get() === 1);
+        return ($this->value['den']->get() === 1);
     }
-
+      
     /**
      * Reduce this number to it's lowest form
      */
     protected function reduce()
     {
-        $gcd = $this->gcd($this->num->get(), $this->den->get());
+        $gcd = $this->gcd($this->value['num']->get(), $this->value['den']->get());
         if ($gcd > 1) {
-            $this->num->set($this->num->get() / $gcd) ;
-            $this->den->set($this->den->get() / $gcd);
+            $this->value['num']->set($this->value['num']->get() / $gcd) ;
+            $this->value['den']->set($this->value['den']->get() / $gcd);
         }
     }
 

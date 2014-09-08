@@ -95,6 +95,14 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($r1, $r2->abs());
         $this->assertEquals($r1, $r3->abs());
     }
+    
+    public function testCloneDoesCloneInnerValue()
+    {
+        $r1 = new RationalType(new IntType(1), new IntType(2));
+        $clone = clone $r1;
+        $clone->set(new IntType(3), new IntType(4));
+        $this->assertNotEquals($clone(), $r1());
+    }
 
     public function testMagicInvokeProxiesToGet()
     {
