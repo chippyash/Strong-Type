@@ -450,6 +450,14 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider polars
      */
+    public function testGetPolarQuadrantReturnsCorrectQuadrant(ComplexType $c, $r, $t, $q)
+    {
+        $this->assertEquals($q, $c->getPolarQuadrant());
+    }
+    
+    /**
+     * @dataProvider polars
+     */
     public function testpolarQuadrantReturnsCorrectQuadrant(ComplexType $c, $r, $t, $q)
     {
         $this->assertEquals($q, $c->polarQuadrant());
@@ -459,29 +467,6 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $c1 = new ComplexType($this->createRationalType(-4), $this->createRationalType(0));
 //        $this->assertEquals('2i', (string) $c1->sqrt());
-//    }
-//    
-//    public function testPowReturnsCorrectValue()
-//    {
-//        $c1 = new ComplexType($this->createRationalType(2), $this->createRationalType(3));
-//        $p = $c1->pow(new IntType(3));
-//        $this->assertEquals('8+27i', (string) $p);
-//        $c1 = new ComplexType($this->createRationalType(2, 3), $this->createRationalType(3, -4));
-//        $p = $c1->pow(new IntType(3));
-//        $this->assertEquals('8/27+27/64i', (string) $p);
-//    }
-//
-//    public function testSqrtReturnsCorrectValue()
-//    {
-//        $c1 = new ComplexType($this->createRationalType(2), $this->createRationalType(3));
-//        $s = $c1->sqrt();
-//        $this->assertEquals('22619537/15994428+37220045/21489003i', (string) $s);
-//        $c1 = new ComplexType($this->createRationalType(4), $this->createRationalType(9));
-//        $s = $c1->sqrt();
-//        $this->assertEquals('2+3i', (string) $s);
-//        $c1 = new ComplexType($this->createRationalType(4), $this->createRationalType(-9));
-//        $s = $c1->sqrt();
-//        $this->assertEquals('2+3i', (string) $s);
 //    }
 //    
     /**
