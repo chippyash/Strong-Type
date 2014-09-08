@@ -55,7 +55,7 @@ class FloatType extends AbstractType implements NumericTypeInterface
      */
     public function asRational()
     {
-        return RationalTypeFactory::fromFloat($this->value, 1E-17);
+        return RationalTypeFactory::fromFloat($this->value);
     }
 
     /**

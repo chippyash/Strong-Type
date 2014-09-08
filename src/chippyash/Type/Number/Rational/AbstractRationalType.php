@@ -12,6 +12,7 @@
  */
 namespace chippyash\Type\Number\Rational;
 
+use chippyash\Type\AbstractMultiValueType;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\BoolType;
 use chippyash\Type\Interfaces\RationalTypeInterface;
@@ -22,71 +23,24 @@ use chippyash\Type\Number\Rational\RationalType;
 
 /**
  * Abstract rational number type
- * Does not extend AbstractType, as it requires two parts, but follows it closely
- *
- * Using an abstract base as I will implement variants that utilise gmp and bcmath extensions
  */
-abstract class AbstractRationalType implements RationalTypeInterface, NumericTypeInterface
+abstract class AbstractRationalType extends AbstractMultiValueType implements RationalTypeInterface, NumericTypeInterface
 {
     /**
-     * numerator
-     * @var mixed
+     * Do we reduce to lowest form on construct and set?
+     * 
+     * @var boolean
      */
-    protected $num;
-
+    protected $reduce = true;
+        
     /**
-     * denominator
-     * @var mixed
+     * map of values for this type
+     * @var array
      */
-    protected $den;
-
-    /**
-     * Construct new rational
-     * Use the RationalTypeFactory to create rationals from native PHP types
-     *
-     * @param \chippyash\Type\Number\IntType $num numerator
-     * @param \chippyash\Type\Number\IntType $den denominator
-     * @param \chippyash\Type\BoolType $reduce -optional: default = true
-     */
-    public function __construct(IntType $num, IntType $den, BoolType $reduce = null)
-    {
-        $this->setFromTypes($num, $den, $reduce);
-    }
-
-    /**
-     * Magic invoke method
-     * Proxy to get()
-     * @see get
-     *
-     * @return mixed
-     */
-    public function __invoke()
-    {
-        return $this->get();
-    }
-
-    /**
-     * This extends the chippyash\Type\TypeInterface set method and finds the
-     * arguments to satisfy setFromTypes()
-     *
-     * Expected parameters
-     * @see setFromTypes
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function set($value)
-    {
-        $nArgs = func_num_args();
-        if ($nArgs < 2) {
-            throw new \InvalidArgumentException('set() expects at least two parameters');
-        }
-        $args = func_get_args();
-        if ($nArgs == 2) {
-            return $this->setFromTypes($args[0], $args[1]);
-        }
-
-        return  $this->setFromTypes($args[0], $args[1], $args[2]);
-    }
+    protected $valueMap = [
+        0 => ['name' => 'num', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'],
+        1 => ['name' => 'den', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface']
+    ];    
 
     /**
      * Return the number as a Complex number i.e. n+0i
@@ -132,55 +86,59 @@ abstract class AbstractRationalType implements RationalTypeInterface, NumericTyp
     }
 
     /**
-     * Set values for rational
-     *
-     * @param \chippyash\Type\Number\IntType $num numerator
-     * @param \chippyash\Type\Number\IntType $den denominator
-     * @param \chippyash\Type\BoolType $reduce -optional: default = true
-     *
-     * @return \chippyash\Type\Number\Rational\AbstractRationalType Fluent Interface
-     */
-    abstract public function setFromTypes(IntType $num, IntType $den, BoolType $reduce = null);
-
-    /**
      * Get the numerator
      * @return mixed
      */
-    abstract public function numerator();
+    public function numerator()
+    {
+        return $this->value['num'];
+    }
 
     /**
      * Get the denominator
      *
      * @return mixed
      */
-    abstract public function denominator();
-
-    /**
-     * Get the basic PHP value of the object type properly
-     * In this case, the type is a float
-     *
-     * @return float
-     */
-    abstract public function get();
-
-    /**
-     * Magic method - convert to string
-     * Returns "<num>/<den>"
-     *
-     * @return string
-     */
-    abstract public function __toString();
-
+    public function denominator()
+    {
+        return $this->value['den'];
+    }
+    
     /**
      * Return the absolute value of the number
+     * 
+     * @abstract
      *
      * @returns chippyash\Type\Number\Rational\AbstractRationalType
      */
-    abstract public function abs();
-
+    abstract public function abs();  
+    
     /**
      * Reduce this number to it's lowest form
+     * 
+     * @abstract
      */
     abstract protected function reduce();
 
+    /**
+     * Maps values passed in as parameters to constructor and set methods into
+     * the value array
+     * 
+     * @param array $params
+     * @throws \InvalidArgumentException
+     */
+    protected function setFromTypes(array $params)
+    {
+        parent::setFromTypes($params);
+        
+        if ($this->reduce) {
+            $this->reduce();
+        }        
+        
+        if ($this->value['den']->get() < 0) {
+            //normalise the sign
+            $this->value['num']->negate();
+            $this->value['den']->negate();
+        }
+    }
 }

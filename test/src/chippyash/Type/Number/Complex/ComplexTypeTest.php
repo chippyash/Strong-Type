@@ -36,32 +36,32 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException Exception
      */
-    public function testSetFromTypesExpectsFirstParameterToBeRationalType()
+    public function testSetExpectsFirstParameterToBeRationalType()
     {
         $c = new ComplexType($this->createRationalType(0), $this->createRationalType(0));
-        $c->setFromTypes('foo');
+        $c->set('foo');
     }
 
     /**
      * @expectedException Exception
      */
-    public function testSetFromTypesExpectsSecondParameterToBeRationalType()
+    public function testSetExpectsSecondParameterToBeRationalType()
     {
         $c = new ComplexType($this->createRationalType(0), $this->createRationalType(0));
-        $c->setFromTypes($this->createRationalType(0), 'foo');
+        $c->set($this->createRationalType(0), 'foo');
     }
 
-    public function testSetFromTypesWithTwoRationalTypeParametersWillReturnComplexType()
+    public function testSetWithTwoRationalTypeParametersWillReturnComplexType()
     {
         $c = new ComplexType($this->createRationalType(0), $this->createRationalType(0));
         $this->assertInstanceOf(
                 'chippyash\Type\Number\Complex\ComplexType',
-                $c->setFromTypes($this->createRationalType(0), $this->createRationalType(0)));
+                $c->set($this->createRationalType(0), $this->createRationalType(0)));
     }
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage set() expects two parameters
+     * @expectedExceptionMessage Expected 2 parameters, got 1
      */
     public function testSetWithLessThanTwoParameterThrowsException()
     {
@@ -71,7 +71,7 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage set() expects two parameters
+     * @expectedExceptionMessage Expected 2 parameters, got 3
      */
     public function testSetWithMoreThanTwoParameterThrowsException()
     {
@@ -79,7 +79,7 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $c->set($this->createRationalType(0),$this->createRationalType(0),$this->createRationalType(0));
     }
 
-    public function testSetThanTwoParameterReturnsComplexType()
+    public function testSetWithTwoParameterReturnsComplexType()
     {
         $c = new ComplexType($this->createRationalType(0), $this->createRationalType(0));
         $this->assertInstanceOf(
@@ -276,20 +276,37 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($c->isReal());
     }
 
-    public function testGetReturnsIntegerForIntegerRealNumber()
+    public function testGetReturnsZeroIntegerForZeroComplexNumber()
+    {
+        $c = new ComplexType($this->createRationalType(0), $this->createRationalType(0));
+        $this->assertInternalType('int', $c->get());
+    }
+
+    public function testGetReturnsIntegerForIntegerRealComplexNumber()
     {
         $c = new ComplexType($this->createRationalType(1), $this->createRationalType(0));
         $this->assertInternalType('int', $c->get());
     }
 
-    public function testGetReturnsFloatForFloatRealNumber()
+    public function testGetReturnsFloatForFloatRealComplexNumber()
     {
         $c = new ComplexType(RationalTypeFactory::fromFloat(2.5), $this->createRationalType(0));
         $this->assertInternalType('float', $c->get());
     }
 
+    public function testGetReturnsStringForNonRealComplexNumber()
+    {
+        $c = new ComplexType(RationalTypeFactory::fromFloat(2.5), $this->createRationalType(3.6));
+        $this->assertInternalType('string', $c->get());
+    }
+
     public function testMagicToStringReturnsString()
     {
+        $c = new ComplexType($this->createRationalType(0), $this->createRationalType(0));
+        $test = (string) $c;
+        $this->assertInternalType('string', $test);
+        $this->assertEquals('0', $test);
+
         $c = new ComplexType($this->createRationalType(1), $this->createRationalType(2));
         $test = (string) $c;
         $this->assertInternalType('string', $test);
@@ -505,14 +522,22 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase
     {
         return [
             //quadrant 1
-            [new ComplexType($this->createRationalType(5), $this->createRationalType(2)),'192119201/35675640','15238812/40048769', 1],
+            [new ComplexType($this->createRationalType(5), $this->createRationalType(2)),'73997555/13741001','15238812/40048769', 1],
             //quadrant 2
-            [new ComplexType($this->createRationalType(-5), $this->createRationalType(2)),'192119201/35675640','266613702/96561163', 2],
+            [new ComplexType($this->createRationalType(-5), $this->createRationalType(2)),'73997555/13741001','266613702/96561163', 2],
             //quadrant 3
-            [new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)),'192119201/35675640','-266613702/96561163', 3],
+            [new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)),'73997555/13741001','-266613702/96561163', 3],
             //quadrant 4
-            [new ComplexType($this->createRationalType(5), $this->createRationalType(-2)),'192119201/35675640','-15238812/40048769', 4],
+            [new ComplexType($this->createRationalType(5), $this->createRationalType(-2)),'73997555/13741001','-15238812/40048769', 4],
         ];
+    }
+    
+    public function testCloneDoesCloneInnerValue()
+    {
+        $c1 = new ComplexType($this->createRationalType(2), $this->createRationalType(1));
+        $clone = clone $c1;
+        $clone->set($this->createRationalType(5), $this->createRationalType(6));
+        $this->assertNotEquals($clone(), $c1());
     }
     
     /**

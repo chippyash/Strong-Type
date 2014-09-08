@@ -83,7 +83,7 @@ abstract class AbstractType implements TypeInterface
         $tmp = $this->get();
         return (\is_string($tmp) ? $tmp : (string) $tmp);
     }
-
+  
     /**
      * Return correctly typed value for this type
      *

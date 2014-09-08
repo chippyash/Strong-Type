@@ -20,17 +20,6 @@ use chippyash\Type\BoolType;
 interface RationalTypeInterface extends TypeInterface
 {
     /**
-     * Set values for rational
-     *
-     * @param \chippyash\Type\Number\IntType $num numerator
-     * @param \chippyash\Type\Number\IntType $den denominator
-     * @param \chippyash\Type\BoolType $reduce -optional: default = true
-     *
-     * @return chippyash\Type\Interfaces\RationalTypeInterface Fluent Interface
-     */
-    public function setFromTypes(IntType $num, IntType $den, BoolType $reduce = null);
-
-    /**
      * Get the numerator
      * @return mixed
      */
