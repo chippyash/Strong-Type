@@ -179,29 +179,4 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
         $this->assertEquals(2, (string) $i);
     }
-
-//    /**
-//     * @expectedException PHPUnit_Framework_Error
-//     */
-//    public function testPowThrowsExceptioIfParameterNotIntType()
-//    {
-//        $o = new RationalType(new IntType(2), new IntType(1));
-//        $o->pow('foo');
-//    }
-//
-//    public function testPowWillReturnRationalType()
-//    {
-//        $o = new RationalType(new IntType(2), new IntType(3));
-//        $p = $o->pow(new IntType(2));
-//        $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $p);
-//        $this->assertEquals('4/9', (string) $p);
-//    }
-//
-//    public function testSqrtWillReturnRationalType()
-//    {
-//        $o = new RationalType(new IntType(4), new IntType(9));
-//        $s = $o->sqrt();
-//        $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $s);
-//        $this->assertEquals('2/3', (string) $s);
-//    }
 }

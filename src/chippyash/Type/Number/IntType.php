@@ -155,31 +155,6 @@ class IntType extends AbstractType implements NumericTypeInterface
         return $factors;
     }
 
-//    /**
-//     * Return square root of the number
-//     *
-//     * Health warning: square roots of non perfect square numbers are
-//     * inevitably a compromise and likely to have a margin of error
-//     * 
-//     * Also note that trying to get sqrt of a negative integer will result
-//     * in a complex number
-//     * @link http://www.regentsprep.org/Regents/math/algtrig/ATO6/SquareRootLes.htm
-//     *
-//     * @return chippyash\Type\Number\Rational\RationalType|chippyash\Type\Number\Complex\ComplexType
-//     */
-//    public function sqrt()
-//    {
-//        if ($this->value >= 0) {
-//            //return rational number
-//            return RationalTypeFactory::fromFloat(sqrt($this->value));
-//        } else {
-//            //return complex number
-//            $i = RationalTypeFactory::fromFloat(sqrt(abs($this->value)));
-//            $r = RationalTypeFactory::create(0);
-//            return ComplexTypeFactory::create($r, $i);
-//        }
-//    }
-
     protected function typeOf($value)
     {
         return intval($value);

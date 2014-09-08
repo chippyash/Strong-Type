@@ -179,29 +179,4 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\chippyash\Type\Number\GMPIntType', $i);
         $this->assertEquals(2, (string) $i);
     }
-
-//    /**
-//     * @expectedException PHPUnit_Framework_Error
-//     */
-//    public function testPowThrowsExceptioIfParameterNotGMPIntType()
-//    {
-//        $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
-//        $o->pow('foo');
-//    }
-//
-//    public function testPowWillReturnGMPRationalType()
-//    {
-//        $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(3));
-//        $p = $o->pow(new GMPIntType(2));
-//        $this->assertInstanceOf('\chippyash\Type\Number\Rational\GMPRationalType', $p);
-//        $this->assertEquals('4/9', (string) $p);
-//    }
-//
-//    public function testSqrtWillReturnGMPRationalType()
-//    {
-//        $o = new GMPRationalType(new GMPIntType(4), new GMPIntType(9));
-//        $s = $o->sqrt();
-//        $this->assertInstanceOf('\chippyash\Type\Number\Rational\GMPRationalType', $s);
-//        $this->assertEquals('2/3', (string) $s);
-//    }
 }

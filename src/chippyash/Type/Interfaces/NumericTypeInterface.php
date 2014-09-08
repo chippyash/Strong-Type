@@ -58,4 +58,11 @@ interface NumericTypeInterface {
      * @returns chippyash\Type\Interfaces\NumericTypeInterface
      */
     public function abs();
+
+    /**
+     * Return square root of the number
+     *
+     * @return chippyash\Type\Number\Rational\RationalType
+     */
+    public function sqrt();
 }

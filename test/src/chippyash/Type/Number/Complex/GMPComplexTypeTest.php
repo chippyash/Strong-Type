@@ -289,29 +289,29 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
 //        $this->assertInternalType('float', $c->get());
 //    }
 
-//    public function testMagicToStringReturnsString()
-//    {
-//        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
-//        $test = (string) $c;
-//        $this->assertInternalType('string', $test);
-//        $this->assertEquals('1+2i', $test);
-//
-//        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(0));
-//        $test = (string) $c;
-//        $this->assertInternalType('string', $test);
-//        $this->assertEquals('1', $test);
-//
-//        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
-//        $test = (string) $c;
-//        $this->assertInternalType('string', $test);
-//        $this->assertEquals('5/2', $test);
-//
-//        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(-2));
-//        $test = (string) $c;
-//        $this->assertInternalType('string', $test);
-//        $this->assertEquals('5/2-2i', $test);
-//
-//    }
+    public function testMagicToStringReturnsString()
+    {
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
+        $test = (string) $c;
+        $this->assertInternalType('string', $test);
+        $this->assertEquals('1+2i', $test);
+
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(0));
+        $test = (string) $c;
+        $this->assertInternalType('string', $test);
+        $this->assertEquals('1', $test);
+
+        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
+        $test = (string) $c;
+        $this->assertInternalType('string', $test);
+        $this->assertEquals('5/2', $test);
+
+        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(-2));
+        $test = (string) $c;
+        $this->assertInternalType('string', $test);
+        $this->assertEquals('5/2-2i', $test);
+
+    }
 
     public function testGetReturnsStringForComplexNumber()
     {
