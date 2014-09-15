@@ -13,7 +13,7 @@ specify a requirement for gmp and will therefore be passed over.
 [![Coverage Status](https://coveralls.io/repos/chippyash/Strong-Type/badge.png)](https://coveralls.io/r/chippyash/Strong-Type)
 
 See above request for help: gmp is not being tested at the present time by the
-Travis CI servers.  The gmp specific testsgs do run locally - I promise!
+Travis CI servers.  The gmp specific tests do run locally - I promise!
 
 ## What?
 
