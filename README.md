@@ -198,7 +198,7 @@ then use ComplexType::toFloat() which will throw an exception if the number is n
 Polar form complex numbers are supported by the polar methods in ComplexType and also by the
 ComplexTypeFactory::fromPolar(RationalType $radius, RationalType $theta) method.
 
-### Support for GMP extension
+### Support for GMP extension - V2 onwards only
 
 The library automatically recognises the availability of the gmp extension and
 will use it for int, rational and complex types.  There is no gmp support for 
