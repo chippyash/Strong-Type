@@ -3,9 +3,6 @@
 namespace chippyash\Test\Type;
 
 use chippyash\Type\TypeFactory;
-use chippyash\Type\Number\IntType;
-use chippyash\Type\Number\Rational\RationalTypeFactory;
-use chippyash\Type\Number\Complex\ComplexTypeFactory;
 
 class TypeFactoryTest extends \PHPUnit_Framework_TestCase
 {

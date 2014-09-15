@@ -3,7 +3,6 @@
 namespace chippyash\Test\Type\Number\Complex;
 
 use chippyash\Type\Number\Complex\GMPComplexType;
-use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\GMPIntType;
@@ -129,16 +128,6 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($c->isGaussian());
     }
 
-//    public function testIsGaussianForOnePartNotBeingIntegerValuesReturnsFalse()
-//    {
-//        $nonInt = GMPRationalTypeFactory::fromFloat(2.00001);
-//        $int = $this->createGMPRationalType(2);
-//        $c = new GMPComplexType($nonInt, $int);
-//        $this->assertFalse($c->isGaussian());
-//        $c2 = new GMPComplexType($int, $nonInt);
-//        $this->assertFalse($c2->isGaussian());
-//    }
-
     public function testConjugateReturnsCorrectGMPComplexType()
     {
         $c = new GMPComplexType($this->createGMPRationalType(2), $this->createGMPRationalType(3));
@@ -156,26 +145,6 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $c = new GMPComplexType($r, $r);
         $this->assertEquals((string) $r, (string) $c->modulus());
     }
-
-    /**
-     * for r == a real number
-     * z = r+0i
-     * |z| = sqrt(r^2 + 0^2)
-     *     = sqrt(r^2)
-     *     = abs(r)
-     */
-//    public function testModulusForRealReturnsAbsReal()
-//    {
-//        $zi = $this->createGMPRationalType(0);
-//        //test a selection
-//        $r = -13;
-//        while ($r<14) {
-//            $zr = GMPRationalTypeFactory::fromFloat($r);
-//            $z = new GMPComplexType($zr, $zi);
-//            $this->assertEquals(abs($r), $z->modulus()->get());
-//            $r+=0.3;
-//        }
-//    }
 
     /**
      * mod(c1 + c2) <= mod(c1) + mod(c2)
@@ -222,28 +191,28 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * |c1 * c2| = |c1| * |c2|
      */
-//    public function testCommutativeMultiplicationAttributeForModulus()
-//    {
-//        $c1 = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
-//        $c2 = new GMPComplexType($this->createGMPRationalType(3), $this->createGMPRationalType(4));
-//
-//        $c1R = $c1->r()->get();
-//        $c1I = $c1->i()->get();
-//        $c2R = $c2->r()->get();
-//        $c2I = $c2->i()->get();
-//        $nR = ($c1R * $c2R) - ($c1I * $c2I);
-//        $nI = ($c1I * $c2R) + ($c1R * $c2I);
-//        $c1mulc2 = new GMPComplexType(
-//                GMPRationalTypeFactory::fromFloat($nR),
-//                GMPRationalTypeFactory::fromFloat($nI)
-//                );
-//
-//        $mod1 = $c1->modulus();
-//        $mod2 = $c2->modulus();
-//        $modc1mulc2 = $c1mulc2->modulus();
-//
-//        $this->assertEquals($modc1mulc2(), $mod1() * $mod2());
-//    }
+    public function testCommutativeMultiplicationAttributeForModulus()
+    {
+        $c1 = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
+        $c2 = new GMPComplexType($this->createGMPRationalType(3), $this->createGMPRationalType(4));
+
+        $c1R = $c1->r()->get();
+        $c1I = $c1->i()->get();
+        $c2R = $c2->r()->get();
+        $c2I = $c2->i()->get();
+        $nR = ($c1R * $c2R) - ($c1I * $c2I);
+        $nI = ($c1I * $c2R) + ($c1R * $c2I);
+        $c1mulc2 = new GMPComplexType(
+                RationalTypeFactory::fromFloat($nR),
+                RationalTypeFactory::fromFloat($nI)
+                );
+
+        $mod1 = $c1->modulus();
+        $mod2 = $c2->modulus();
+        $modc1mulc2 = $c1mulc2->modulus();
+
+        $this->assertEquals($modc1mulc2(), $mod1() * $mod2());
+    }
 
     public function testModulusReturnsCorrectResult()
     {
@@ -286,11 +255,11 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('int', $c->get());
     }
 
-//    public function testGetReturnsFloatForFloatRealNumber()
-//    {
-//        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
-//        $this->assertInternalType('float', $c->get());
-//    }
+    public function testGetReturnsFloatForFloatRealNumber()
+    {
+        $c = new GMPComplexType(RationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
+        $this->assertInternalType('float', $c->get());
+    }
 
     public function testMagicToStringReturnsString()
     {
@@ -337,12 +306,12 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $c());
     }
 
-//    public function testMagicInvokeReturnsFloatForRealFloatComplexNumber()
-//    {
-//        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
-//        $this->assertInternalType('float', $c());
-//        $this->assertEquals(2.5, $c());
-//    }
+    public function testMagicInvokeReturnsFloatForRealFloatComplexNumber()
+    {
+        $c = new GMPComplexType(RationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
+        $this->assertInternalType('float', $c());
+        $this->assertEquals(2.5, $c());
+    }
 
     /**
      * @expectedException chippyash\Type\Exceptions\NotRealComplexException
