@@ -5,12 +5,23 @@ namespace chippyash\Test\Type\Number\Complex;
 use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Rational\GMPRationalType;
-use chippyash\Type\Number\Rational\GMPRationalTypeFactory;
+use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\GMPIntType;
+use chippyash\Type\TypeFactory;
+use chippyash\Type\Traits\GmpTypeCheck;
 
+/**
+ * @requires extension gmp
+ * @runTestsInSeparateProcesses
+ */
 class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
 {
-
+    use GmpTypeCheck;
+    
+    public function setUp() {
+        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
+    }
+    
     /**
      * @expectedException Exception
      */
@@ -37,32 +48,32 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException Exception
      */
-    public function testSetFromTypesExpectsFirstParameterToBeGMPRationalType()
+    public function testSetExpectsFirstParameterToBeGMPRationalType()
     {
         $c = new GMPComplexType($this->createGMPRationalType(0), $this->createGMPRationalType(0));
-        $c->setFromTypes('foo');
+        $c->set('foo');
     }
 
     /**
      * @expectedException Exception
      */
-    public function testSetFromTypesExpectsSecondParameterToBeGMPRationalType()
+    public function testSetExpectsSecondParameterToBeGMPRationalType()
     {
         $c = new GMPComplexType($this->createGMPRationalType(0), $this->createGMPRationalType(0));
-        $c->setFromTypes($this->createGMPRationalType(0), 'foo');
+        $c->set($this->createGMPRationalType(0), 'foo');
     }
 
-    public function testSetFromTypesWithTwoGMPRationalTypeParametersWillReturnGMPComplexType()
+    public function testSetWithTwoGMPRationalTypeParametersWillReturnGMPComplexType()
     {
         $c = new GMPComplexType($this->createGMPRationalType(0), $this->createGMPRationalType(0));
         $this->assertInstanceOf(
                 'chippyash\Type\Number\Complex\GMPComplexType',
-                $c->setFromTypes($this->createGMPRationalType(0), $this->createGMPRationalType(0)));
+                $c->set($this->createGMPRationalType(0), $this->createGMPRationalType(0)));
     }
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage set() expects two parameters
+     * @expectedExceptionMessage Expected 2 parameters, got 1
      */
     public function testSetWithLessThanTwoParameterThrowsException()
     {
@@ -72,20 +83,12 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage set() expects two parameters
+     * @expectedExceptionMessage Expected 2 parameters, got 3
      */
     public function testSetWithMoreThanTwoParameterThrowsException()
     {
         $c = new GMPComplexType($this->createGMPRationalType(0), $this->createGMPRationalType(0));
         $c->set($this->createGMPRationalType(0),$this->createGMPRationalType(0),$this->createGMPRationalType(0));
-    }
-
-    public function testSetThanTwoParameterReturnsGMPComplexType()
-    {
-        $c = new GMPComplexType($this->createGMPRationalType(0), $this->createGMPRationalType(0));
-        $this->assertInstanceOf(
-                'chippyash\Type\Number\Complex\GMPComplexType',
-                $c->set($this->createGMPRationalType(0),$this->createGMPRationalType(0)));
     }
 
     public function testRReturnsRational()
@@ -301,12 +304,12 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $test);
         $this->assertEquals('1', $test);
 
-        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
+        $c = new GMPComplexType(RationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(0));
         $test = (string) $c;
         $this->assertInternalType('string', $test);
         $this->assertEquals('5/2', $test);
 
-        $c = new GMPComplexType(GMPRationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(-2));
+        $c = new GMPComplexType(RationalTypeFactory::fromFloat(2.5), $this->createGMPRationalType(-2));
         $test = (string) $c;
         $this->assertInternalType('string', $test);
         $this->assertEquals('5/2-2i', $test);
@@ -370,13 +373,13 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($c, $c2);
     }
 
-    public function testAsRationalReturnsGMPRationalType()
+    public function testAsRationalReturnsRationalType()
     {
         $t = new GMPComplexType($this->createGMPRationalType(2), $this->createGMPRationalType(0));
         $r = $t->AsRational();
-        $this->assertInstanceOf('\chippyash\Type\Number\Rational\GMPRationalType', $r);
-        $this->assertInstanceOf('\chippyash\Type\Number\GMPIntType', $r->numerator());
-        $this->assertInstanceOf('\chippyash\Type\Number\GMPIntType', $r->denominator());
+        $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $r);
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $r->numerator());
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $r->denominator());
         $this->assertEquals(2, (string) $r);
     }
 
@@ -388,11 +391,11 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, (string) $f);
     }
 
-    public function testAsIntTypeReturnsGMPIntType()
+    public function testAsIntTypeReturnsIntType()
     {
         $t = new GMPComplexType($this->createGMPRationalType(2), $this->createGMPRationalType(0));
         $i = $t->asIntType();
-        $this->assertInstanceOf('\chippyash\Type\Number\GMPIntType', $i);
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
         $this->assertEquals(2, (string) $i);
     }
 
@@ -437,7 +440,73 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((string) $c1->modulus(), (string) $c3->abs());
         $this->assertEquals((string) $c1->modulus(), (string) $c4->abs());
     }
+    
+    public function testThetaReturnsGMPRationalType()
+    {
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $c->theta());
+    }
+    
 
+    public function testPolarStringForZeroComplexReturnsZeroString() {
+        $c = new GMPComplexType($this->createGMPRationalType(0), $this->createGMPRationalType(0));
+        $this->assertEquals('0', $c->polarString());
+    }
+
+    public function testPolarStringForNonZeroComplexReturnsNonZeroString() {
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(0));
+        $this->assertEquals('cos 0 + i⋅sin 0', $c->polarString());
+        $c = new GMPComplexType($this->createGMPRationalType(5), $this->createGMPRationalType(0));
+        $this->assertEquals('5(cos 0 + i⋅sin 0)', $c->polarString());
+        $c = new GMPComplexType($this->createGMPRationalType(5), $this->createGMPRationalType(2));
+        $this->assertEquals('5.385165(cos 0.380506 + i⋅sin 0.380506)', $c->polarString());
+    }
+    
+    public function testGmpReturnsArray()
+    {
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
+        $gmp = $c->gmp();
+        $this->assertInternalType('array', $gmp);
+        $this->assertInternalType('array', $gmp[0]);
+        $this->assertInternalType('array', $gmp[1]);
+        $this->assertTrue($this->gmpTypeCheck($gmp[0][0]));
+        $this->assertTrue($this->gmpTypeCheck($gmp[0][1]));
+        $this->assertTrue($this->gmpTypeCheck($gmp[1][0]));
+        $this->assertTrue($this->gmpTypeCheck($gmp[1][1]));
+    }
+
+    /**
+     * @expectedException chippyash\Type\Exceptions\NotRealComplexException
+     */
+    public function testAsGmpIntTypeThrowsExceptionForNonRealComplex()
+    {
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
+        $c->asGMPIntType();
+    }
+    
+    public function testAsGmpComplexReturnsClone()
+    {
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
+        $clone = $c->asGMPComplex();
+        $clone->negate();
+        $this->assertNotEquals((string) $clone, (string) $c);
+    }
+    
+    public function testAsGmpRationalReturnsGmpRationalForRealComplex()
+    {
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(0));
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $c->asGMPRational());
+    }
+    
+    /**
+     * @expectedException chippyash\Type\Exceptions\NotRealComplexException
+     */
+    public function testAsGmpRationalThrowsExceptionForNonRealComplex()
+    {
+        $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(2));
+        $c->asGMPRational();
+    }
+    
     /**
      * Create a GMP rational type
      *

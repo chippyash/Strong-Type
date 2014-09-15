@@ -3,6 +3,8 @@
 namespace chippyash\Test\Type\Number\Rational;
 
 use chippyash\Type\Number\IntType;
+use chippyash\Type\TypeFactory;
+
 
 class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,6 +17,7 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
         $this->object = $this->getMockForAbstractClass(
                 'chippyash\Type\Number\Rational\AbstractRationalType',
                 [new IntType(3), new IntType(4)]);
@@ -23,9 +26,6 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
     public function testMagicInvokeProxiesToGet()
     {
         $o = $this->object;
-        $o->expects($this->once())
-                ->method('getAsNativeType')
-                ->will($this->returnValue(3 / 4));
         $this->assertEquals(3 / 4, $o());
     }
 
@@ -68,10 +68,7 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
     public function testGetReturnsValue()
     {
         $o = $this->object;
-        $o->expects($this->once())
-                ->method('getAsNativeType')
-                ->will($this->returnValue('foo'));
-        $this->assertEquals('foo', $o->get());
+        $this->assertEquals(0.75, $o->get());
     }
 
     public function testAsComplexReturnsComplexType()
@@ -93,9 +90,6 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
     public function testAsFloatTypeReturnsFloatType()
     {
         $o = $this->object;
-        $o->expects($this->once())
-                ->method('getAsNativeType')
-                ->will($this->returnValue(0.75));       
         $f = $o->asFloatType();
         $this->assertInstanceOf('\chippyash\Type\Number\FloatType', $f);
         $this->assertEquals(0.75, $f());
@@ -104,9 +98,6 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
     public function testAsIntTypeReturnsIntType()
     {
         $o = $this->object;
-        $o->expects($this->once())
-                ->method('getAsNativeType')
-                ->will($this->returnValue(0.75));  
         $i = $o->AsIntType();
         $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
         $this->assertEquals(0, $i());

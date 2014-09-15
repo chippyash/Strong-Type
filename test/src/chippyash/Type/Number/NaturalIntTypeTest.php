@@ -3,10 +3,16 @@
 namespace chippyash\Test\Type\Number;
 
 use chippyash\Type\Number\NaturalIntType;
+use chippyash\Type\TypeFactory;
 
 class NaturalIntTypeTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function setUp()
+    {
+        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+    }
+    
     public function testNaturalIntTypeConvertsToInteger()
     {
         $t = new NaturalIntType(12);

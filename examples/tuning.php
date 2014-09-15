@@ -3,7 +3,7 @@
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
- * An example of using caching and tuning
+ * An example of using tuning
  *
  * @author Ashley Kitson <akitson@zf4.biz>
  * @copyright Ashley Kitson, UK, 2014
@@ -13,9 +13,7 @@
 include "../vendor/autoload.php";
 
 use chippyash\Type\TypeFactory;
-use Zend\Cache\Storage\Adapter\Memory;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
-use chippyash\Type\Number\IntType;
 
 /**
  * Tuning
@@ -31,49 +29,32 @@ use chippyash\Type\Number\IntType;
  */
 RationalTypeFactory::setDefaultFromFloatTolerance(1e-15);
 
+/**
+ * Set the required number type.  System will automatically use GMP if
+ * it is available.  You can force it to use native PHP thus:
+ */
+TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+
 //now create 10000 numbers for the test
 //try playing with this figure to see the results
 $numbers = [];
 for ($x = 1; $x<10001; $x++) {
-    $numbers[$x] = new IntType($x);
+    $numbers[$x] = TypeFactory::create('int',$x);
 }
 
-//first pass - no cache
+//create primes
+$primes = [];
 $start = microtime(true);
-foreach ($numbers as $number) {
-    $number->primeFactors();
+foreach ($numbers as $key => $number) {
+    $primes[$key] = $number->primeFactors();
 }
 $end = microtime(true);
 $time = $end - $start;
-echo "No cache: {$time} secs.\n";
-
-//second pass - first time with cache
-//we are using a simple non persistent in-memory cache - you could try different types
-$cache = new Memory();
-TypeFactory::setCache($cache);
-
-//first pass - with cache
-$start = microtime(true);
-foreach ($numbers as $number) {
-    $number->primeFactors();
-}
-$end = microtime(true);
-$time = $end - $start;
-echo "Cache - first time: {$time} secs.\n";
-
-//second pass - with cache
-$start = microtime(true);
-foreach ($numbers as $number) {
-    $number->primeFactors();
-}
-$end = microtime(true);
-$time = $end - $start;
-echo "Cache - second time: {$time} secs.\n";
+echo "{$time} secs.\n";
 
 echo "And the results were:\n";
-foreach ($cache->getIterator() as $key)
+foreach ($primes as $key => $res)
 {
-    $res = $cache->getItem($key);
     $p = array_keys($res);
     $e = array_values($res);
     $factors = "{$key}=>";

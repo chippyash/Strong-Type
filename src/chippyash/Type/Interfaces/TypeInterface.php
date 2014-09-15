@@ -48,11 +48,4 @@ interface TypeInterface
      */
     public function __toString();
 
-    /**
-     * Set cache storage
-     *
-     * @param \Zend\Cache\Storage\StorageInterface $cache
-     * @return chippyash\Type\Traits\Cacheable Fluent Interface
-     */
-    public function setCache(CacheStorageInterface $cache);
 }

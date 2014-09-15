@@ -12,10 +12,14 @@ namespace chippyash\Type\Number\Complex;
 
 use chippyash\Type\Exceptions\InvalidTypeException;
 use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\GMPRationalType;
+use chippyash\Type\Number\Rational\AbstractRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\Complex\ComplexType;
+use chippyash\Type\Number\Complex\GMPComplexType;
+use chippyash\Type\TypeFactory;
 
 /**
  * Static Factory for creating complex types
@@ -26,6 +30,26 @@ use chippyash\Type\Number\Complex\ComplexType;
  */
 abstract class ComplexTypeFactory
 {
+    const TYPE_DEFAULT = 'auto';
+    const TYPE_NATIVE = 'native';
+    const TYPE_GMP = 'gmp';
+    
+    /**
+     * Client requested numeric base type support
+     * @var string
+     */
+    protected static $supportType = self::TYPE_DEFAULT;
+    /**
+     * Numeric base types we can support
+     * @var array
+     */
+    protected static $validTypes = [self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE];
+    /**
+     * The actual base type we are going to return
+     * @var string
+     */
+    protected static $requiredType = null;
+    
     /**
      * Complex type factory
      *
@@ -53,8 +77,12 @@ abstract class ComplexTypeFactory
 
         $r = self::convertType($realPart);
         $i = self::convertType($imaginaryPart);
-
-        return new ComplexType($r, $i);
+        
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return new GMPComplexType($r, $i);
+        } else {
+            return new ComplexType($r, $i);
+        }
     }
 
     /**
@@ -89,34 +117,104 @@ abstract class ComplexTypeFactory
             $im = '-' . $im;
         }
         
-        return new ComplexType(
-                self::convertType($re),
-                self::convertType($im));
+        $r = self::convertType($re);
+        $i = self::convertType($im);
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return new GMPComplexType($r, $i);
+        } else {
+            return new ComplexType($r, $i);
+        }
     }
 
     /**
      * Create complex type from polar co-ordinates
+     * 
+     * Be aware that you may lose a bit of precision e.g.
+     * $c = ComplexTypeFactory::create('2/7+3/4i');
+     * $c2 = ComplexTypeFactory::fromPolar($c->radius(), $c->theta());
+     * returns 132664833738225/464326918083788+3382204885901775/4509606514535696i
+     * which is ~0.2857142857142854066 + ~0.75000000000000066525i
+     * whereas the original is 
+     * ~0.28571428571428571429 + 0.75i
+     * 
+     * formula for conversion is z = r(cos(theta) + i.sin(theta))
+     * 
+     * @param \chippyash\Type\Number\Rational\AbstractRationalType $radius
+     * @param \chippyash\Type\Number\Rational\AbstractRationalType $theta angle expressed in radians
+     * 
+     * @return \chippyash\Type\Number\Complex\ComplexType
+     */
+    public static function fromPolar(AbstractRationalType $radius, AbstractRationalType $theta)
+    {
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return self::fromGmpPolar($radius, $theta);
+        } else {
+            return self::fromNativePolar($radius, $theta);
+        }
+    }
+    
+    /**
+     * Create complex type from polar co-ordinates - Native version
+     * 
+     * z = radius x (cos(theta) + i.sin(theta))
+     *   real = radius x cos(theta)
+     *   imag = radius x sin(theta)
      * 
      * @param \chippyash\Type\Number\Rational\RationalType $radius
      * @param \chippyash\Type\Number\Rational\RationalType $theta angle expressed in radians
      * 
      * @return \chippyash\Type\Number\Complex\ComplexType
      */
-    public static function fromPolar(RationalType $radius, RationalType $theta)
+    public static function fromNativePolar(RationalType $radius, RationalType $theta)
     {
-        $cos = RationalTypeFactory::fromFloat(cos($theta->asFloatType()->get()));
-        $sin = RationalTypeFactory::fromFloat(sin($theta->asFloatType()->get()));
-        $r = RationalTypeFactory::create(
-                new IntType($radius->numerator()->get() * $cos->numerator()->get()),
-                new IntType($radius->denominator()->get() * $cos->denominator()->get())
-                );
-        $i = RationalTypeFactory::create(
-                new IntType($radius->numerator()->get() * $sin->numerator()->get()),
-                new IntType($radius->denominator()->get() * $sin->denominator()->get())
-                );
+        $rad = (string) $radius;
+        $cos = RationalTypeFactory::fromFloat(cos($theta()));
+        $sin = RationalTypeFactory::fromFloat(sin($theta()));
+        $c = $cos();
+        $s = $sin();
+        
+        //real = radius * cos
+        $rn = TypeFactory::create('int', $radius->numerator()->get() * $cos->numerator()->get());
+        $rd = TypeFactory::create('int', $radius->denominator()->get() * $cos->denominator()->get());
+        //imag = radius * sin
+        $in = TypeFactory::create('int', $radius->numerator()->get() * $sin->numerator()->get());
+        $id = TypeFactory::create('int', $radius->denominator()->get() * $sin->denominator()->get());
+        $r = RationalTypeFactory::create($rn, $rd);
+        $i = RationalTypeFactory::create($in, $id);
+        
         return new ComplexType($r, $i);
     }
-    
+
+    /**
+     * Create complex type from polar co-ordinates - GMP version
+     * 
+     * @param \chippyash\Type\Number\Rational\GMPRationalType $radius
+     * @param \chippyash\Type\Number\Rational\GMPRationalType $theta angle expressed in radians
+     * 
+     * @return \chippyash\Type\Number\Complex\GMPComplexType
+     */
+    public static function fromGmpPolar(GMPRationalType $radius, GMPRationalType $theta)
+    {
+        $rad = (string) $radius;
+        $cos = RationalTypeFactory::fromFloat(cos($theta()));
+        $sin = RationalTypeFactory::fromFloat(sin($theta()));
+        $c = $cos();
+        $s = $sin();
+        
+        //real = radius * cos
+        $rn = TypeFactory::create('int', gmp_strval(gmp_mul($radius->numerator()->gmp(), $cos->numerator()->gmp())));
+        $rd = TypeFactory::create('int', gmp_strval(gmp_mul($radius->denominator()->gmp(), $cos->denominator()->gmp())));
+        $rna = (string) $rn;
+        $rda = (string) $rd;
+        //imag = radius * sin
+        $in = TypeFactory::create('int', gmp_strval(gmp_mul($radius->numerator()->gmp(), $sin->numerator()->gmp())));
+        $id = TypeFactory::create('int', gmp_strval(gmp_mul($radius->denominator()->gmp(), $sin->denominator()->gmp())));
+        $r = RationalTypeFactory::create($rn, $rd);
+        $i = RationalTypeFactory::create($in, $id);
+        
+        return new GMPComplexType($r, $i);
+    }
+
     /**
      * Convert to RationalType
      *
@@ -128,12 +226,12 @@ abstract class ComplexTypeFactory
      */
     protected static function convertType($t)
     {
-        if ($t instanceof RationalType) {
-            return $t;
+        if ($t instanceof AbstractRationalType) {
+            return RationalTypeFactory::create($t->numerator()->get(), $t->denominator()->get());
         }
         if (is_numeric($t)) {
             if (is_int($t)) {
-                return new RationalType(new IntType($t), new IntType(1));
+                return RationalTypeFactory::create($t, 1);
             }
             //default - convert to float
             return RationalTypeFactory::fromFloat(floatval($t));
@@ -142,7 +240,7 @@ abstract class ComplexTypeFactory
             return RationalTypeFactory::fromFloat($t());
         }
         if ($t instanceof IntType) {
-            return new RationalType(new IntType($t()), new IntType(1));
+            return RationalTypeFactory::create($t, 1);
         }
         if (is_string($t)) {
             try {
@@ -154,5 +252,47 @@ abstract class ComplexTypeFactory
 
         $typeT = gettype($t);
         throw new InvalidTypeException("{$typeT} for Complex type construction");
+    }
+    
+    /**
+     * Set the required number type to return
+     * By default this is self::TYPE_DEFAULT  which is 'auto', meaning that
+     * the factory will determine if GMP is installed and use that else use 
+     * PHP native types
+     * 
+     * @param string $requiredType
+     * @throws \InvalidArgumentException
+     */
+    public static function setNumberType($requiredType)
+    {
+        if (!in_array($requiredType, self::$validTypes)) {
+            throw new \InvalidArgumentException("{$requiredType} is not a supported number type");
+        }
+        if ($requiredType == self::TYPE_GMP && !function_exists('gmp_init')) {
+            throw new \InvalidArgumentException('GMP not supported');
+        }
+        self::$supportType = $requiredType;
+    }
+    
+    /**
+     * Get the required type base to return
+     * 
+     * @return string
+     */
+    protected static function getRequiredType()
+    {
+        if (self::$requiredType != null) {
+            return self::$requiredType;
+        }
+        
+        if (self::$supportType == self::TYPE_DEFAULT) {
+            if (function_exists('gmp_init')) {
+                self::$requiredType = self::TYPE_GMP;
+            }
+        } else {
+            self::$requiredType = self::$supportType;
+        }
+        
+        return self::$requiredType;
     }
 }

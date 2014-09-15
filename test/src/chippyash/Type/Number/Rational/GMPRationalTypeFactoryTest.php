@@ -7,13 +7,17 @@ use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\TypeFactory;
 
-class RationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
+/**
+ * @requires extension gmp
+ * @runTestsInSeparateProcesses
+ */
+class GMPRationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    const RAT_TYPE_NAME = 'chippyash\Type\Number\Rational\RationalType';
+    const RAT_TYPE_NAME = 'chippyash\Type\Number\Rational\GMPRationalType';
 
     public function setUp()
     {
-        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
     }
     
     public function testCreateFromValidStringValueReturnsRatioanalType()
@@ -146,5 +150,11 @@ class RationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('113/355', (string) RationalTypeFactory::fromFloat(M_1_PI));
         RationalTypeFactory::setDefaultFromFloatTolerance(1e-15);
         $this->assertEquals('25510582/80143857', (string) RationalTypeFactory::fromFloat(M_1_PI));
+    }
+    
+    public function testSetNumberTypeToDefaultWillSetGmpIfAvailable()
+    {
+        TypeFactory::setNumberType(TypeFactory::TYPE_DEFAULT);
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', TypeFactory::create('rational', 2));
     }
 }

@@ -13,9 +13,11 @@ use chippyash\Type\Exceptions\InvalidTypeException;
 use chippyash\Type\String\StringType;
 use chippyash\Type\String\DigitType;
 use chippyash\Type\Number\IntType;
+use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\Number\NaturalIntType;
 use chippyash\Type\Number\WholeIntType;
 use chippyash\Type\Number\FloatType;
+use chippyash\Type\Number\GMPFloatType;
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\BoolType;
@@ -25,8 +27,28 @@ use Zend\Cache\Storage\StorageInterface as CacheStorageInterface;
 /**
  * Static Factory for creating types
  */
-abstract class TypeFactory {
-
+abstract class TypeFactory 
+{
+    const TYPE_DEFAULT = 'auto';
+    const TYPE_NATIVE = 'native';
+    const TYPE_GMP = 'gmp';
+    
+    /**
+     * Client requested numeric base type support
+     * @var string
+     */
+    protected static $supportType = self::TYPE_DEFAULT;
+    /**
+     * Numeric base types we can support
+     * @var array
+     */
+    protected static $validTypes = [self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE];
+    /**
+     * The actual base type we are going to return
+     * @var string
+     */
+    protected static $requiredType = null;
+    
     /**
      * Generic type factory
      *
@@ -85,7 +107,11 @@ abstract class TypeFactory {
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for IntType");
         }
-        return new IntType($value);
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return new GMPIntType($value);
+        } else {
+            return new IntType($value);
+        }
     }
 
     /**
@@ -214,18 +240,48 @@ abstract class TypeFactory {
         $denominator = (is_null($denominator) ? 1 : $denominator);
         return RationalTypeFactory::create($numerator, $denominator);
     }
-
+    
     /**
-     * Set the cache storage adapter for all artifacts that can use it
-     * Simply call this at the beginning of your program to set caching for
-     * all subsequent operations
-     *
-     * @param \Zend\Cache\Storage\StorageInterface $cache
+     * Set the required number type to return
+     * By default this is self::TYPE_DEFAULT  which is 'auto', meaning that
+     * the factory will determine if GMP is installed and use that else use 
+     * PHP native types
+     * 
+     * @param string $requiredType
+     * @throws \InvalidArgumentException
      */
-    public static function setCache(CacheStorageInterface $cache)
+    public static function setNumberType($requiredType)
     {
-        self::createInt(0)->setCache($cache);
-        ComplexTypeFactory::create(0,0)->setCache($cache);
-        RationalTypeFactory::create(0)->setCache($cache);
+        if (!in_array($requiredType, self::$validTypes)) {
+            throw new \InvalidArgumentException("{$requiredType} is not a supported number type");
+        }
+        if ($requiredType == self::TYPE_GMP && !function_exists('gmp_init')) {
+            throw new \InvalidArgumentException('GMP not supported');
+        }
+        self::$supportType = $requiredType;
+        RationalTypeFactory::setNumberType($requiredType);
+        ComplexTypeFactory::setNumberType($requiredType);
+    }
+    
+    /**
+     * Get the required type base to return
+     * 
+     * @return string
+     */
+    protected static function getRequiredType()
+    {
+        if (self::$requiredType != null) {
+            return self::$requiredType;
+        }
+        
+        if (self::$supportType == self::TYPE_DEFAULT) {
+            if (function_exists('gmp_init')) {
+                self::$requiredType = self::TYPE_GMP;
+            }
+        } else {
+            self::$requiredType = self::$supportType;
+        }
+        
+        return self::$requiredType;
     }
 }

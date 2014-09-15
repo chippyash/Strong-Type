@@ -60,16 +60,6 @@ class GMPIntType extends IntType implements GMPInterface
     }
 
     /**
-     * Return number as an GMPIntType number.
-     *
-     * @returns chippyash\Type\Number\GMPIntType
-     */
-    public function asIntType()
-    {
-        return clone $this;
-    }
-
-    /**
      * Return number as a FloatType number.
      *
      * @returns chippyash\Type\Number\FloatType
@@ -179,6 +169,7 @@ class GMPIntType extends IntType implements GMPInterface
      */
     public function get()
     {
+        $a = gmp_strval($this->value);
         return intval(gmp_strval($this->value));
     }
 
@@ -192,6 +183,50 @@ class GMPIntType extends IntType implements GMPInterface
         return $this->value;
     }
 
+    /**
+     * Return number as GMPIntType number.
+     *
+     * @returns chippyash\Type\Number\GMPIntType
+     */
+    public function asGMPIntType()
+    {
+        return clone $this;
+    }
+    
+    /**
+     * Return number as IntType
+     * 
+     * @return \chippyash\Type\Number\IntType
+     */
+    public function asIntType()
+    {
+        return new IntType($this->get());
+    }
+    
+    /**
+     * Return the number as a GMPComplex number i.e. n+0i
+     * 
+     * @returns chippyash\Type\Number\Complex\GMPComplexType
+     */
+    public function asGMPComplex()
+    {
+        return new GMPComplexType(
+                new GMPRationalType(new GMPIntType($this->get()), new GMPIntType(1)),
+                new GMPRationalType(new GMPIntType(0), new GMPIntType(1))
+                );
+    }
+    
+    /**
+     * Return number as GMPRational number.
+     * NB, numerator and denominator will be caste as GMPIntTypes
+     *
+     * @returns chippyash\Type\Number\Rational\GMPRationalType
+     */
+    public function asGMPRational()
+    {
+        return new GMPRationalType(new GMPIntType($this->get()), new GMPIntType(1));
+    }
+    
     protected function typeOf($value)
     {
         if ($this->gmpTypeCheck($value)) {
@@ -201,5 +236,13 @@ class GMPIntType extends IntType implements GMPInterface
         }
     }
 
-
+    protected function cloneValue()
+    {
+        if (version_compare(PHP_VERSION, '5.6.0') < 0) {
+            //it's a resource so can be copied
+            return $this->value;
+        }
+        //it's an object so clone
+        return clone $this->value;
+    }
 }
