@@ -263,6 +263,9 @@ Install [Composer](https://getcomposer.org/)
 
 #### For production
 
+If you do not need GMP support, you can continue to use the V1.1 branch for the
+time being.
+ 
 add
 
 <pre>
@@ -271,6 +274,15 @@ add
 
 to your composer.json "requires" section
 
+If you want GMP support, use the V2 branch
+
+<pre>
+    "chippyash/strong-type": "~2.0.0"
+</pre>
+
+At some point in the not too distant future, the V2 branch will become the default,
+once upstream development of the type calculator to support GMP is complete.
+ 
 #### For development
 
 Clone this repo, and then run Composer in local repo root to pull in dependencies
@@ -332,3 +344,4 @@ V1.1.2 Ensure clone clones inner objects correctly
 
 V1.1.3 Refactor in preparation for supporting GMP types
 
+V2.0.0 Add GMP support
