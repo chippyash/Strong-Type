@@ -12,20 +12,25 @@ namespace chippyash\Type\Number\Rational;
 
 use chippyash\Type\Exceptions\InvalidTypeException;
 use chippyash\Type\Number\IntType;
+use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\GMPRationalType;
 
 /**
  * Static Factory for creating Rational types
  */
 abstract class RationalTypeFactory
 {
-
     /**
      * default error tolerance for fromFloat()
      */
     const CF_DEFAULT_TOLERANCE = 1.e-15;
 
+    const TYPE_DEFAULT = 'auto';
+    const TYPE_NATIVE = 'native';
+    const TYPE_GMP = 'gmp';
+    
     /**
      * Default error tolerance for from float
      * @see setDefaultFromFloatTolerance()
@@ -36,6 +41,22 @@ abstract class RationalTypeFactory
     protected static $defaultTolerance = self::CF_DEFAULT_TOLERANCE;
 
     /**
+     * Client requested numeric base type support
+     * @var string
+     */
+    protected static $supportType = self::TYPE_DEFAULT;
+    /**
+     * Numeric base types we can support
+     * @var array
+     */
+    protected static $validTypes = [self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE];
+    /**
+     * The actual base type we are going to return
+     * @var string
+     */
+    protected static $requiredType = null;
+    
+    /**
      * Rational type factory
      * Construct and return a rational. You can send in
      * - a string conforming to 'n/d'
@@ -45,7 +66,7 @@ abstract class RationalTypeFactory
      * @param string|float|int|IntType $numerator
      * @param int $denominator
      *
-     * @return \chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
      * @throws InvalidTypeException
      */
@@ -60,29 +81,27 @@ abstract class RationalTypeFactory
         }
 
         if (is_numeric($numerator) && is_null($denominator)) {
-            return new RationalType(new IntType($numerator),
-                    new IntType(1));
+            return self::createCorrectRational($numerator, 1);
         }
 
         if (is_numeric($numerator) && is_numeric($denominator)) {
-            return new RationalType(new IntType($numerator),
-                    new IntType($denominator));
+            return self::createCorrectRational($numerator, $denominator);
         }
 
         if (is_numeric($numerator) && $denominator instanceof IntType) {
-            return new RationalType(new IntType($numerator), $denominator);
+            return self::createCorrectRational($numerator, $denominator());
         }
 
         if ($numerator instanceof IntType && $denominator instanceof IntType) {
-            return new RationalType($numerator, $denominator);
+            return self::createCorrectRational($numerator(), $denominator());
         }
 
         if ($numerator instanceof IntType && is_null($denominator)) {
-            return new RationalType($numerator, new IntType(1));
+            return self::createCorrectRational($numerator(), 1);
         }
 
         if ($numerator instanceof IntType && is_numeric($denominator)) {
-            return new RationalType($numerator, new IntType($denominator));
+            return self::createCorrectRational($numerator(), $denominator);
         }
 
         $typeN = gettype($numerator);
@@ -97,7 +116,7 @@ abstract class RationalTypeFactory
      * @param float|FloatType $float
      * @param float|FloatType $tolerance - Default is whatever is currently set but normally self::CF_DEFAULT_TOLERANCE
      *
-     * @return chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
      * @throws InvalidArgumentException
      */
@@ -140,8 +159,8 @@ abstract class RationalTypeFactory
         if ($negative) {
             $n1 *= -1;
         }
-
-        return new RationalType(new IntType($n1), new IntType($d1));
+        
+        return self::createCorrectRational($n1, $d1);
     }
 
     /**
@@ -152,7 +171,7 @@ abstract class RationalTypeFactory
      *
      * @param string $string
      *
-     * @return chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
      * @throws InvalidArgumentException
      */
@@ -177,8 +196,7 @@ abstract class RationalTypeFactory
             $numerator *= -1;
         }
 
-        return new RationalType(new IntType($numerator),
-                new IntType($denominator));
+        return self::createCorrectRational($numerator, $denominator);
     }
 
     /**
@@ -190,5 +208,63 @@ abstract class RationalTypeFactory
     public static function setDefaultFromFloatTolerance($tolerance)
     {
         self::$defaultTolerance = $tolerance;
+    }
+    
+    /**
+     * Set the required number type to return
+     * By default this is self::TYPE_DEFAULT  which is 'auto', meaning that
+     * the factory will determine if GMP is installed and use that else use 
+     * PHP native types
+     * 
+     * @param string $requiredType
+     * @throws \InvalidArgumentException
+     */
+    public static function setNumberType($requiredType)
+    {
+        if (!in_array($requiredType, self::$validTypes)) {
+            throw new \InvalidArgumentException("{$requiredType} is not a supported number type");
+        }
+        if ($requiredType == self::TYPE_GMP && !function_exists('gmp_init')) {
+            throw new \InvalidArgumentException('GMP not supported');
+        }
+        self::$supportType = $requiredType;
+    }
+    
+    /**
+     * Get the required type base to return
+     * 
+     * @return string
+     */
+    protected static function getRequiredType()
+    {
+        if (self::$requiredType != null) {
+            return self::$requiredType;
+        }
+        
+        if (self::$supportType == self::TYPE_DEFAULT) {
+            if (function_exists('gmp_init')) {
+                self::$requiredType = self::TYPE_GMP;
+            }
+        } else {
+            self::$requiredType = self::$supportType;
+        }
+        
+        return self::$requiredType;
+    }
+    
+    /**
+     * Create and return the correct number type rational
+     * 
+     * @param int $n
+     * @param int $d
+     * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
+     */
+    protected static function createCorrectRational($n, $d)
+    {
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return new GMPRationalType(new GMPIntType($n), new GMPIntType($d));
+        } else {
+            return new RationalType(new IntType($n), new IntType($d));
+        }
     }
 }

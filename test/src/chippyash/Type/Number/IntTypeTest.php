@@ -3,12 +3,16 @@
 namespace chippyash\Test\Type\Number;
 
 use chippyash\Type\Number\IntType;
-use chippyash\Type\Number\Rational\RationalTypeFactory;
-use chippyash\Type\Number\Complex\ComplexTypeFactory;
+use chippyash\Type\TypeFactory;
 
 class IntTypeTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function setUp()
+    {
+        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+    }
+    
     public function testIntTypeConvertsValuesToInteger()
     {
         $t = new IntType(12);

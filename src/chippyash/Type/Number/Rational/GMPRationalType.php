@@ -15,9 +15,7 @@
 namespace chippyash\Type\Number\Rational;
 
 use chippyash\Type\Interfaces\GMPInterface;
-use chippyash\Type\Number\Rational\RationalType;
-use chippyash\Type\Number\IntType;
-use chippyash\Type\Number\FloatType;
+use chippyash\Type\Number\Rational\AbstractRationalType;
 use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\BoolType;
@@ -28,100 +26,34 @@ use chippyash\Type\Traits\GmpTypeCheck;
  * This is the GMP type.
  *
  */
-class GMPRationalType extends RationalType implements GMPInterface
+class GMPRationalType extends AbstractRationalType implements GMPInterface
 {
     use GmpTypeCheck;
-    /**
-     * numerator
-     * @var GMPIntType
-     */
-    protected $num;
-
-    /**
-     * denominator
-     * @var GMPIntType
-     */
-    protected $den;
-
-    /**
-     * Construct new GMP rational
-     * num and den can be IntType, GMPIntType, int or gmp native type
-     *
-     * @param mixed $num numerator
-     * @param mixed $den denominator
-     * @param \chippyash\Type\BoolType $reduce -optional: default = true
-     */
-    public function __construct($num, $den, BoolType $reduce = null)
-    {
-        if ($this->gmpTypeCheck($num)) {
-            $n = new GMPIntType($num);
-        } else {
-            $n = $num;
-        }
-        if ($this->gmpTypeCheck($den)) {
-            $d = new GMPIntType($den);
-        } else {
-            $d = $den;
-        }
-        
-        $this->setFromTypes($n, $d, $reduce);
-    }
     
     /**
-     * Set values for rational
-     * Will convert non GMP integer types to GMPIntType
+     * map of values for this type
+     * @var array
+     */
+    protected $valueMap = [
+        0 => ['name' => 'num', 'class' => 'chippyash\Type\Number\GMPIntType'],
+        1 => ['name' => 'den', 'class' => 'chippyash\Type\Number\GMPIntType']
+    ];
+    
+    /**
+     * Construct new GMP rational
      *
-     * @param \chippyash\Type\Number\IntType $num numerator
-     * @param \chippyash\Type\Number\IntType $den denominator
+     * @param GMPIntType $num numerator
+     * @param GMPIntType $den denominator
      * @param \chippyash\Type\BoolType $reduce -optional: default = true
-     *
-     * @return \chippyash\Type\Number\Rational\GMPRationalType Fluent Interface
      */
-    public function setFromTypes(IntType $num, IntType $den, BoolType $reduce = null)
+    public function __construct(GMPIntType $num, GMPIntType $den, BoolType $reduce = null)
     {
-        if (!$num instanceof GMPIntType) {
-            $this->num = new GMPIntType($num());
-        } else {
-            $this->num = clone $num;
+        if ($reduce != null) {
+            $this->reduce = $reduce();
         }
-        if (!$den instanceof GMPIntType) {
-            $this->den = new GMPIntType($den());
-        } else {
-            $this->den = clone $den;
-        }
-
-        if (gmp_cmp($this->den->gmp(),0) < 0) {
-            //normalise the sign
-            $this->num->negate();
-            $this->den->negate();
-        }
-
-        if (empty($reduce) || $reduce->get()) {
-            $this->reduce();
-        }
-
-        return $this;
+        parent::__construct($num, $den);
     }
-
-    /**
-     * Get the numerator
-     * @return chippyash\Type\Number\GMPIntType
-     */
-    public function numerator()
-    {
-        return $this->num;
-    }
-
-    /**
-     * Get the denominator
-     *
-     * @return chippyash\Type\Number\GMPIntType
-     */
-    public function denominator()
-    {
-        return $this->den;
-    }
-
+    
     /**
      * Get the value of the object typed properly
      * as a PHP Native type
@@ -131,10 +63,10 @@ class GMPRationalType extends RationalType implements GMPInterface
     public function get()
     {
         if ($this->isInteger()) {
-            return $this->num->get();
+            return $this->value['num']->get();
         } else {
-            $n = intval(gmp_strval($this->num->gmp()));
-            $d = intval(gmp_strval($this->den->gmp()));
+            $n = intval(gmp_strval($this->value['num']->gmp()));
+            $d = intval(gmp_strval($this->value['den']->gmp()));
             return $n/$d;
         }
     }
@@ -146,111 +78,66 @@ class GMPRationalType extends RationalType implements GMPInterface
      */
     public function gmp()
     {
-        return [$this->num->gmp(), $this->den->gmp()];
+        return [$this->value['num']->gmp(), $this->value['den']->gmp()];
     }
 
     /**
-     * Magic method - convert to string
-     * Returns "<num>/<den>" or "<num>" if isInteger()
+     * Return number as GMPIntType number.
+     * Will return floor(n/d)
      *
-     * @return string
+     * @returns chippyash\Type\Number\GMPIntType
      */
-    public function __toString()
+    public function asGMPIntType()
     {
-        $n = $this->num->get();
-        if ($this->isInteger()) {
-            return "{$n}";
-        } else {
-            $d = $this->den->get();
-            return "{$n}/{$d}";
-        }
+        return new GMPIntType(floor($this->get()));
     }
-
-    /**
-     * Negates the number
-     *
-     * @returns chippyash\Type\Number\Rational\RationalType Fluent Interface
-     */
-    public function negate()
-    {
-        $this->num->negate();
-
-        return $this;
-    }
-
-    /**
-     * Return the absolute value of the number
-     *
-     * @returns chippyash\Type\Number\Rational\RationalType
-     */
-    public function abs()
-    {
-        return new self($this->num->abs(), $this->den->abs());
-    }
-
-    /**
-     * Is this Rational an expression of an integer, i.e. n/1
-     *
-     * @return boolean
-     */
-    public function isInteger()
-    {
-        return (gmp_cmp($this->den->gmp(),1) == 0);
-    }
-
-
+    
     /**
      * Return the number as a GMPComplex number i.e. n+0i
+     * 
+     * @returns chippyash\Type\Number\Complex\GMPComplexType
      */
-    public function asComplex()
+    public function asGMPComplex()
     {
         return new GMPComplexType(
-                new self(clone $this->numerator(), clone $this->denominator()),
-                new self(new GMPIntType(0), new GMPIntType(1))
+                new GMPRationalType(clone $this->numerator(), clone $this->denominator()),
+                new GMPRationalType(new GMPIntType(0), new GMPIntType(1))
                 );
     }
-
+    
     /**
      * Return number as GMPRational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
      * @returns chippyash\Type\Number\Rational\GMPRationalType
      */
-    public function asRational()
+    public function asGMPRational()
     {
         return clone $this;
     }
-
+    
     /**
-     * Return number as an GMPIntType number.
-     * Will return floor(n/d)
+     * Return number as native Rational number.
+     * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\GMPIntType
+     * @returns chippyash\Type\Number\Rational\RationalType
      */
-    public function asIntType()
+    public function asRational()
     {
-        return new GMPIntType(floor($this->get()));
+        return new RationalType(
+                $this->value['num']->asIntType(), 
+                $this->value['den']->asIntType());
     }
-
-    /**
-     * Return number as a FloatType number.
-     *
-     * @returns chippyash\Type\Number\FloatType
-     */
-    public function asFloatType()
-    {
-            return new FloatType($this->get());
-    }
-
+    
     /**
      * Reduce this number to it's lowest form
      */
     protected function reduce()
     {
-        $gcd = gmp_gcd($this->num->gmp(), $this->den->gmp());
+        $gcd = gmp_gcd($this->value['num']->gmp(), $this->value['den']->gmp());
         if (gmp_cmp($gcd, 1) > 0) {
-            $this->num->set(gmp_div_q($this->num->gmp(), $gcd));
-            $this->den->set(gmp_div_q($this->den->gmp(), $gcd));
+            $this->value['num']->set(gmp_div_q($this->value['num']->gmp(), $gcd));
+            $this->value['den']->set(gmp_div_q($this->value['den']->gmp(), $gcd));
         }
     }
 

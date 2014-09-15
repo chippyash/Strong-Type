@@ -3,9 +3,6 @@
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
- * Thanks to Florian Wolters for the inspiration
- * @link http://github.com/FlorianWolters/PHP-Component-Number-Fraction
- *
  * @author Ashley Kitson <akitson@zf4.biz>
  * @copyright Ashley Kitson, UK, 2012
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
@@ -61,12 +58,13 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
         
     /**
      * Return the number as a Complex number i.e. n+0i
+     * 
+     * @returns chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()
     {
         return clone $this;
     }
-
 
     /**
      * Return number as Rational number.

@@ -10,6 +10,11 @@ use chippyash\Type\Number\Complex\ComplexTypeFactory;
 class TypeFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function setUp()
+    {
+        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+    }
+    
     /**
      * @covers chippyash\Type\TypeFactory::create
      * @covers chippyash\Type\AbstractType::get
@@ -239,6 +244,8 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function numericTypes()
     {
+        //need to do this as data is established before setUp() is called
+        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
         $type = TypeFactory::create('complex', '2+0i');
         return [
             ['int', $type],
@@ -250,30 +257,22 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testSetCacheSetsCachingOnDependentTypes()
+    /**
+     * @requires extension gmp
+     * @runInSeparateProcess
+     */
+    public function testSetNumberTypeToDefaultWillSetGmpIfAvailable()
     {
-        $cache = $this->getMock('Zend\Cache\Storage\StorageInterface');
-        TypeFactory::setCache($cache);
-        $this->checkCacheByReflection($cache, new IntType(0));
-        $this->checkCacheByReflection($cache, RationalTypeFactory::create(0));
-        $this->checkCacheByReflection($cache, ComplexTypeFactory::create(0,0));
+        TypeFactory::setNumberType(TypeFactory::TYPE_DEFAULT);
+        $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', TypeFactory::create('int', 2));
     }
-
-    protected function checkCacheByReflection($cache, $class)
+    
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage foo is not a supported number type
+     */
+    public function testSetNumberTypeToInvalidTypeThrowsException()
     {
-        $refl = new \ReflectionClass($class);
-        $iProperties = $refl->getProperties(\ReflectionProperty::IS_PROTECTED);
-        $found = false;
-        foreach ($iProperties as $property) {
-            if ($property->getName() == 'cache') {
-                $property->setAccessible(true);
-                $found = true;
-                $this->assertEquals($cache, $property->getValue());
-                break;
-            }
-        }
-        if (!$found) {
-            $this->fail('Failed to assert that setting cache works!');
-        }
+        TypeFactory::setNumberType('foo');
     }
 }

@@ -11,14 +11,12 @@
 namespace chippyash\Type;
 
 use chippyash\Type\Interfaces\TypeInterface;
-use chippyash\Type\Traits\Cacheable;
 
 /**
  * An abstract PHP type as an object
  */
 abstract class AbstractType implements TypeInterface
 {
-    use Cacheable;
     
     /**
      * Value of the type

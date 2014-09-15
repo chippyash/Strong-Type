@@ -155,6 +155,14 @@ class IntType extends AbstractType implements NumericTypeInterface
         return $factors;
     }
 
+    /**
+     * Return correctly typed value for this type
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     * @codeCoverageIgnore
+     */
     protected function typeOf($value)
     {
         return intval($value);

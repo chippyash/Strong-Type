@@ -11,14 +11,9 @@
 
 namespace chippyash\Type\Number\Complex;
 
-use chippyash\Type\Interfaces\NumericTypeInterface;
-use chippyash\Type\Exceptions\NotRealComplexException;
 use chippyash\Type\Number\Complex\AbstractComplexType;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
-use chippyash\Type\Number\FloatType;
-use chippyash\Type\Number\IntType;
-use chippyash\Type\Traits\Cacheable;
 
 /**
  * A complex number - algabraic form
@@ -130,6 +125,12 @@ class ComplexType extends AbstractComplexType
         return sprintf($pattern, $t, $r);
     }
 
+    /**
+     * Check and convert to integer if able
+     * 
+     * @param float $value
+     * @return int|float
+     */
     private function checkIntType($value)
     {
         $test = intval($value);

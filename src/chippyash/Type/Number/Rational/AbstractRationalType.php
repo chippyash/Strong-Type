@@ -14,7 +14,6 @@ namespace chippyash\Type\Number\Rational;
 
 use chippyash\Type\AbstractMultiValueType;
 use chippyash\Type\Number\IntType;
-use chippyash\Type\BoolType;
 use chippyash\Type\Interfaces\RationalTypeInterface;
 use chippyash\Type\Interfaces\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
@@ -44,6 +43,8 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
 
     /**
      * Return the number as a Complex number i.e. n+0i
+     * 
+     * @returns chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()
     {
@@ -106,13 +107,69 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
     
     /**
      * Return the absolute value of the number
-     * 
-     * @abstract
      *
-     * @returns chippyash\Type\Number\Rational\AbstractRationalType
+     * @returns chippyash\Type\Number\Rational\RationalType
      */
-    abstract public function abs();  
+    public function abs()
+    {
+        return new static($this->value['num']->abs(), $this->value['den']->abs());
+    }
+
+    /**
+     * Negates the number
+     *
+     * @returns chippyash\Type\Number\Rational\RationalType Fluent Interface
+     */
+    public function negate()
+    {
+        $this->value['num']->negate();
+
+        return $this;
+    }    
     
+
+    /**
+     * Magic method - convert to string
+     * Returns "<num>/<den>" or "<num>" if isInteger()
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $n = $this->value['num']->get();
+        if ($this->isInteger()) {
+            return "{$n}";
+        } else {
+            $d = $this->value['den']->get();
+            return "{$n}/{$d}";
+        }
+    }
+
+    /**
+     * Get the basic PHP value of the object type properly
+     * In this case, the type is an int or float
+     *
+     * @return int|float
+     */
+    public function getAsNativeType()
+    {
+        if ($this->isInteger()) {
+            return intval($this->value['num']->get());
+        } else {
+            return floatval($this->value['num']->get() / $this->value['den']->get());
+        }
+    }
+
+    /**
+     * Is this Rational an expression of an integer, i.e. n/1
+     *
+     * @return boolean
+     */
+    public function isInteger()
+    {
+        return ($this->value['den']->get() === 1);
+    }
+          
     /**
      * Reduce this number to it's lowest form
      * 

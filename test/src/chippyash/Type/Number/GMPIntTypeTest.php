@@ -3,10 +3,19 @@
 namespace chippyash\Test\Type\Number;
 
 use chippyash\Type\Number\GMPIntType;
+use chippyash\Type\TypeFactory;
 
+/**
+ * @requires extension gmp
+ * @runTestsInSeparateProcesses
+ */
 class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function setUp() {
+        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
+    }
+    
     public function testGMPIntTypeConvertsValuesToInteger()
     {
         $t = new GMPIntType(12);
@@ -33,17 +42,17 @@ class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
     {
         $t = new GMPIntType(2);
         $c = $t->AsComplex();
-        $this->assertInstanceOf('\chippyash\Type\Number\Complex\ComplexType', $c);
+        $this->assertInstanceOf('\chippyash\Type\Number\Complex\GMPComplexType', $c);
         $this->assertEquals('2', (string) $c);
-        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
-        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $c->r());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $c->i());
     }
 
     public function testAsRationalReturnsRationalType()
     {
         $t = new GMPIntType(2);
         $r = $t->AsRational();
-        $this->assertInstanceOf('\chippyash\Type\Number\Rational\RationalType', $r);
+        $this->assertInstanceOf('\chippyash\Type\Number\Rational\GMPRationalType', $r);
         $this->assertEquals('2', (string) $r);
         $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', $r->numerator());
         $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', $r->denominator());
@@ -118,4 +127,24 @@ class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
             [1644,[1, 2, 3, 4, 6, 12, 137, 274, 411, 548, 822, 1644],[[2=>2], [3=>1], [137=>1]]]
         ];
     }
+    
+    public function testAsGmpIntTypeClonesOriginal()
+    {
+        $i = new GMPIntType(2);
+        $this->assertEquals($i, $i->asGMPIntType());
+    }
+    
+    public function testAsGmpComplexReturnsGmpComplexType()
+    {
+        $i = new GMPIntType(2);
+        $this->assertInstanceOf('chippyash\Type\Number\Complex\GMPComplexType', $i->asGMPComplex());
+    }
+    
+    public function testAsGmpRationalReturnsGmpRationalType()
+    {
+        $i = new GMPIntType(2);
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $i->asGMPRational());
+    }
+    
+    
  }

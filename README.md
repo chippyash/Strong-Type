@@ -198,6 +198,45 @@ then use ComplexType::toFloat() which will throw an exception if the number is n
 Polar form complex numbers are supported by the polar methods in ComplexType and also by the
 ComplexTypeFactory::fromPolar(RationalType $radius, RationalType $theta) method.
 
+### Support for GMP extension
+
+The library automatically recognises the availability of the gmp extension and
+will use it for int, rational and complex types.  There is no gmp support for 
+wholeIntType, NaturalIntType or FloatType.  You can force the library to use
+PHP native types by calling
+
+<pre>
+    TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+</pre>
+
+at the start of you code.
+
+If you want to get the gmp typed value of a number you can call its gmp() method.
+
+<pre>
+    //assuming we are running under gmp
+    $i = TypeFactory::create('int', 2); //returns GMPIntType
+    $gmp = $i->gmp(); //returns resource or GMP object depending on PHP version
+
+    $r = TypeFactory::create('rational', 2, 3); //returns GMPRationalType
+    $gmp = $r->gmp(); //returns array of gmp types, [numerator, denominator]
+
+    $c = TypeFactory::create('complex', '2+3i'); //returns GMPComplexType
+    $gmp = $c->gmp(); //returns array of gmp types, [[num,den],[num,den]] i.e. [r,i]
+</pre>
+
+All GMP types support the GMPInterface, so in addition to having the gmp() method,
+they will also have:
+
+*  public function asGMPIntType() Return number as GMPIntType number. Will return floor(n/d) for rational types    
+*  public function asGMPComplex() : Return the number as a GMPComplex number i.e. n+0i
+*  public function asGMPRational(): Return number as GMPRational number.
+
+Trying to keep track of what types you are actually instantiating is made much easier if
+you use the type factories, as they know which types to create.  Therefore if
+you want your code to be runnable as PHP native or GMP, use the factories to
+create your numeric types.
+
 ### Changing the library
 
 1.  fork it

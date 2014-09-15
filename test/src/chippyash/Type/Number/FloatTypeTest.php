@@ -3,10 +3,15 @@
 namespace chippyash\Test\Type\Number;
 
 use chippyash\Type\Number\FloatType;
+use chippyash\Type\TypeFactory;
 
 class FloatTypeTest extends \PHPUnit_Framework_TestCase
 {
-
+    public function setUp()
+    {
+        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+    }
+    
     public function testFloatTypeConvertsValuesToFloat()
     {
         $t = new FloatType(123.67);

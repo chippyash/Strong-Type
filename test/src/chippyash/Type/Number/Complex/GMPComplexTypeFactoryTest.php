@@ -3,19 +3,23 @@
 namespace chippyash\Test\Type\Number\Complex;
 
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
-use chippyash\Type\Number\Rational\RationalType;
+use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\FloatType;
-use chippyash\Type\Number\IntType;
+use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\TypeFactory;
 
-class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
+/**
+ * @requires extension gmp
+ * @runTestsInSeparateProcesses
+ */
+class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
-    const CTYPE_NAME = 'chippyash\Type\Number\Complex\ComplexType';
+    const CTYPE_NAME = 'chippyash\Type\Number\Complex\GMPComplexType';
 
     public function setUp() {
-        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
     }
     
     /**
@@ -32,8 +36,8 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $c = ComplexTypeFactory::create('-2.0-2.0452i');
         $this->assertInstanceOf(self::CTYPE_NAME, $c);
         $this->assertEquals('-2-5113/2500i', $c());
-        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
-        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $c->r());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $c->i());
     }
 
     public function testCreateWithValidStringContainingRationalAsFirstParameterReturnsComplexType()
@@ -41,8 +45,8 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $c = ComplexTypeFactory::create('-12/6-2/5i');
         $this->assertInstanceOf(self::CTYPE_NAME, $c);
         $this->assertEquals('-2-2/5i', $c());
-        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->r());
-        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $c->i());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $c->r());
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $c->i());
     }
 
     /**
@@ -79,25 +83,25 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
             //numeric int
             [2,2],
             [2,2.3],
-            [2,new IntType(2)],
+            [2,new GMPIntType(2)],
             [2,new FloatType(2.3)],
             //numeric float
             [1.2,2],
             [1.2,2.3],
-            [1.2,new IntType(2)],
+            [1.2,new GMPIntType(2)],
             [1.2,new FloatType(2.3)],
             //IntType
-            [new IntType(2),2],
-            [new IntType(2),2.3],
-            [new IntType(2),new IntType(2)],
-            [new IntType(2),new FloatType(2.3)],
+            [new GMPIntType(2),2],
+            [new GMPIntType(2),2.3],
+            [new GMPIntType(2),new GMPIntType(2)],
+            [new GMPIntType(2),new FloatType(2.3)],
             //FloatType
             [new FloatType(2.3),2],
             [new FloatType(2.3),2.3],
-            [new FloatType(2.3),new IntType(2)],
+            [new FloatType(2.3),new GMPIntType(2)],
             [new FloatType(2.3),new FloatType(2.3)],
             //rational type
-            [new RationalType(new IntType(1), new IntType(2)), new RationalType(new IntType(3), new IntType(2))]
+            [new GMPRationalType(new GMPIntType(1), new GMPIntType(2)), new GMPRationalType(new GMPIntType(3), new GMPIntType(2))]
         ];
     }
     
@@ -124,5 +128,21 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
             //quadrant 4
             ['192119201/35675640','-15238812/40048769'],
         ];
+    }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage foo is not a supported number type
+     */
+    public function testSetBadNumberTypeThrowsEception()
+    {
+        ComplexTypeFactory::setNumberType('foo');
+    }
+    
+    public function testCreationWillUseGmpAutomaticallyIfItExists()
+    {
+        ComplexTypeFactory::setNumberType(ComplexTypeFactory::TYPE_DEFAULT);
+        $c = ComplexTypeFactory::create('2+3i');
+        $this->assertInstanceOf(self::CTYPE_NAME, $c);
     }
 }

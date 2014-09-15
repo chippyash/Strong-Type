@@ -16,19 +16,18 @@ namespace chippyash\Type\Number\Rational;
 
 use chippyash\Type\Number\IntType;
 use chippyash\Type\BoolType;
-use chippyash\Type\Interfaces\RationalTypeInterface;
+use chippyash\Type\Number\Rational\AbstractRationalType;
 use chippyash\Type\Interfaces\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Rational\RationalType;
-use chippyash\Type\Traits\Cacheable;
 
 
 /**
  * A rational number (i.e a fraction)
  *
  */
-class RationalType implements RationalTypeInterface, NumericTypeInterface
+class RationalType extends AbstractRationalType
 {
     /**
      * map of values for this type
@@ -49,152 +48,12 @@ class RationalType implements RationalTypeInterface, NumericTypeInterface
      */
     public function __construct(IntType $num, IntType $den, BoolType $reduce = null)
     {
-        $this->setFromTypes($num, $den, $reduce);
-    }
-
-    /**
-     * Get the basic PHP value of the object type properly
-     * In this case, the type is an int or float
-     *
-     * @return int|float
-     */
-    public function getAsNativeType()
-    {
-        if ($this->isInteger()) {
-            return intval($this->value['num']->get());
-        } else {
-            return floatval($this->value['num']->get() / $this->value['den']->get());
+        if ($reduce != null) {
+            $this->reduce = $reduce();
         }
+        parent::__construct($num, $den);
     }
 
-    /**
-     * Magic invoke method
-     * Proxy to get()
-     * @see get
-     *
-     * @return mixed
-     */
-    public function __invoke()
-    {
-        return $this->get();
-    }
-
-    /**
-     * This extends the chippyash\Type\Interfaces\TypeInterface set method and finds the
-     * arguments to satisfy setFromTypes()
-     *
-     * Expected parameters
-     * @see setFromTypes
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function set($value)
-    {
-        $nArgs = func_num_args();
-        if ($nArgs < 2) {
-            throw new \InvalidArgumentException('set() expects at least two parameters');
-        }
-        $args = func_get_args();
-        if ($nArgs == 2) {
-            return $this->setFromTypes($args[0], $args[1]);
-        }
-
-        return  $this->setFromTypes($args[0], $args[1], $args[2]);
-    }
-
-    /**
-     * Magic method - convert to string
-     * Returns "<num>/<den>" or "<num>" if isInteger()
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        $n = $this->value['num']->get();
-        if ($this->isInteger()) {
-            return "{$n}";
-        } else {
-            $d = $this->value['den']->get();
-            return "{$n}/{$d}";
-        }
-    }
-
-    /**
-     * Negates the number
-     *
-     * @returns chippyash\Type\Number\Rational\RationalType Fluent Interface
-     */
-    public function negate()
-    {
-        $this->value['num']->negate();
-
-        return $this;
-    }
-
-    /**
-     * Return the absolute value of the number
-     *
-     * @returns chippyash\Type\Number\Rational\RationalType
-     */
-    public function abs()
-    {
-        return new self($this->value['num']->abs(), $this->value['den']->abs());
-    }
-
-
-    /**
-     * Return the number as a Complex number i.e. n+0i
-     */
-    public function asComplex()
-    {
-        return new ComplexType(
-                new RationalType(clone $this->numerator(), clone $this->denominator()),
-                new RationalType(new IntType(0), new IntType(1))
-                );
-    }
-
-    /**
-     * Return number as Rational number.
-     * NB, numerator and denominator will be caste as IntTypes
-     *
-     * @returns chippyash\Type\Number\Rational\RationalType
-     */
-    public function asRational()
-    {
-        return clone $this;
-    }
-
-    /**
-     * Return number as an IntType number.
-     * Will return floor(n/d)
-     *
-     * @returns chippyash\Type\Number\IntType
-     */
-    public function asIntType()
-    {
-        return new IntType(floor($this->get()));
-    }
-
-    /**
-     * Return number as a FloatType number.
-     *
-     * @returns chippyash\Type\Number\FloatType
-     */
-    public function asFloatType()
-    {
-        return new FloatType($this->get());
-    }
-
-    /**
-     * Is this Rational an expression of an integer, i.e. n/1
-     *
-     * @return boolean
-     */
-    public function isInteger()
-    {
-        return ($this->value['den']->get() === 1);
-    }
-      
     /**
      * Reduce this number to it's lowest form
      */

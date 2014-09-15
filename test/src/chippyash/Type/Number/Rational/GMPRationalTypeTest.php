@@ -5,10 +5,21 @@ namespace chippyash\Test\Type\Number\Rational;
 use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\BoolType;
+use chippyash\Type\TypeFactory;
+use chippyash\Type\Traits\GmpTypeCheck;
 
+/**
+ * @requires extension gmp
+ * @runTestsInSeparateProcesses
+ */
 class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
 {
-
+    use GmpTypeCheck;
+    
+    public function setUp() {
+        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
+    }
+    
     /**
      * @expectedException Exception
      */
@@ -102,16 +113,15 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3 / 4, $r1());
     }
 
-    public function testSetFromTypesReturnsValue()
+    public function testSetReturnsValue()
     {
         $o = new GMPRationalType(new GMPIntType(0), new GMPIntType(1));
-        $this->assertEquals(3/4, $o->setFromTypes(new GMPIntType(3), new GMPIntType(4))->get());
-        $this->assertEquals('2/4', (string) $o->setFromTypes(new GMPIntType(2), new GMPIntType(4), new BoolType(false)));
+        $this->assertEquals(3/4, $o->set(new GMPIntType(3), new GMPIntType(4))->get());
     }
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage set() expects at least two parameters
+     * @expectedExceptionMessage Expected 2 parameters, got 1
      */
     public function testSetExpectsAtLeastTwoParameters()
     {
@@ -120,7 +130,8 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Invalid Type (string) at position 0
      */
     public function testSetProxiesToSetFromTypesWithTwoParametersExpectsGMPIntTypeParameters()
     {
@@ -129,7 +140,8 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Expected 2 parameters, got 3
      */
     public function testSetProxiesToSetFromTypesWithThreeParametersExpectsBoolTypeThirdParameter()
     {
@@ -143,12 +155,6 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3/4, $o->set(new GMPIntType(3), new GMPIntType(4))->get());
     }
 
-    public function testSetProxiesToSetFromTypesWithThreeCorrectParameters()
-    {
-        $o = new GMPRationalType(new GMPIntType(0), new GMPIntType(1));
-        $this->assertEquals('2/4', $o->set(new GMPIntType(2), new GMPIntType(4), new BoolType(false)));
-    }
-
     public function testAsComplexReturnsComplexType()
     {
         $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
@@ -157,11 +163,11 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2', (string) $c); //zero imaginary returns real value
     }
 
-    public function testAsRationalReturnsGMPRationalType()
+    public function testAsRationalReturnsRationalType()
     {
         $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
         $r = $o->AsRational();
-        $this->assertEquals($o, $r);
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\RationalType', $r);
     }
 
     public function testAsFloatTypeReturnsFloatType()
@@ -176,7 +182,37 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
     {
         $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
         $i = $o->AsIntType();
-        $this->assertInstanceOf('\chippyash\Type\Number\GMPIntType', $i);
+        $this->assertInstanceOf('\chippyash\Type\Number\IntType', $i);
         $this->assertEquals(2, (string) $i);
+    }
+    
+    public function testGmpReturnsArrayOfGmpTypes()
+    {
+        $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
+        $gmp = $o->gmp();
+        $this->assertInternalType('array', $gmp);
+        $this->assertTrue($this->gmpTypeCheck($gmp[0]));
+        $this->assertTrue($this->gmpTypeCheck($gmp[1]));
+    }
+    
+    public function testAsGmpIntTypeReturnsGmpIntType()
+    {
+        $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
+        $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', $o->asGMPIntType());
+    }
+    
+    public function testAsGmpRationalReturnsCloneOfSelf()
+    {
+        $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
+        $clone = $o->asGMPRational();
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', $clone);
+        $clone->negate();
+        $this->assertNotEquals($clone(), $o());
+    }
+    
+    public function testAsGmpComplexReturnsGmpComplex()
+    {
+        $o = new GMPRationalType(new GMPIntType(2), new GMPIntType(1));
+        $this->assertInstanceOf('chippyash\Type\Number\Complex\GMPComplexType', $o->asGMPComplex());
     }
 }

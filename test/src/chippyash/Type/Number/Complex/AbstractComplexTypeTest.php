@@ -3,6 +3,7 @@
 namespace chippyash\Test\Type\Number\Complex;
 
 use chippyash\Type\Number\IntType;
+use chippyash\Type\TypeFactory;
 
 /**
  * covers the few areas not covered by CompleType tests
@@ -18,6 +19,7 @@ class AbstractComplexTypeTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
         $this->object = $this->getMockForAbstractClass(
                 'chippyash\Type\Number\Complex\AbstractComplexType',
                 [new IntType(3), new IntType(4)]);
