@@ -244,6 +244,8 @@ abstract class RationalTypeFactory
         if (self::$supportType == self::TYPE_DEFAULT) {
             if (function_exists('gmp_init')) {
                 self::$requiredType = self::TYPE_GMP;
+            } else {
+                self::$requiredType = self::TYPE_NATIVE;
             }
         } else {
             self::$requiredType = self::$supportType;
