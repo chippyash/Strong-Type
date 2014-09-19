@@ -9,8 +9,6 @@
  */
 namespace chippyash\Type\Interfaces;
 
-use Zend\Cache\Storage\StorageInterface as CacheStorageInterface;
-
 /**
  * Interface for chippyash\Type types
  */

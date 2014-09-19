@@ -15,6 +15,7 @@ use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Traits\GmpTypeCheck;
+use chippyash\Type\Exceptions\GmpNotSupportedException;
 
 /**
  * Integer Type - for use with GMP extension
@@ -22,6 +23,23 @@ use chippyash\Type\Traits\GmpTypeCheck;
 class GMPIntType extends IntType implements GMPInterface
 {
     use GmpTypeCheck;
+
+    protected static $gmpInstalled;
+    
+    /**
+     * Constructor - check for gmp support
+     * 
+     * @param type $value
+     * @throws GmpNotSupportedException
+     */
+    public function __construct($value) {
+        if (empty(self::$gmpInstalled) || $this->checkGmpInstalled()) {
+            self::$gmpInstalled = true;
+        } else {
+            throw new GmpNotSupportedException();
+        }
+        parent::__construct($value);
+    }
 
     /**
      * Negates the number

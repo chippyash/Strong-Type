@@ -17,12 +17,10 @@ use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\Number\NaturalIntType;
 use chippyash\Type\Number\WholeIntType;
 use chippyash\Type\Number\FloatType;
-use chippyash\Type\Number\GMPFloatType;
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\BoolType;
 use chippyash\Type\Interfaces\NumericTypeInterface;
-use Zend\Cache\Storage\StorageInterface as CacheStorageInterface;
 
 /**
  * Static Factory for creating types
@@ -275,7 +273,7 @@ abstract class TypeFactory
         }
         
         if (self::$supportType == self::TYPE_DEFAULT) {
-            if (function_exists('gmp_init')) {
+            if (extension_loaded('gmp')) {
                 self::$requiredType = self::TYPE_GMP;
             } else {
                 self::$requiredType = self::TYPE_NATIVE;

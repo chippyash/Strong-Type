@@ -31,4 +31,14 @@ Trait GmpTypeCheck
 
         return ($value instanceof \GMP);
     }
+    
+    /**
+     * Is gmp installed?
+     * 
+     * @return boolean
+     */
+    protected function checkGmpInstalled()
+    {
+        return extension_loaded('gmp');
+    }
 }
