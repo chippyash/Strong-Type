@@ -286,7 +286,7 @@ abstract class ComplexTypeFactory
         }
         
         if (self::$supportType == self::TYPE_DEFAULT) {
-            if (function_exists('gmp_init')) {
+            if (extension_loaded('gmp')) {
                 self::$requiredType = self::TYPE_GMP;
             } else {
                 self::$requiredType = self::TYPE_NATIVE;

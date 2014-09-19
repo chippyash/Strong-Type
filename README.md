@@ -354,3 +354,7 @@ V1.1.2 Ensure clone clones inner objects correctly
 V1.1.3 Refactor in preparation for supporting GMP types
 
 V2.0.0 Add GMP support
+
+V2.0.1 Additional gmp type checking
+
+V2.0.2 update Zend dependencies
