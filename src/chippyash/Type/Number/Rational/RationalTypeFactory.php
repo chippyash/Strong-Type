@@ -224,7 +224,7 @@ abstract class RationalTypeFactory
         if (!in_array($requiredType, self::$validTypes)) {
             throw new \InvalidArgumentException("{$requiredType} is not a supported number type");
         }
-        if ($requiredType == self::TYPE_GMP && !function_exists('gmp_init')) {
+        if ($requiredType == self::TYPE_GMP && !extension_loaded('gmp')) {
             throw new \InvalidArgumentException('GMP not supported');
         }
         self::$supportType = $requiredType;
