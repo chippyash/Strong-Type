@@ -37,12 +37,13 @@ The library is released under the [GNU GPL V3 or later license](http://www.gnu.o
 ## Why?
 
 One of the joys of PHP is its loose typing, but there are situations, particularly
-in large or complex systems where you want guarantee that method parameters are
+in large or complex systems where you want to guarantee that method parameters are
 what you want them to be.  PHPs type hinting extends to a few basic native types
 such as arrays and hard typing to class names.  For the rest you end up having to
 put a lot of boiler plate in your methods just to ensure that when you expect a
-float for instance, you get one.  This library addresses the issue for some basic
-PHP types plus some extensions for what could be considered 'missing' types.
+float for instance, you get one (or use hhvm ;-) ).  This library addresses the 
+issue for some basic PHP types plus some extensions for what could be considered 
+'missing' types.
 
 The primary purpose of strong typing in this context is to guard your public
 methods against unwarranted side effects.  You should not consider it necessary
@@ -52,8 +53,7 @@ of use.
 
 A secondary purpose is to support the chippyash/Math-Matrix and chippyash/Math-Type-Calculator
 libraries. This is why you will see some small addendum being made to this library
-on a continual basis.  In due course I'll add support for the numeric types recognising
-gmp and bcmath extension availability automatically.
+on a continual basis.  
 
 ## When
 
@@ -218,7 +218,8 @@ PHP native types by calling
     TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
 </pre>
 
-at the start of you code.
+at the start of you code. This will in turn call the setNumberType methods on the
+other factories, so you don't need to do that
 
 If you want to get the gmp typed value of a number you can call its gmp() method.
 
