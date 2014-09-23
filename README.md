@@ -358,3 +358,5 @@ V2.0.0 Add GMP support
 V2.0.1 Additional gmp type checking
 
 V2.0.2 update Zend dependencies
+
+V2.03 fix tests breaking if GMP not installed - will skip properly

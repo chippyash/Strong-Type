@@ -69,6 +69,7 @@ class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider correctParamCombinations
+     * 
      */
     public function testCreateWithCorrectParamTypesReturnsComplexType($r, $i)
     {
@@ -77,8 +78,15 @@ class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * For some reason phpunit ignores the requires annotation at the class level
+     * - it seems to process data providers first
+     */
     public function correctParamCombinations()
     {
+        if (!extension_loaded('gmp')) {
+            return [[2,2]];
+        }
         return [
             //numeric int
             [2,2],
