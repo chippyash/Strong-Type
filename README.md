@@ -78,9 +78,14 @@ Create a type via the Type Factory:
 
 <pre>
     use chippyash\Type\TypeFactory;
+    $str = TypeFactory::create('string','foo');
+    //or
+    $str = TypeFactory::createString('foo');
+
     $int = TypeFactory::createInt(2);
     //or
     $int = Typefactory::create('int', 2);
+
     //some types can take two parameters
     $rat = TypeFactory::create('rational', 2, 3);
 </pre>
@@ -105,10 +110,12 @@ Create one directly:
     use chippyash\Type\Number\Complex\ComplexType;
     use chippyash\Type\Number\Rational\Rationaltype;
     use chippyash\Type\String\DigitType;
+    use chippyash\Type\String\StringType;
     use chippyash\Type\Number\FloatType;
     use chippyash\Type\Number\IntType;
     $c = new ComplexType(new RationalType(new IntType(-2), new IntType(1)), new RationalType(new IntType(3), new IntType(4));
     $d = new DigitType(34);
+    $s = new StringType('foo');
     $d2 = new DigitType('34foo'); // == '34'
     $r = new RationalType(new IntType(1), new IntType(2));
 </pre>
@@ -187,7 +194,7 @@ Additionally the ComplexType supports the ComplexTypeInterface:
 *  i() - return the imaginary part as a RationalType
 *  isZero() - Is this number equal to zero?
 *  isReal() - Is this number a real number?  i.e. is it in form n+0i
-*  isGuassian() - Is this number Gaussian, i.e r & i are both equivelent to integers
+*  isGuassian() - Is this number Gaussian, i.e r & i are both equivalent to integers
 *  conjugate() - Return conjugate of this number
 *  modulus() - Return the modulus, also known as absolute value or magnitude of this number
 *  theta() - Return the angle (sometimes known as the argument) of the number when expressed in polar notation
@@ -291,7 +298,7 @@ If you want GMP support, use the V2 branch
 </pre>
 
 At some point in the not too distant future, the V2 branch will become the default,
-once upstream development of the type calculator to support GMP is complete.
+once downstream development of the type calculator to support GMP is complete.
  
 #### For development
 
@@ -361,3 +368,5 @@ V2.0.1 Additional gmp type checking
 V2.0.2 update Zend dependencies
 
 V2.0.3 fix tests breaking if GMP not installed - will skip properly
+
+V2.0.4 add homepage to composer.json definition
