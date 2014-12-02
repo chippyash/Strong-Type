@@ -119,11 +119,8 @@ abstract class ComplexTypeFactory
         
         $r = self::convertType($re);
         $i = self::convertType($im);
-        if (self::getRequiredType() == self::TYPE_GMP) {
-            return new GMPComplexType($r, $i);
-        } else {
-            return new ComplexType($r, $i);
-        }
+
+        return self::create($r, $i);
     }
 
     /**
