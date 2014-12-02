@@ -225,7 +225,7 @@ PHP native types by calling
     TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
 </pre>
 
-at the start of you code. This will in turn call the setNumberType methods on the
+at the start of your code. This will in turn call the setNumberType methods on the
 other factories, so you don't need to do that
 
 If you want to get the gmp typed value of a number you can call its gmp() method.
