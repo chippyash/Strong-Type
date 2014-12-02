@@ -2,7 +2,7 @@
 
 ## Request for help
 
-The V2 build of this library requires GMP support. I can't seem to figure out how to add gmp support 
+The V2 build of this library can use GMP support. I can't seem to figure out how to add gmp support 
 to the travis ci build system.  If you know how to do this, I'd appreciate your
 intervention and assistance.  The following QA is still good, as the gmp tests 
 specify a requirement for gmp and will therefore be passed over. 
