@@ -370,3 +370,5 @@ V2.0.2 update Zend dependencies
 V2.0.3 fix tests breaking if GMP not installed - will skip properly
 
 V2.0.4 add homepage to composer.json definition
+
+V2.0.5 small amend to fix complex creation problem for calculator
