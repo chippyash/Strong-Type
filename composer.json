@@ -22,5 +22,10 @@
         "psr-0": {
             "chippyash\\Type\\": "src"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
     }
 }
