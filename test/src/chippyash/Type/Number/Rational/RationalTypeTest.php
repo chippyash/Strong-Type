@@ -14,21 +14,21 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @expectedException Exception
+     * @expectedException PHPUnit_Framework_Exception
      */
     public function testConstructExpectsFirstParameterToBeIntType() {
         $r = new RationalType(0);
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException PHPUnit_Framework_Exception
      */
     public function testConstructExpectsSecondParameterToBeIntType() {
         $r = new RationalType(new IntType(1), 0);
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException PHPUnit_Framework_Exception
      */
     public function testConstructExpectsThirdParameterToBeBoolTypeIfGiven() {
         $r = new RationalType(new IntType(1), new IntType(1), 0);
