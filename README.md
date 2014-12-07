@@ -13,7 +13,8 @@ specify a requirement for gmp and will therefore be passed over.
 [![Coverage Status](https://coveralls.io/repos/chippyash/Strong-Type/badge.png)](https://coveralls.io/r/chippyash/Strong-Type)
 
 See above request for help: gmp is not being tested at the present time by the
-Travis CI servers.  The gmp specific tests do run locally - I promise!
+Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
+Test Contract in the docs directory.
 
 ## What?
 
@@ -73,6 +74,7 @@ Check out [chippyash/Math-Matrix](https://github.com/chippyash/Math-Matrix) for 
 Check out [chippyash/Builder-Pattern](https://github.com/chippyash/Builder-Pattern) for an implementation of the Builder Pattern for PHP
 
 ## How
+
 
 ### Coding Basics
 
