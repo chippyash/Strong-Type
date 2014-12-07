@@ -14,7 +14,7 @@ specify a requirement for gmp and will therefore be passed over.
 
 See above request for help: gmp is not being tested at the present time by the
 Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
-Test Contract in the docs directory.
+(Test Contract)[https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md] in the docs directory.
 
 ## What?
 
@@ -73,8 +73,11 @@ Check out [chippyash/Math-Matrix](https://github.com/chippyash/Math-Matrix) for 
 
 Check out [chippyash/Builder-Pattern](https://github.com/chippyash/Builder-Pattern) for an implementation of the Builder Pattern for PHP
 
+Check out [chippyash/Testdox-Converter](https://github.com/chippyash/Testdox-Converter) for a utility to create markdown format test contract from phpunit testdox-html
+
 ## How
 
+You can find the (API documentation here)[http://chippyash.github.io/Strong-Type]
 
 ### Coding Basics
 
@@ -378,3 +381,6 @@ V2.0.4 add homepage to composer.json definition
 V2.0.5 small amend to fix complex creation problem for calculator
 
 V2.0.6 update phpunit to ~V4.3.0
+
+V2.0.7 add test contract
+
