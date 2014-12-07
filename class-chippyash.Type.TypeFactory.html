@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+
+	<title>Class chippyash\Type\TypeFactory | Chippyash Strong Types</title>
+
+	<link rel="stylesheet" href="resources/style.css?3901564645">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-chippyash.html">chippyash<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-chippyash.Type.html">Type<span></span></a>
+						<ul>
+				<li><a href="namespace-chippyash.Type.Exceptions.html">Exceptions</a>
+						</li>
+				<li><a href="namespace-chippyash.Type.Interfaces.html">Interfaces</a>
+						</li>
+				<li><a href="namespace-chippyash.Type.Number.html">Number<span></span></a>
+						<ul>
+				<li><a href="namespace-chippyash.Type.Number.Complex.html">Complex</a>
+						</li>
+				<li><a href="namespace-chippyash.Type.Number.Rational.html">Rational</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-chippyash.Type.String.html">String</a>
+						</li>
+				<li><a href="namespace-chippyash.Type.Traits.html">Traits</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-chippyash.Type.AbstractMultiValueType.html">AbstractMultiValueType</a></li>
+				<li><a href="class-chippyash.Type.AbstractType.html">AbstractType</a></li>
+				<li><a href="class-chippyash.Type.BoolType.html">BoolType</a></li>
+				<li class="active"><a href="class-chippyash.Type.TypeFactory.html">TypeFactory</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-chippyash.Type.html" title="Summary of chippyash\Type"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class TypeFactory</h1>
+
+
+	<div class="description">
+	
+<p>Static Factory for creating types</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-chippyash.html">chippyash</a>\<a href="namespace-chippyash.Type.html">Type</a><br>
+		
+
+		<b>Located at</b> <a href="source-class-chippyash.Type.TypeFactory.html#25-287" title="Go to source code">TypeFactory.php</a><br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.AbstractType.html">chippyash\Type\AbstractType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#50-90" title="Go to source code">create</a>( <span>string <var>$type</var></span>, <span>mixed <var>$value</var></span>, <span>mixed <var>$extra</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Generic type factory</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Generic type factory</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd></dd>
+					<dt><var>$value</var></dt>
+					<dd>$param mixed $extra required for some types</dd>
+					<dt><var>$extra</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.AbstractType.html">chippyash\Type\AbstractType</a></code></code><br>\chippyash\Type\AbstractType<br>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Exceptions.InvalidTypeException.html">chippyash\Type\Exceptions\InvalidTypeException</a></code></code><br>InvalidTypeException<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createInt" id="_createInt">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.Number.IntType.html">chippyash\Type\Number\IntType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createInt">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#92-113" title="Go to source code">createInt</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an IntType</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an IntType</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Number.IntType.html">chippyash\Type\Number\IntType</a></code></code><br>\chippyash\Type\Number\IntType<br>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createFloat" id="_createFloat">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createFloat">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#115-132" title="Go to source code">createFloat</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a FloatType</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a FloatType</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code></code><br>\chippyash\Type\Number\FloatType<br>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createString" id="_createString">
+
+		<td class="attributes"><code>
+			 public static
+			chippyash\Type\String\NStringType
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createString">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#134-143" title="Go to source code">createString</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a StringType</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a StringType</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>chippyash\Type\String\NStringType</code><br>\chippyash\Type\String\NStringType<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createBool" id="_createBool">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.BoolType.html">chippyash\Type\BoolType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createBool">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#145-154" title="Go to source code">createBool</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a BoolType</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a BoolType</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.BoolType.html">chippyash\Type\BoolType</a></code></code><br>\chippyash\Type\BoolType<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createDigit" id="_createDigit">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.String.DigitType.html">chippyash\Type\String\DigitType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createDigit">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#156-165" title="Go to source code">createDigit</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a DigitType</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a DigitType</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.String.DigitType.html">chippyash\Type\String\DigitType</a></code></code><br>\chippyash\Type\String\DigitType<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createWhole" id="_createWhole">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.Number.WholeIntType.html">chippyash\Type\Number\WholeIntType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createWhole">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#167-184" title="Go to source code">createWhole</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a whole number</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a whole number</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Number.WholeIntType.html">chippyash\Type\Number\WholeIntType</a></code></code><br>\chippyash\Type\Number\WholeIntType<br>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createNatural" id="_createNatural">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.Number.NaturalIntType.html">chippyash\Type\Number\NaturalIntType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createNatural">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#186-203" title="Go to source code">createNatural</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a Natural number</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a Natural number</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Number.NaturalIntType.html">chippyash\Type\Number\NaturalIntType</a></code></code><br>\chippyash\Type\Number\NaturalIntType<br>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createComplex" id="_createComplex">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.Number.Complex.ComplexType.html">chippyash\Type\Number\Complex\ComplexType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createComplex">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#205-222" title="Go to source code">createComplex</a>( <span>string|numeric|<code><a href="class-chippyash.Type.Number.IntType.html">chippyash\Type\Number\IntType</a></code>|<code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code> <var>$realPart</var></span>, <span>numeric|<code><a href="class-chippyash.Type.Number.IntType.html">chippyash\Type\Number\IntType</a></code>|<code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code> <var>$imaginaryPart</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a Complex number If imaginary part is null, a complex equivalent real
+number is created r+0i</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a Complex number If imaginary part is null, a complex equivalent real
+number is created r+0i</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$realPart</var></dt>
+					<dd></dd>
+					<dt><var>$imaginaryPart</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Number.Complex.ComplexType.html">chippyash\Type\Number\Complex\ComplexType</a></code></code><br>\chippyash\Type\Number\Complex\ComplexType<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createRational" id="_createRational">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-chippyash.Type.Number.Rational.RationalType.html">chippyash\Type\Number\Rational\RationalType</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createRational">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#224-240" title="Go to source code">createRational</a>( <span>integer|string|float <var>$numerator</var></span>, <span>integer <var>$denominator</var> = <span class="php-num">1</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a Rational number</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a Rational number</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$numerator</var></dt>
+					<dd></dd>
+					<dt><var>$denominator</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Number.Rational.RationalType.html">chippyash\Type\Number\Rational\RationalType</a></code></code><br>\chippyash\Type\Number\Rational\RationalType<br>
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						RationalTypeFactory::create<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setNumberType" id="_setNumberType">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setNumberType">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#242-262" title="Go to source code">setNumberType</a>( <span>string <var>$requiredType</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set the required number type to return By default this is self::TYPE_DEFAULT
+which is 'auto', meaning that the factory will determine if GMP is installed and
+use that else use PHP native types</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set the required number type to return By default this is self::TYPE_DEFAULT
+which is 'auto', meaning that the factory will determine if GMP is installed and
+use that else use PHP native types</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$requiredType</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getRequiredType" id="_getRequiredType">
+
+		<td class="attributes"><code>
+			 protected static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRequiredType">#</a>
+		<code><a href="source-class-chippyash.Type.TypeFactory.html#264-286" title="Go to source code">getRequiredType</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get the required type base to return</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get the required type base to return</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>string<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="TYPE_DEFAULT" id="TYPE_DEFAULT">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-chippyash.Type.TypeFactory.html#30" title="Go to source code"><b>TYPE_DEFAULT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#TYPE_DEFAULT" class="anchor">#</a><code><span class="php-quote">'auto'</span></code></div></td>
+	</tr>
+	<tr data-order="TYPE_NATIVE" id="TYPE_NATIVE">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-chippyash.Type.TypeFactory.html#31" title="Go to source code"><b>TYPE_NATIVE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#TYPE_NATIVE" class="anchor">#</a><code><span class="php-quote">'native'</span></code></div></td>
+	</tr>
+	<tr data-order="TYPE_GMP" id="TYPE_GMP">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-chippyash.Type.TypeFactory.html#32" title="Go to source code"><b>TYPE_GMP</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#TYPE_GMP" class="anchor">#</a><code><span class="php-quote">'gmp'</span></code></div></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="supportType" id="$supportType">
+		<td class="attributes"><code>
+			protected static 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-chippyash.Type.TypeFactory.html#34-38" title="Go to source code"><var>$supportType</var></a>
+
+			<div class="description short">
+				
+<p>Client requested numeric base type support</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Client requested numeric base type support</p>
+
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$supportType" class="anchor">#</a><code><code><a href="class-chippyash.Type.TypeFactory.html#TYPE_DEFAULT">chippyash\Type\TypeFactory::<b>TYPE_DEFAULT</b></a></code></code></div></td>
+	</tr>
+	<tr data-order="validTypes" id="$validTypes">
+		<td class="attributes"><code>
+			protected static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-chippyash.Type.TypeFactory.html#39-43" title="Go to source code"><var>$validTypes</var></a>
+
+			<div class="description short">
+				
+<p>Numeric base types we can support</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Numeric base types we can support</p>
+
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$validTypes" class="anchor">#</a><code>[self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE]</code></div></td>
+	</tr>
+	<tr data-order="requiredType" id="$requiredType">
+		<td class="attributes"><code>
+			protected static 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-chippyash.Type.TypeFactory.html#44-48" title="Go to source code"><var>$requiredType</var></a>
+
+			<div class="description short">
+				
+<p>The actual base type we are going to return</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>The actual base type we are going to return</p>
+
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$requiredType" class="anchor">#</a><code><span class="php-keyword1">null</span></code></div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Chippyash Strong Types API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?510621468"></script>
+<script src="elementlist.js?4234850479"></script>
+</body>
+</html>
