@@ -14,7 +14,7 @@ specify a requirement for gmp and will therefore be passed over.
 
 See above request for help: gmp is not being tested at the present time by the
 Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
-(Test Contract)[https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md] in the docs directory.
+[Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
 
 ## What?
 
