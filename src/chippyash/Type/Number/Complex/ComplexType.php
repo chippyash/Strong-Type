@@ -13,6 +13,7 @@ namespace chippyash\Type\Number\Complex;
 use chippyash\Type\Number\Complex\AbstractComplexType;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
+use chippyash\Type\Exceptions\NotRealComplexException;
 
 /**
  * A complex number - algabraic form
@@ -42,6 +43,33 @@ class ComplexType extends AbstractComplexType
         $this->setFromTypes([$real, $imaginary]);
     }
 
+    /**
+     * Return the number as a Complex number i.e. n+0i
+     * 
+     * @returns chippyash\Type\Number\Complex\ComplexType
+     */
+    public function asComplex()
+    {
+        return clone $this;
+    }
+
+    /**
+     * Return number as Rational number.
+     * NB, numerator and denominator will be caste as IntTypes
+     *
+     * @returns chippyash\Type\Number\Rational\RationalType
+     *
+     * @throws NotRealComplexException
+     */
+    public function asRational()
+    {
+        if ($this->isReal()) {
+            return clone $this->value['real'];
+        } else {
+            throw new NotRealComplexException();
+        }
+    }
+    
     /**
      * Return the modulus, also known as absolute value or magnitude of this number
      * = sqrt(r^2 + i^2);

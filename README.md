@@ -70,6 +70,8 @@ Check out [chippyash/Logical-Matrix](https://github.com/chippyash/Logical-matrix
 
 Check out [chippyash/Math-Matrix](https://github.com/chippyash/Math-Matrix) for mathematical matrix operations
 
+Check out [chippyash/Builder-Pattern](https://github.com/chippyash/Builder-Pattern) for an implementation of the Builder Pattern for PHP
+
 ## How
 
 ### Coding Basics

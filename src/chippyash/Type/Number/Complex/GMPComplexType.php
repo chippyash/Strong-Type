@@ -83,7 +83,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
         $modN = gmp_mul($rN->numerator()->gmp(), $rD->denominator()->gmp());
         $modD = gmp_mul($rN->denominator()->gmp(), $rD->numerator()->gmp());
 
-        return new GMPRationalType(new GMPIntType($modN), new GMPIntType($modD));
+        return RationalTypeFactory::create((int) gmp_strval($modN), (int) gmp_strval($modD));
     }
 
     /**
@@ -93,6 +93,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * The return value is a rational expressing theta as radians
      * 
      * @return chippyash\Type\Number\Rational\GMPRationalType
+     * @todo implement gmp atan2 method
      */
     public function theta()
     {
@@ -176,7 +177,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      */
     public function asComplex()
     {
-        return clone $this;
+        return new ComplexType($this->r()->asRational(), $this->i()->asRational());
     }
     
     /**

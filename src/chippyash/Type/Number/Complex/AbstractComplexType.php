@@ -10,10 +10,9 @@
 namespace chippyash\Type\Number\Complex;
 
 use chippyash\Type\AbstractMultiValueType;
-use chippyash\Type\Number\IntType;
+use chippyash\Type\TypeFactory;
 use chippyash\Type\Interfaces\ComplexTypeInterface;
 use chippyash\Type\Interfaces\NumericTypeInterface;
-use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Exceptions\NotRealComplexException;
 
@@ -61,10 +60,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * 
      * @returns chippyash\Type\Number\Complex\ComplexType
      */
-    public function asComplex()
-    {
-        return clone $this;
-    }
+    abstract public function asComplex();
 
     /**
      * Return number as Rational number.
@@ -74,14 +70,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      *
      * @throws NotRealComplexException
      */
-    public function asRational()
-    {
-        if ($this->isReal()) {
-            return clone $this->value['real'];
-        } else {
-            throw new NotRealComplexException();
-        }
-    }
+    abstract public function asRational();
 
     /**
      * Return number as an IntType number.
@@ -92,7 +81,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     public function asIntType()
     {
         if ($this->isReal()) {
-            return new IntType(floor($this->value['real']->get()));
+            return TypeFactory::create('int', floor($this->value['real']->get()));
         } else {
             throw new NotRealComplexException();
         }
@@ -106,7 +95,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     public function asFloatType()
     {
         if ($this->isReal()) {
-            return new FloatType($this->value['real']->get());
+            return TypeFactory::create('float', $this->value['real']->get());
         } else {
             throw new NotRealComplexException();
         }
