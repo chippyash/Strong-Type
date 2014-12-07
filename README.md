@@ -77,7 +77,7 @@ Check out [chippyash/Testdox-Converter](https://github.com/chippyash/Testdox-Con
 
 ## How
 
-You can find the (API documentation here)[http://chippyash.github.io/Strong-Type]
+You can find the [API documentation here](http://chippyash.github.io/Strong-Type)
 
 ### Coding Basics
 
