@@ -335,11 +335,10 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('int', $c->toFloat());
     }
 
-    public function testAsComplexReturnsCloneOfSelf()
+    public function testAsComplexReturnsNativeComplexType()
     {
         $c = new GMPComplexType($this->createGMPRationalType(1), $this->createGMPRationalType(1));
-        $c2 = $c->asComplex();
-        $this->assertEquals($c, $c2);
+        $this->assertInstanceOf('chippyash\Type\Number\Complex\ComplexType', $c->asComplex());
     }
 
     public function testAsRationalReturnsRationalType()
