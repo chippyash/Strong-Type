@@ -401,3 +401,4 @@ V2.0.8 when GMP support enabled:
 - WholeIntType and NaturalIntType creation via the TypeFactory will return GMPIntType.
 - FloatType creation via the TypeFactory will return a GMPRationalType.
 
+V2.0.9 fix merge
