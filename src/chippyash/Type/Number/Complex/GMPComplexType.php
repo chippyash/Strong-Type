@@ -17,6 +17,7 @@ use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Exceptions\NotRealComplexException;
 use chippyash\Type\Interfaces\GMPInterface;
 use chippyash\Type\Number\GMPIntType;
+use chippyash\Type\Number\FloatType;
 use chippyash\Type\TypeFactory;
 
 /**
@@ -210,6 +211,20 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
             return new RationalType(
                     $this->value['real']->numerator()->asIntType(),
                     $this->value['real']->denominator()->asIntType());
+        } else {
+            throw new NotRealComplexException();
+        }
+    }
+    
+    /**
+     * Return number as a FloatType number.
+     *
+     * @returns chippyash\Type\Number\FloatType
+     */
+    public function asFloatType()
+    {
+        if ($this->isReal()) {
+            return new FloatType($this->value['real']->get());
         } else {
             throw new NotRealComplexException();
         }

@@ -224,9 +224,15 @@ ComplexTypeFactory::fromPolar(RationalType $radius, RationalType $theta) method.
 ### Support for GMP extension - V2 onwards only
 
 The library automatically recognises the availability of the gmp extension and
-will use it for int, rational and complex types.  There is no gmp support for 
-wholeIntType, NaturalIntType or FloatType.  You can force the library to use
-PHP native types by calling
+will use it for int, rational and complex types.  
+
+There is no gmp support for WholeIntType, NaturalIntType or FloatType.
+
+- WholeIntType and NaturalIntType creation via the TypeFactory will return GMPIntType.
+    - The validation for whole and natural numbers is ignored - they are treated as integers
+- FloatType creation via the TypeFactory will return a GMPRationalType.
+
+You can force the library to use PHP native types by calling
 
 <pre>
     TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
@@ -240,9 +246,12 @@ If you want to get the gmp typed value of a number you can call its gmp() method
 <pre>
     //assuming we are running under gmp
     $i = TypeFactory::create('int', 2); //returns GMPIntType
+    $i = TypeFactory::create('whole', -1); //returns GMPIntType
+    $i = TypeFactory::create('natural', 0); //returns GMPIntType
     $gmp = $i->gmp(); //returns resource or GMP object depending on PHP version
 
     $r = TypeFactory::create('rational', 2, 3); //returns GMPRationalType
+    $r = TypeFactory::create('float', 2/3); //returns GMPRationalType
     $gmp = $r->gmp(); //returns array of gmp types, [numerator, denominator]
 
     $c = TypeFactory::create('complex', '2+3i'); //returns GMPComplexType
@@ -383,4 +392,9 @@ V2.0.5 small amend to fix complex creation problem for calculator
 V2.0.6 update phpunit to ~V4.3.0
 
 V2.0.7 add test contract
+
+V2.0.8 when GMP support enabled:
+
+- WholeIntType and NaturalIntType creation via the TypeFactory will return GMPIntType.
+- FloatType creation via the TypeFactory will return a GMPRationalType.
 

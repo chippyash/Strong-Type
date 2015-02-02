@@ -116,7 +116,7 @@ abstract class TypeFactory
      * Create a FloatType
      *
      * @param mixed $value
-     * @return \chippyash\Type\Number\FloatType
+     * @return \chippyash\Type\Number\FloatType|\chippyash\Type\Number\Rational\GMPRationalType
      *
      * @throws \InvalidArgumentException
      */
@@ -128,7 +128,12 @@ abstract class TypeFactory
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for FloatType");
         }
-        return new FloatType($value);
+        
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return RationalTypeFactory::create($value);
+        } else {
+            return new FloatType($value);
+        }
     }
 
     /**
@@ -168,7 +173,7 @@ abstract class TypeFactory
      * Create a whole number
      *
      * @param mixed $value
-     * @return \chippyash\Type\Number\WholeIntType
+     * @return \chippyash\Type\Number\WholeIntType|\chippyash\Type\Number\GMPIntType
      *
      * @throws \InvalidArgumentException
      */
@@ -180,14 +185,19 @@ abstract class TypeFactory
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for WholeIntType");
         }
-        return new WholeIntType($value);
+        
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return new GMPIntType($value);
+        } else {
+            return new WholeIntType($value);
+        }
     }
 
     /**
      * Create a Natural number
      *
      * @param mixed $value
-     * @return \chippyash\Type\Number\NaturalIntType
+     * @return \chippyash\Type\Number\NaturalIntType|\chippyash\Type\Number\GMPIntType
      *
      * @throws \InvalidArgumentException
      */
@@ -199,7 +209,12 @@ abstract class TypeFactory
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for NaturalIntType");
         }
-        return new NaturalIntType($value);
+        
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return new GMPIntType($value);
+        } else {
+            return new NaturalIntType($value);
+        }
     }
 
     /**

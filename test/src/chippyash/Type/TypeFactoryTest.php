@@ -272,4 +272,34 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         TypeFactory::setNumberType('foo');
     }
+    
+    /**
+     * @requires extension gmp
+     * @runInSeparateProcess
+     */
+    public function  testCreatingWholeIntsViaTypeFactoryUnderGmpWillReturnGMPIntType()
+    {
+        TypeFactory::setNumberType(TypeFactory::TYPE_DEFAULT);
+        $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', TypeFactory::create('whole', -1));
+    }
+    
+    /**
+     * @requires extension gmp
+     * @runInSeparateProcess
+     */
+    public function  testCreatingNaturalIntsViaTypeFactoryUnderGmpWillReturnGMPIntType()
+    {
+        TypeFactory::setNumberType(TypeFactory::TYPE_DEFAULT);
+        $this->assertInstanceOf('chippyash\Type\Number\GMPIntType', TypeFactory::create('natural', 0));
+    }
+    
+    /**
+     * @requires extension gmp
+     * @runInSeparateProcess
+     */
+    public function  testCreatingFloatsViaTypeFactoryUnderGmpWillReturnGMPRationalType()
+    {
+        TypeFactory::setNumberType(TypeFactory::TYPE_DEFAULT);
+        $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', TypeFactory::create('float', 2/3));
+    }
 }
