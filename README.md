@@ -57,7 +57,7 @@ The current library covers basic data types plus some extensions.
 
 If you want more, either suggest it, or better still, fork it and provide a pull request.
 
-See (The Matrix Packages)[http://the-matrix.github.io/packages/] for other packages from chippyash
+See [The Matrix Packages](http://the-matrix.github.io/packages/) for other packages from chippyash
 
 ## How
 
