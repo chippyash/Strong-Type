@@ -85,31 +85,31 @@ class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
     public function correctParamCombinations()
     {
         if (!extension_loaded('gmp')) {
-            return [[2,2]];
+            return array(array(2,2));
         }
         return [
             //numeric int
-            [2,2],
-            [2,2.3],
-            [2,new GMPIntType(2)],
-            [2,new FloatType(2.3)],
+            array(2,2),
+            array(2,2.3),
+            array(2,new GMPIntType(2)),
+            array(2,new FloatType(2.3)),
             //numeric float
-            [1.2,2],
-            [1.2,2.3],
-            [1.2,new GMPIntType(2)],
-            [1.2,new FloatType(2.3)],
+            array(1.2,2),
+            array(1.2,2.3),
+            array(1.2,new GMPIntType(2)),
+            array(1.2,new FloatType(2.3)),
             //IntType
-            [new GMPIntType(2),2],
-            [new GMPIntType(2),2.3],
-            [new GMPIntType(2),new GMPIntType(2)],
-            [new GMPIntType(2),new FloatType(2.3)],
+            array(new GMPIntType(2),2),
+            array(new GMPIntType(2),2.3),
+            array(new GMPIntType(2),new GMPIntType(2)),
+            array(new GMPIntType(2),new FloatType(2.3)),
             //FloatType
-            [new FloatType(2.3),2],
-            [new FloatType(2.3),2.3],
-            [new FloatType(2.3),new GMPIntType(2)],
-            [new FloatType(2.3),new FloatType(2.3)],
+            array(new FloatType(2.3),2),
+            array(new FloatType(2.3),2.3),
+            array(new FloatType(2.3),new GMPIntType(2)),
+            array(new FloatType(2.3),new FloatType(2.3)),
             //rational type
-            [new GMPRationalType(new GMPIntType(1), new GMPIntType(2)), new GMPRationalType(new GMPIntType(3), new GMPIntType(2))]
+            array(new GMPRationalType(new GMPIntType(1), new GMPIntType(2)), new GMPRationalType(new GMPIntType(3), new GMPIntType(2)))
         ];
     }
     
@@ -126,16 +126,16 @@ class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
     
     public function polars()
     {
-        return [
+        return array(
             //quadrant 1
-            ['192119201/35675640','15238812/40048769'],
+            array('192119201/35675640','15238812/40048769'),
             //quadrant 2
-            ['192119201/35675640','266613702/96561163'],
+            array('192119201/35675640','266613702/96561163'),
             //quadrant 3
-            ['192119201/35675640','-266613702/96561163'],
+            array('192119201/35675640','-266613702/96561163'),
             //quadrant 4
-            ['192119201/35675640','-15238812/40048769'],
-        ];
+            array('192119201/35675640','-15238812/40048769'),
+        );
     }
     
     /**

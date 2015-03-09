@@ -15,10 +15,13 @@ include "../vendor/autoload.php";
 
 use chippyash\Type\Number\IntType;
 
-$nn = [];
-for ($x=1; $x<101; $x++) {
-    $nn[] = $x;
-}
+//PHP 5.3
+//$nn = [];
+//for ($x=1; $x<101; $x++) {
+//    $nn[] = $x;
+//}
+//PHP 5.4+
+$nn = range(1,100);
 $nn[] = 16449741; //just a big number
 foreach ($nn as $ni) {
     $n = new IntType($ni);

@@ -33,14 +33,14 @@ class ComplexType extends AbstractComplexType
      * map of values for this type
      * @var array
      */
-    protected $valueMap = [
-        0 => ['name' => 'real', 'class' => 'chippyash\Type\Number\Rational\RationalType'],
-        1 => ['name' => 'imaginary', 'class' => 'chippyash\Type\Number\Rational\RationalType']
-    ];  
+    protected $valueMap = array(
+        0 => array('name' => 'real', 'class' => 'chippyash\Type\Number\Rational\RationalType'),
+        1 => array('name' => 'imaginary', 'class' => 'chippyash\Type\Number\Rational\RationalType')
+    );
     
     public function __construct(RationalType $real, RationalType $imaginary)
     {
-        $this->setFromTypes([$real, $imaginary]);
+        $this->setFromTypes(array($real, $imaginary));
     }
 
     /**
@@ -83,8 +83,8 @@ class ComplexType extends AbstractComplexType
             return $this->value['real']->abs();
         }
         //r^2 & i^2
-        $sqrR = ['n'=>pow($this->value['real']->numerator()->get(), 2), 'd'=>pow($this->value['real']->denominator()->get(),2)];
-        $sqrI = ['n'=>pow($this->value['imaginary']->numerator()->get(), 2), 'd'=>pow($this->value['imaginary']->denominator()->get(),2)];
+        $sqrR = array('n'=>pow($this->value['real']->numerator()->get(), 2), 'd'=>pow($this->value['real']->denominator()->get(),2));
+        $sqrI = array('n'=>pow($this->value['imaginary']->numerator()->get(), 2), 'd'=>pow($this->value['imaginary']->denominator()->get(),2));
         //r^2 + i^2
         $den = $this->lcm($sqrR['d'], $sqrI['d']);
         $num = ($sqrR['n'] * $den / $sqrR['d']) +

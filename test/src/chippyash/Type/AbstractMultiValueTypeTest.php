@@ -10,10 +10,10 @@ class stubMVT extends \chippyash\Type\AbstractMultiValueType
      * map of values for this type
      * @var array
      */
-    protected $valueMap = [
-        0 => ['name' => 'foo', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'],
-        1 => ['name' => 'bar', 'class' => 'integer']
-    ];  
+    protected $valueMap = array(
+        0 => array('name' => 'foo', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'),
+        1 => array('name' => 'bar', 'class' => 'integer')
+);
     
     public function test()
     {

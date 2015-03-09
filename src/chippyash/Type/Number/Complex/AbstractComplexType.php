@@ -25,10 +25,10 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * map of values for this type
      * @var array
      */
-    protected $valueMap = [
-        0 => ['name' => 'real', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'],
-        1 => ['name' => 'imaginary', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface']
-    ];    
+    protected $valueMap = array(
+        0 => array('name' => 'real', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'),
+        1 => array('name' => 'imaginary', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface')
+    );
 
     /**
      * Return the modulus, also known as absolute value or magnitude of this number
@@ -225,7 +225,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      */
     public function asPolar()
     {
-        return ['radius'=>$this->modulus(), 'theta'=>$this->theta()];
+        return array('radius'=>$this->modulus(), 'theta'=>$this->theta());
     }
     
     /**

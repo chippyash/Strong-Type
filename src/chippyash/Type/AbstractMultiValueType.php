@@ -22,7 +22,7 @@ abstract class AbstractMultiValueType extends AbstractType
      *
      * @var array
      */
-    protected $value = [];
+    protected $value = array();
 
     /**
      * Map of value names to $value array position
@@ -38,7 +38,7 @@ abstract class AbstractMultiValueType extends AbstractType
      * 
      * @var array
      */
-    protected $valueMap = [];
+    protected $valueMap = array();
     
     /**
      * Constructor

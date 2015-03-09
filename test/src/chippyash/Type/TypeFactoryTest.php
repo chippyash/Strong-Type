@@ -244,14 +244,14 @@ class TypeFactoryTest extends \PHPUnit_Framework_TestCase
         //need to do this as data is established before setUp() is called
         TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
         $type = TypeFactory::create('complex', '2+0i');
-        return [
-            ['int', $type],
-            ['whole', $type],
-            ['natural', $type],
-            ['float', $type],
-            ['rational', $type],
-            ['complex', $type],
-        ];
+        return array(
+            array('int', $type),
+            array('whole', $type),
+            array('natural', $type),
+            array('float', $type),
+            array('rational', $type),
+            array('complex', $type),
+        );
     }
 
     /**

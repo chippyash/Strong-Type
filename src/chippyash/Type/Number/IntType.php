@@ -100,7 +100,7 @@ class IntType extends AbstractType implements NumericTypeInterface
     {
         $n = $this->value;
         $limit = floor(sqrt(abs($n)));
-        $ret = [];
+        $ret = array();
         for ($x = 1; $x <= $limit; $x++) {
             if ($n % $x == 0) {
                 $z = $n / $x;
@@ -125,9 +125,9 @@ class IntType extends AbstractType implements NumericTypeInterface
         // max_n = 2^31-1 = 2147483647
         $n = $this->value;
         $d = 2;
-        $factors = [];
+        $factors = array();
         $dmax = floor(sqrt($n));
-        $sieve = [];
+        $sieve = array();
         $sieve = array_fill(1, $dmax, 1);
         do {
             $r = false;

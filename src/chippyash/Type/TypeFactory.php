@@ -6,6 +6,7 @@
  * @author Ashley Kitson <akitson@zf4.biz>
  * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
+ *
  */
 namespace chippyash\Type;
 
@@ -40,7 +41,7 @@ abstract class TypeFactory
      * Numeric base types we can support
      * @var array
      */
-    protected static $validTypes = [self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE];
+    protected static $validTypes = array(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE);
     /**
      * The actual base type we are going to return
      * @var string

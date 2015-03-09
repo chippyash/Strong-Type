@@ -95,7 +95,7 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
     {
         $i = new IntType($n);
         //unwrap the factors - phpUnit does not pass keys in!
-        $pf = [];
+        $pf = array();
         foreach($pFactors as $factor) {
             $k = key($factor);
             $pf[$k] = $factor[$k];
@@ -111,18 +111,18 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
     public function factors()
     {
         return [
-            [2,[1, 2],[[2=>1]]],
-            [3,[1, 3],[[3=>1]]],
-            [4,[1, 2, 4],[[2=>2]]],
-            [5,[1,5],[[5=>1]]],
-            [6,[1, 2, 3, 6],[[2=>1], [3=>1]]],
-            [7,[1, 7],[[7=>1]]],
-            [8,[1, 2, 4, 8],[[2=>3]]],
-            [9,[1, 3, 9],[[3=>2]]],
-            [10,[1, 2, 5,10],[[5=>1],[2=>1]]],
-            [138,[1, 2, 3, 6, 23, 46, 69, 138], [[2=>1],[3=>1],[23=>1]]],
-            [1643,[1, 31, 53, 1643],[[31=>1],[53=>1]]],
-            [1644,[1, 2, 3, 4, 6, 12, 137, 274, 411, 548, 822, 1644],[[2=>2], [3=>1], [137=>1]]]
+            array(2,array(1, 2),array(array(2=>1))),
+            array(3,array(1, 3),array(array(3=>1))),
+            array(4,array(1, 2, 4),array(array(2=>2))),
+            array(5,array(1,5),array(array(5=>1))),
+            array(6,array(1, 2, 3, 6),array(array(2=>1), array(3=>1))),
+            array(7,array(1, 7),array(array(7=>1))),
+            array(8,array(1, 2, 4, 8),array(array(2=>3))),
+            array(9,array(1, 3, 9),array(array(3=>2))),
+            array(10,array(1, 2, 5,10),array(array(5=>1),array(2=>1))),
+            array(138,array(1, 2, 3, 6, 23, 46, 69, 138), array(array(2=>1),array(3=>1),array(23=>1))),
+            array(1643,array(1, 31, 53, 1643),array(array(31=>1),array(53=>1))),
+            array(1644,array(1, 2, 3, 4, 6, 12, 137, 274, 411, 548, 822, 1644),array(array(2=>2), array(3=>1), array(137=>1)))
         ];
     }
 }

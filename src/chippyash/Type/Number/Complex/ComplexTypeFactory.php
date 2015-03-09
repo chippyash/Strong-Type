@@ -43,7 +43,7 @@ abstract class ComplexTypeFactory
      * Numeric base types we can support
      * @var array
      */
-    protected static $validTypes = [self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE];
+    protected static $validTypes = array(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE);
     /**
      * The actual base type we are going to return
      * @var string
@@ -96,7 +96,7 @@ abstract class ComplexTypeFactory
      */
     public static function fromString($string)
     {
-        $matches = [];
+        $matches = array();
         $valid = \preg_match(
                 '#^([-,\+])?([0-9]*[\.\/]?[0-9]*)([-,\+]){1}([0-9]*[\.\/]?[0-9]*)i$#', \trim($string), $matches
         );

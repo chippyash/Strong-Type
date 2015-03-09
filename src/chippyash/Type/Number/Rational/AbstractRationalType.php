@@ -36,10 +36,10 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
      * map of values for this type
      * @var array
      */
-    protected $valueMap = [
-        0 => ['name' => 'num', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'],
-        1 => ['name' => 'den', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface']
-    ];    
+    protected $valueMap = array(
+        0 => array('name' => 'num', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'),
+        1 => array('name' => 'den', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface')
+    );
 
     /**
      * Return the number as a Complex number i.e. n+0i

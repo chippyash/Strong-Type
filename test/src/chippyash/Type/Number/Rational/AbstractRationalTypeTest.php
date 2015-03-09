@@ -20,7 +20,7 @@ class AbstractRationalTypeTest extends \PHPUnit_Framework_TestCase
         TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
         $this->object = $this->getMockForAbstractClass(
                 'chippyash\Type\Number\Rational\AbstractRationalType',
-                [new IntType(3), new IntType(4)]);
+                array(new IntType(3), new IntType(4)));
     }
 
     public function testMagicInvokeProxiesToGet()

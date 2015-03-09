@@ -33,10 +33,10 @@ class RationalType extends AbstractRationalType
      * map of values for this type
      * @var array
      */
-    protected $valueMap = [
-        0 => ['name' => 'num', 'class' => 'chippyash\Type\Number\IntType'],
-        1 => ['name' => 'den', 'class' => 'chippyash\Type\Number\IntType']
-    ];
+    protected $valueMap = array(
+        0 => array('name' => 'num', 'class' => 'chippyash\Type\Number\IntType'),
+        1 => array('name' => 'den', 'class' => 'chippyash\Type\Number\IntType')
+    );
     
     /**
      * Construct new rational

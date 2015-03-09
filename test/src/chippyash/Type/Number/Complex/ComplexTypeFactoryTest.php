@@ -77,27 +77,27 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         return [
             //numeric int
-            [2,2],
-            [2,2.3],
-            [2,new IntType(2)],
-            [2,new FloatType(2.3)],
+            array(2,2),
+            array(2,2.3),
+            array(2,new IntType(2)),
+            array(2,new FloatType(2.3)),
             //numeric float
-            [1.2,2],
-            [1.2,2.3],
-            [1.2,new IntType(2)],
-            [1.2,new FloatType(2.3)],
+            array(1.2,2),
+            array(1.2,2.3),
+            array(1.2,new IntType(2)),
+            array(1.2,new FloatType(2.3)),
             //IntType
-            [new IntType(2),2],
-            [new IntType(2),2.3],
-            [new IntType(2),new IntType(2)],
-            [new IntType(2),new FloatType(2.3)],
+            array(new IntType(2),2),
+            array(new IntType(2),2.3),
+            array(new IntType(2),new IntType(2)),
+            array(new IntType(2),new FloatType(2.3)),
             //FloatType
-            [new FloatType(2.3),2],
-            [new FloatType(2.3),2.3],
-            [new FloatType(2.3),new IntType(2)],
-            [new FloatType(2.3),new FloatType(2.3)],
+            array(new FloatType(2.3),2),
+            array(new FloatType(2.3),2.3),
+            array(new FloatType(2.3),new IntType(2)),
+            array(new FloatType(2.3),new FloatType(2.3)),
             //rational type
-            [new RationalType(new IntType(1), new IntType(2)), new RationalType(new IntType(3), new IntType(2))]
+            array(new RationalType(new IntType(1), new IntType(2)), new RationalType(new IntType(3), new IntType(2)))
         ];
     }
     
@@ -116,13 +116,13 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         return [
             //quadrant 1
-            ['192119201/35675640','15238812/40048769'],
+            array('192119201/35675640','15238812/40048769'),
             //quadrant 2
-            ['192119201/35675640','266613702/96561163'],
+            array('192119201/35675640','266613702/96561163'),
             //quadrant 3
-            ['192119201/35675640','-266613702/96561163'],
+            array('192119201/35675640','-266613702/96561163'),
             //quadrant 4
-            ['192119201/35675640','-15238812/40048769'],
+            array('192119201/35675640','-15238812/40048769'),
         ];
     }
 }

@@ -109,7 +109,7 @@ class GMPIntType extends IntType implements GMPInterface
         $limit = gmp_sqrt($n);
         $zero = gmp_init(0);
         $one = gmp_init(1);
-        $ret = [];
+        $ret = array();
         for ($x = gmp_init(1); gmp_cmp($x, $limit) <= 0; $x = gmp_add($x, $one)) {
             if (gmp_cmp(gmp_mod($n, $x), $zero) == 0) {
                 $z = gmp_strval(gmp_div_q($n, $x));
@@ -140,7 +140,7 @@ class GMPIntType extends IntType implements GMPInterface
         $zero = gmp_init(0);
         $one = gmp_init(1);
         $dmax = gmp_sqrt($n);
-        $factors = [];
+        $factors = array();
         $sieve = array_fill(1, intval(gmp_strval($dmax)), 1);
         do {
             $r = false;

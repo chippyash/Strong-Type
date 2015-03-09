@@ -49,7 +49,7 @@ abstract class RationalTypeFactory
      * Numeric base types we can support
      * @var array
      */
-    protected static $validTypes = [self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE];
+    protected static $validTypes = array(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE);
     /**
      * The actual base type we are going to return
      * @var string
@@ -177,7 +177,7 @@ abstract class RationalTypeFactory
      */
     public static function fromString($string)
     {
-        $matches = [];
+        $matches = array();
         $valid = \preg_match(
                 '#^(-)? *?(\d+) *?/ *?(-)? *?(\d+)$#', \trim($string), $matches
         );

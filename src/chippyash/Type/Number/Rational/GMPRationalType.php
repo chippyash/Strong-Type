@@ -34,10 +34,10 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      * map of values for this type
      * @var array
      */
-    protected $valueMap = [
-        0 => ['name' => 'num', 'class' => 'chippyash\Type\Number\GMPIntType'],
-        1 => ['name' => 'den', 'class' => 'chippyash\Type\Number\GMPIntType']
-    ];
+    protected $valueMap = array(
+        0 => array('name' => 'num', 'class' => 'chippyash\Type\Number\GMPIntType'),
+        1 => array('name' => 'den', 'class' => 'chippyash\Type\Number\GMPIntType')
+    );
     
     /**
      * Construct new GMP rational
@@ -78,7 +78,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      */
     public function gmp()
     {
-        return [$this->value['num']->gmp(), $this->value['den']->gmp()];
+        return array($this->value['num']->gmp(), $this->value['den']->gmp());
     }
 
     /**

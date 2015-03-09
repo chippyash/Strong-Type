@@ -439,16 +439,16 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function polars() {
-        return [
+        return array(
 //quadrant 1
-            [new ComplexType($this->createRationalType(5), $this->createRationalType(2)), '73997555/13741001', '15238812/40048769', 1],
+            array(new ComplexType($this->createRationalType(5), $this->createRationalType(2)), '73997555/13741001', '15238812/40048769', 1),
 //quadrant 2
-            [new ComplexType($this->createRationalType(-5), $this->createRationalType(2)), '73997555/13741001', '266613702/96561163', 2],
+            array(new ComplexType($this->createRationalType(-5), $this->createRationalType(2)), '73997555/13741001', '266613702/96561163', 2),
 //quadrant 3
-            [new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)), '73997555/13741001', '-266613702/96561163', 3],
+            array(new ComplexType($this->createRationalType(-5), $this->createRationalType(-2)), '73997555/13741001', '-266613702/96561163', 3),
 //quadrant 4
-            [new ComplexType($this->createRationalType(5), $this->createRationalType(-2)), '73997555/13741001', '-15238812/40048769', 4],
-        ];
+            array(new ComplexType($this->createRationalType(5), $this->createRationalType(-2)), '73997555/13741001', '-15238812/40048769', 4),
+        );
     }
 
     public function testCloneDoesCloneInnerValue() {

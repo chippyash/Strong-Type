@@ -39,14 +39,14 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * map of values for this type
      * @var array
      */
-    protected $valueMap = [
-        0 => ['name' => 'real', 'class' => 'chippyash\Type\Number\Rational\GMPRationalType'],
-        1 => ['name' => 'imaginary', 'class' => 'chippyash\Type\Number\Rational\GMPRationalType']
-    ];  
+    protected $valueMap = array(
+        0 => array('name' => 'real', 'class' => 'chippyash\Type\Number\Rational\GMPRationalType'),
+        1 => array('name' => 'imaginary', 'class' => 'chippyash\Type\Number\Rational\GMPRationalType')
+    );
     
     public function __construct(GMPRationalType $real, GMPRationalType $imaginary)
     {
-        $this->setFromTypes([$real, $imaginary]);
+        $this->setFromTypes(array($real, $imaginary));
     }
 
     /**
@@ -62,8 +62,8 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
             return $this->value['real']->abs();
         }
         //get r^2 and i^2
-        $sqrR = ['n'=>gmp_pow($this->value['real']->numerator()->gmp(), 2), 'd'=>gmp_pow($this->value['real']->denominator()->gmp(),2)];
-        $sqrI = ['n'=>gmp_pow($this->value['imaginary']->numerator()->gmp(), 2), 'd'=>gmp_pow($this->value['imaginary']->denominator()->gmp(),2)];
+        $sqrR = array('n'=>gmp_pow($this->value['real']->numerator()->gmp(), 2), 'd'=>gmp_pow($this->value['real']->denominator()->gmp(),2));
+        $sqrI = array('n'=>gmp_pow($this->value['imaginary']->numerator()->gmp(), 2), 'd'=>gmp_pow($this->value['imaginary']->denominator()->gmp(),2));
         //r^2 + i^2
         $den = $this->lcm($sqrR['d'], $sqrI['d']);
         $numRaw = gmp_strval(gmp_add(
@@ -142,7 +142,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      */
     public function gmp()
     {
-        return [$this->value['real']->gmp(), $this->value['imaginary']->gmp()];
+        return array($this->value['real']->gmp(), $this->value['imaginary']->gmp());
     }
 
     /**
