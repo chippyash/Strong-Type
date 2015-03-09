@@ -1,18 +1,13 @@
 # chippyash/Type
 
-## Request for help
-
-The V2 build of this library can use GMP support. I can't seem to figure out how to add gmp support 
-to the travis ci build system.  If you know how to do this, I'd appreciate your
-intervention and assistance.  The following QA is still good, as the gmp tests 
-specify a requirement for gmp and will therefore be passed over. 
-
 ## Quality Assurance
+
+Certified for PHP 5.3, 5.4 and 5.5
 
 [![Build Status](https://travis-ci.org/chippyash/Strong-Type.svg?branch=master)](https://travis-ci.org/chippyash/Strong-Type)
 [![Coverage Status](https://coveralls.io/repos/chippyash/Strong-Type/badge.png)](https://coveralls.io/r/chippyash/Strong-Type)
 
-See above request for help: gmp is not being tested at the present time by the
+See request for help: gmp is not being tested at the present time by the
 Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
 [Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
 
@@ -46,8 +41,8 @@ float for instance, you get one (or use hhvm ;-) ).  This library addresses the
 issue for some basic PHP types plus some extensions for what could be considered 
 'missing' types.
 
-The primary purpose of strong typing in this context is to guard your public
-methods against unwarranted side effects.  You should not consider it necessary
+The primary purpose of strong typing in this context is to *guard your public
+methods against unwarranted side effects*.  You should not consider it necessary
 in most circumstances to have to pass around these types internally, except of
 course where it makes sense to do so, e.g. unwrap the native type at the point
 of use.
@@ -62,18 +57,7 @@ The current library covers basic data types plus some extensions.
 
 If you want more, either suggest it, or better still, fork it and provide a pull request.
 
-Check out [chippyash/Math-Type-Calculator](https://github.com/chippyash/Math-Type-Calculator) for a library that
-provides arithmetic support for the numeric strong types in this library.
-
-Check out [chippyash/Matrix](https://github.com/chippyash/Matrix) for Matrix data type support.
-
-Check out [chippyash/Logical-Matrix](https://github.com/chippyash/Logical-matrix) for logical matrix operations
-
-Check out [chippyash/Math-Matrix](https://github.com/chippyash/Math-Matrix) for mathematical matrix operations
-
-Check out [chippyash/Builder-Pattern](https://github.com/chippyash/Builder-Pattern) for an implementation of the Builder Pattern for PHP
-
-Check out [chippyash/Testdox-Converter](https://github.com/chippyash/Testdox-Converter) for a utility to create markdown format test contract from phpunit testdox-html
+See (The Matrix Packages)[http://the-matrix.github.io/packages/] for other packages from chippyash
 
 ## How
 
@@ -288,6 +272,8 @@ Found a bug you can't figure out?
 
 NB. Make sure you rebase to HEAD before your pull request
 
+Or - raise an issue ticket.
+
 ## Where?
 
 The library is hosted at [Github](https://github.com/chippyash/Strong-type). It is
@@ -299,25 +285,13 @@ Install [Composer](https://getcomposer.org/)
 
 #### For production
 
-If you do not need GMP support, you can continue to use the V1.1 branch for the
-time being.
- 
-add
-
-<pre>
-    "chippyash/strong-type": "~1.1.3"
-</pre>
-
-to your composer.json "requires" section
-
-If you want GMP support, use the V2 branch
+Use the V2 branch unless you have a strong reason not to.
 
 <pre>
     "chippyash/strong-type": "~2.0.0"
 </pre>
 
-At some point in the not too distant future, the V2 branch will become the default,
-once downstream development of the type calculator to support GMP is complete.
+The V2 branch is the default, no further development of the V1 branch will take place.
  
 #### For development
 
@@ -402,3 +376,13 @@ V2.0.8 when GMP support enabled:
 - FloatType creation via the TypeFactory will return a GMPRationalType.
 
 V2.0.9 fix merge
+
+V2.1.0 Downgrade library to support PHP5.3 - too many people still using it!
+
+## Request for help
+
+The V2 build of this library can use GMP support. I can't seem to figure out how to add gmp support 
+to the travis ci build system.  If you know how to do this, I'd appreciate your intervention and assistance.  
+The QA is still good, as the gmp tests specify a requirement for gmp and will therefore be passed over. 
+
+
