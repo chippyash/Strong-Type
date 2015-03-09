@@ -19,7 +19,6 @@ use chippyash\Type\Number\Rational\AbstractRationalType;
 use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\BoolType;
-use chippyash\Type\Traits\GmpTypeCheck;
 
 /**
  * A rational number (i.e a fraction)
@@ -28,8 +27,6 @@ use chippyash\Type\Traits\GmpTypeCheck;
  */
 class GMPRationalType extends AbstractRationalType implements GMPInterface
 {
-    use GmpTypeCheck;
-    
     /**
      * map of values for this type
      * @var array
@@ -140,5 +137,4 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
             $this->value['den']->set(gmp_div_q($this->value['den']->gmp(), $gcd));
         }
     }
-
 }

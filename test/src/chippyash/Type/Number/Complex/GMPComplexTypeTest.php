@@ -7,7 +7,6 @@ use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\TypeFactory;
-use chippyash\Type\Traits\GmpTypeCheck;
 
 /**
  * @requires extension gmp
@@ -15,8 +14,6 @@ use chippyash\Type\Traits\GmpTypeCheck;
  */
 class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
 {
-    use GmpTypeCheck;
-    
     public function setUp() {
         TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
     }
@@ -485,5 +482,21 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
     protected function createGMPRationalType($n, $d = 1)
     {
         return new GMPRationalType(new GMPIntType($n), new GMPIntType($d));
+    }
+
+
+    /**
+     * Check gmp type depending on PHP version
+     *
+     * @param mixed $value value to check type of
+     * @return boolean true if gmp number else false
+     */
+    protected function gmpTypeCheck($value)
+    {
+        if (version_compare(PHP_VERSION, '5.6.0') < 0) {
+            return is_resource($value) && get_resource_type($value) == 'GMP integer';
+        }
+
+        return ($value instanceof \GMP);
     }
 }

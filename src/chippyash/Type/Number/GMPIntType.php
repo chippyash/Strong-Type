@@ -14,7 +14,6 @@ use chippyash\Type\Interfaces\GMPInterface;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\Number\Rational\GMPRationalType;
-use chippyash\Type\Traits\GmpTypeCheck;
 use chippyash\Type\Exceptions\GmpNotSupportedException;
 
 /**
@@ -22,8 +21,6 @@ use chippyash\Type\Exceptions\GmpNotSupportedException;
  */
 class GMPIntType extends IntType implements GMPInterface
 {
-    use GmpTypeCheck;
-
     protected static $gmpInstalled;
     
     /**
@@ -262,5 +259,31 @@ class GMPIntType extends IntType implements GMPInterface
         }
         //it's an object so clone
         return clone $this->value;
+    }
+
+
+    /**
+     * Check gmp type depending on PHP version
+     *
+     * @param mixed $value value to check type of
+     * @return boolean true if gmp number else false
+     */
+    protected function gmpTypeCheck($value)
+    {
+        if (version_compare(PHP_VERSION, '5.6.0') < 0) {
+            return is_resource($value) && get_resource_type($value) == 'GMP integer';
+        }
+
+        return ($value instanceof \GMP);
+    }
+
+    /**
+     * Is gmp installed?
+     *
+     * @return boolean
+     */
+    protected function checkGmpInstalled()
+    {
+        return extension_loaded('gmp');
     }
 }
