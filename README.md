@@ -41,11 +41,22 @@ float for instance, you get one (or use hhvm ;-) ).  This library addresses the
 issue for some basic PHP types plus some extensions for what could be considered 
 'missing' types.
 
+The most common use case for this library is as a type hinter for your public methods:
+
+<pre>
+    
+    public function myFunc(StringType $str, IntType $ival);
+    
+</pre>
+
 The primary purpose of strong typing in this context is to *guard your public
 methods against unwarranted side effects*.  You should not consider it necessary
 in most circumstances to have to pass around these types internally, except of
 course where it makes sense to do so, e.g. unwrap the native type at the point
 of use.
+
+That said, once you get into the swing of using the basic types, you'll find them most amenable to being passed
+around and used interchangeably with PHP native types, primarily because they support a \__toString() method.
 
 A secondary purpose is to support the chippyash/Math-Matrix and chippyash/Math-Type-Calculator
 libraries. This is why you will see some small addendum being made to this library
