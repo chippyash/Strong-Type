@@ -184,6 +184,7 @@
 ## chippyash\Test\Type\Number\IntType
 
 *  Int type converts values to integer
+*  Int type can be used in calculation
 *  Can negate the number
 *  As complex returns complex type
 *  As rational returns rational type
@@ -309,6 +310,8 @@
 ## chippyash\Test\Type\String\StringType
 
 *  String type converts base types to string
+*  String type proxies magic invoke to get
+*  String type can be used in string concatenation
 
 ## chippyash\Test\Type\TypeFactory
 

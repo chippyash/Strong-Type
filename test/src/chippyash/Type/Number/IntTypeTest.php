@@ -29,6 +29,12 @@ class IntTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(34, $t->get());
     }
 
+    public function testIntTypeCanBeUsedInCalculation()
+    {
+        $t = new IntType(12);
+        $this->assertEquals(24, 2 * $t());
+    }
+
     public function testCanNegateTheNumber()
     {
         $t = new IntType(2);

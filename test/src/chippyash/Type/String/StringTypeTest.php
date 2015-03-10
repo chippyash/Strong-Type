@@ -27,4 +27,15 @@ class StringTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $t->get());
     }
 
+    public function testStringTypeProxiesMagicInvokeToGet()
+    {
+        $t = new StringType('foo');
+        $this->assertEquals($t(), $t->get());
+    }
+
+    public function testStringTypeCanBeUsedInStringConcatenation()
+    {
+        $t = new StringType('foo');
+        $this->assertEquals('the word is foo', "the word is {$t}");
+    }
 }

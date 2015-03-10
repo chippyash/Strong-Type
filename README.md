@@ -34,7 +34,7 @@ The library is released under the [GNU GPL V3 or later license](http://www.gnu.o
 
 One of the joys of PHP is its loose typing, but there are situations, particularly
 in large or complex systems where you want to guarantee that method parameters are
-what you want them to be.  PHPs type hinting extends to a few basic native types
+what you want them to be. PHP's type hinting extends to a few basic native types
 such as arrays and hard typing to class names.  For the rest you end up having to
 put a lot of boiler plate in your methods just to ensure that when you expect a
 float for instance, you get one (or use hhvm ;-) ).  This library addresses the 
@@ -56,7 +56,19 @@ course where it makes sense to do so, e.g. unwrap the native type at the point
 of use.
 
 That said, once you get into the swing of using the basic types, you'll find them most amenable to being passed
-around and used interchangeably with PHP native types, primarily because they support a \__toString() method.
+around and used interchangeably with PHP native types, primarily because they support a \__toString() method and 
+\__invoke() which proxies to the get() method.
+
+<pre>
+    
+    public function myFunc(StringType $str, IntType $ival)
+    {
+        echo $str;
+        $foo = "The amount is {$ival}";
+        $n = 2 * $ival();
+    }
+    
+</pre>
 
 A secondary purpose is to support the chippyash/Math-Matrix and chippyash/Math-Type-Calculator
 libraries. This is why you will see some small addendum being made to this library
