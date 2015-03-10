@@ -37,8 +37,6 @@
 							</ul></li>
 				<li><a href="namespace-chippyash.Type.String.html">String</a>
 						</li>
-				<li><a href="namespace-chippyash.Type.Traits.html">Traits</a>
-						</li>
 							</ul></li></ul></li>
 			</ul>
 		</div>
@@ -198,7 +196,7 @@
 </span><span id="100" class="l"><a class="l" href="#100">100: </a>    {
 </span><span id="101" class="l"><a class="l" href="#101">101: </a>        <span class="php-var">$n</span> = <span class="php-var">$this</span>-&gt;value;
 </span><span id="102" class="l"><a class="l" href="#102">102: </a>        <span class="php-var">$limit</span> = <span class="php-keyword2">floor</span>(<span class="php-keyword2">sqrt</span>(<span class="php-keyword2">abs</span>(<span class="php-var">$n</span>)));
-</span><span id="103" class="l"><a class="l" href="#103">103: </a>        <span class="php-var">$ret</span> = [];
+</span><span id="103" class="l"><a class="l" href="#103">103: </a>        <span class="php-var">$ret</span> = <span class="php-keyword1">array</span>();
 </span><span id="104" class="l"><a class="l" href="#104">104: </a>        <span class="php-keyword1">for</span> (<span class="php-var">$x</span> = <span class="php-num">1</span>; <span class="php-var">$x</span> &lt;= <span class="php-var">$limit</span>; <span class="php-var">$x</span>++) {
 </span><span id="105" class="l"><a class="l" href="#105">105: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$n</span> % <span class="php-var">$x</span> == <span class="php-num">0</span>) {
 </span><span id="106" class="l"><a class="l" href="#106">106: </a>                <span class="php-var">$z</span> = <span class="php-var">$n</span> / <span class="php-var">$x</span>;
@@ -223,9 +221,9 @@
 </span><span id="125" class="l"><a class="l" href="#125">125: </a>        <span class="php-comment">// max_n = 2^31-1 = 2147483647</span>
 </span><span id="126" class="l"><a class="l" href="#126">126: </a>        <span class="php-var">$n</span> = <span class="php-var">$this</span>-&gt;value;
 </span><span id="127" class="l"><a class="l" href="#127">127: </a>        <span class="php-var">$d</span> = <span class="php-num">2</span>;
-</span><span id="128" class="l"><a class="l" href="#128">128: </a>        <span class="php-var">$factors</span> = [];
+</span><span id="128" class="l"><a class="l" href="#128">128: </a>        <span class="php-var">$factors</span> = <span class="php-keyword1">array</span>();
 </span><span id="129" class="l"><a class="l" href="#129">129: </a>        <span class="php-var">$dmax</span> = <span class="php-keyword2">floor</span>(<span class="php-keyword2">sqrt</span>(<span class="php-var">$n</span>));
-</span><span id="130" class="l"><a class="l" href="#130">130: </a>        <span class="php-var">$sieve</span> = [];
+</span><span id="130" class="l"><a class="l" href="#130">130: </a>        <span class="php-var">$sieve</span> = <span class="php-keyword1">array</span>();
 </span><span id="131" class="l"><a class="l" href="#131">131: </a>        <span class="php-var">$sieve</span> = <span class="php-keyword2">array_fill</span>(<span class="php-num">1</span>, <span class="php-var">$dmax</span>, <span class="php-num">1</span>);
 </span><span id="132" class="l"><a class="l" href="#132">132: </a>        <span class="php-keyword1">do</span> {
 </span><span id="133" class="l"><a class="l" href="#133">133: </a>            <span class="php-var">$r</span> = <span class="php-keyword1">false</span>;
@@ -275,6 +273,6 @@
 </div>
 </div>
 <script src="resources/combined.js?510621468"></script>
-<script src="elementlist.js?4234850479"></script>
+<script src="elementlist.js?201468875"></script>
 </body>
 </html>

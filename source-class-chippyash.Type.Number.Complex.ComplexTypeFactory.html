@@ -37,8 +37,6 @@
 							</ul></li>
 				<li><a href="namespace-chippyash.Type.String.html">String</a>
 						</li>
-				<li><a href="namespace-chippyash.Type.Traits.html">Traits</a>
-						</li>
 							</ul></li></ul></li>
 			</ul>
 		</div>
@@ -140,7 +138,7 @@
 </span></span><span id="43" class="l"><a class="l" href="#43"> 43: </a><span class="php-comment">     * Numeric base types we can support
 </span></span><span id="44" class="l"><a class="l" href="#44"> 44: </a><span class="php-comment">     * @var array
 </span></span><span id="45" class="l"><a class="l" href="#45"> 45: </a><span class="php-comment">     */</span>
-</span><span id="46" class="l"><a class="l" href="#46"> 46: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">static</span> <span class="php-var"><a id="$validTypes" href="#$validTypes">$validTypes</a></span> = [self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE];
+</span><span id="46" class="l"><a class="l" href="#46"> 46: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">static</span> <span class="php-var"><a id="$validTypes" href="#$validTypes">$validTypes</a></span> = <span class="php-keyword1">array</span>(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE);
 </span><span id="47" class="l"><a class="l" href="#47"> 47: </a>    <span class="php-comment">/**
 </span></span><span id="48" class="l"><a class="l" href="#48"> 48: </a><span class="php-comment">     * The actual base type we are going to return
 </span></span><span id="49" class="l"><a class="l" href="#49"> 49: </a><span class="php-comment">     * @var string
@@ -193,7 +191,7 @@
 </span></span><span id="96" class="l"><a class="l" href="#96"> 96: </a><span class="php-comment">     */</span>
 </span><span id="97" class="l"><a class="l" href="#97"> 97: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_fromString" href="#_fromString">fromString</a>(<span class="php-var">$string</span>)
 </span><span id="98" class="l"><a class="l" href="#98"> 98: </a>    {
-</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>        <span class="php-var">$matches</span> = [];
+</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>        <span class="php-var">$matches</span> = <span class="php-keyword1">array</span>();
 </span><span id="100" class="l"><a class="l" href="#100">100: </a>        <span class="php-var">$valid</span> = \<span class="php-keyword2">preg_match</span>(
 </span><span id="101" class="l"><a class="l" href="#101">101: </a>                <span class="php-quote">'#^([-,\+])?([0-9]*[\.\/]?[0-9]*)([-,\+]){1}([0-9]*[\.\/]?[0-9]*)i$#'</span>, \<span class="php-keyword2">trim</span>(<span class="php-var">$string</span>), <span class="php-var">$matches</span>
 </span><span id="102" class="l"><a class="l" href="#102">102: </a>        );
@@ -400,6 +398,6 @@
 </div>
 </div>
 <script src="resources/combined.js?510621468"></script>
-<script src="elementlist.js?4234850479"></script>
+<script src="elementlist.js?201468875"></script>
 </body>
 </html>
