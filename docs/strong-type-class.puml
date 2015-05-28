@@ -1,0 +1,43 @@
+@startuml
+title Strong Type Classes
+
+interface ComplexTypeInterface
+
+interface GMPInterface
+
+interface NumericTypeInterface
+
+interface RationalTypeInterface
+
+interface TypeInterface
+
+abstract class AbstractType
+
+abstract class AbstractMultiValueType
+
+class BoolType
+
+class StringType
+
+class IntType
+
+class NaturalIntType
+
+class WholeIntType
+
+class FloatType
+
+class DigitType
+
+TypeInterface <-- AbstractType
+AbstractType <-- AbstractMultiValueType
+AbstractType <-- BoolType
+AbstractType <-- StringType
+AbstractType <-- DigitType
+AbstractType <-- IntType
+NumericTypeInterface <-- IntType
+IntType <-- NaturalIntType
+IntType <-- WholeIntType
+AbstractType <-- FloatType
+NumericTypeInterface <-- FloatType
+@enduml

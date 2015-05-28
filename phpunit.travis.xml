@@ -30,7 +30,6 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
          timeoutForSmallTests="1"
          timeoutForMediumTests="10"
          timeoutForLargeTests="60"
-         strict="false"
          verbose="false">
 
     <testsuites>
@@ -43,18 +42,24 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
      ! blacklist and whitelist for the code coverage reporting.
      !-->
     <filter>
-        <blacklist>
-            <directory>./vendor</directory>
-            <!-- don't cover interfaces -->
-            <directory suffix=".php">./src/chippyash/Type/Interfaces</directory>
-            <!-- don't cover GMP in travis as gmp is not supported and gives
-            a false coverage reading -->
-            <file>./src/chippyash/Type/Number/Complex/AbstractComplexType.php</file>
-            <file>./src/chippyash/Type/Number/Complex/GMPComplexTypeFactory.php</file>
-            <file>./src/chippyash/Type/Number/Complex/GMPComplexType.php</file>
-            <file>./src/chippyash/Type/Number/Rational/GMPRationalType.php</file>
-            <file>./src/chippyash/Type/Number/GMPIntType.php</file>
-        </blacklist>
+        <whitelist>
+            <directory>./src</directory>
+            <exclude>
+                <directory>./docs</directory>
+                <directory>./examples</directory>
+                <directory>./test</directory>
+                <directory>./vendor</directory>
+                <!-- don't cover interfaces -->
+                <directory>./src/chippyash/Type/Interfaces</directory>
+                <!-- don't cover GMP in travis as gmp is not supported and gives
+                a false coverage reading -->
+                <file>./src/chippyash/Type/Number/Complex/AbstractComplexType.php</file>
+                <file>./src/chippyash/Type/Number/Complex/GMPComplexTypeFactory.php</file>
+                <file>./src/chippyash/Type/Number/Complex/GMPComplexType.php</file>
+                <file>./src/chippyash/Type/Number/Rational/GMPRationalType.php</file>
+                <file>./src/chippyash/Type/Number/GMPIntType.php</file>
+            </exclude>
+        </whitelist>
     </filter>
 
 
