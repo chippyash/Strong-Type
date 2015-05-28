@@ -280,6 +280,9 @@ you use the type factories, as they know which types to create.  Therefore if
 you want your code to be runnable as PHP native or GMP, use the factories to
 create your numeric types.
 
+### UML
+
+![class diagram](https://github.com/chippyash/Strong-Type/blob/master/docs/strong-type-classes.png)
 ### Changing the library
 
 1.  fork it
