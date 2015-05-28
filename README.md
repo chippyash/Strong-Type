@@ -282,7 +282,7 @@ create your numeric types.
 
 ### UML
 
-![class diagram](https://github.com/chippyash/Strong-Type/blob/master/docs/strong-type-classes.png)
+![class diagram](https://github.com/chippyash/Strong-Type/blob/master/docs/strong-type-class.png)
 ### Changing the library
 
 1.  fork it
