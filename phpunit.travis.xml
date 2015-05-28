@@ -33,8 +33,8 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
          verbose="false">
 
     <testsuites>
-        <testsuite name="chippyash/Matrix Test Suite">
-            <directory phpVersion="5.4.0" phpVersionOperator=">=">./test/src/</directory>
+        <testsuite name="chippyash/Strong-Type Test Suite">
+            <directory>./test/src/</directory>
         </testsuite>
     </testsuites>
     <!--
@@ -58,6 +58,7 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
                 <file>./src/chippyash/Type/Number/Complex/GMPComplexType.php</file>
                 <file>./src/chippyash/Type/Number/Rational/GMPRationalType.php</file>
                 <file>./src/chippyash/Type/Number/GMPIntType.php</file>
+                <file>./src/chippyash/Type/Exceptions/GMPNotSupportedException.php</file>
             </exclude>
         </whitelist>
     </filter>

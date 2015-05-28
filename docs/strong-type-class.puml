@@ -1,6 +1,15 @@
 @startuml
 title Strong Type Classes
 
+abstract class TypeFactory
+
+abstract class RationalTypeFactory
+
+abstract class ComplexTypeFactory
+
+RationalTypeFactory <.. TypeFactory
+ComplexTypeFactory <.. TypeFactory
+
 interface ComplexTypeInterface
 
 interface GMPInterface
@@ -14,6 +23,10 @@ interface TypeInterface
 abstract class AbstractType
 
 abstract class AbstractMultiValueType
+
+abstract class AbstractRationalType
+
+abstract class AbstractComplexType
 
 class BoolType
 
@@ -29,6 +42,16 @@ class FloatType
 
 class DigitType
 
+class GMPIntType
+
+class RationalType
+
+class GMPRationalType
+
+class ComplexType
+
+class GMPComplexType
+
 TypeInterface <-- AbstractType
 AbstractType <-- AbstractMultiValueType
 AbstractType <-- BoolType
@@ -38,6 +61,20 @@ AbstractType <-- IntType
 NumericTypeInterface <-- IntType
 IntType <-- NaturalIntType
 IntType <-- WholeIntType
+IntType <-- GMPIntType
 AbstractType <-- FloatType
 NumericTypeInterface <-- FloatType
+GMPInterface <-- GMPIntType
+RationalTypeInterface <-- AbstractRationalType
+NumericTypeInterface <-- AbstractRationalType
+AbstractMultiValueType <-- AbstractRationalType
+AbstractRationalType <-- RationalType
+AbstractRationalType <-- GMPRationalType
+GMPInterface <-- GMPRationalType
+AbstractMultiValueType <-- AbstractComplexType
+ComplexTypeInterface <-- AbstractComplexType
+NumericTypeInterface <-- AbstractComplexType
+AbstractComplexType <-- ComplexType
+AbstractComplexType <-- GMPComplexType
+GMPInterface <-- GMPComplexType
 @enduml
