@@ -75,7 +75,7 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function correctParamCombinations()
     {
-        return [
+        return array(
             //numeric int
             array(2,2),
             array(2,2.3),
@@ -98,7 +98,7 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
             array(new FloatType(2.3),new FloatType(2.3)),
             //rational type
             array(new RationalType(new IntType(1), new IntType(2)), new RationalType(new IntType(3), new IntType(2)))
-        ];
+        );
     }
     
     /**
@@ -114,7 +114,7 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
     
     public function polars()
     {
-        return [
+        return array(
             //quadrant 1
             array('192119201/35675640','15238812/40048769'),
             //quadrant 2
@@ -123,6 +123,6 @@ class ComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
             array('192119201/35675640','-266613702/96561163'),
             //quadrant 4
             array('192119201/35675640','-15238812/40048769'),
-        ];
+        );
     }
 }
