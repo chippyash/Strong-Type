@@ -188,7 +188,7 @@
 </span></span><span id="93" class="l"><a class="l" href="#93"> 93: </a><span class="php-comment">     * 
 </span></span><span id="94" class="l"><a class="l" href="#94"> 94: </a><span class="php-comment">     * The return value is a rational expressing theta as radians
 </span></span><span id="95" class="l"><a class="l" href="#95"> 95: </a><span class="php-comment">     * 
-</span></span><span id="96" class="l"><a class="l" href="#96"> 96: </a><span class="php-comment">     * @return chippyash\Type\Number\Rational\GMPRationalType
+</span></span><span id="96" class="l"><a class="l" href="#96"> 96: </a><span class="php-comment">     * @return \chippyash\Type\Number\Rational\GMPRationalType
 </span></span><span id="97" class="l"><a class="l" href="#97"> 97: </a><span class="php-comment">     * @todo implement gmp atan2 method
 </span></span><span id="98" class="l"><a class="l" href="#98"> 98: </a><span class="php-comment">     */</span>
 </span><span id="99" class="l"><a class="l" href="#99"> 99: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_theta" href="#_theta">theta</a>()
@@ -244,7 +244,7 @@
 </span></span><span id="149" class="l"><a class="l" href="#149">149: </a><span class="php-comment">     * Return number as GMPIntType number.
 </span></span><span id="150" class="l"><a class="l" href="#150">150: </a><span class="php-comment">     * If number isReal() will return floor(r())
 </span></span><span id="151" class="l"><a class="l" href="#151">151: </a><span class="php-comment">     *
-</span></span><span id="152" class="l"><a class="l" href="#152">152: </a><span class="php-comment">     * @returns chippyash\Type\Number\GMPIntType
+</span></span><span id="152" class="l"><a class="l" href="#152">152: </a><span class="php-comment">     * @return \chippyash\Type\Number\GMPIntType
 </span></span><span id="153" class="l"><a class="l" href="#153">153: </a><span class="php-comment">     */</span>
 </span><span id="154" class="l"><a class="l" href="#154">154: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_asGMPIntType" href="#_asGMPIntType">asGMPIntType</a>()
 </span><span id="155" class="l"><a class="l" href="#155">155: </a>    {
@@ -259,7 +259,7 @@
 </span></span><span id="164" class="l"><a class="l" href="#164">164: </a><span class="php-comment">     * Return the number as a GMPComplex number i.e. a+bi
 </span></span><span id="165" class="l"><a class="l" href="#165">165: </a><span class="php-comment">     * Clones self
 </span></span><span id="166" class="l"><a class="l" href="#166">166: </a><span class="php-comment">     * 
-</span></span><span id="167" class="l"><a class="l" href="#167">167: </a><span class="php-comment">     * @returns chippyash\Type\Number\Complex\GMPComplexType
+</span></span><span id="167" class="l"><a class="l" href="#167">167: </a><span class="php-comment">     * @return \chippyash\Type\Number\Complex\GMPComplexType
 </span></span><span id="168" class="l"><a class="l" href="#168">168: </a><span class="php-comment">     */</span>
 </span><span id="169" class="l"><a class="l" href="#169">169: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_asGMPComplex" href="#_asGMPComplex">asGMPComplex</a>()
 </span><span id="170" class="l"><a class="l" href="#170">170: </a>    {
@@ -269,7 +269,7 @@
 </span><span id="174" class="l"><a class="l" href="#174">174: </a>    <span class="php-comment">/**
 </span></span><span id="175" class="l"><a class="l" href="#175">175: </a><span class="php-comment">     * Return the number as a Complex number i.e. n+0i
 </span></span><span id="176" class="l"><a class="l" href="#176">176: </a><span class="php-comment">     * 
-</span></span><span id="177" class="l"><a class="l" href="#177">177: </a><span class="php-comment">     * @returns chippyash\Type\Number\Complex\ComplexType
+</span></span><span id="177" class="l"><a class="l" href="#177">177: </a><span class="php-comment">     * @return \chippyash\Type\Number\Complex\ComplexType
 </span></span><span id="178" class="l"><a class="l" href="#178">178: </a><span class="php-comment">     */</span>
 </span><span id="179" class="l"><a class="l" href="#179">179: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_asComplex" href="#_asComplex">asComplex</a>()
 </span><span id="180" class="l"><a class="l" href="#180">180: </a>    {
@@ -281,7 +281,7 @@
 </span></span><span id="186" class="l"><a class="l" href="#186">186: </a><span class="php-comment">     * If number isReal() will return GMPRationalType
 </span></span><span id="187" class="l"><a class="l" href="#187">187: </a><span class="php-comment">     * NB, numerator and denominator will be caste as GMPIntTypes
 </span></span><span id="188" class="l"><a class="l" href="#188">188: </a><span class="php-comment">     *
-</span></span><span id="189" class="l"><a class="l" href="#189">189: </a><span class="php-comment">     * @returns chippyash\Type\Number\Rational\GMPRationalType
+</span></span><span id="189" class="l"><a class="l" href="#189">189: </a><span class="php-comment">     * @return \chippyash\Type\Number\Rational\GMPRationalType
 </span></span><span id="190" class="l"><a class="l" href="#190">190: </a><span class="php-comment">     */</span>
 </span><span id="191" class="l"><a class="l" href="#191">191: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_asGMPRational" href="#_asGMPRational">asGMPRational</a>()
 </span><span id="192" class="l"><a class="l" href="#192">192: </a>    {
@@ -296,7 +296,7 @@
 </span></span><span id="201" class="l"><a class="l" href="#201">201: </a><span class="php-comment">     * Return number as Rational number.
 </span></span><span id="202" class="l"><a class="l" href="#202">202: </a><span class="php-comment">     * NB, numerator and denominator will be caste as IntTypes
 </span></span><span id="203" class="l"><a class="l" href="#203">203: </a><span class="php-comment">     *
-</span></span><span id="204" class="l"><a class="l" href="#204">204: </a><span class="php-comment">     * @returns chippyash\Type\Number\Rational\RationalType
+</span></span><span id="204" class="l"><a class="l" href="#204">204: </a><span class="php-comment">     * @return \chippyash\Type\Number\Rational\RationalType
 </span></span><span id="205" class="l"><a class="l" href="#205">205: </a><span class="php-comment">     *
 </span></span><span id="206" class="l"><a class="l" href="#206">206: </a><span class="php-comment">     * @throws NotRealComplexException
 </span></span><span id="207" class="l"><a class="l" href="#207">207: </a><span class="php-comment">     */</span>
@@ -314,7 +314,7 @@
 </span><span id="219" class="l"><a class="l" href="#219">219: </a>    <span class="php-comment">/**
 </span></span><span id="220" class="l"><a class="l" href="#220">220: </a><span class="php-comment">     * Return number as a FloatType number.
 </span></span><span id="221" class="l"><a class="l" href="#221">221: </a><span class="php-comment">     *
-</span></span><span id="222" class="l"><a class="l" href="#222">222: </a><span class="php-comment">     * @returns chippyash\Type\Number\FloatType
+</span></span><span id="222" class="l"><a class="l" href="#222">222: </a><span class="php-comment">     * @return \chippyash\Type\Number\FloatType
 </span></span><span id="223" class="l"><a class="l" href="#223">223: </a><span class="php-comment">     */</span>
 </span><span id="224" class="l"><a class="l" href="#224">224: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_asFloatType" href="#_asFloatType">asFloatType</a>()
 </span><span id="225" class="l"><a class="l" href="#225">225: </a>    {

@@ -122,10 +122,10 @@
 </span><span id="27" class="l"><a class="l" href="#27"> 27: </a>    <span class="php-comment">/**
 </span></span><span id="28" class="l"><a class="l" href="#28"> 28: </a><span class="php-comment">     * Map of value names to $value array position
 </span></span><span id="29" class="l"><a class="l" href="#29"> 29: </a><span class="php-comment">     * [pos=&gt;[name, class], ...]
-</span></span><span id="30" class="l"><a class="l" href="#30"> 30: </a><span class="php-comment">     * You need to overide this in child classes and set it
+</span></span><span id="30" class="l"><a class="l" href="#30"> 30: </a><span class="php-comment">     * You need to override this in child classes and set it
 </span></span><span id="31" class="l"><a class="l" href="#31"> 31: </a><span class="php-comment">     * 
 </span></span><span id="32" class="l"><a class="l" href="#32"> 32: </a><span class="php-comment">     * pos refers to the order in which it is expected to be placed in the
-</span></span><span id="33" class="l"><a class="l" href="#33"> 33: </a><span class="php-comment">     * parameter list in construtor and set methods
+</span></span><span id="33" class="l"><a class="l" href="#33"> 33: </a><span class="php-comment">     * parameter list in constructor and set methods
 </span></span><span id="34" class="l"><a class="l" href="#34"> 34: </a><span class="php-comment">     * 
 </span></span><span id="35" class="l"><a class="l" href="#35"> 35: </a><span class="php-comment">     * name is the name of the value
 </span></span><span id="36" class="l"><a class="l" href="#36"> 36: </a><span class="php-comment">     * 
@@ -151,7 +151,7 @@
 </span><span id="56" class="l"><a class="l" href="#56"> 56: </a>    
 </span><span id="57" class="l"><a class="l" href="#57"> 57: </a>    <span class="php-comment">/**
 </span></span><span id="58" class="l"><a class="l" href="#58"> 58: </a><span class="php-comment">     * Magic method - convert to string
-</span></span><span id="59" class="l"><a class="l" href="#59"> 59: </a><span class="php-comment">     * You MUST overide this in your child class
+</span></span><span id="59" class="l"><a class="l" href="#59"> 59: </a><span class="php-comment">     * You MUST override this in your child class
 </span></span><span id="60" class="l"><a class="l" href="#60"> 60: </a><span class="php-comment">     * 
 </span></span><span id="61" class="l"><a class="l" href="#61"> 61: </a><span class="php-comment">     * @return string
 </span></span><span id="62" class="l"><a class="l" href="#62"> 62: </a><span class="php-comment">     */</span>
@@ -174,7 +174,7 @@
 </span></span><span id="79" class="l"><a class="l" href="#79"> 79: </a><span class="php-comment">     * This is variant parameter method. The type and number of arguments
 </span></span><span id="80" class="l"><a class="l" href="#80"> 80: </a><span class="php-comment">     * are determined by the value map
 </span></span><span id="81" class="l"><a class="l" href="#81"> 81: </a><span class="php-comment">     *
-</span></span><span id="82" class="l"><a class="l" href="#82"> 82: </a><span class="php-comment">     * @return chippyash\Type\AbstractType Fluent Interface
+</span></span><span id="82" class="l"><a class="l" href="#82"> 82: </a><span class="php-comment">     * @return \chippyash\Type\AbstractType Fluent Interface
 </span></span><span id="83" class="l"><a class="l" href="#83"> 83: </a><span class="php-comment">     */</span>
 </span><span id="84" class="l"><a class="l" href="#84"> 84: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_set" href="#_set">set</a>(<span class="php-var">$value</span>)
 </span><span id="85" class="l"><a class="l" href="#85"> 85: </a>    {
