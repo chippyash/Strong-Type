@@ -87,7 +87,7 @@ class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
         if (!extension_loaded('gmp')) {
             return array(array(2,2));
         }
-        return [
+        return array(
             //numeric int
             array(2,2),
             array(2,2.3),
@@ -110,7 +110,7 @@ class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
             array(new FloatType(2.3),new FloatType(2.3)),
             //rational type
             array(new GMPRationalType(new GMPIntType(1), new GMPIntType(2)), new GMPRationalType(new GMPIntType(3), new GMPIntType(2)))
-        ];
+        );
     }
     
     /**
