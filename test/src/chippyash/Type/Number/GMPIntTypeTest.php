@@ -112,7 +112,7 @@ class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function factors()
     {
-        return [
+        return array(
             array(2,array(1, 2),array(array(2=>1))),
             array(3,array(1, 3),array(array(3=>1))),
             array(4,array(1, 2, 4),array(array(2=>2))),
@@ -125,7 +125,7 @@ class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
             array(138,array(1, 2, 3, 6, 23, 46, 69, 138), array(array(2=>1),array(3=>1),array(23=>1))),
             array(1643,array(1, 31, 53, 1643),array(array(31=>1),array(53=>1))),
             array(1644,array(1, 2, 3, 4, 6, 12, 137, 274, 411, 548, 822, 1644),array(array(2=>2), array(3=>1), array(137=>1)))
-        ];
+        );
     }
     
     public function testAsGmpIntTypeClonesOriginal()
