@@ -345,6 +345,29 @@ To run the tests:
     vendor/bin/phpunit -c test/phpunit.xml test/
 </pre>
 
+## License
+
+This software library is released under the [GNU GPL V3 or later license](http://www.gnu.org/copyleft/gpl.html)
+
+This software library is Copyright (c) 2014, Ashley Kitson, UK
+
+This software library contains code items that are: 
+
+- Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+- released under the New BSD License
+
+In particular the code items are:
+
+- elements of chippyash\Type\String\DigitType
+- all of chippyash\Zend\ErrorHandler
+
+None of the contained code items breaks the overriding license, or vice versa,  as far as I can tell. 
+So as long as you stick to GPL V3+ then you are safe. If at all unsure, please seek appropriate advice.
+
+If the original copyright owners of the included code items object to this inclusion, please contact the author.
+
+A commercial license is available for this software library, please contact the author. 
+
 ## History
 
 V0...  pre releases

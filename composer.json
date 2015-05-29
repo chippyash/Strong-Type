@@ -11,19 +11,19 @@
         }
     ],
     "require": {
-        "php":">=5.3",
-        "zendframework/zend-stdlib": "~2.3.1"
+        "php":">=5.3"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.3.0",
         "phpunit/phpunit-skeleton-generator": "~2.0.1",
         "apigen/apigen": "2.8.1",
         "codeclimate/php-test-reporter": "dev-master",
-        "satooshi/php-coveralls" : "dev-master"
+        "satooshi/php-coveralls" : "~0.6.1"
     },
     "autoload": {
         "psr-0": {
-            "chippyash\\Type\\": "src"
+          "chippyash\\Type\\": "src",
+          "chippyash\\Zend\\": "src"
         }
     }
     

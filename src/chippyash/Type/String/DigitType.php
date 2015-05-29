@@ -11,7 +11,7 @@
 namespace chippyash\Type\String;
 
 use chippyash\Type\AbstractType;
-use Zend\Stdlib\StringUtils;
+use chippyash\Zend\ErrorHandler;
 
 /**
  * Numeric String Type
@@ -19,6 +19,13 @@ use Zend\Stdlib\StringUtils;
  */
 class DigitType extends AbstractType
 {
+
+    /**
+     * Is PCRE compiled with Unicode support?
+     *
+     * @var bool
+     **/
+    protected static $hasPcreUnicodeSupport = null;
 
     /**
      * This will filter out any non numeric characters.  You may potentially
@@ -58,7 +65,7 @@ class DigitType extends AbstractType
         }
         $value = (string) $value;
 
-        if (!StringUtils::hasPcreUnicodeSupport()) {
+        if (!$this->hasPcreUnicodeSupport()) {
             // POSIX named classes are not supported, use alternative 0-9 match
             $pattern = '/[^0-9]/';
         } elseif (extension_loaded('mbstring')) {
@@ -70,5 +77,26 @@ class DigitType extends AbstractType
         }
 
         return preg_replace($pattern, '', $value);
+    }
+
+    /**
+     * Lifted entirely from Zend Framework (http://framework.zend.com/) so we don't have
+     * to include Zend/Stdlib
+     *
+     * @link      http://github.com/zendframework/zf2 for the canonical source repository
+     * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+     * @license   http://framework.zend.com/license/new-bsd New BSD License
+     * Is PCRE compiled with Unicode support?
+     *
+     * @return bool
+     */
+    protected function hasPcreUnicodeSupport()
+    {
+        if (static::$hasPcreUnicodeSupport === null) {
+            ErrorHandler::start();
+            static::$hasPcreUnicodeSupport = defined('PREG_BAD_UTF8_OFFSET_ERROR') && preg_match('/\pL/u', 'a') == 1;
+            ErrorHandler::stop();
+        }
+        return static::$hasPcreUnicodeSupport;
     }
 }
