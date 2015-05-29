@@ -403,7 +403,9 @@ V2.0.8 when GMP support enabled:
 
 V2.0.9 fix merge
 
-V2.1.0 Downgrade library to support PHP5.3 - too many people still using it!
+V2.1.0 downgrade library to support PHP5.3 - too many people still using it!
+
+V2.1.1 fix PHP5.3 unit tests
 
 ## Request for help
 
