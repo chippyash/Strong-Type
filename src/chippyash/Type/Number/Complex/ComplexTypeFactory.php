@@ -91,7 +91,7 @@ abstract class ComplexTypeFactory
      * No spaces are allowed in the string
      *
      * @param string $string
-     * @return chippyash\Type\Number\Complex\ComplexType
+     * @return \chippyash\Type\Number\Complex\ComplexType
      * @throws InvalidArgumentException
      */
     public static function fromString($string)

@@ -26,14 +26,14 @@ interface GMPInterface
      * Return number as GMPIntType number.
      * Will return floor(n/d)
      *
-     * @returns chippyash\Type\Number\GMPIntType
+     * @return \chippyash\Type\Number\GMPIntType
      */
     public function asGMPIntType();
     
     /**
      * Return the number as a GMPComplex number i.e. n+0i
      * 
-     * @returns chippyash\Type\Number\Complex\GMPComplexType
+     * @return \chippyash\Type\Number\Complex\GMPComplexType
      */
     public function asGMPComplex();
     
@@ -41,7 +41,7 @@ interface GMPInterface
      * Return number as GMPRational number.
      * NB, numerator and denominator will be caste as GMPIntTypes
      *
-     * @returns chippyash\Type\Number\Rational\GMPRationalType
+     * @return \chippyash\Type\Number\Rational\GMPRationalType
      */
     public function asGMPRational();
 

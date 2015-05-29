@@ -27,10 +27,10 @@ abstract class AbstractMultiValueType extends AbstractType
     /**
      * Map of value names to $value array position
      * [pos=>[name, class], ...]
-     * You need to overide this in child classes and set it
+     * You need to override this in child classes and set it
      * 
      * pos refers to the order in which it is expected to be placed in the
-     * parameter list in construtor and set methods
+     * parameter list in constructor and set methods
      * 
      * name is the name of the value
      * 
@@ -56,7 +56,7 @@ abstract class AbstractMultiValueType extends AbstractType
     
     /**
      * Magic method - convert to string
-     * You MUST overide this in your child class
+     * You MUST override this in your child class
      * 
      * @return string
      */
@@ -79,7 +79,7 @@ abstract class AbstractMultiValueType extends AbstractType
      * This is variant parameter method. The type and number of arguments
      * are determined by the value map
      *
-     * @return chippyash\Type\AbstractType Fluent Interface
+     * @return \chippyash\Type\AbstractType Fluent Interface
      */
     public function set($value)
     {

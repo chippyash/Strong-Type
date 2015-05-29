@@ -19,7 +19,7 @@ interface TypeInterface
      * Forces type
      *
      * @param mixed $value
-     * @return chippyash\Type\Interfaces\TypeInterface Fluent Interface
+     * @return \chippyash\Type\Interfaces\TypeInterface Fluent Interface
      */
     public function set($value);
 

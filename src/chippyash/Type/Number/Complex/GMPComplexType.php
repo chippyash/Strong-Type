@@ -93,7 +93,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * 
      * The return value is a rational expressing theta as radians
      * 
-     * @return chippyash\Type\Number\Rational\GMPRationalType
+     * @return \chippyash\Type\Number\Rational\GMPRationalType
      * @todo implement gmp atan2 method
      */
     public function theta()
@@ -149,7 +149,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * Return number as GMPIntType number.
      * If number isReal() will return floor(r())
      *
-     * @returns chippyash\Type\Number\GMPIntType
+     * @return \chippyash\Type\Number\GMPIntType
      */
     public function asGMPIntType()
     {
@@ -164,7 +164,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * Return the number as a GMPComplex number i.e. a+bi
      * Clones self
      * 
-     * @returns chippyash\Type\Number\Complex\GMPComplexType
+     * @return \chippyash\Type\Number\Complex\GMPComplexType
      */
     public function asGMPComplex()
     {
@@ -174,7 +174,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     /**
      * Return the number as a Complex number i.e. n+0i
      * 
-     * @returns chippyash\Type\Number\Complex\ComplexType
+     * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()
     {
@@ -186,7 +186,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * If number isReal() will return GMPRationalType
      * NB, numerator and denominator will be caste as GMPIntTypes
      *
-     * @returns chippyash\Type\Number\Rational\GMPRationalType
+     * @return \chippyash\Type\Number\Rational\GMPRationalType
      */
     public function asGMPRational()
     {
@@ -201,7 +201,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * Return number as Rational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      *
      * @throws NotRealComplexException
      */
@@ -219,7 +219,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     /**
      * Return number as a FloatType number.
      *
-     * @returns chippyash\Type\Number\FloatType
+     * @return \chippyash\Type\Number\FloatType
      */
     public function asFloatType()
     {

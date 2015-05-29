@@ -19,14 +19,14 @@ interface NumericTypeInterface {
     /**
      * Negates the number
      *
-     * @returns chippyash\Type\Interfaces\NumericTypeInterface Fluent Interface
+     * @return \chippyash\Type\Interfaces\NumericTypeInterface Fluent Interface
      */
     public function negate();
 
     /**
      * Return the number as a Complex number i.e. n+0i
      *
-     * @return chippyash\Type\Number\Complex\ComplexType
+     * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex();
 
@@ -34,28 +34,28 @@ interface NumericTypeInterface {
      * Return number as Rational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     public function asRational();
 
     /**
      * Return number as an IntType number.
      *
-     * @returns chippyash\Type\Number\IntType
+     * @return \chippyash\Type\Number\IntType
      */
     public function asIntType();
 
     /**
      * Return number as a FloatType number.
      *
-     * @returns chippyash\Type\Number\FloatType
+     * @return \chippyash\Type\Number\FloatType
      */
     public function asFloatType();
 
     /**
      * Return the absolute value of the number
      *
-     * @returns chippyash\Type\Interfaces\NumericTypeInterface
+     * @return \chippyash\Type\Interfaces\NumericTypeInterface
      */
     public function abs();
 }

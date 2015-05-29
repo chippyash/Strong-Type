@@ -82,7 +82,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      * Return number as GMPIntType number.
      * Will return floor(n/d)
      *
-     * @returns chippyash\Type\Number\GMPIntType
+     * @return \chippyash\Type\Number\GMPIntType
      */
     public function asGMPIntType()
     {
@@ -92,7 +92,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
     /**
      * Return the number as a GMPComplex number i.e. n+0i
      * 
-     * @returns chippyash\Type\Number\Complex\GMPComplexType
+     * @return \chippyash\Type\Number\Complex\GMPComplexType
      */
     public function asGMPComplex()
     {
@@ -106,7 +106,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      * Return number as GMPRational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\Rational\GMPRationalType
+     * @return \chippyash\Type\Number\Rational\GMPRationalType
      */
     public function asGMPRational()
     {
@@ -117,7 +117,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      * Return number as native Rational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     public function asRational()
     {

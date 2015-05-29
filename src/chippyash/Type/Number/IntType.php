@@ -26,7 +26,7 @@ class IntType extends AbstractType implements NumericTypeInterface
     /**
      * Negates the number
      *
-     * @returns chippyash\Type\Number\IntType Fluent Interface
+     * @return \chippyash\Type\Number\IntType Fluent Interface
      */
     public function negate()
     {
@@ -38,7 +38,7 @@ class IntType extends AbstractType implements NumericTypeInterface
     /**
      * Return the number as a Complex number i.e. n+0i
      *
-     * @returns chippyash\Type\Number\Complex\ComplexType
+     * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()
     {
@@ -54,7 +54,7 @@ class IntType extends AbstractType implements NumericTypeInterface
      * Return number as Rational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     public function asRational()
     {
@@ -64,7 +64,7 @@ class IntType extends AbstractType implements NumericTypeInterface
     /**
      * Return number as an IntType number.
      *
-     * @returns chippyash\Type\Number\IntType
+     * @return \chippyash\Type\Number\IntType
      */
     public function asIntType()
     {
@@ -74,7 +74,7 @@ class IntType extends AbstractType implements NumericTypeInterface
     /**
      * Return number as a FloatType number.
      *
-     * @returns chippyash\Type\Number\FloatType
+     * @return \chippyash\Type\Number\FloatType
      */
     public function asFloatType()
     {
@@ -84,7 +84,7 @@ class IntType extends AbstractType implements NumericTypeInterface
     /**
      * Return the absolute value of the number
      *
-     * @returns chippyash\Type\Number\IntType
+     * @return \chippyash\Type\Number\IntType
      */
     public function abs()
     {

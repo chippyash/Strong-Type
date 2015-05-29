@@ -40,7 +40,7 @@ abstract class AbstractType implements TypeInterface
      * Forces type
      *
      * @param mixed $value
-     * @return chippyash\Type\AbstractType Fluent Interface
+     * @return \chippyash\Type\AbstractType Fluent Interface
      */
     public function set($value)
     {

@@ -54,7 +54,7 @@ interface ComplexTypeInterface extends TypeInterface
     
     /**
      * Return conjugate of this number
-     * @return chippyash\Type\Number\Complex\ComplexType
+     * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public function conjugate();
     
@@ -72,7 +72,7 @@ interface ComplexTypeInterface extends TypeInterface
      * 
      * The return value is a rational expressing theta as radians
      * 
-     * @return chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     public function theta();
     
@@ -80,7 +80,7 @@ interface ComplexTypeInterface extends TypeInterface
      * Return the radius (sometimes known as Rho) of the number
      * when expressed in polar notation
      * 
-     * @return chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     public function radius();
     

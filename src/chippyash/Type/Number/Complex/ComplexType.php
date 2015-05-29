@@ -46,7 +46,7 @@ class ComplexType extends AbstractComplexType
     /**
      * Return the number as a Complex number i.e. n+0i
      * 
-     * @returns chippyash\Type\Number\Complex\ComplexType
+     * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()
     {
@@ -57,7 +57,7 @@ class ComplexType extends AbstractComplexType
      * Return number as Rational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      *
      * @throws NotRealComplexException
      */
@@ -111,7 +111,7 @@ class ComplexType extends AbstractComplexType
      * 
      * The return value is a rational expressing theta as radians
      * 
-     * @return chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     public function theta()
     {

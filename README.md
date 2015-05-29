@@ -311,10 +311,19 @@ Install [Composer](https://getcomposer.org/)
 
 #### For production
 
-Use the V2 branch unless you have a strong reason not to.
-
+Use V2 unless you have a strong reason not to.
 <pre>
-    "chippyash/strong-type": "~2.0.0"
+    "chippyash/strong-type": ">=2.0.0"
+</pre>
+
+If you are running PHP5.3 use a minimum of V2.1.0:
+<pre>
+    "chippyash/strong-type": "~2.1.0"
+</pre>
+
+If you absolutely do not want GMP support and you are running PHP5.4+ then you can use V1.1.3
+<pre>
+    "chippyash/strong-type": "1.1.3"
 </pre>
 
 The V2 branch is the default, no further development of the V1 branch will take place.

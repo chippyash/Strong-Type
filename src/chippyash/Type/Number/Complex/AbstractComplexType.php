@@ -44,7 +44,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * 
      * The return value is a rational expressing theta as radians
      * 
-     * @return chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     abstract public function theta();
     
@@ -58,7 +58,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     /**
      * Return the number as a Complex number i.e. n+0i
      * 
-     * @returns chippyash\Type\Number\Complex\ComplexType
+     * @return \chippyash\Type\Number\Complex\ComplexType
      */
     abstract public function asComplex();
 
@@ -66,7 +66,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * Return number as Rational number.
      * NB, numerator and denominator will be caste as IntTypes
      *
-     * @returns chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      *
      * @throws NotRealComplexException
      */
@@ -76,7 +76,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * Return number as an IntType number.
      * If number isReal() will return floor(r())
      *
-     * @returns chippyash\Type\Number\IntType
+     * @return \chippyash\Type\Number\IntType
      */
     public function asIntType()
     {
@@ -90,7 +90,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     /**
      * Return number as a FloatType number.
      *
-     * @returns chippyash\Type\Number\FloatType
+     * @return \chippyash\Type\Number\FloatType
      */
     public function asFloatType()
     {
@@ -123,7 +123,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * 
      * @abstract
      *
-     * @returns chippyash\Type\Number\Rational\AbstractRationalType
+     * @return \chippyash\Type\Number\Rational\AbstractRationalType
      */
     public function abs()
     {
@@ -134,7 +134,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     /**
      * Negates the number
      *
-     * @returns chippyash\Type\Number\Complex\ComplexType Fluent Interface
+     * @return \chippyash\Type\Number\Complex\ComplexType Fluent Interface
      */
     public function negate()
     {
@@ -196,7 +196,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     
     /**
      * Return conjugate of this number
-     * @return chippyash\Type\Number\Complex\ComplexType
+     * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public function conjugate()
     {
@@ -208,7 +208,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * Return the radius (sometimes known as Rho) of the number
      * when expressed in polar notation
      * 
-     * @return chippyash\Type\Number\Rational\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType
      */
     public function radius()
     {
