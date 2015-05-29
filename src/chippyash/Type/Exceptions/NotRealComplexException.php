@@ -16,6 +16,9 @@ class NotRealComplexException extends \Exception {
 
     protected $msg = 'Not a Real complex type';
 
+    /**
+     * @inheritDoc
+     */
     public function __construct($ignored = null, $code = null, $previous = null)
     {
         parent::__construct($this->msg, $code, $previous);

@@ -57,7 +57,8 @@ abstract class AbstractMultiValueType extends AbstractType
     /**
      * Magic method - convert to string
      * You MUST override this in your child class
-     * 
+     *
+     * @abstract
      * @return string
      */
     public function __toString()
@@ -118,12 +119,13 @@ abstract class AbstractMultiValueType extends AbstractType
      * @return mixed
      */
     abstract protected function getAsNativeType();
-    
+
     /**
      * Not defined for multi value types
      *
      * @param mixed $value
      *
+     * @return void
      * @throws \BadMethodCallException
      */
     final protected function typeOf($value)

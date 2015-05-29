@@ -16,6 +16,12 @@ class InvalidTypeException extends \Exception {
 
     protected $msg = 'Invalid Type: %s';
 
+    /**
+     * @inheritDoc
+     * @param string $type Name of invalid type
+     * @param int $code
+     * @param \Exception $previous
+     */
     public function __construct($type, $code = null, $previous = null)
     {
         parent::__construct(sprintf($this->msg, $type), $code, $previous);

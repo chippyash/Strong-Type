@@ -36,8 +36,9 @@ abstract class AbstractType implements TypeInterface
     }
 
     /**
-     * Set the object value
+     * Set the object value.
      * Forces type
+     * @see typeOf
      *
      * @param mixed $value
      * @return \chippyash\Type\AbstractType Fluent Interface
@@ -88,7 +89,6 @@ abstract class AbstractType implements TypeInterface
      * @param mixed $value
      *
      * @return mixed
-     * @codeCoverageIgnore
      */
     abstract protected function typeOf($value);
 }

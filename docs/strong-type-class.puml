@@ -53,6 +53,8 @@ class ComplexType
 class GMPComplexType
 
 TypeInterface <-- AbstractType
+TypeInterface <-- ComplexTypeInterface
+TypeInterface <-- RationalTypeInterface
 AbstractType <-- AbstractMultiValueType
 AbstractType <-- BoolType
 AbstractType <-- StringType

@@ -16,6 +16,9 @@ class GmpNotSupportedException extends \Exception {
 
     protected $msg = 'GMP library not found';
 
+    /**
+     * @inheritDoc
+     */
     public function __construct($ignored = null, $code = null, $previous = null)
     {
         parent::__construct($this->msg, $code, $previous);

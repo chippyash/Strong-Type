@@ -18,8 +18,10 @@ class BoolType extends AbstractType
 {
 
     /**
-     * @override
+     * Return correctly typed value for this type
+     *
      * @param mixed $value
+     *
      * @return boolean
      */
     protected function typeOf($value)
@@ -30,7 +32,6 @@ class BoolType extends AbstractType
     /**
      * Magic method - convert to string
      *
-     * @override
      * @return string
      */
     public function __toString()
