@@ -441,6 +441,8 @@ V2.1.0 downgrade library to support PHP5.3 - too many people still using it!
 
 V2.1.1 fix PHP5.3 unit tests
 
+V2.1.2 remove dependency on Zend\StdLib
+
 ## Request for help
 
 The V2 build of this library can use GMP support. I can't seem to figure out how to add gmp support 
