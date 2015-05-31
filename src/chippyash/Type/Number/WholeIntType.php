@@ -11,7 +11,6 @@
 namespace chippyash\Type\Number;
 
 use chippyash\Type\Exceptions\InvalidTypeException;
-use chippyash\Type\Number\IntType;
 
 /**
  * Whole Integer Type

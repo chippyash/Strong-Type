@@ -9,8 +9,6 @@
  */
 namespace chippyash\Type\Interfaces;
 
-use chippyash\Type\Number\IntType;
-
 /**
  * A interface to mark numeric types
  */

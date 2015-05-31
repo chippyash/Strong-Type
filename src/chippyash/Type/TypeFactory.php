@@ -20,7 +20,6 @@ use chippyash\Type\Number\WholeIntType;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
-use chippyash\Type\BoolType;
 use chippyash\Type\Interfaces\NumericTypeInterface;
 
 /**
@@ -53,7 +52,7 @@ abstract class TypeFactory
      *
      * @param string $type
      * @param mixed $value
-     * $param mixed $extra required for some types
+     * @param mixed $extra required for some types
      *
      * @return \chippyash\Type\AbstractType
      *
@@ -141,7 +140,7 @@ abstract class TypeFactory
      * Create a StringType
      *
      * @param mixed $value
-     * @return \chippyash\Type\String\NStringType
+     * @return \chippyash\Type\String\StringType
      */
     public static function createString($value)
     {
@@ -222,8 +221,8 @@ abstract class TypeFactory
      * Create a Complex number
      * If imaginary part is null, a complex equivalent real number is created r+0i
      *
-     * @param string|numeric|IntType|FloatType $realPart
-     * @param numeric|IntType|FloatType $imaginaryPart
+     * @param int|float|string|NumericTypeInterface $realPart
+     * @param int|float|string|NumericTypeInterface|null $imaginaryPart
      * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public static function createComplex($realPart, $imaginaryPart = null)

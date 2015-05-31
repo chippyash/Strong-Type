@@ -14,8 +14,6 @@ use chippyash\Type\Exceptions\InvalidTypeException;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\Number\FloatType;
-use chippyash\Type\Number\Rational\RationalType;
-use chippyash\Type\Number\Rational\GMPRationalType;
 
 /**
  * Static Factory for creating Rational types
@@ -63,8 +61,8 @@ abstract class RationalTypeFactory
      * - a float
      * - two ints (numerator, denominator)
      *
-     * @param string|float|int|IntType $numerator
-     * @param int $denominator
+     * @param mixed $numerator
+     * @param mixed $denominator
      *
      * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
@@ -118,7 +116,7 @@ abstract class RationalTypeFactory
      *
      * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function fromFloat($float,
             $tolerance = null)
@@ -173,7 +171,7 @@ abstract class RationalTypeFactory
      *
      * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function fromString($string)
     {

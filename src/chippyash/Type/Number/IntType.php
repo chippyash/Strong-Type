@@ -14,8 +14,6 @@ use chippyash\Type\AbstractType;
 use chippyash\Type\Interfaces\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
 use chippyash\Type\Number\Rational\RationalType;
-use chippyash\Type\Number\Rational\RationalTypeFactory;
-use chippyash\Type\Number\Complex\ComplexTypeFactory;
 
 /**
  * Integer Type
@@ -103,7 +101,7 @@ class IntType extends AbstractType implements NumericTypeInterface
         $ret = array();
         for ($x = 1; $x <= $limit; $x++) {
             if ($n % $x == 0) {
-                $z = $n / $x;
+                $z = intval($n / $x);
                 $ret[$x] = $x;
                 $ret[$z] = $z;
             }
@@ -127,7 +125,6 @@ class IntType extends AbstractType implements NumericTypeInterface
         $d = 2;
         $factors = array();
         $dmax = floor(sqrt($n));
-        $sieve = array();
         $sieve = array_fill(1, $dmax, 1);
         do {
             $r = false;

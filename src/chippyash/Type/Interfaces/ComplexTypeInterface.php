@@ -9,7 +9,6 @@
  */
 namespace chippyash\Type\Interfaces;
 
-use chippyash\Type\Interfaces\TypeInterface;
 use chippyash\Type\Number\Rational\RationalType;
 
 /**

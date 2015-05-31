@@ -16,10 +16,6 @@ namespace chippyash\Type\Number\Rational;
 
 use chippyash\Type\Number\IntType;
 use chippyash\Type\BoolType;
-use chippyash\Type\Number\Rational\AbstractRationalType;
-use chippyash\Type\Interfaces\NumericTypeInterface;
-use chippyash\Type\Number\Complex\ComplexType;
-use chippyash\Type\Number\FloatType;
 
 
 /**

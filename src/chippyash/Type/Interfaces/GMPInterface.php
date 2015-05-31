@@ -18,7 +18,7 @@ interface GMPInterface
      * Return the value of number as a gmp resource, object or array
      * May return an array of gmp resource/object
      *
-     * @return gmp resource|GMP|array
+     * @return \GMP|\resource resource|GMP|array
      */
     public function gmp();
     

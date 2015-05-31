@@ -18,7 +18,6 @@ use chippyash\Type\Interfaces\RationalTypeInterface;
 use chippyash\Type\Interfaces\NumericTypeInterface;
 use chippyash\Type\Number\Complex\ComplexType;
 use chippyash\Type\Number\FloatType;
-use chippyash\Type\Number\Rational\RationalType;
 
 /**
  * Abstract rational number type

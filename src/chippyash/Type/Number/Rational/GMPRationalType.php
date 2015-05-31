@@ -15,7 +15,6 @@
 namespace chippyash\Type\Number\Rational;
 
 use chippyash\Type\Interfaces\GMPInterface;
-use chippyash\Type\Number\Rational\AbstractRationalType;
 use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\BoolType;
@@ -86,6 +85,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      */
     public function asGMPIntType()
     {
+        /** @noinspection PhpParamsInspection */
         return new GMPIntType(floor($this->get()));
     }
     
@@ -96,6 +96,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      */
     public function asGMPComplex()
     {
+        /** @noinspection PhpParamsInspection */
         return new GMPComplexType(
                 new GMPRationalType(clone $this->numerator(), clone $this->denominator()),
                 new GMPRationalType(new GMPIntType(0), new GMPIntType(1))

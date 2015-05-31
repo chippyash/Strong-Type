@@ -10,7 +10,6 @@
 
 namespace chippyash\Type\Number\Complex;
 
-use chippyash\Type\Number\Complex\AbstractComplexType;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
@@ -43,7 +42,13 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
         0 => array('name' => 'real', 'class' => 'chippyash\Type\Number\Rational\GMPRationalType'),
         1 => array('name' => 'imaginary', 'class' => 'chippyash\Type\Number\Rational\GMPRationalType')
     );
-    
+
+    /**
+     * Constructor
+     *
+     * @param GMPRationalType $real
+     * @param GMPRationalType $imaginary
+     */
     public function __construct(GMPRationalType $real, GMPRationalType $imaginary)
     {
         $this->setFromTypes(array($real, $imaginary));
@@ -138,7 +143,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     /**
      * Return the value of number array of gmp resources|objects
      *
-     * @return gmp array [[num,den],[num,den]]
+     * @return \GMP|\resource array [[num,den],[num,den]]
      */
     public function gmp()
     {
@@ -150,6 +155,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * If number isReal() will return floor(r())
      *
      * @return \chippyash\Type\Number\GMPIntType
+     * @throws NotRealComplexException
      */
     public function asGMPIntType()
     {
@@ -187,6 +193,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * NB, numerator and denominator will be caste as GMPIntTypes
      *
      * @return \chippyash\Type\Number\Rational\GMPRationalType
+     * @throws NotRealComplexException
      */
     public function asGMPRational()
     {
@@ -220,6 +227,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * Return number as a FloatType number.
      *
      * @return \chippyash\Type\Number\FloatType
+     * @throws NotRealComplexException
      */
     public function asFloatType()
     {

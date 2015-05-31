@@ -77,6 +77,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * If number isReal() will return floor(r())
      *
      * @return \chippyash\Type\Number\IntType
+     * @throws NotRealComplexException
      */
     public function asIntType()
     {
@@ -91,6 +92,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * Return number as a FloatType number.
      *
      * @return \chippyash\Type\Number\FloatType
+     * @throws NotRealComplexException
      */
     public function asFloatType()
     {
@@ -238,12 +240,23 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     {
         $signR = ($this->value['real']->numerator()->get() > 0 ? '+' : '-');
         $signI = ($this->value['imaginary']->numerator()->get() > 0 ? '+' : '-');
+        $ret = 0;
         switch ("{$signR}{$signI}") {
-            case '++': return 1;
-            case '-+': return 2;
-            case '--': return 3;
-            case '+-': return 4;
+            case '++':
+                $ret = 1;
+                break;
+            case '-+':
+                $ret = 2;
+                break;
+            case '--':
+                $ret = 3;
+                break;
+            case '+-':
+                $ret = 4;
+                break;
         }
+
+        return $ret;
     }
 
     /**

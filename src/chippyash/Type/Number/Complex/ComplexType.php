@@ -10,7 +10,6 @@
 
 namespace chippyash\Type\Number\Complex;
 
-use chippyash\Type\Number\Complex\AbstractComplexType;
 use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Exceptions\NotRealComplexException;
@@ -37,7 +36,13 @@ class ComplexType extends AbstractComplexType
         0 => array('name' => 'real', 'class' => 'chippyash\Type\Number\Rational\RationalType'),
         1 => array('name' => 'imaginary', 'class' => 'chippyash\Type\Number\Rational\RationalType')
     );
-    
+
+    /**
+     * Constructor
+     *
+     * @param RationalType $real
+     * @param RationalType $imaginary
+     */
     public function __construct(RationalType $real, RationalType $imaginary)
     {
         $this->setFromTypes(array($real, $imaginary));

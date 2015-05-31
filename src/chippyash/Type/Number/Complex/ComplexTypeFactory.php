@@ -17,8 +17,6 @@ use chippyash\Type\Number\Rational\AbstractRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\IntType;
-use chippyash\Type\Number\Complex\ComplexType;
-use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\TypeFactory;
 
 /**
@@ -63,7 +61,7 @@ abstract class ComplexTypeFactory
      *
      * @return \chippyash\Type\Number\Complex\ComplexType
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function create($realPart, $imaginaryPart = null)
     {
@@ -92,7 +90,7 @@ abstract class ComplexTypeFactory
      *
      * @param string $string
      * @return \chippyash\Type\Number\Complex\ComplexType
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function fromString($string)
     {
@@ -164,22 +162,16 @@ abstract class ComplexTypeFactory
      */
     public static function fromNativePolar(RationalType $radius, RationalType $theta)
     {
-        $rad = (string) $radius;
         $cos = RationalTypeFactory::fromFloat(cos($theta()));
         $sin = RationalTypeFactory::fromFloat(sin($theta()));
-        $c = $cos();
-        $s = $sin();
+
+        list($realNumerator, $realDenominator) = self::getRealPartsFromRadiusAndCos($radius, $cos);
+        list($imaginaryNumerator, $imaginaryDenominator) = self::getImaginaryPartsFromRadiusAndSin($radius, $sin);
+
+        $realPart = RationalTypeFactory::create($realNumerator, $realDenominator);
+        $imaginaryPart = RationalTypeFactory::create($imaginaryNumerator, $imaginaryDenominator);
         
-        //real = radius * cos
-        $rn = TypeFactory::create('int', $radius->numerator()->get() * $cos->numerator()->get());
-        $rd = TypeFactory::create('int', $radius->denominator()->get() * $cos->denominator()->get());
-        //imag = radius * sin
-        $in = TypeFactory::create('int', $radius->numerator()->get() * $sin->numerator()->get());
-        $id = TypeFactory::create('int', $radius->denominator()->get() * $sin->denominator()->get());
-        $r = RationalTypeFactory::create($rn, $rd);
-        $i = RationalTypeFactory::create($in, $id);
-        
-        return new ComplexType($r, $i);
+        return new ComplexType($realPart, $imaginaryPart);
     }
 
     /**
@@ -192,17 +184,12 @@ abstract class ComplexTypeFactory
      */
     public static function fromGmpPolar(GMPRationalType $radius, GMPRationalType $theta)
     {
-        $rad = (string) $radius;
         $cos = RationalTypeFactory::fromFloat(cos($theta()));
         $sin = RationalTypeFactory::fromFloat(sin($theta()));
-        $c = $cos();
-        $s = $sin();
-        
+
         //real = radius * cos
         $rn = TypeFactory::create('int', gmp_strval(gmp_mul($radius->numerator()->gmp(), $cos->numerator()->gmp())));
         $rd = TypeFactory::create('int', gmp_strval(gmp_mul($radius->denominator()->gmp(), $cos->denominator()->gmp())));
-        $rna = (string) $rn;
-        $rda = (string) $rd;
         //imag = radius * sin
         $in = TypeFactory::create('int', gmp_strval(gmp_mul($radius->numerator()->gmp(), $sin->numerator()->gmp())));
         $id = TypeFactory::create('int', gmp_strval(gmp_mul($radius->denominator()->gmp(), $sin->denominator()->gmp())));
@@ -217,7 +204,7 @@ abstract class ComplexTypeFactory
      *
      * @param mixed $t
      *
-     * @return \chippyash\Type\Number\RationalType
+     * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
      * @throws InvalidTypeException
      */
@@ -294,4 +281,37 @@ abstract class ComplexTypeFactory
         
         return self::$requiredType;
     }
+
+    /**
+     * @param RationalType $radius
+     * @param RationalType $cos
+     *
+     * @return array
+     *
+     * @throws InvalidTypeException
+     */
+    private static function getRealPartsFromRadiusAndCos(RationalType $radius, RationalType $cos)
+    {
+        return array(
+            TypeFactory::create('int', $radius->numerator()->get() * $cos->numerator()->get()),
+            TypeFactory::create('int', $radius->denominator()->get() * $cos->denominator()->get())
+        ) ;
+    }
+
+    /**
+     * @param RationalType $radius
+     * @param RationalType $sin
+     *
+     * @return array
+     *
+     * @throws InvalidTypeException
+     */
+    private static function getImaginaryPartsFromRadiusAndSin(RationalType $radius, RationalType $sin)
+    {
+        return array(
+            TypeFactory::create('int', $radius->numerator()->get() * $sin->numerator()->get()),
+            TypeFactory::create('int', $radius->denominator()->get() * $sin->denominator()->get())
+        ) ;
+    }
+
 }

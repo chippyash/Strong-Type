@@ -11,7 +11,6 @@
 namespace chippyash\Type\Number;
 
 use chippyash\Type\Interfaces\GMPInterface;
-use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Exceptions\GmpNotSupportedException;
@@ -26,7 +25,7 @@ class GMPIntType extends IntType implements GMPInterface
     /**
      * Constructor - check for gmp support
      * 
-     * @param type $value
+     * @param mixed $value
      * @throws GmpNotSupportedException
      */
     public function __construct($value) {
@@ -184,14 +183,13 @@ class GMPIntType extends IntType implements GMPInterface
      */
     public function get()
     {
-        $a = gmp_strval($this->value);
         return intval(gmp_strval($this->value));
     }
 
     /**
      * Return the value of number as a gmp resource or object
      *
-     * @return gmp resource|gmp object
+     * @return \GMP|\resource resource|gmp object
      */
     public function gmp()
     {

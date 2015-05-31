@@ -9,10 +9,6 @@
  */
 namespace chippyash\Type\Interfaces;
 
-use chippyash\Type\Interfaces\TypeInterface;
-use chippyash\Type\Number\IntType;
-use chippyash\Type\BoolType;
-
 /**
  * Interface for chippyash\Type\Number\Rational\RationalType types
  * Makes it broadly compatible with other types

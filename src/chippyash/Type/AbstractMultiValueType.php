@@ -10,8 +10,6 @@
 
 namespace chippyash\Type;
 
-use chippyash\Type\AbstractType;
-
 /**
  * An abstract type that has >1 intrinsic values
  */
@@ -46,8 +44,6 @@ abstract class AbstractMultiValueType extends AbstractType
      * are determined by the value map
      *
      * @override
-     * 
-     * @param mixed $value
      */
     public function __construct()
     {
@@ -80,6 +76,7 @@ abstract class AbstractMultiValueType extends AbstractType
      * This is variant parameter method. The type and number of arguments
      * are determined by the value map
      *
+     * @param mixed $value
      * @return \chippyash\Type\AbstractType Fluent Interface
      */
     public function set($value)
