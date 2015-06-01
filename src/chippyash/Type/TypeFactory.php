@@ -183,18 +183,7 @@ abstract class TypeFactory
      */
     public static function createWhole($value)
     {
-        if ($value instanceof NumericTypeInterface) {
-            $value = $value->asIntType()->get();
-        }
-        if (!is_numeric($value)) {
-            throw new \InvalidArgumentException("'{$value}' is no valid numeric for WholeIntType");
-        }
-        
-        if (self::getRequiredType() == self::TYPE_GMP) {
-            return new GMPIntType($value);
-        } else {
-            return new WholeIntType($value);
-        }
+        return self::createSuperIntType($value, 'WholeIntType');
     }
 
     /**
@@ -208,18 +197,7 @@ abstract class TypeFactory
      */
     public static function createNatural($value)
     {
-        if ($value instanceof NumericTypeInterface) {
-            $value = $value->asIntType()->get();
-        }
-        if (!is_numeric($value)) {
-            throw new \InvalidArgumentException("'{$value}' is no valid numeric for NaturalIntType");
-        }
-        
-        if (self::getRequiredType() == self::TYPE_GMP) {
-            return new GMPIntType($value);
-        } else {
-            return new NaturalIntType($value);
-        }
+        return self::createSuperIntType($value, 'NaturalIntType');
     }
 
     /**
@@ -264,9 +242,9 @@ abstract class TypeFactory
     /**
      * Set the required number type to return
      * By default this is self::TYPE_DEFAULT  which is 'auto', meaning that
-     * the factory will determine if GMP is installed and use that else use 
+     * the factory will determine if GMP is installed and use that else use
      * PHP native types
-     * 
+     *
      * @param string $requiredType
      *
      * @return void
@@ -308,5 +286,32 @@ abstract class TypeFactory
         }
         
         return self::$requiredType;
+    }
+
+    /**
+     * Create a super int type (whole, natural)
+     *
+     * @param mixed $value
+     *
+     * @param string $typeClassName
+     *
+     * @return GMPIntType
+     */
+    protected static function createSuperIntType($value, $typeClassName)
+    {
+        if ($value instanceof NumericTypeInterface) {
+            $value = $value->asIntType()->get();
+        }
+        if (!is_numeric($value)) {
+            throw new \InvalidArgumentException("'{$value}' is no valid numeric for {$typeClassName}");
+        }
+
+        if (self::getRequiredType() == self::TYPE_GMP) {
+            return new GMPIntType($value);
+        } else {
+            $nsp = __NAMESPACE__;
+            $className = "{$nsp}\\Number\\{$typeClassName}";
+            return new $className($value);
+        }
     }
 }
