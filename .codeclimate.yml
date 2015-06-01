@@ -5,6 +5,6 @@ languages:
   PHP: true
   Python: false
 exclude_paths:
-- "test/"
-- "docs/"
-- "examples/"
+- "test/*"
+- "docs/*"
+- "examples/*"
