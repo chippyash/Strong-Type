@@ -60,9 +60,7 @@ abstract class TypeFactory
      */
     public static function create($type, $value, $extra = null)
     {
-        $type = strtolower($type);
-
-        switch ($type) {
+        switch (strtolower($type)) {
             case 'int':
             case 'integer':
                 return self::createInt($value);
@@ -85,7 +83,7 @@ abstract class TypeFactory
             case 'rational':
                 return self::createRational($value, $extra);
             default:
-                throw new InvalidTypeException($type);
+                throw new InvalidTypeException(strtolower($type));
         }
     }
 
