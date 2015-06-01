@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -42,9 +42,9 @@ class FloatType extends AbstractType implements NumericTypeInterface
     public function asComplex()
     {
         return new ComplexType(
-                $this->asRational(),
-                new RationalType(new IntType(0), new IntType(1))
-                );
+            $this->asRational(),
+            new RationalType(new IntType(0), new IntType(1))
+        );
     }
 
     /**
@@ -88,6 +88,13 @@ class FloatType extends AbstractType implements NumericTypeInterface
         return new self(abs($this->value));
     }
 
+    /**
+     * Return correctly typed value for this type
+     *
+     * @param mixed $value
+     *
+     * @return float
+     */
     protected function typeOf($value)
     {
         return floatval($value);

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -27,14 +27,23 @@ class NaturalIntType extends IntType
     {
         throw new \BadMethodCallException('Negate not supported for Natural Int Types');
     }
-        
+
+    /**
+     * Return correctly typed value for this type
+     *
+     * @param mixed $value
+     *
+     * @return int
+     *
+     * @throws InvalidTypeException
+     */
     protected function typeOf($value)
     {
-        $v = intval($value);
-        if ($v>0) {
-            return $v;
+        $val = intval($value);
+        if ($val > 0) {
+            return $val;
         } else {
-            throw new InvalidTypeException("{$v} < 1 for natural integer type");
+            throw new InvalidTypeException("{$val} < 1 for natural integer type");
         }
     }
 }

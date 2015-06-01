@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -104,6 +104,8 @@ interface ComplexTypeInterface extends TypeInterface
     /**
      * Return complex number expressed as a string in polar form
      * i.e. r(cosθ + i⋅sinθ)
+     *
+     * @return string
      */
     public function polarString();
 }

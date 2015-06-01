@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -25,7 +25,7 @@ use chippyash\Type\BoolType;
 class RationalType extends AbstractRationalType
 {
     /**
-     * map of values for this type
+     * Map of values for this type
      * @var array
      */
     protected $valueMap = array(
@@ -51,6 +51,8 @@ class RationalType extends AbstractRationalType
 
     /**
      * Reduce this number to it's lowest form
+     *
+     * @return void
      */
     protected function reduce()
     {
@@ -66,6 +68,7 @@ class RationalType extends AbstractRationalType
      *
      * @param int $a
      * @param int $b
+     *
      * @return int
      */
     private function gcd($a, $b)

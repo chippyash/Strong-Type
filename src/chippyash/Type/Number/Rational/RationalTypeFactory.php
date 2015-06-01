@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -31,6 +31,7 @@ abstract class RationalTypeFactory
     
     /**
      * Default error tolerance for from float
+     *
      * @see setDefaultFromFloatTolerance()
      * @see fromFloat()
      *
@@ -43,11 +44,13 @@ abstract class RationalTypeFactory
      * @var string
      */
     protected static $supportType = self::TYPE_DEFAULT;
+
     /**
      * Numeric base types we can support
      * @var array
      */
     protected static $validTypes = array(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE);
+
     /**
      * The actual base type we are going to return
      * @var string
@@ -112,14 +115,14 @@ abstract class RationalTypeFactory
      * Use Continued Fractions method of determining the rational number
      *
      * @param float|FloatType $float
-     * @param float|FloatType $tolerance - Default is whatever is currently set but normally self::CF_DEFAULT_TOLERANCE
+     * @param float|FloatType $tolerance -
+     *  Default is whatever is currently set but normally self::CF_DEFAULT_TOLERANCE
      *
      * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
      * @throws \InvalidArgumentException
      */
-    public static function fromFloat($float,
-            $tolerance = null)
+    public static function fromFloat($float, $tolerance = null)
     {
         if ($float instanceof FloatType) {
             $float = $float();
@@ -137,28 +140,28 @@ abstract class RationalTypeFactory
         if ($negative) {
             $float = abs($float);
         }
-        $n1 = 1;
-        $n2 = 0;
-        $d1 = 0;
-        $d2 = 1;
-        $b = 1 / $float;
+        $num1 = 1;
+        $num2 = 0;
+        $den1 = 0;
+        $den2 = 1;
+        $oneOver = 1 / $float;
         do {
-            $b = 1 / $b;
-            $a = floor($b);
-            $aux = $n1;
-            $n1 = $a * $n1 + $n2;
-            $n2 = $aux;
-            $aux = $d1;
-            $d1 = $a * $d1 + $d2;
-            $d2 = $aux;
-            $b = $b - $a;
-        } while (abs($float - $n1 / $d1) > $float * $tolerance);
+            $oneOver = 1 / $oneOver;
+            $floor = floor($oneOver);
+            $aux = $num1;
+            $num1 = $floor * $num1 + $num2;
+            $num2 = $aux;
+            $aux = $den1;
+            $den1 = $floor * $den1 + $den2;
+            $den2 = $aux;
+            $oneOver = $oneOver - $floor;
+        } while (abs($float - $num1 / $den1) > $float * $tolerance);
 
         if ($negative) {
-            $n1 *= -1;
+            $num1 *= -1;
         }
         
-        return self::createCorrectRational($n1, $d1);
+        return self::createCorrectRational($num1, $den1);
     }
 
     /**
@@ -177,7 +180,7 @@ abstract class RationalTypeFactory
     {
         $matches = array();
         $valid = \preg_match(
-                '#^(-)? *?(\d+) *?/ *?(-)? *?(\d+)$#', \trim($string), $matches
+            '#^(-)? *?(\d+) *?/ *?(-)? *?(\d+)$#', \trim($string), $matches
         );
 
         if ($valid !== 1) {
@@ -202,6 +205,8 @@ abstract class RationalTypeFactory
      * N.B. This sets a static so only needs to be done once
      *
      * @param int $tolerance
+     *
+     * @return void
      */
     public static function setDefaultFromFloatTolerance($tolerance)
     {
@@ -215,6 +220,9 @@ abstract class RationalTypeFactory
      * PHP native types
      * 
      * @param string $requiredType
+     *
+     * @return void
+     *
      * @throws \InvalidArgumentException
      */
     public static function setNumberType($requiredType)
@@ -255,16 +263,17 @@ abstract class RationalTypeFactory
     /**
      * Create and return the correct number type rational
      * 
-     * @param int $n
-     * @param int $d
+     * @param int $num
+     * @param int $den
+     *
      * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      */
-    protected static function createCorrectRational($n, $d)
+    protected static function createCorrectRational($num, $den)
     {
         if (self::getRequiredType() == self::TYPE_GMP) {
-            return new GMPRationalType(new GMPIntType($n), new GMPIntType($d));
+            return new GMPRationalType(new GMPIntType($num), new GMPIntType($den));
         } else {
-            return new RationalType(new IntType($n), new IntType($d));
+            return new RationalType(new IntType($num), new IntType($den));
         }
     }
 }

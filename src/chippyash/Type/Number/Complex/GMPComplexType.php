@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -35,12 +35,18 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
 {
 
     /**
-     * map of values for this type
+     * Map of values for this type
      * @var array
      */
     protected $valueMap = array(
-        0 => array('name' => 'real', 'class' => 'chippyash\Type\Number\Rational\GMPRationalType'),
-        1 => array('name' => 'imaginary', 'class' => 'chippyash\Type\Number\Rational\GMPRationalType')
+        0 => array(
+            'name' => 'real',
+            'class' => 'chippyash\Type\Number\Rational\GMPRationalType'
+        ),
+        1 => array(
+            'name' => 'imaginary',
+            'class' => 'chippyash\Type\Number\Rational\GMPRationalType'
+        )
     );
 
     /**
@@ -67,29 +73,40 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
             return $this->value['real']->abs();
         }
         //get r^2 and i^2
-        $sqrR = array('n'=>gmp_pow($this->value['real']->numerator()->gmp(), 2), 'd'=>gmp_pow($this->value['real']->denominator()->gmp(),2));
-        $sqrI = array('n'=>gmp_pow($this->value['imaginary']->numerator()->gmp(), 2), 'd'=>gmp_pow($this->value['imaginary']->denominator()->gmp(),2));
+        $sqrR = array(
+            'n' => gmp_pow($this->value['real']->numerator()->gmp(), 2),
+            'd' => gmp_pow($this->value['real']->denominator()->gmp(), 2)
+        );
+        $sqrI = array(
+            'n' => gmp_pow($this->value['imaginary']->numerator()->gmp(), 2),
+            'd' => gmp_pow($this->value['imaginary']->denominator()->gmp(), 2)
+        );
         //r^2 + i^2
         $den = $this->lcm($sqrR['d'], $sqrI['d']);
-        $numRaw = gmp_strval(gmp_add(
+        $numRaw = gmp_strval(
+            gmp_add(
                 gmp_div_q(gmp_mul($sqrR['n'], $den), $sqrR['d']),
                 gmp_div_q(gmp_mul($sqrI['n'], $den), $sqrI['d'])
-               ));
+            )
+        );
         $num = TypeFactory::createInt($numRaw);
 
         //sqrt(num/den) = sqrt(num)/sqrt(den)
         //now this a fudge - we ought to be able to get a proper square root using
         //factors etc but what we do instead is to do an approximation by converting
         //to intermediate rationals using as much precision as we can i.e.
-        // rN = GMPRationaType(sqrt(num))
-        // rD = GMPRationalType(sqrt(den))
+        // rNum = GMPRationaType(sqrt(num))
+        // rDen = GMPRationalType(sqrt(den))
         // mod = rN/1 * 1/rD
-        $rN = RationalTypeFactory::fromFloat(sqrt($num()));
-        $rD = RationalTypeFactory::fromFloat(sqrt(gmp_strval($den)));
-        $modN = gmp_mul($rN->numerator()->gmp(), $rD->denominator()->gmp());
-        $modD = gmp_mul($rN->denominator()->gmp(), $rD->numerator()->gmp());
+        $rNum = RationalTypeFactory::fromFloat(sqrt($num()));
+        $rDen = RationalTypeFactory::fromFloat(sqrt(gmp_strval($den)));
+        $modN = gmp_mul($rNum->numerator()->gmp(), $rDen->denominator()->gmp());
+        $modD = gmp_mul($rNum->denominator()->gmp(), $rDen->numerator()->gmp());
 
-        return RationalTypeFactory::create((int) gmp_strval($modN), (int) gmp_strval($modD));
+        return RationalTypeFactory::create(
+            (int) gmp_strval($modN),
+            (int) gmp_strval($modD)
+        );
     }
 
     /**
@@ -97,18 +114,19 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      * when expressed in polar notation
      * 
      * The return value is a rational expressing theta as radians
-     * 
-     * @return \chippyash\Type\Number\Rational\GMPRationalType
+     *
      * @todo implement gmp atan2 method
+     *
+     * @return \chippyash\Type\Number\Rational\GMPRationalType
      */
     public function theta()
     {
         return RationalTypeFactory::fromFloat(
-                atan2(
-                    $this->value['imaginary']->asFloatType()->get(), 
-                    $this->value['real']->asFloatType()->get()
-                    )
-                );
+            atan2(
+                $this->value['imaginary']->asFloatType()->get(),
+                $this->value['real']->asFloatType()->get()
+            )
+        );
     }
     
     /**
@@ -121,23 +139,23 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
             return '0';
         }
         
-        $r = $this->checkIntType($this->radius()->asFloatType()->get());
-        $t = $this->checkIntType($this->theta()->asFloatType()->get());
-        if (is_int($t)) {
+        $rho = $this->checkIntType($this->radius()->asFloatType()->get());
+        $theta = $this->checkIntType($this->theta()->asFloatType()->get());
+        if (is_int($theta)) {
             $tpattern = 'cos %1$d + i⋅sin %1$d';
         } else {
             $tpattern = 'cos %1$f + i⋅sin %1$f';
         }
-        if ($r == 1) {
-            return sprintf($tpattern, $t);
+        if ($rho == 1) {
+            return sprintf($tpattern, $theta);
         }
-        if (is_int($r)) {
+        if (is_int($rho)) {
             $rpattern = '%2$d';
         } else {
             $rpattern = '%2$f';
         }
         $pattern = "{$rpattern}({$tpattern})";
-        return sprintf($pattern, $t, $r);
+        return sprintf($pattern, $theta, $rho);
     }
     
     /**
@@ -216,8 +234,9 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     {
         if ($this->isReal()) {
             return new RationalType(
-                    $this->value['real']->numerator()->asIntType(),
-                    $this->value['real']->denominator()->asIntType());
+                $this->value['real']->numerator()->asIntType(),
+                $this->value['real']->denominator()->asIntType()
+            );
         } else {
             throw new NotRealComplexException();
         }

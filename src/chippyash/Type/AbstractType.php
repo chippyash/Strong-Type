@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -38,10 +38,12 @@ abstract class AbstractType implements TypeInterface
     /**
      * Set the object value.
      * Forces type
-     * @see typeOf
      *
      * @param mixed $value
+     *
      * @return \chippyash\Type\AbstractType Fluent Interface
+     *
+     * @see typeOf
      */
     public function set($value)
     {
@@ -63,6 +65,7 @@ abstract class AbstractType implements TypeInterface
     /**
      * Magic invoke method
      * Proxy to get()
+     *
      * @see get
      *
      * @return mixed

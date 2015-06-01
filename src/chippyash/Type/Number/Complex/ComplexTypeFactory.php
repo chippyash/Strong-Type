@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -37,11 +37,17 @@ abstract class ComplexTypeFactory
      * @var string
      */
     protected static $supportType = self::TYPE_DEFAULT;
+
     /**
      * Numeric base types we can support
      * @var array
      */
-    protected static $validTypes = array(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE);
+    protected static $validTypes = array(
+        self::TYPE_DEFAULT,
+        self::TYPE_GMP,
+        self::TYPE_NATIVE
+    );
+
     /**
      * The actual base type we are going to return
      * @var string
@@ -73,13 +79,13 @@ abstract class ComplexTypeFactory
             throw new \InvalidArgumentException('Imaginary part may not be null if real part is not a string');
         }
 
-        $r = self::convertType($realPart);
-        $i = self::convertType($imaginaryPart);
+        $real = self::convertType($realPart);
+        $imaginary = self::convertType($imaginaryPart);
         
         if (self::getRequiredType() == self::TYPE_GMP) {
-            return new GMPComplexType($r, $i);
+            return new GMPComplexType($real, $imaginary);
         } else {
-            return new ComplexType($r, $i);
+            return new ComplexType($real, $imaginary);
         }
     }
 
@@ -89,36 +95,37 @@ abstract class ComplexTypeFactory
      * No spaces are allowed in the string
      *
      * @param string $string
+     *
      * @return \chippyash\Type\Number\Complex\ComplexType
+     *
      * @throws \InvalidArgumentException
      */
     public static function fromString($string)
     {
         $matches = array();
         $valid = \preg_match(
-                '#^([-,\+])?([0-9]*[\.\/]?[0-9]*)([-,\+]){1}([0-9]*[\.\/]?[0-9]*)i$#', \trim($string), $matches
+            '#^([-,\+])?([0-9]*[\.\/]?[0-9]*)([-,\+]){1}([0-9]*[\.\/]?[0-9]*)i$#',
+            \trim($string),
+            $matches
         );
 
         if ($valid !== 1) {
             throw new \InvalidArgumentException(
-            'The string representation of the complex number is invalid.'
+                'The string representation of the complex number is invalid.'
             );
         }
 
-        $re = $matches[2];
-        $im = $matches[4];
+        $real = $matches[2];
+        $imaginary = $matches[4];
 
         if ($matches[1] && $matches[1] == '-') {
-            $re = '-' . $re;
+            $real = '-' . $real;
         }
         if ($matches[3] && $matches[3] == '-') {
-            $im = '-' . $im;
+            $imaginary = '-' . $imaginary;
         }
         
-        $r = self::convertType($re);
-        $i = self::convertType($im);
-
-        return self::create($r, $i);
+        return self::create(self::convertType($real), self::convertType($imaginary));
     }
 
     /**
@@ -188,54 +195,90 @@ abstract class ComplexTypeFactory
         $sin = RationalTypeFactory::fromFloat(sin($theta()));
 
         //real = radius * cos
-        $rn = TypeFactory::create('int', gmp_strval(gmp_mul($radius->numerator()->gmp(), $cos->numerator()->gmp())));
-        $rd = TypeFactory::create('int', gmp_strval(gmp_mul($radius->denominator()->gmp(), $cos->denominator()->gmp())));
+        $rNum = TypeFactory::create(
+            'int',
+            gmp_strval(
+                gmp_mul(
+                    $radius->numerator()->gmp(),
+                    $cos->numerator()->gmp()
+                )
+            )
+        );
+        $rDen = TypeFactory::create(
+            'int',
+            gmp_strval(
+                gmp_mul(
+                    $radius->denominator()->gmp(),
+                    $cos->denominator()->gmp()
+                )
+            )
+        );
         //imag = radius * sin
-        $in = TypeFactory::create('int', gmp_strval(gmp_mul($radius->numerator()->gmp(), $sin->numerator()->gmp())));
-        $id = TypeFactory::create('int', gmp_strval(gmp_mul($radius->denominator()->gmp(), $sin->denominator()->gmp())));
-        $r = RationalTypeFactory::create($rn, $rd);
-        $i = RationalTypeFactory::create($in, $id);
-        
-        return new GMPComplexType($r, $i);
+        $iNum = TypeFactory::create(
+            'int',
+            gmp_strval(
+                gmp_mul(
+                    $radius->numerator()->gmp(),
+                    $sin->numerator()->gmp()
+                )
+            )
+        );
+        $iDen = TypeFactory::create(
+            'int',
+            gmp_strval(
+                gmp_mul(
+                    $radius->denominator()->gmp(),
+                    $sin->denominator()->gmp()
+                )
+            )
+        );
+
+        return new GMPComplexType(
+            RationalTypeFactory::create($rNum, $rDen),
+            RationalTypeFactory::create($iNum, $iDen)
+        );
     }
 
     /**
      * Convert to RationalType
      *
-     * @param mixed $t
+     * @param mixed $original
      *
      * @return \chippyash\Type\Number\Rational\RationalType|\chippyash\Type\Number\Rational\GMPRationalType
      *
      * @throws InvalidTypeException
      */
-    protected static function convertType($t)
+    protected static function convertType($original)
     {
-        if ($t instanceof AbstractRationalType) {
-            return RationalTypeFactory::create($t->numerator()->get(), $t->denominator()->get());
+        if ($original instanceof AbstractRationalType) {
+            return RationalTypeFactory::create(
+                $original->numerator()->get(),
+                $original->denominator()->get()
+            );
         }
-        if (is_numeric($t)) {
-            if (is_int($t)) {
-                return RationalTypeFactory::create($t, 1);
+        if (is_numeric($original)) {
+            if (is_int($original)) {
+                return RationalTypeFactory::create($original, 1);
             }
             //default - convert to float
-            return RationalTypeFactory::fromFloat(floatval($t));
+            return RationalTypeFactory::fromFloat(floatval($original));
         }
-        if ($t instanceof FloatType) {
-            return RationalTypeFactory::fromFloat($t());
+        if ($original instanceof FloatType) {
+            return RationalTypeFactory::fromFloat($original());
         }
-        if ($t instanceof IntType) {
-            return RationalTypeFactory::create($t, 1);
+        if ($original instanceof IntType) {
+            return RationalTypeFactory::create($original, 1);
         }
-        if (is_string($t)) {
+        if (is_string($original)) {
             try {
-                return RationalTypeFactory::fromString($t);
+                return RationalTypeFactory::fromString($original);
             } catch (\InvalidArgumentException $e) {
-                throw new InvalidTypeException("{$t} for Complex type construction");
+                throw new InvalidTypeException("{$original} for Complex type construction");
             }
         }
 
-        $typeT = gettype($t);
-        throw new InvalidTypeException("{$typeT} for Complex type construction");
+        $type = gettype($original);
+        throw new InvalidTypeException("{$type} for Complex type construction");
     }
     
     /**

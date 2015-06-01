@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -27,7 +27,7 @@ abstract class AbstractMultiValueType extends AbstractType
      * [pos=>[name, class], ...]
      * You need to override this in child classes and set it
      * 
-     * pos refers to the order in which it is expected to be placed in the
+     * `pos` refers to the order in which it is expected to be placed in the
      * parameter list in constructor and set methods
      * 
      * name is the name of the value
@@ -76,7 +76,8 @@ abstract class AbstractMultiValueType extends AbstractType
      * This is variant parameter method. The type and number of arguments
      * are determined by the value map
      *
-     * @param mixed $value
+     * @param mixed $value ignored
+     *
      * @return \chippyash\Type\AbstractType Fluent Interface
      */
     public function set($value)
@@ -89,8 +90,11 @@ abstract class AbstractMultiValueType extends AbstractType
     /**
      * Magic clone method
      * Ensure value gets cloned when object is cloned
+     *
+     * @return void
      */
-    public function __clone() {
+    public function __clone()
+    {
         foreach ($this->value as &$v) {
             if (is_object($v)) {
                 $v = clone $v;
@@ -101,6 +105,7 @@ abstract class AbstractMultiValueType extends AbstractType
     /**
      * Magic invoke method
      * Proxy to get()
+     *
      * @see get
      *
      * @return mixed
@@ -120,9 +125,10 @@ abstract class AbstractMultiValueType extends AbstractType
     /**
      * Not defined for multi value types
      *
-     * @param mixed $value
+     * @param mixed $value ignored
      *
      * @return void
+     *
      * @throws \BadMethodCallException
      */
     final protected function typeOf($value)
@@ -135,6 +141,9 @@ abstract class AbstractMultiValueType extends AbstractType
      * the value array
      * 
      * @param array $params
+     *
+     * @return void
+     *
      * @throws \InvalidArgumentException
      */
     protected function setFromTypes(array $params)

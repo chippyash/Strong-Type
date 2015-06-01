@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -29,12 +29,18 @@ use chippyash\Type\Exceptions\NotRealComplexException;
 class ComplexType extends AbstractComplexType
 {
     /**
-     * map of values for this type
+     * Map of values for this type
      * @var array
      */
     protected $valueMap = array(
-        0 => array('name' => 'real', 'class' => 'chippyash\Type\Number\Rational\RationalType'),
-        1 => array('name' => 'imaginary', 'class' => 'chippyash\Type\Number\Rational\RationalType')
+        0 => array(
+            'name' => 'real',
+            'class' => 'chippyash\Type\Number\Rational\RationalType'
+        ),
+        1 => array(
+            'name' => 'imaginary',
+            'class' => 'chippyash\Type\Number\Rational\RationalType'
+        )
     );
 
     /**
@@ -88,8 +94,14 @@ class ComplexType extends AbstractComplexType
             return $this->value['real']->abs();
         }
         //r^2 & i^2
-        $sqrR = array('n'=>pow($this->value['real']->numerator()->get(), 2), 'd'=>pow($this->value['real']->denominator()->get(),2));
-        $sqrI = array('n'=>pow($this->value['imaginary']->numerator()->get(), 2), 'd'=>pow($this->value['imaginary']->denominator()->get(),2));
+        $sqrR = array(
+            'n'=>pow($this->value['real']->numerator()->get(), 2),
+            'd'=>pow($this->value['real']->denominator()->get(), 2)
+        );
+        $sqrI = array(
+            'n'=>pow($this->value['imaginary']->numerator()->get(), 2),
+            'd'=>pow($this->value['imaginary']->denominator()->get(), 2)
+        );
         //r^2 + i^2
         $den = $this->lcm($sqrR['d'], $sqrI['d']);
         $num = ($sqrR['n'] * $den / $sqrR['d']) +
@@ -98,14 +110,14 @@ class ComplexType extends AbstractComplexType
         //sqrt(num/den) = sqrt(num)/sqrt(den)
         //now this a fudge - we ought to be able to get a proper square root using
         //factors etc but what we do instead is to do an approximation by converting
-        //to intermediate rationalsi.e.
-        // rN = RationaType(sqrt(num))
-        // rD = RationalType(sqrt(den))
+        //to intermediate rationals i.e.
+        // rNum = RationaType(sqrt(num))
+        // rDen = RationalType(sqrt(den))
         // mod = rN/1 * 1/rD
-        $rN = RationalTypeFactory::fromFloat(sqrt($num));
-        $rD = RationalTypeFactory::fromFloat(sqrt($den));
-        $modN = $rN->numerator()->get() * $rD->denominator()->get();
-        $modD = $rN->denominator()->get() * $rD->numerator()->get();
+        $rNum = RationalTypeFactory::fromFloat(sqrt($num));
+        $rDen = RationalTypeFactory::fromFloat(sqrt($den));
+        $modN = $rNum->numerator()->get() * $rDen->denominator()->get();
+        $modD = $rNum->denominator()->get() * $rDen->numerator()->get();
 
         return RationalTypeFactory::create($modN, $modD);
     }
@@ -121,11 +133,11 @@ class ComplexType extends AbstractComplexType
     public function theta()
     {
         return RationalTypeFactory::fromFloat(
-                atan2(
-                    $this->value['imaginary']->asFloatType()->get(), 
-                    $this->value['real']->asFloatType()->get()
-                    )
-                );
+            atan2(
+                $this->value['imaginary']->asFloatType()->get(),
+                $this->value['real']->asFloatType()->get()
+            )
+        );
     }
     
     /**
@@ -138,23 +150,23 @@ class ComplexType extends AbstractComplexType
             return '0';
         }
         
-        $r = $this->checkIntType($this->radius()->asFloatType()->get());
-        $t = $this->checkIntType($this->theta()->asFloatType()->get());
-        if (is_int($t)) {
+        $rho = $this->checkIntType($this->radius()->asFloatType()->get());
+        $theta = $this->checkIntType($this->theta()->asFloatType()->get());
+        if (is_int($theta)) {
             $tpattern = 'cos %1$d + i⋅sin %1$d';
         } else {
             $tpattern = 'cos %1$f + i⋅sin %1$f';
         }
-        if ($r == 1) {
-            return sprintf($tpattern, $t);
+        if ($rho == 1) {
+            return sprintf($tpattern, $theta);
         }
-        if (is_int($r)) {
+        if (is_int($rho)) {
             $rpattern = '%2$d';
         } else {
             $rpattern = '%2$f';
         }
         $pattern = "{$rpattern}({$tpattern})";
-        return sprintf($pattern, $t, $r);
+        return sprintf($pattern, $theta, $rho);
     }
 
     /**
@@ -178,6 +190,7 @@ class ComplexType extends AbstractComplexType
      *
      * @param int $a
      * @param int $b
+     *
      * @return int
      */
     private function gcd($a, $b)

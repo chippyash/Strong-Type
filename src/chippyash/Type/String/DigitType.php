@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -43,6 +43,9 @@ class DigitType extends AbstractType
      * Lifted entirely from the Zend framework so that we don't have to include
      * the Zend\Filter package and all its dependencies.
      *
+     * @param  string $value
+     * @return string|mixed
+
      * zendframework/zend-filter/Zend/Filter/Digits.php
      * Zend Framework (http://framework.zend.com/)
      *
@@ -55,8 +58,6 @@ class DigitType extends AbstractType
      *
      * If the value provided is non-scalar, the value will remain unfiltered
      *
-     * @param  string $value
-     * @return string|mixed
      */
     protected function filter($value)
     {
@@ -94,7 +95,8 @@ class DigitType extends AbstractType
     {
         if (static::$hasPcreUnicodeSupport === null) {
             ErrorHandler::start();
-            static::$hasPcreUnicodeSupport = defined('PREG_BAD_UTF8_OFFSET_ERROR') && preg_match('/\pL/u', 'a') == 1;
+            static::$hasPcreUnicodeSupport =
+                defined('PREG_BAD_UTF8_OFFSET_ERROR') && preg_match('/\pL/u', 'a') == 1;
             ErrorHandler::stop();
         }
         return static::$hasPcreUnicodeSupport;

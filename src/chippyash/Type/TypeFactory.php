@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -140,6 +140,7 @@ abstract class TypeFactory
      * Create a StringType
      *
      * @param mixed $value
+     *
      * @return \chippyash\Type\String\StringType
      */
     public static function createString($value)
@@ -151,6 +152,7 @@ abstract class TypeFactory
      * Create a BoolType
      *
      * @param mixed $value
+     *
      * @return \chippyash\Type\BoolType
      */
     public static function createBool($value)
@@ -162,6 +164,7 @@ abstract class TypeFactory
      * Create a DigitType
      *
      * @param mixed $value
+     *
      * @return \chippyash\Type\String\DigitType
      */
     public static function createDigit($value)
@@ -173,6 +176,7 @@ abstract class TypeFactory
      * Create a whole number
      *
      * @param mixed $value
+     *
      * @return \chippyash\Type\Number\WholeIntType|\chippyash\Type\Number\GMPIntType
      *
      * @throws \InvalidArgumentException
@@ -197,6 +201,7 @@ abstract class TypeFactory
      * Create a Natural number
      *
      * @param mixed $value
+     *
      * @return \chippyash\Type\Number\NaturalIntType|\chippyash\Type\Number\GMPIntType
      *
      * @throws \InvalidArgumentException
@@ -223,6 +228,7 @@ abstract class TypeFactory
      *
      * @param int|float|string|NumericTypeInterface $realPart
      * @param int|float|string|NumericTypeInterface|null $imaginaryPart
+     *
      * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public static function createComplex($realPart, $imaginaryPart = null)
@@ -242,6 +248,7 @@ abstract class TypeFactory
      *
      * @param int|string|float $numerator
      * @param int $denominator
+     *
      * @return \chippyash\Type\Number\Rational\RationalType
      */
     public static function createRational($numerator, $denominator = 1)
@@ -261,6 +268,9 @@ abstract class TypeFactory
      * PHP native types
      * 
      * @param string $requiredType
+     *
+     * @return void
+     *
      * @throws \InvalidArgumentException
      */
     public static function setNumberType($requiredType)

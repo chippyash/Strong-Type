@@ -1,14 +1,15 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
  * Thanks to Florian Wolters for the inspiration
- * @link http://github.com/FlorianWolters/PHP-Component-Number-Fraction
  *
- * @author Ashley Kitson <akitson@zf4.biz>
  * @copyright Ashley Kitson, UK, 2012
+ * @author Ashley Kitson <akitson@zf4.biz>
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
+ *
+ * @link http://github.com/FlorianWolters/PHP-Component-Number-Fraction
  */
 namespace chippyash\Type\Number\Rational;
 
@@ -32,7 +33,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
     protected $reduce = true;
         
     /**
-     * map of values for this type
+     * Map of values for this type
      * @var array
      */
     protected $valueMap = array(
@@ -48,9 +49,9 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
     public function asComplex()
     {
         return new ComplexType(
-                new RationalType(clone $this->numerator(), clone $this->denominator()),
-                new RationalType(new IntType(0), new IntType(1))
-                );
+            new RationalType(clone $this->numerator(), clone $this->denominator()),
+            new RationalType(new IntType(0), new IntType(1))
+        );
     }
 
     /**
@@ -135,12 +136,12 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
      */
     public function __toString()
     {
-        $n = $this->value['num']->get();
+        $num = $this->value['num']->get();
         if ($this->isInteger()) {
-            return "{$n}";
+            return "{$num}";
         } else {
-            $d = $this->value['den']->get();
-            return "{$n}/{$d}";
+            $den = $this->value['den']->get();
+            return "{$num}/{$den}";
         }
     }
 
@@ -172,7 +173,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
     /**
      * Reduce this number to it's lowest form
      * 
-     * @abstract
+     * @return void
      */
     abstract protected function reduce();
 
@@ -181,6 +182,9 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
      * the value array
      * 
      * @param array $params
+     *
+     * @return void
+     *
      * @throws \InvalidArgumentException
      */
     protected function setFromTypes(array $params)

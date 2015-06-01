@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -28,7 +28,8 @@ class GMPIntType extends IntType implements GMPInterface
      * @param mixed $value
      * @throws GmpNotSupportedException
      */
-    public function __construct($value) {
+    public function __construct($value)
+    {
         if (empty(self::$gmpInstalled) || $this->checkGmpInstalled()) {
             self::$gmpInstalled = true;
         } else {
@@ -101,17 +102,17 @@ class GMPIntType extends IntType implements GMPInterface
      */
     public function factors()
     {
-        $n = $this->cloneValue();
-        $limit = gmp_sqrt($n);
+        $num = $this->cloneValue();
+        $limit = gmp_sqrt($num);
         $zero = gmp_init(0);
         $one = gmp_init(1);
         $ret = array();
         for ($x = gmp_init(1); gmp_cmp($x, $limit) <= 0; $x = gmp_add($x, $one)) {
-            if (gmp_cmp(gmp_mod($n, $x), $zero) == 0) {
-                $z = gmp_strval(gmp_div_q($n, $x));
-                $xx = gmp_strval($x);
-                $ret[$xx] = $xx;
-                $ret[$z] = $z;
+            if (gmp_cmp(gmp_mod($num, $x), $zero) == 0) {
+                $xAsInt = gmp_strval($x);
+                $other = gmp_strval(gmp_div_q($num, $x));
+                $ret[$xAsInt] = $xAsInt;
+                $ret[$other] = $other;
             }
         }
         ksort($ret, SORT_NUMERIC);
@@ -124,43 +125,42 @@ class GMPIntType extends IntType implements GMPInterface
      * The keys (prime factors) will be strings
      * The values (exponents will be integers
      *
-     * Adapted from
-     * @link http://www.thatsgeeky.com/2011/03/prime-factoring-with-php/
+     * Adapted from http://www.thatsgeeky.com/2011/03/prime-factoring-with-php/
      *
      * @return array [primeFactor => exponent,...]
      */
     public function primeFactors()
     {
-        $n = $this->cloneValue();
-        $d = 2;
+        $number = $this->cloneValue();
+        $divisor = 2;
         $zero = gmp_init(0);
         $one = gmp_init(1);
-        $dmax = gmp_sqrt($n);
+        $dmax = gmp_sqrt($number);
         $factors = array();
         $sieve = array_fill(1, intval(gmp_strval($dmax)), 1);
         do {
-            $r = false;
-            while (gmp_cmp(gmp_mod($n, $d), $zero) == 0) {
-                $factors[$d] = (isset($factors[$d]) ? $factors[$d] + 1 : 1);
-                $n = gmp_div_q($n, $d);
-                $r = true;
+            $rFlag = false;
+            while (gmp_cmp(gmp_mod($number, $divisor), $zero) == 0) {
+                $factors[$divisor] = (isset($factors[$divisor]) ? $factors[$divisor] + 1 : 1);
+                $number = gmp_div_q($number, $divisor);
+                $rFlag = true;
             }
-            if ($r) {
-                $dmax = gmp_sqrt($n);
+            if ($rFlag) {
+                $dmax = gmp_sqrt($number);
             }
-            if (gmp_cmp($n, $one) > 0) {
-                for ($i = $d; gmp_cmp($i, $dmax) <= 0; $i+=$d) {
+            if (gmp_cmp($number, $one) > 0) {
+                for ($i = $divisor; gmp_cmp($i, $dmax) <= 0; $i += $divisor) {
                     $sieve[$i] = 0;
                 }
                 do {
-                    $d++;
-                } while (gmp_cmp($d, $dmax) < 0 && $sieve[$d] != 1 );
-                if (gmp_cmp($d, $dmax) > 0) {
-                    $key = gmp_strval($n);
+                    $divisor ++;
+                } while (gmp_cmp($divisor, $dmax) < 0 && $sieve[$divisor] != 1 );
+                if (gmp_cmp($divisor, $dmax) > 0) {
+                    $key = gmp_strval($number);
                     $factors[$key] = (isset($factors[$key]) ? $factors[$key] + 1 : 1);
                 }
             }
-        } while (gmp_cmp($n, $one) > 0 && gmp_cmp($d, $dmax) <= 0);
+        } while (gmp_cmp($number, $one) > 0 && gmp_cmp($divisor, $dmax) <= 0);
 
         return $factors;
     }

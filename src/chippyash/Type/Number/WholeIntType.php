@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -27,7 +27,16 @@ class WholeIntType extends IntType
     {
         throw new \BadMethodCallException('Negate not supported for Whole Int Types');
     }
-            
+
+    /**
+     * Return correctly typed value for this type
+     *
+     * @param mixed $value
+     *
+     * @return int
+     *
+     * @throws InvalidTypeException
+     */
     protected function typeOf($value)
     {
         $v = intval($value);

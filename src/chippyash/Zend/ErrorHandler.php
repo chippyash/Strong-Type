@@ -2,9 +2,9 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
  * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
  *
  * Rather than rely on a dependency for some small piece of functionality, I've decided
  * to include the source here.  If Zend or anyone else believes this to be a breach of
@@ -52,6 +52,8 @@ abstract class ErrorHandler
      * Starting the error handler
      *
      * @param int $errorLevel
+     *
+     * @return void
      */
     public static function start($errorLevel = \E_WARNING)
     {
@@ -66,7 +68,9 @@ abstract class ErrorHandler
      * Stopping the error handler
      *
      * @param  bool $throw Throw the ErrorException if any
+     *
      * @return null|ErrorException
+     *
      * @throws ErrorException If an error has been catched and $throw is true
      */
     public static function stop($throw = false)
@@ -105,10 +109,11 @@ abstract class ErrorHandler
     /**
      * Add an error to the stack
      *
-     * @param int    $errno
+     * @param int $errno
      * @param string $errstr
      * @param string $errfile
-     * @param int    $errline
+     * @param int $errline
+     *
      * @return void
      */
     public static function addError($errno, $errstr = '', $errfile = '', $errline = 0)

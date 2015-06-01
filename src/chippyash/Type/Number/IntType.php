@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -41,10 +41,8 @@ class IntType extends AbstractType implements NumericTypeInterface
     public function asComplex()
     {
         return new ComplexType(
-                new RationalType(
-                        clone $this, new static(1)),
-                new RationalType(
-                        new self(0), new static(1))
+            new RationalType(clone $this, new static(1)),
+            new RationalType(new self(0), new static(1))
         );
     }
 
@@ -96,14 +94,14 @@ class IntType extends AbstractType implements NumericTypeInterface
      */
     public function factors()
     {
-        $n = $this->value;
-        $limit = floor(sqrt(abs($n)));
+        $number = $this->value;
+        $limit = floor(sqrt(abs($number)));
         $ret = array();
         for ($x = 1; $x <= $limit; $x++) {
-            if ($n % $x == 0) {
-                $z = intval($n / $x);
+            if ($number % $x == 0) {
+                $other = intval($number / $x);
                 $ret[$x] = $x;
-                $ret[$z] = $z;
+                $ret[$other] = $other;
             }
         }
         ksort($ret);
@@ -121,33 +119,33 @@ class IntType extends AbstractType implements NumericTypeInterface
     public function primeFactors()
     {
         // max_n = 2^31-1 = 2147483647
-        $n = $this->value;
-        $d = 2;
+        $number = $this->value;
+        $divisor = 2;
         $factors = array();
-        $dmax = floor(sqrt($n));
+        $dmax = floor(sqrt($number));
         $sieve = array_fill(1, $dmax, 1);
         do {
-            $r = false;
-            while ($n % $d == 0) {
-                $factors[$d] = (isset($factors[$d]) ? $factors[$d] + 1 : 1);
-                $n/=$d;
-                $r = true;
+            $rFlag = false;
+            while ($number % $divisor == 0) {
+                $factors[$divisor] = (isset($factors[$divisor]) ? $factors[$divisor] + 1 : 1);
+                $number /= $divisor;
+                $rFlag = true;
             }
-            if ($r) {
-                $dmax = floor(sqrt($n));
+            if ($rFlag) {
+                $dmax = floor(sqrt($number));
             }
-            if ($n > 1) {
-                for ($i = $d; $i <= $dmax; $i+=$d) {
+            if ($number > 1) {
+                for ($i = $divisor; $i <= $dmax; $i += $divisor) {
                     $sieve[$i] = 0;
                 }
                 do {
-                    $d++;
-                } while ($d < $dmax && $sieve[$d] != 1 );
-                if ($d > $dmax) {
-                    $factors[$n] = (isset($factors[$n]) ? $factors[$n] + 1 : 1);
+                    $divisor ++;
+                } while ($divisor < $dmax && $sieve[$divisor] != 1 );
+                if ($divisor > $dmax) {
+                    $factors[$number] = (isset($factors[$number]) ? $factors[$number] + 1 : 1);
                 }
             }
-        } while ($n > 1 && $d <= $dmax);
+        } while ($number > 1 && $divisor <= $dmax);
 
         return $factors;
     }

@@ -1,15 +1,15 @@
 <?php
 
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
- *
- * Thanks to Florian Wolters for the inspiration
- * @link http://github.com/FlorianWolters/PHP-Component-Number-Fraction
  *
  * @author Ashley Kitson <akitson@zf4.biz>
  * @copyright Ashley Kitson, UK, 2014
  * @licence GPL V3 or later : http://www.gnu.org/licenses/gpl.html
+
+ * Thanks to Florian Wolters for the inspiration
+ * @link http://github.com/FlorianWolters/PHP-Component-Number-Fraction*
  */
 
 namespace chippyash\Type\Number\Rational;
@@ -27,7 +27,7 @@ use chippyash\Type\BoolType;
 class GMPRationalType extends AbstractRationalType implements GMPInterface
 {
     /**
-     * map of values for this type
+     * Map of values for this type
      * @var array
      */
     protected $valueMap = array(
@@ -61,9 +61,9 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
         if ($this->isInteger()) {
             return $this->value['num']->get();
         } else {
-            $n = intval(gmp_strval($this->value['num']->gmp()));
-            $d = intval(gmp_strval($this->value['den']->gmp()));
-            return $n/$d;
+            $num = intval(gmp_strval($this->value['num']->gmp()));
+            $den = intval(gmp_strval($this->value['den']->gmp()));
+            return $num/$den;
         }
     }
 
@@ -85,7 +85,6 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      */
     public function asGMPIntType()
     {
-        /** @noinspection PhpParamsInspection */
         return new GMPIntType(floor($this->get()));
     }
     
@@ -96,11 +95,10 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
      */
     public function asGMPComplex()
     {
-        /** @noinspection PhpParamsInspection */
         return new GMPComplexType(
-                new GMPRationalType(clone $this->numerator(), clone $this->denominator()),
-                new GMPRationalType(new GMPIntType(0), new GMPIntType(1))
-                );
+            new GMPRationalType(clone $this->numerator(), clone $this->denominator()),
+            new GMPRationalType(new GMPIntType(0), new GMPIntType(1))
+        );
     }
     
     /**
@@ -123,8 +121,9 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
     public function asRational()
     {
         return new RationalType(
-                $this->value['num']->asIntType(), 
-                $this->value['den']->asIntType());
+            $this->value['num']->asIntType(),
+            $this->value['den']->asIntType()
+        );
     }
     
     /**

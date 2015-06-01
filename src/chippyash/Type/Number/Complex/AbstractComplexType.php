@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Hard type support
  * For when you absolutely want to know what you are getting
  *
@@ -19,15 +19,22 @@ use chippyash\Type\Exceptions\NotRealComplexException;
 /**
  * Abstract complex number type
  */
-abstract class AbstractComplexType extends AbstractMultiValueType implements ComplexTypeInterface, NumericTypeInterface
+abstract class AbstractComplexType extends AbstractMultiValueType
+    implements ComplexTypeInterface, NumericTypeInterface
 {
     /**
-     * map of values for this type
+     * Map of values for this type
      * @var array
      */
     protected $valueMap = array(
-        0 => array('name' => 'real', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'),
-        1 => array('name' => 'imaginary', 'class' => 'chippyash\Type\Interfaces\NumericTypeInterface')
+        0 => array(
+            'name' => 'real',
+            'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'
+        ),
+        1 => array(
+            'name' => 'imaginary',
+            'class' => 'chippyash\Type\Interfaces\NumericTypeInterface'
+        )
     );
 
     /**
@@ -52,6 +59,8 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     /**
      * Return complex number expressed as a string in polar form
      * i.e. r(cosθ + i⋅sinθ)
+     *
+     * @return string
      */
     abstract public function polarString();
         
@@ -104,7 +113,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     }
 
     /**
-     * if this complex number isReal() then return float equivalent
+     * If this complex number isReal() then return float equivalent
      * else throw an excepton
      *
      * @return float
@@ -202,8 +211,8 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      */
     public function conjugate()
     {
-        $i = clone $this->value['imaginary'];
-        return new static(clone $this->value['real'], $i->negate());
+        $imaginary = clone $this->value['imaginary'];
+        return new static(clone $this->value['real'], $imaginary->negate());
     }
     
     /**
@@ -220,8 +229,8 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     /**
      * Returns complex number expressed in polar form
      * 
-     * radius == this->modulus()
-     * theta is angle expressed in radians
+     * `radius` == this->modulus()
+     * `theta` is angle expressed in radians
      * 
      * @return array[radius => RationalType, theta => RationalType] 
      */
@@ -272,24 +281,27 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
             return '0';
         }
         
-        $r = (string) $this->value['real'];
+        $real = (string) $this->value['real'];
 
         if ($this->isReal()) {
-            return $r;
+            return $real;
         }
 
-        $i = (string) $this->value['imaginary'];
-        if ($i[0] != '-') {
-            $i = '+' . $i;
+        $imaginary = (string) $this->value['imaginary'];
+        if ($imaginary[0] != '-') {
+            $imaginary = '+' . $imaginary;
         }
-        return "{$r}{$i}i";
+        return "{$real}{$imaginary}i";
     }
     
     /**
      * Magic clone method
      * Ensure value gets cloned when object is cloned
+     *
+     * @return void
      */
-    public function __clone() {
+    public function __clone()
+    {
         $this->value['real'] = clone $this->value['real'];
         $this->value['imaginary'] = clone $this->value['imaginary'];
     }
@@ -309,7 +321,8 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      * 
      * @return float|int|string
      */
-    protected function getAsNativeType() {
+    protected function getAsNativeType()
+    {
         if ($this->isZero()) {
             return 0;
         }
