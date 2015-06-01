@@ -25,7 +25,7 @@ use chippyash\Type\Interfaces\NumericTypeInterface;
 /**
  * Static Factory for creating types
  */
-abstract class TypeFactory 
+abstract class TypeFactory
 {
     const TYPE_DEFAULT = 'auto';
     const TYPE_NATIVE = 'native';

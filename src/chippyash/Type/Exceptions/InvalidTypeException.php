@@ -12,7 +12,8 @@ namespace chippyash\Type\Exceptions;
 /**
  * Invalid type exception
  */
-class InvalidTypeException extends \Exception {
+class InvalidTypeException extends \Exception
+{
 
     protected $msg = 'Invalid Type: %s';
 
@@ -26,5 +27,4 @@ class InvalidTypeException extends \Exception {
     {
         parent::__construct(sprintf($this->msg, $type), $code, $previous);
     }
-
 }

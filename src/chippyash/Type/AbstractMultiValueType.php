@@ -26,14 +26,14 @@ abstract class AbstractMultiValueType extends AbstractType
      * Map of value names to $value array position
      * [pos=>[name, class], ...]
      * You need to override this in child classes and set it
-     * 
+     *
      * `pos` refers to the order in which it is expected to be placed in the
      * parameter list in constructor and set methods
-     * 
+     *
      * name is the name of the value
-     * 
+     *
      * class is the full class name of the expected value object
-     * 
+     *
      * @var array
      */
     protected $valueMap = array();
@@ -154,7 +154,7 @@ abstract class AbstractMultiValueType extends AbstractType
             throw new \InvalidArgumentException("Expected {$e} parameters, got {$n}");
         }
         
-        foreach ($params as $key=>$value) {
+        foreach ($params as $key => $value) {
             if (is_object($value)) {
                 if (!$value instanceof $this->valueMap[$key]['class']) {
                     $c = get_class($value);

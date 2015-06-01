@@ -45,5 +45,4 @@ interface TypeInterface
      * @return string
      */
     public function __toString();
-
 }

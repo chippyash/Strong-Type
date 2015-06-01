@@ -20,7 +20,7 @@ class WholeIntType extends IntType
 
     /**
      * Negates the number
-     * 
+     *
      * @throws \BadMethodCallException
      */
     public function negate()

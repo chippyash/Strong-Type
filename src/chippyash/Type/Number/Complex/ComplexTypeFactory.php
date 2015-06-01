@@ -356,5 +356,4 @@ abstract class ComplexTypeFactory
             TypeFactory::create('int', $radius->denominator()->get() * $sin->denominator()->get())
         ) ;
     }
-
 }

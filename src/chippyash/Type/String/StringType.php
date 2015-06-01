@@ -17,7 +17,13 @@ use \chippyash\Type\AbstractType;
  */
 class StringType extends AbstractType
 {
-
+    /**
+     * Return correctly typed value for this type
+     *
+     * @param mixed $value
+     *
+     * @return string
+     */
     protected function typeOf($value)
     {
         return (string) $value;

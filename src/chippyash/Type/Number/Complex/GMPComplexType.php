@@ -265,9 +265,13 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
      */
     private function lcm($a, $b)
     {
-        return gmp_abs(gmp_div_q(gmp_mul($a, $b),gmp_gcd($a, $b)));
+        return gmp_abs(gmp_div_q(gmp_mul($a, $b), gmp_gcd($a, $b)));
     }
 
+    /**
+     * @param $value
+     * @return int|float
+     */
     private function checkIntType($value)
     {
         $test = intval($value);

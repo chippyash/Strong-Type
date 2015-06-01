@@ -19,8 +19,7 @@ use chippyash\Type\Exceptions\NotRealComplexException;
 /**
  * Abstract complex number type
  */
-abstract class AbstractComplexType extends AbstractMultiValueType
-    implements ComplexTypeInterface, NumericTypeInterface
+abstract class AbstractComplexType extends AbstractMultiValueType implements ComplexTypeInterface, NumericTypeInterface
 {
     /**
      * Map of values for this type
@@ -332,5 +331,4 @@ abstract class AbstractComplexType extends AbstractMultiValueType
         //return as string
         return (string) $this;
     }
-    
 }

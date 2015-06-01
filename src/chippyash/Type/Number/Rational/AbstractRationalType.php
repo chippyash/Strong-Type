@@ -43,7 +43,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
 
     /**
      * Return the number as a Complex number i.e. n+0i
-     * 
+     *
      * @return \chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()

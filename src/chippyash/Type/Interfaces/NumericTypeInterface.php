@@ -12,7 +12,8 @@ namespace chippyash\Type\Interfaces;
 /**
  * A interface to mark numeric types
  */
-interface NumericTypeInterface {
+interface NumericTypeInterface
+{
 
     /**
      * Negates the number

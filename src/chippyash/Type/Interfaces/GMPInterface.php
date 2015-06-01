@@ -32,7 +32,7 @@ interface GMPInterface
     
     /**
      * Return the number as a GMPComplex number i.e. n+0i
-     * 
+     *
      * @return \chippyash\Type\Number\Complex\GMPComplexType
      */
     public function asGMPComplex();
@@ -44,5 +44,4 @@ interface GMPInterface
      * @return \chippyash\Type\Number\Rational\GMPRationalType
      */
     public function asGMPRational();
-
 }

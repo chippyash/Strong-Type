@@ -81,33 +81,15 @@ abstract class RationalTypeFactory
             return self::fromFloat($numerator);
         }
 
-        if (is_numeric($numerator) && is_null($denominator)) {
-            return self::createCorrectRational($numerator, 1);
+        if (is_numeric($numerator)) {
+            return self::createFromNumericNumerator($numerator, $denominator);
         }
 
-        if (is_numeric($numerator) && is_numeric($denominator)) {
-            return self::createCorrectRational($numerator, $denominator);
+        if ($numerator instanceof IntType) {
+            return self::createFromIntTypeNumerator($numerator, $denominator);
         }
 
-        if (is_numeric($numerator) && $denominator instanceof IntType) {
-            return self::createCorrectRational($numerator, $denominator());
-        }
-
-        if ($numerator instanceof IntType && $denominator instanceof IntType) {
-            return self::createCorrectRational($numerator(), $denominator());
-        }
-
-        if ($numerator instanceof IntType && is_null($denominator)) {
-            return self::createCorrectRational($numerator(), 1);
-        }
-
-        if ($numerator instanceof IntType && is_numeric($denominator)) {
-            return self::createCorrectRational($numerator(), $denominator);
-        }
-
-        $typeN = gettype($numerator);
-        $typeD = gettype($denominator);
-        throw new InvalidTypeException("{$typeN}:{$typeD} for Rational type construction");
+        self::throwCreateException($numerator, $denominator);
     }
 
     /**
@@ -180,12 +162,14 @@ abstract class RationalTypeFactory
     {
         $matches = array();
         $valid = \preg_match(
-            '#^(-)? *?(\d+) *?/ *?(-)? *?(\d+)$#', \trim($string), $matches
+            '#^(-)? *?(\d+) *?/ *?(-)? *?(\d+)$#',
+            \trim($string),
+            $matches
         );
 
         if ($valid !== 1) {
             throw new \InvalidArgumentException(
-            'The string representation of the rational is invalid.'
+                'The string representation of the rational is invalid.'
             );
         }
 
@@ -275,5 +259,74 @@ abstract class RationalTypeFactory
         } else {
             return new RationalType(new IntType($num), new IntType($den));
         }
+    }
+
+    /**
+     * Create where numerator is known to be numeric
+     *
+     * @param mixed $numerator Conforms to is_numeric()
+     * @param mixed $denominator
+     *
+     * @return GMPRationalType|RationalType
+     *
+     * @throws InvalidTypeException
+     */
+    private static function createFromNumericNumerator($numerator, $denominator)
+    {
+        if (is_null($denominator)) {
+            return self::createCorrectRational($numerator, 1);
+        }
+
+        if (is_numeric($denominator)) {
+            return self::createCorrectRational($numerator, $denominator);
+        }
+
+        if ($denominator instanceof IntType) {
+            return self::createCorrectRational($numerator, $denominator());
+        }
+
+        self::throwCreateException($numerator, $denominator);
+    }
+
+    /**
+     * Create where numerator is known to be IntType
+     *
+     * @param IntType $numerator
+     * @param mixed $denominator
+     *
+     * @return GMPRationalType|RationalType
+     *
+     * @throws InvalidTypeException
+     */
+    private static function createFromIntTypeNumerator(IntType $numerator, $denominator)
+    {
+        if ($denominator instanceof IntType) {
+            return self::createCorrectRational($numerator(), $denominator());
+        }
+
+        if (is_null($denominator)) {
+            return self::createCorrectRational($numerator(), 1);
+        }
+
+        if (is_numeric($denominator)) {
+            return self::createCorrectRational($numerator(), $denominator);
+        }
+
+        self::throwCreateException($numerator, $denominator);
+    }
+
+    /**
+     * Throw a create exception
+     *
+     * @param $numerator
+     * @param $denominator
+     *
+     * @throws InvalidTypeException
+     */
+    private static function throwCreateException($numerator, $denominator)
+    {
+        $typeN = gettype($numerator);
+        $typeD = gettype($denominator);
+        throw new InvalidTypeException("{$typeN}:{$typeD} for Rational type construction");
     }
 }

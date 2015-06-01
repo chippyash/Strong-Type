@@ -17,7 +17,6 @@ namespace chippyash\Type\Number\Rational;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\BoolType;
 
-
 /**
  * A rational number (i.e a fraction)
  *
@@ -75,5 +74,4 @@ class RationalType extends AbstractRationalType
     {
         return $b ? $this->gcd($b, $a % $b) : $a;
     }
-
 }

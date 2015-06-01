@@ -162,5 +162,4 @@ class IntType extends AbstractType implements NumericTypeInterface
     {
         return intval($value);
     }
-
 }

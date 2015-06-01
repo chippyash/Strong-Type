@@ -12,7 +12,8 @@ namespace chippyash\Type\Exceptions;
 /**
  * Thrown when trying to cast complex to real
  */
-class NotRealComplexException extends \Exception {
+class NotRealComplexException extends \Exception
+{
 
     protected $msg = 'Not a Real complex type';
 
@@ -23,5 +24,4 @@ class NotRealComplexException extends \Exception {
     {
         parent::__construct($this->msg, $code, $previous);
     }
-
 }

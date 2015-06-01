@@ -24,7 +24,7 @@ class GMPIntType extends IntType implements GMPInterface
     
     /**
      * Constructor - check for gmp support
-     * 
+     *
      * @param mixed $value
      * @throws GmpNotSupportedException
      */
@@ -58,8 +58,8 @@ class GMPIntType extends IntType implements GMPInterface
     public function asComplex()
     {
         return new GMPComplexType(
-                new GMPRationalType(clone $this, new self(1)),
-                new GMPRationalType(new self(0), new self(1))
+            new GMPRationalType(clone $this, new self(1)),
+            new GMPRationalType(new self(0), new self(1))
         );
     }
 
@@ -224,9 +224,9 @@ class GMPIntType extends IntType implements GMPInterface
     public function asGMPComplex()
     {
         return new GMPComplexType(
-                new GMPRationalType(new GMPIntType($this->get()), new GMPIntType(1)),
-                new GMPRationalType(new GMPIntType(0), new GMPIntType(1))
-                );
+            new GMPRationalType(new GMPIntType($this->get()), new GMPIntType(1)),
+            new GMPRationalType(new GMPIntType(0), new GMPIntType(1))
+        );
     }
     
     /**
@@ -239,7 +239,14 @@ class GMPIntType extends IntType implements GMPInterface
     {
         return new GMPRationalType(new GMPIntType($this->get()), new GMPIntType(1));
     }
-    
+
+    /**
+     * Return correctly typed value for this type
+     *
+     * @param mixed $value
+     *
+     * @return GMP|\resource
+     */
     protected function typeOf($value)
     {
         if ($this->gmpTypeCheck($value)) {
@@ -249,6 +256,9 @@ class GMPIntType extends IntType implements GMPInterface
         }
     }
 
+    /**
+     * @return GMP|\resource
+     */
     protected function cloneValue()
     {
         if (version_compare(PHP_VERSION, '5.6.0') < 0) {

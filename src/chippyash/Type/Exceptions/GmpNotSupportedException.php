@@ -12,7 +12,8 @@ namespace chippyash\Type\Exceptions;
 /**
  * Thrown if gmp support not available
  */
-class GmpNotSupportedException extends \Exception {
+class GmpNotSupportedException extends \Exception
+{
 
     protected $msg = 'GMP library not found';
 
@@ -23,5 +24,4 @@ class GmpNotSupportedException extends \Exception {
     {
         parent::__construct($this->msg, $code, $previous);
     }
-
 }
