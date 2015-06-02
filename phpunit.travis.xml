@@ -59,6 +59,8 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
                 <file>./src/chippyash/Type/Number/Rational/GMPRationalType.php</file>
                 <file>./src/chippyash/Type/Number/GMPIntType.php</file>
                 <file>./src/chippyash/Type/Exceptions/GMPNotSupportedException.php</file>
+                <!-- don't cover Zend derived code -->
+                <file>./src/chippyash/Zend/ErroHandler.php</file>
             </exclude>
         </whitelist>
     </filter>

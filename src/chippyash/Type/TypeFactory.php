@@ -25,28 +25,8 @@ use chippyash\Type\Interfaces\NumericTypeInterface;
 /**
  * Static Factory for creating types
  */
-abstract class TypeFactory
+abstract class TypeFactory extends AbstractTypeFactory
 {
-    const TYPE_DEFAULT = 'auto';
-    const TYPE_NATIVE = 'native';
-    const TYPE_GMP = 'gmp';
-    
-    /**
-     * Client requested numeric base type support
-     * @var string
-     */
-    protected static $supportType = self::TYPE_DEFAULT;
-    /**
-     * Numeric base types we can support
-     * @var array
-     */
-    protected static $validTypes = array(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE);
-    /**
-     * The actual base type we are going to return
-     * @var string
-     */
-    protected static $requiredType = null;
-    
     /**
      * Generic type factory
      *
@@ -251,41 +231,11 @@ abstract class TypeFactory
      */
     public static function setNumberType($requiredType)
     {
-        if (!in_array($requiredType, self::$validTypes)) {
-            throw new \InvalidArgumentException("{$requiredType} is not a supported number type");
-        }
-        if ($requiredType == self::TYPE_GMP && !extension_loaded('gmp')) {
-            throw new \InvalidArgumentException('GMP not supported');
-        }
-        self::$supportType = $requiredType;
+        parent::setNumberType($requiredType);
         RationalTypeFactory::setNumberType($requiredType);
         ComplexTypeFactory::setNumberType($requiredType);
     }
     
-    /**
-     * Get the required type base to return
-     * 
-     * @return string
-     */
-    protected static function getRequiredType()
-    {
-        if (self::$requiredType != null) {
-            return self::$requiredType;
-        }
-        
-        if (self::$supportType == self::TYPE_DEFAULT) {
-            if (extension_loaded('gmp')) {
-                self::$requiredType = self::TYPE_GMP;
-            } else {
-                self::$requiredType = self::TYPE_NATIVE;
-            }
-        } else {
-            self::$requiredType = self::$supportType;
-        }
-        
-        return self::$requiredType;
-    }
-
     /**
      * Create a super int type (whole, natural)
      *
