@@ -245,7 +245,7 @@ class GMPIntType extends IntType implements GMPInterface
      *
      * @param mixed $value
      *
-     * @return GMP|\resource
+     * @return \GMP|\resource
      */
     protected function typeOf($value)
     {
@@ -257,7 +257,7 @@ class GMPIntType extends IntType implements GMPInterface
     }
 
     /**
-     * @return GMP|\resource
+     * @return \GMP|\resource
      */
     protected function cloneValue()
     {

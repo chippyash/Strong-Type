@@ -15,8 +15,6 @@ use chippyash\Type\String\StringType;
 use chippyash\Type\String\DigitType;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\GMPIntType;
-use chippyash\Type\Number\NaturalIntType;
-use chippyash\Type\Number\WholeIntType;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\Complex\ComplexTypeFactory;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
@@ -27,6 +25,25 @@ use chippyash\Type\Interfaces\NumericTypeInterface;
  */
 abstract class TypeFactory extends AbstractTypeFactory
 {
+    /**
+     * Set the required number type to return
+     * By default this is self::TYPE_DEFAULT  which is 'auto', meaning that
+     * the factory will determine if GMP is installed and use that else use
+     * PHP native types
+     *
+     * @param string $requiredType
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function setNumberType($requiredType)
+    {
+        parent::setNumberType($requiredType);
+        RationalTypeFactory::setNumberType($requiredType);
+        ComplexTypeFactory::setNumberType($requiredType);
+    }
+
     /**
      * Generic type factory
      *
@@ -151,34 +168,6 @@ abstract class TypeFactory extends AbstractTypeFactory
     }
 
     /**
-     * Create a whole number
-     *
-     * @param mixed $value
-     *
-     * @return \chippyash\Type\Number\WholeIntType|\chippyash\Type\Number\GMPIntType
-     *
-     * @throws \InvalidArgumentException
-     */
-    public static function createWhole($value)
-    {
-        return self::createSuperIntType($value, 'WholeIntType');
-    }
-
-    /**
-     * Create a Natural number
-     *
-     * @param mixed $value
-     *
-     * @return \chippyash\Type\Number\NaturalIntType|\chippyash\Type\Number\GMPIntType
-     *
-     * @throws \InvalidArgumentException
-     */
-    public static function createNatural($value)
-    {
-        return self::createSuperIntType($value, 'NaturalIntType');
-    }
-
-    /**
      * Create a Complex number
      * If imaginary part is null, a complex equivalent real number is created r+0i
      *
@@ -216,26 +205,35 @@ abstract class TypeFactory extends AbstractTypeFactory
         $denominator = (is_null($denominator) ? 1 : $denominator);
         return RationalTypeFactory::create($numerator, $denominator);
     }
-    
+
     /**
-     * Set the required number type to return
-     * By default this is self::TYPE_DEFAULT  which is 'auto', meaning that
-     * the factory will determine if GMP is installed and use that else use
-     * PHP native types
+     * Create a whole number
      *
-     * @param string $requiredType
+     * @param mixed $value
      *
-     * @return void
+     * @return \chippyash\Type\Number\WholeIntType|\chippyash\Type\Number\GMPIntType
      *
      * @throws \InvalidArgumentException
      */
-    public static function setNumberType($requiredType)
+    public static function createWhole($value)
     {
-        parent::setNumberType($requiredType);
-        RationalTypeFactory::setNumberType($requiredType);
-        ComplexTypeFactory::setNumberType($requiredType);
+        return self::createSuperIntType($value, 'WholeIntType');
     }
-    
+
+    /**
+     * Create a Natural number
+     *
+     * @param mixed $value
+     *
+     * @return \chippyash\Type\Number\NaturalIntType|\chippyash\Type\Number\GMPIntType
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function createNatural($value)
+    {
+        return self::createSuperIntType($value, 'NaturalIntType');
+    }
+
     /**
      * Create a super int type (whole, natural)
      *

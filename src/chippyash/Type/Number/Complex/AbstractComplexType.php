@@ -54,15 +54,6 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      */
     abstract public function theta();
     
-    
-    /**
-     * Return complex number expressed as a string in polar form
-     * i.e. r(cosθ + i⋅sinθ)
-     *
-     * @return string
-     */
-    abstract public function polarString();
-        
     /**
      * Return the number as a Complex number i.e. n+0i
      * 
@@ -81,6 +72,37 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     abstract public function asRational();
 
     /**
+     * Return complex number expressed as a string in polar form
+     * i.e. r(cosθ + i⋅sinθ)
+     *
+     * @return string
+     */
+    public function polarString()
+    {
+        if ($this->isZero()) {
+            return '0';
+        }
+
+        $rho = $this->checkIntType($this->radius()->asFloatType()->get());
+        $theta = $this->checkIntType($this->theta()->asFloatType()->get());
+        if (is_int($theta)) {
+            $tpattern = 'cos %1$d + i⋅sin %1$d';
+        } else {
+            $tpattern = 'cos %1$f + i⋅sin %1$f';
+        }
+        if ($rho == 1) {
+            return sprintf($tpattern, $theta);
+        }
+        if (is_int($rho)) {
+            $rpattern = '%2$d';
+        } else {
+            $rpattern = '%2$f';
+        }
+        $pattern = "{$rpattern}({$tpattern})";
+        return sprintf($pattern, $theta, $rho);
+    }
+
+    /**
      * Return number as an IntType number.
      * If number isReal() will return floor(r())
      *
@@ -90,6 +112,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     public function asIntType()
     {
         if ($this->isReal()) {
+            /** @noinspection PhpUndefinedMethodInspection */
             return TypeFactory::create('int', floor($this->value['real']->get()));
         } else {
             throw new NotRealComplexException();
@@ -330,5 +353,19 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
         }
         //return as string
         return (string) $this;
+    }
+
+    /**
+     * @param $value
+     * @return int|float
+     */
+    protected function checkIntType($value)
+    {
+        $test = intval($value);
+        if (($value - $test) == 0) {
+            return $test;
+        }
+
+        return $value;
     }
 }

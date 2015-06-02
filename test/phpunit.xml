@@ -33,18 +33,30 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
          strict="false"
          verbose="false">
 
+    <testsuites>
+        <testsuite name="chippyash/Strong-Type Test Suite">
+            <directory>./src/</directory>
+        </testsuite>
+    </testsuites>
     <!--
      ! The <filter> element and its children can be used to configure the
      ! blacklist and whitelist for the code coverage reporting.
      !-->
     <filter>
-        <blacklist>
-            <directory>../vendor</directory>
-            <!-- don't cover interfaces -->
-            <directory suffix=".php">../src/chippyash/Type/Interfaces</directory>
-        </blacklist>
+        <whitelist>
+            <directory>../src</directory>
+            <exclude>
+                <directory>../docs</directory>
+                <directory>../examples</directory>
+                <directory>../test</directory>
+                <directory>../vendor</directory>
+                <!-- don't cover interfaces -->
+                <directory>../src/chippyash/Type/Interfaces</directory>
+                <!-- don't cover Zend derived code -->
+                <file>../src/chippyash/Zend/ErrorHandler.php</file>
+            </exclude>
+        </whitelist>
     </filter>
-
 
 </phpunit>
 

@@ -112,6 +112,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
      */
     public function abs()
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         return new static($this->value['num']->abs(), $this->value['den']->abs());
     }
 

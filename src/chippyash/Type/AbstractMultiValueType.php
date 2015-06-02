@@ -149,9 +149,9 @@ abstract class AbstractMultiValueType extends AbstractType
     protected function setFromTypes(array $params)
     {
         if (count($params) != count($this->valueMap)) {
-            $n = count($params);
-            $e = count($this->valueMap);
-            throw new \InvalidArgumentException("Expected {$e} parameters, got {$n}");
+            $numParams = count($params);
+            $expectedParams = count($this->valueMap);
+            throw new \InvalidArgumentException("Expected {$expectedParams} parameters, got {$numParams}");
         }
         
         foreach ($params as $key => $value) {

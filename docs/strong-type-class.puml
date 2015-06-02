@@ -1,14 +1,13 @@
 @startuml
 title Strong Type Classes
 
+abstract class AbstractTypeFactory
+
 abstract class TypeFactory
 
 abstract class RationalTypeFactory
 
 abstract class ComplexTypeFactory
-
-RationalTypeFactory <.. TypeFactory
-ComplexTypeFactory <.. TypeFactory
 
 interface ComplexTypeInterface
 
@@ -51,6 +50,12 @@ class GMPRationalType
 class ComplexType
 
 class GMPComplexType
+
+AbstractTypeFactory <-- TypeFactory
+AbstractTypeFactory <-- RationalTypeFactory
+AbstractTypeFactory <-- ComplexTypeFactory
+RationalTypeFactory <.. TypeFactory
+ComplexTypeFactory <.. TypeFactory
 
 TypeInterface <-- AbstractType
 TypeInterface <-- ComplexTypeInterface

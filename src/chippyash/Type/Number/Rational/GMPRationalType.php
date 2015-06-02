@@ -59,6 +59,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
     public function get()
     {
         if ($this->isInteger()) {
+            /** @noinspection PhpUndefinedMethodInspection */
             return $this->value['num']->get();
         } else {
             $num = intval(gmp_strval($this->value['num']->gmp()));

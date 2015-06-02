@@ -3,6 +3,7 @@
 namespace chippyash\Test\Type\Number\Complex;
 
 use chippyash\Type\Number\IntType;
+use chippyash\Type\Number\Rational\RationalType;
 use chippyash\Type\TypeFactory;
 
 /**
@@ -47,9 +48,12 @@ class AbstractComplexTypeTest extends \PHPUnit_Framework_TestCase
     public function testPolarStringWillReturnValue()
     {
         $this->object->expects($this->any())
-                ->method('polarString')
-                ->will($this->returnValue('r(cosθ + i⋅sinθ)'));
-        $this->assertEquals('r(cosθ + i⋅sinθ)', $this->object->polarString());
+            ->method('modulus')
+            ->will($this->returnValue(new RationalType(new IntType(1), new IntType(4))));
+        $this->object->expects($this->any())
+            ->method('theta')
+            ->will($this->returnValue(new RationalType(new IntType(1), new IntType(4))));
+        $this->assertEquals('0.250000(cos 0.250000 + i⋅sin 0.250000)', $this->object->polarString());
         
     }
     

@@ -55,6 +55,7 @@ class RationalType extends AbstractRationalType
      */
     protected function reduce()
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $gcd = $this->gcd($this->value['num']->get(), $this->value['den']->get());
         if ($gcd > 1) {
             $this->value['num']->set($this->value['num']->get() / $gcd) ;

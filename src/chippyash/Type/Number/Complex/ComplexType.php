@@ -91,6 +91,7 @@ class ComplexType extends AbstractComplexType
     {
         if ($this->isReal()) {
             //sqrt(r^2 + 0^2) = sqrt(r^2) = abs(r)
+            /** @noinspection PhpUndefinedMethodInspection */
             return $this->value['real']->abs();
         }
         //r^2 & i^2
@@ -138,51 +139,6 @@ class ComplexType extends AbstractComplexType
                 $this->value['real']->asFloatType()->get()
             )
         );
-    }
-    
-    /**
-     * Return complex number expressed as a string in polar form
-     * i.e. r(cosθ + i⋅sinθ)
-     */
-    public function polarString()
-    {
-        if ($this->isZero()) {
-            return '0';
-        }
-        
-        $rho = $this->checkIntType($this->radius()->asFloatType()->get());
-        $theta = $this->checkIntType($this->theta()->asFloatType()->get());
-        if (is_int($theta)) {
-            $tpattern = 'cos %1$d + i⋅sin %1$d';
-        } else {
-            $tpattern = 'cos %1$f + i⋅sin %1$f';
-        }
-        if ($rho == 1) {
-            return sprintf($tpattern, $theta);
-        }
-        if (is_int($rho)) {
-            $rpattern = '%2$d';
-        } else {
-            $rpattern = '%2$f';
-        }
-        $pattern = "{$rpattern}({$tpattern})";
-        return sprintf($pattern, $theta, $rho);
-    }
-
-    /**
-     * Check and convert to integer if able
-     * 
-     * @param float $value
-     * @return int|float
-     */
-    private function checkIntType($value)
-    {
-        $test = intval($value);
-        if (($value - $test) == 0) {
-            return $test;
-        }
-        
-        return $value;
     }
 
     /**
