@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+
+	<title>Class chippyash\Type\AbstractTypeFactory | Chippyash Strong Types</title>
+
+	<link rel="stylesheet" href="resources/style.css?3901564645">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-chippyash.html">chippyash<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-chippyash.Type.html">Type<span></span></a>
+						<ul>
+				<li><a href="namespace-chippyash.Type.Exceptions.html">Exceptions</a>
+						</li>
+				<li><a href="namespace-chippyash.Type.Interfaces.html">Interfaces</a>
+						</li>
+				<li><a href="namespace-chippyash.Type.Number.html">Number<span></span></a>
+						<ul>
+				<li><a href="namespace-chippyash.Type.Number.Complex.html">Complex</a>
+						</li>
+				<li><a href="namespace-chippyash.Type.Number.Rational.html">Rational</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-chippyash.Type.String.html">String</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-chippyash.Type.AbstractMultiValueType.html">AbstractMultiValueType</a></li>
+				<li><a href="class-chippyash.Type.AbstractType.html">AbstractType</a></li>
+				<li class="active"><a href="class-chippyash.Type.AbstractTypeFactory.html">AbstractTypeFactory</a></li>
+				<li><a href="class-chippyash.Type.BoolType.html">BoolType</a></li>
+				<li><a href="class-chippyash.Type.TypeFactory.html">TypeFactory</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-chippyash.Type.html" title="Summary of chippyash\Type"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AbstractTypeFactory</h1>
+
+
+	<div class="description">
+	
+<p>Abstract base type for factories Handles gmp/native type determination</p>
+
+	</div>
+
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-chippyash.Type.Number.Complex.ComplexTypeFactory.html">chippyash\Type\Number\Complex\ComplexTypeFactory</a>, 
+			<a href="class-chippyash.Type.Number.Rational.RationalTypeFactory.html">chippyash\Type\Number\Rational\RationalTypeFactory</a>, 
+			<a href="class-chippyash.Type.TypeFactory.html">chippyash\Type\TypeFactory</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-chippyash.html">chippyash</a>\<a href="namespace-chippyash.Type.html">Type</a><br>
+		
+
+		<b>Located at</b> <a href="source-class-chippyash.Type.AbstractTypeFactory.html#12-91" title="Go to source code">AbstractTypeFactory.php</a><br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setNumberType" id="_setNumberType">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setNumberType">#</a>
+		<code><a href="source-class-chippyash.Type.AbstractTypeFactory.html#44-65" title="Go to source code">setNumberType</a>( <span>string <var>$requiredType</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set the required number type to return By default this is self::TYPE_DEFAULT
+which is 'auto', meaning that the factory will determine if GMP is installed and
+use that else use PHP native types</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set the required number type to return By default this is self::TYPE_DEFAULT
+which is 'auto', meaning that the factory will determine if GMP is installed and
+use that else use PHP native types</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$requiredType</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getRequiredType" id="_getRequiredType">
+
+		<td class="attributes"><code>
+			 protected static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRequiredType">#</a>
+		<code><a href="source-class-chippyash.Type.AbstractTypeFactory.html#67-89" title="Go to source code">getRequiredType</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get the required type base to return</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get the required type base to return</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>string<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="TYPE_DEFAULT" id="TYPE_DEFAULT">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-chippyash.Type.AbstractTypeFactory.html#21" title="Go to source code"><b>TYPE_DEFAULT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#TYPE_DEFAULT" class="anchor">#</a><code><span class="php-quote">'auto'</span></code></div></td>
+	</tr>
+	<tr data-order="TYPE_NATIVE" id="TYPE_NATIVE">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-chippyash.Type.AbstractTypeFactory.html#22" title="Go to source code"><b>TYPE_NATIVE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#TYPE_NATIVE" class="anchor">#</a><code><span class="php-quote">'native'</span></code></div></td>
+	</tr>
+	<tr data-order="TYPE_GMP" id="TYPE_GMP">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-chippyash.Type.AbstractTypeFactory.html#23" title="Go to source code"><b>TYPE_GMP</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#TYPE_GMP" class="anchor">#</a><code><span class="php-quote">'gmp'</span></code></div></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="supportType" id="$supportType">
+		<td class="attributes"><code>
+			protected static 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-chippyash.Type.AbstractTypeFactory.html#26-30" title="Go to source code"><var>$supportType</var></a>
+
+			<div class="description short">
+				
+<p>Client requested numeric base type support</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Client requested numeric base type support</p>
+
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$supportType" class="anchor">#</a><code><code><a href="class-chippyash.Type.AbstractTypeFactory.html#TYPE_DEFAULT">chippyash\Type\AbstractTypeFactory::<b>TYPE_DEFAULT</b></a></code></code></div></td>
+	</tr>
+	<tr data-order="validTypes" id="$validTypes">
+		<td class="attributes"><code>
+			protected static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-chippyash.Type.AbstractTypeFactory.html#32-36" title="Go to source code"><var>$validTypes</var></a>
+
+			<div class="description short">
+				
+<p>Numeric base types we can support</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Numeric base types we can support</p>
+
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$validTypes" class="anchor">#</a><code><span class="php-keyword1">array</span>(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE)</code></div></td>
+	</tr>
+	<tr data-order="requiredType" id="$requiredType">
+		<td class="attributes"><code>
+			protected static 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-chippyash.Type.AbstractTypeFactory.html#38-42" title="Go to source code"><var>$requiredType</var></a>
+
+			<div class="description short">
+				
+<p>The actual base type we are going to return</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>The actual base type we are going to return</p>
+
+
+			</div>
+		</td>
+		<td class="value"><div><a href="#$requiredType" class="anchor">#</a><code><span class="php-keyword1">null</span></code></div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Chippyash Strong Types API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?4155007459"></script>
+<script src="elementlist.js?3711500674"></script>
+</body>
+</html>

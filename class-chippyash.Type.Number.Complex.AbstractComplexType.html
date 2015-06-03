@@ -147,7 +147,7 @@
 		<b>Namespace:</b> <a href="namespace-chippyash.html">chippyash</a>\<a href="namespace-chippyash.Type.html">Type</a>\<a href="namespace-chippyash.Type.Number.html">Number</a>\<a href="namespace-chippyash.Type.Number.Complex.html">Complex</a><br>
 		
 
-		<b>Located at</b> <a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#19-310" title="Go to source code">Number/Complex/AbstractComplexType.php</a><br>
+		<b>Located at</b> <a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#19-371" title="Go to source code">Number/Complex/AbstractComplexType.php</a><br>
 	</div>
 
 
@@ -165,7 +165,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_modulus">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#33-39" title="Go to source code">modulus</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#39-45" title="Go to source code">modulus</a>( )</code>
 
 		<div class="description short">
 			
@@ -206,7 +206,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_theta">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#41-49" title="Go to source code">theta</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#47-55" title="Go to source code">theta</a>( )</code>
 
 		<div class="description short">
 			
@@ -238,43 +238,6 @@ expressed in polar notation</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="polarString" id="_polarString">
-
-		<td class="attributes"><code>
-			abstract public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_polarString">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#52-56" title="Go to source code">polarString</a>( )</code>
-
-		<div class="description short">
-			
-<p>Return complex number expressed as a string in polar form i.e. r(cosθ +
-i⋅sinθ)</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Return complex number expressed as a string in polar form i.e. r(cosθ +
-i⋅sinθ)</p>
-
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-chippyash.Type.Interfaces.ComplexTypeInterface.html#_polarString">chippyash\Type\Interfaces\ComplexTypeInterface::polarString()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="asComplex" id="_asComplex">
 
 		<td class="attributes"><code>
@@ -286,7 +249,7 @@ i⋅sinθ)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_asComplex">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#58-63" title="Go to source code">asComplex</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#57-62" title="Go to source code">asComplex</a>( )</code>
 
 		<div class="description short">
 			
@@ -325,7 +288,7 @@ i⋅sinθ)</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_asRational">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#65-73" title="Go to source code">asRational</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#64-72" title="Go to source code">asRational</a>( )</code>
 
 		<div class="description short">
 			
@@ -359,6 +322,47 @@ as IntTypes</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="polarString" id="_polarString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_polarString">#</a>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#74-103" title="Go to source code">polarString</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return complex number expressed as a string in polar form i.e. r(cosθ +
+i⋅sinθ)</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return complex number expressed as a string in polar form i.e. r(cosθ +
+i⋅sinθ)</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>string<br>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-chippyash.Type.Interfaces.ComplexTypeInterface.html#_polarString">chippyash\Type\Interfaces\ComplexTypeInterface::polarString()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="asIntType" id="_asIntType">
 
 		<td class="attributes"><code>
@@ -370,7 +374,7 @@ as IntTypes</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_asIntType">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#75-88" title="Go to source code">asIntType</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#105-120" title="Go to source code">asIntType</a>( )</code>
 
 		<div class="description short">
 			
@@ -392,6 +396,10 @@ floor(r())</p>
 					<code><code><a href="class-chippyash.Type.Number.IntType.html">chippyash\Type\Number\IntType</a></code></code><br>\chippyash\Type\Number\IntType<br>
 				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Exceptions.NotRealComplexException.html">chippyash\Type\Exceptions\NotRealComplexException</a></code></code><br>NotRealComplexException<br>
+				</div>
 
 
 
@@ -411,7 +419,7 @@ floor(r())</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_asFloatType">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#90-102" title="Go to source code">asFloatType</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#122-135" title="Go to source code">asFloatType</a>( )</code>
 
 		<div class="description short">
 			
@@ -431,6 +439,10 @@ floor(r())</p>
 					<code><code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code></code><br>\chippyash\Type\Number\FloatType<br>
 				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-chippyash.Type.Exceptions.NotRealComplexException.html">chippyash\Type\Exceptions\NotRealComplexException</a></code></code><br>NotRealComplexException<br>
+				</div>
 
 
 
@@ -450,18 +462,18 @@ floor(r())</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_toFloat">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#104-119" title="Go to source code">toFloat</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#137-152" title="Go to source code">toFloat</a>( )</code>
 
 		<div class="description short">
 			
-<p>if this complex number isReal() then return float equivalent else throw an
+<p>If this complex number isReal() then return float equivalent else throw an
 excepton</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>if this complex number isReal() then return float equivalent else throw an
+<p>If this complex number isReal() then return float equivalent else throw an
 excepton</p>
 
 
@@ -493,7 +505,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_abs">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#121-131" title="Go to source code">abs</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#154-164" title="Go to source code">abs</a>( )</code>
 
 		<div class="description short">
 			
@@ -532,7 +544,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_negate">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#134-145" title="Go to source code">negate</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#167-178" title="Go to source code">negate</a>( )</code>
 
 		<div class="description short">
 			
@@ -571,7 +583,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_r">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#147-154" title="Go to source code">r</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#180-187" title="Go to source code">r</a>( )</code>
 
 		<div class="description short">
 			
@@ -610,7 +622,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_i">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#156-164" title="Go to source code">i</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#189-197" title="Go to source code">i</a>( )</code>
 
 		<div class="description short">
 			
@@ -649,7 +661,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isZero">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#166-173" title="Go to source code">isZero</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#199-206" title="Go to source code">isZero</a>( )</code>
 
 		<div class="description short">
 			
@@ -688,7 +700,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isReal">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#175-183" title="Go to source code">isReal</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#208-216" title="Go to source code">isReal</a>( )</code>
 
 		<div class="description short">
 			
@@ -727,7 +739,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isGaussian">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#185-195" title="Go to source code">isGaussian</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#218-228" title="Go to source code">isGaussian</a>( )</code>
 
 		<div class="description short">
 			
@@ -770,7 +782,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_conjugate">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#197-205" title="Go to source code">conjugate</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#230-238" title="Go to source code">conjugate</a>( )</code>
 
 		<div class="description short">
 			
@@ -809,7 +821,7 @@ excepton</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_radius">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#207-216" title="Go to source code">radius</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#240-249" title="Go to source code">radius</a>( )</code>
 
 		<div class="description short">
 			
@@ -850,7 +862,7 @@ polar notation</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_asPolar">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#218-229" title="Go to source code">asPolar</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#251-262" title="Go to source code">asPolar</a>( )</code>
 
 		<div class="description short">
 			
@@ -862,7 +874,8 @@ polar notation</p>
 			
 <p>Returns complex number expressed in polar form</p>
 
-<p>radius == this-&gt;modulus() theta is angle expressed in radians</p>
+<p><code>radius</code> == this-&gt;modulus() <code>theta</code> is angle
+expressed in radians</p>
 
 
 
@@ -891,7 +904,7 @@ polar notation</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_polarQuadrant">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#231-247" title="Go to source code">polarQuadrant</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#264-291" title="Go to source code">polarQuadrant</a>( )</code>
 
 		<div class="description short">
 			
@@ -932,7 +945,7 @@ dependent on the quadrant</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#249-273" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#293-317" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			
@@ -975,7 +988,7 @@ representation of the real part else r(+/-)ii</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___clone">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#275-282" title="Go to source code">__clone</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#319-329" title="Go to source code">__clone</a>( )</code>
 
 		<div class="description short">
 			
@@ -1010,7 +1023,7 @@ representation of the real part else r(+/-)ii</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___invoke">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#284-292" title="Go to source code">__invoke</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#331-339" title="Go to source code">__invoke</a>( )</code>
 
 		<div class="description short">
 			
@@ -1051,7 +1064,7 @@ representation of the real part else r(+/-)ii</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAsNativeType">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#294-308" title="Go to source code">getAsNativeType</a>( )</code>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#341-356" title="Go to source code">getAsNativeType</a>( )</code>
 
 		<div class="description short">
 			
@@ -1069,6 +1082,44 @@ representation of the real part else r(+/-)ii</p>
 				<h4>Returns</h4>
 				<div class="list">
 					<code>float|integer|string</code><br>float|int|string<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkIntType" id="_checkIntType">
+
+		<td class="attributes"><code>
+			 protected 
+			integer|float
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkIntType">#</a>
+		<code><a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#358-370" title="Go to source code">checkIntType</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer|float</code><br>int|float<br>
 				</div>
 
 
@@ -1111,24 +1162,30 @@ representation of the real part else r(+/-)ii</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#24-31" title="Go to source code"><var>$valueMap</var></a>
+				<a href="source-class-chippyash.Type.Number.Complex.AbstractComplexType.html#24-37" title="Go to source code"><var>$valueMap</var></a>
 
 			<div class="description short">
 				
-<p>map of values for this type</p>
+<p>Map of values for this type</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>map of values for this type</p>
+<p>Map of values for this type</p>
 
 
 			</div>
 		</td>
 		<td class="value"><div><a href="#$valueMap" class="anchor">#</a><code><span class="php-keyword1">array</span>(
-    <span class="php-num">0</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'name'</span> =&gt; <span class="php-quote">'real'</span>, <span class="php-quote">'class'</span> =&gt; <span class="php-quote">'chippyash\Type\Interfaces\NumericTypeInterface'</span>),
-    <span class="php-num">1</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'name'</span> =&gt; <span class="php-quote">'imaginary'</span>, <span class="php-quote">'class'</span> =&gt; <span class="php-quote">'chippyash\Type\Interfaces\NumericTypeInterface'</span>)
+    <span class="php-num">0</span> =&gt; <span class="php-keyword1">array</span>(
+        <span class="php-quote">'name'</span> =&gt; <span class="php-quote">'real'</span>,
+        <span class="php-quote">'class'</span> =&gt; <span class="php-quote">'chippyash\Type\Interfaces\NumericTypeInterface'</span>
+    ),
+    <span class="php-num">1</span> =&gt; <span class="php-keyword1">array</span>(
+        <span class="php-quote">'name'</span> =&gt; <span class="php-quote">'imaginary'</span>,
+        <span class="php-quote">'class'</span> =&gt; <span class="php-quote">'chippyash\Type\Interfaces\NumericTypeInterface'</span>
+    )
 )</code></div></td>
 	</tr>
 	</table>
@@ -1153,7 +1210,7 @@ representation of the real part else r(+/-)ii</p>
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?510621468"></script>
-<script src="elementlist.js?201468875"></script>
+<script src="resources/combined.js?4155007459"></script>
+<script src="elementlist.js?3711500674"></script>
 </body>
 </html>

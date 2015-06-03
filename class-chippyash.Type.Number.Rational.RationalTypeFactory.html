@@ -101,6 +101,20 @@
 
 	</div>
 
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-chippyash.Type.AbstractTypeFactory.html"><span>chippyash\Type\AbstractTypeFactory</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>chippyash\Type\Number\Rational\RationalTypeFactory</span></b>			
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -115,7 +129,7 @@
 		<b>Namespace:</b> <a href="namespace-chippyash.html">chippyash</a>\<a href="namespace-chippyash.Type.html">Type</a>\<a href="namespace-chippyash.Type.Number.html">Number</a>\<a href="namespace-chippyash.Type.Number.Rational.html">Rational</a><br>
 		
 
-		<b>Located at</b> <a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#20-272" title="Go to source code">Number/Rational/RationalTypeFactory.php</a><br>
+		<b>Located at</b> <a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#19-264" title="Go to source code">Number/Rational/RationalTypeFactory.php</a><br>
 	</div>
 
 
@@ -133,7 +147,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#59-110" title="Go to source code">create</a>( <span>string|float|integer|<code><a href="class-chippyash.Type.Number.IntType.html">chippyash\Type\Number\IntType</a></code> <var>$numerator</var></span>, <span>integer <var>$denominator</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#39-72" title="Go to source code">create</a>( <span>mixed <var>$numerator</var></span>, <span>mixed <var>$denominator</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -197,7 +211,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_fromFloat">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#112-164" title="Go to source code">fromFloat</a>( <span>float|<code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code> <var>$float</var></span>, <span>float|<code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code> <var>$tolerance</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#74-126" title="Go to source code">fromFloat</a>( <span>float|<code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code> <var>$float</var></span>, <span>float|<code><a href="class-chippyash.Type.Number.FloatType.html">chippyash\Type\Number\FloatType</a></code> <var>$tolerance</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -228,7 +242,7 @@ method of determining the rational number</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code>InvalidArgumentException</code><br>InvalidArgumentException<br>
+					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
 				</div>
 
 
@@ -247,7 +261,7 @@ method of determining the rational number</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_fromString">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#166-200" title="Go to source code">fromString</a>( <span>string <var>$string</var></span> )</code>
+		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#128-164" title="Go to source code">fromString</a>( <span>string <var>$string</var></span> )</code>
 
 		<div class="description short">
 			
@@ -276,7 +290,7 @@ method of determining the rational number</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code>InvalidArgumentException</code><br>InvalidArgumentException<br>
+					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
 				</div>
 
 				<h4>Link</h4>
@@ -299,7 +313,7 @@ method of determining the rational number</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDefaultFromFloatTolerance">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#202-211" title="Go to source code">setDefaultFromFloatTolerance</a>( <span>integer <var>$tolerance</var></span> )</code>
+		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#166-177" title="Go to source code">setDefaultFromFloatTolerance</a>( <span>integer <var>$tolerance</var></span> )</code>
 
 		<div class="description short">
 			
@@ -328,89 +342,6 @@ static so only needs to be done once</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setNumberType" id="_setNumberType">
-
-		<td class="attributes"><code>
-			 public static
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setNumberType">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#213-231" title="Go to source code">setNumberType</a>( <span>string <var>$requiredType</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Set the required number type to return By default this is self::TYPE_DEFAULT
-which is 'auto', meaning that the factory will determine if GMP is installed and
-use that else use PHP native types</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Set the required number type to return By default this is self::TYPE_DEFAULT
-which is 'auto', meaning that the factory will determine if GMP is installed and
-use that else use PHP native types</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$requiredType</var></dt>
-					<dd></dd>
-				</dl></div>
-
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code>InvalidArgumentException</code><br>\InvalidArgumentException<br>
-				</div>
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getRequiredType" id="_getRequiredType">
-
-		<td class="attributes"><code>
-			 protected static
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getRequiredType">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#233-255" title="Go to source code">getRequiredType</a>( )</code>
-
-		<div class="description short">
-			
-<p>Get the required type base to return</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Get the required type base to return</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>string<br>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="createCorrectRational" id="_createCorrectRational">
 
 		<td class="attributes"><code>
@@ -422,7 +353,7 @@ use that else use PHP native types</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createCorrectRational">#</a>
-		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#257-271" title="Go to source code">createCorrectRational</a>( <span>integer <var>$n</var></span>, <span>integer <var>$d</var></span> )</code>
+		<code><a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#179-194" title="Go to source code">createCorrectRational</a>( <span>integer <var>$num</var></span>, <span>integer <var>$den</var></span> )</code>
 
 		<div class="description short">
 			
@@ -438,9 +369,9 @@ use that else use PHP native types</p>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$n</var></dt>
+					<dt><var>$num</var></dt>
 					<dd></dd>
-					<dt><var>$d</var></dt>
+					<dt><var>$den</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -457,6 +388,15 @@ use that else use PHP native types</p>
 	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-chippyash.Type.AbstractTypeFactory.html#methods">chippyash\Type\AbstractTypeFactory</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-chippyash.Type.AbstractTypeFactory.html#_getRequiredType">getRequiredType()</a>, 
+			<a href="class-chippyash.Type.AbstractTypeFactory.html#_setNumberType">setNumberType()</a>
+		</code></td>
+	</tr>
+	</table>
 
 
 
@@ -471,7 +411,7 @@ use that else use PHP native types</p>
 		<td class="attributes"><code>float</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#25-28" title="Go to source code"><b>CF_DEFAULT_TOLERANCE</b></a>
+				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#24-27" title="Go to source code"><b>CF_DEFAULT_TOLERANCE</b></a>
 			</code>
 
 			<div class="description short">
@@ -489,65 +429,18 @@ use that else use PHP native types</p>
 		</td>
 		<td class="value"><div><a href="#CF_DEFAULT_TOLERANCE" class="anchor">#</a><code><span class="php-num">1</span>.e-<span class="php-num">15</span></code></div></td>
 	</tr>
-	<tr data-order="TYPE_DEFAULT" id="TYPE_DEFAULT">
-
-		<td class="attributes"><code>string</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#30" title="Go to source code"><b>TYPE_DEFAULT</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value"><div><a href="#TYPE_DEFAULT" class="anchor">#</a><code><span class="php-quote">'auto'</span></code></div></td>
-	</tr>
-	<tr data-order="TYPE_NATIVE" id="TYPE_NATIVE">
-
-		<td class="attributes"><code>string</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#31" title="Go to source code"><b>TYPE_NATIVE</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value"><div><a href="#TYPE_NATIVE" class="anchor">#</a><code><span class="php-quote">'native'</span></code></div></td>
-	</tr>
-	<tr data-order="TYPE_GMP" id="TYPE_GMP">
-
-		<td class="attributes"><code>string</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#32" title="Go to source code"><b>TYPE_GMP</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value"><div><a href="#TYPE_GMP" class="anchor">#</a><code><span class="php-quote">'gmp'</span></code></div></td>
-	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-chippyash.Type.AbstractTypeFactory.html#constants">chippyash\Type\AbstractTypeFactory</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-chippyash.Type.AbstractTypeFactory.html#TYPE_DEFAULT"><b>TYPE_DEFAULT</b></a>, 
+			<a href="class-chippyash.Type.AbstractTypeFactory.html#TYPE_GMP"><b>TYPE_GMP</b></a>, 
+			<a href="class-chippyash.Type.AbstractTypeFactory.html#TYPE_NATIVE"><b>TYPE_NATIVE</b></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 
@@ -560,7 +453,7 @@ use that else use PHP native types</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#34-41" title="Go to source code"><var>$defaultTolerance</var></a>
+				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#29-37" title="Go to source code"><var>$defaultTolerance</var></a>
 
 			<div class="description short">
 				
@@ -582,80 +475,18 @@ use that else use PHP native types</p>
 		</td>
 		<td class="value"><div><a href="#$defaultTolerance" class="anchor">#</a><code><code><a href="class-chippyash.Type.Number.Rational.RationalTypeFactory.html#CF_DEFAULT_TOLERANCE">chippyash\Type\Number\Rational\RationalTypeFactory::<b>CF_DEFAULT_TOLERANCE</b></a></code></code></div></td>
 	</tr>
-	<tr data-order="supportType" id="$supportType">
-		<td class="attributes"><code>
-			protected static 
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#43-47" title="Go to source code"><var>$supportType</var></a>
-
-			<div class="description short">
-				
-<p>Client requested numeric base type support</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Client requested numeric base type support</p>
-
-
-			</div>
-		</td>
-		<td class="value"><div><a href="#$supportType" class="anchor">#</a><code><code><a href="class-chippyash.Type.Number.Rational.RationalTypeFactory.html#TYPE_DEFAULT">chippyash\Type\Number\Rational\RationalTypeFactory::<b>TYPE_DEFAULT</b></a></code></code></div></td>
-	</tr>
-	<tr data-order="validTypes" id="$validTypes">
-		<td class="attributes"><code>
-			protected static 
-			array
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#48-52" title="Go to source code"><var>$validTypes</var></a>
-
-			<div class="description short">
-				
-<p>Numeric base types we can support</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Numeric base types we can support</p>
-
-
-			</div>
-		</td>
-		<td class="value"><div><a href="#$validTypes" class="anchor">#</a><code><span class="php-keyword1">array</span>(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE)</code></div></td>
-	</tr>
-	<tr data-order="requiredType" id="$requiredType">
-		<td class="attributes"><code>
-			protected static 
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-chippyash.Type.Number.Rational.RationalTypeFactory.html#53-57" title="Go to source code"><var>$requiredType</var></a>
-
-			<div class="description short">
-				
-<p>The actual base type we are going to return</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>The actual base type we are going to return</p>
-
-
-			</div>
-		</td>
-		<td class="value"><div><a href="#$requiredType" class="anchor">#</a><code><span class="php-keyword1">null</span></code></div></td>
-	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-chippyash.Type.AbstractTypeFactory.html#properties">chippyash\Type\AbstractTypeFactory</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-chippyash.Type.AbstractTypeFactory.html#$requiredType"><var>$requiredType</var></a>, 
+			<a href="class-chippyash.Type.AbstractTypeFactory.html#$supportType"><var>$supportType</var></a>, 
+			<a href="class-chippyash.Type.AbstractTypeFactory.html#$validTypes"><var>$validTypes</var></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 
@@ -668,7 +499,7 @@ use that else use PHP native types</p>
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?510621468"></script>
-<script src="elementlist.js?201468875"></script>
+<script src="resources/combined.js?4155007459"></script>
+<script src="elementlist.js?3711500674"></script>
 </body>
 </html>
