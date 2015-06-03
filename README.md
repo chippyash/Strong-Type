@@ -6,6 +6,7 @@ Certified for PHP 5.3, 5.4 and 5.5
 
 [![Build Status](https://travis-ci.org/chippyash/Strong-Type.svg?branch=master)](https://travis-ci.org/chippyash/Strong-Type)
 [![Coverage Status](https://coveralls.io/repos/chippyash/Strong-Type/badge.png)](https://coveralls.io/r/chippyash/Strong-Type)
+[![Code Climate](https://codeclimate.com/github/chippyash/Strong-Type/badges/gpa.svg)](https://codeclimate.com/github/chippyash/Strong-Type)
 
 See request for help: gmp is not being tested at the present time by the
 Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
