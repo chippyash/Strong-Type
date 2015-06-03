@@ -85,8 +85,6 @@ See [The Matrix Packages](http://the-matrix.github.io/packages/) for other packa
 
 ## How
 
-You can find the [API documentation here](http://chippyash.github.io/Strong-Type)
-
 ### Coding Basics
 
 Create a type via the Type Factory:
@@ -281,10 +279,17 @@ you use the type factories, as they know which types to create.  Therefore if
 you want your code to be runnable as PHP native or GMP, use the factories to
 create your numeric types.
 
+## Further documentation
+
+You can find the [API documentation here](http://chippyash.github.io/Strong-Type)
+
+[Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
+
 ### UML
 
 ![class diagram](https://github.com/chippyash/Strong-Type/blob/master/docs/strong-type-class.png)
-### Changing the library
+
+## Changing the library
 
 1.  fork it
 2.  write the test
@@ -443,6 +448,8 @@ V2.1.0 downgrade library to support PHP5.3 - too many people still using it!
 V2.1.1 fix PHP5.3 unit tests
 
 V2.1.2 remove dependency on Zend\StdLib
+
+V2.1.3 refactor for code cleanliness
 
 ## Request for help
 
