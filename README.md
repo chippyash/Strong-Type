@@ -89,6 +89,22 @@ See [The Matrix Packages](http://the-matrix.github.io/packages/) for other packa
 
 ### Coding Basics
 
+#### Very simple way
+
+This is how we use it in everyday work to ensure that our calls to some function
+is conformant:
+
+<pre>
+function foo(FloatType $foo) {...}
+$myFoo = foo(new FloatType(1);
+</pre>
+
+NB. The integer `1` is going to get converted into a float `1.0` but that is ok 
+ because our method `foo()` expects a FloatType and with PHPs current type hinting
+ can enforce it.
+
+#### For those that have the stamina
+
 Create a type via the Type Factory:
 
 <pre>
