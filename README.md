@@ -259,7 +259,8 @@ There is no gmp support for WholeIntType, NaturalIntType or FloatType.
 You can force the library to use PHP native types by calling
 
 <pre>
-    TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+    use chippyash\Type\RequiredType; 
+    RequiredType::getInstance()->set(RequiredType::TYPE_NATIVE);
 </pre>
 
 at the start of your code. This will in turn call the setNumberType methods on the
@@ -468,6 +469,8 @@ V2.1.1 fix PHP5.3 unit tests
 V2.1.2 remove dependency on Zend\StdLib
 
 V2.1.3 refactor for code cleanliness
+
+V2.1.4 deprecate Typefactory::setNumberType() method
 
 ## Request for help
 

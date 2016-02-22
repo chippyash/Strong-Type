@@ -5,7 +5,7 @@ namespace chippyash\Test\Type\Number\Rational;
 use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\GMPIntType;
 use chippyash\Type\BoolType;
-use chippyash\Type\TypeFactory;
+use chippyash\Type\RequiredType;
 
 /**
  * @requires extension gmp
@@ -14,7 +14,7 @@ use chippyash\Type\TypeFactory;
 class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp() {
-        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
+        RequiredType::getInstance()->set(RequiredType::TYPE_GMP);
     }
     
     /**

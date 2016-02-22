@@ -5,6 +5,7 @@ namespace chippyash\Test\Type\Number\Rational;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\IntType;
 use chippyash\Type\Number\FloatType;
+use chippyash\Type\RequiredType;
 use chippyash\Type\TypeFactory;
 
 /**
@@ -17,7 +18,7 @@ class GMPRationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
+        RequiredType::getInstance()->set(RequiredType::TYPE_GMP);
     }
     
     public function testCreateFromValidStringValueReturnsRatioanalType()
@@ -154,7 +155,8 @@ class GMPRationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
     
     public function testSetNumberTypeToDefaultWillSetGmpIfAvailable()
     {
-        TypeFactory::setNumberType(TypeFactory::TYPE_DEFAULT);
+        RequiredType::getInstance()->set(RequiredType::TYPE_DEFAULT);
+
         $this->assertInstanceOf('chippyash\Type\Number\Rational\GMPRationalType', TypeFactory::create('rational', 2));
     }
 }

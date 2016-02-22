@@ -7,7 +7,7 @@ use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\FloatType;
 use chippyash\Type\Number\GMPIntType;
-use chippyash\Type\TypeFactory;
+use chippyash\Type\RequiredType;
 
 /**
  * @requires extension gmp
@@ -19,7 +19,7 @@ class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
     const CTYPE_NAME = 'chippyash\Type\Number\Complex\GMPComplexType';
 
     public function setUp() {
-        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
+        RequiredType::getInstance()->set(RequiredType::TYPE_GMP);
     }
     
     /**
@@ -149,7 +149,7 @@ class GMPComplexTypeFactoryTest extends \PHPUnit_Framework_TestCase
     
     public function testCreationWillUseGmpAutomaticallyIfItExists()
     {
-        ComplexTypeFactory::setNumberType(ComplexTypeFactory::TYPE_DEFAULT);
+        RequiredType::getInstance()->set(RequiredType::TYPE_DEFAULT);
         $c = ComplexTypeFactory::create('2+3i');
         $this->assertInstanceOf(self::CTYPE_NAME, $c);
     }

@@ -17,6 +17,7 @@ abstract class AbstractTypeFactory
 {
     /**@+
      * Numeric base types
+     * @deprecated
      */
     const TYPE_DEFAULT = 'auto';
     const TYPE_NATIVE = 'native';
@@ -24,28 +25,12 @@ abstract class AbstractTypeFactory
     /**@-*/
 
     /**
-     * Client requested numeric base type support
-     * @var string
-     */
-    protected static $supportType = self::TYPE_DEFAULT;
-
-    /**
-     * Numeric base types we can support
-     * @var array
-     */
-    protected static $validTypes = array(self::TYPE_DEFAULT, self::TYPE_GMP, self::TYPE_NATIVE);
-
-    /**
-     * The actual base type we are going to return
-     * @var string
-     */
-    protected static $requiredType = null;
-
-    /**
      * Set the required number type to return
-     * By default this is self::TYPE_DEFAULT  which is 'auto', meaning that
+     * By default this is RequiredType::TYPE_DEFAULT  which is 'auto', meaning that
      * the factory will determine if GMP is installed and use that else use
      * PHP native types
+     *
+     * @deprecated Use RequiredType
      *
      * @param string $requiredType
      *
@@ -55,13 +40,7 @@ abstract class AbstractTypeFactory
      */
     public static function setNumberType($requiredType)
     {
-        if (!in_array($requiredType, self::$validTypes)) {
-            throw new \InvalidArgumentException("{$requiredType} is not a supported number type");
-        }
-        if ($requiredType == self::TYPE_GMP && !extension_loaded('gmp')) {
-            throw new \InvalidArgumentException('GMP not supported');
-        }
-        self::$supportType = $requiredType;
+        RequiredType::getInstance()->set($requiredType);
     }
 
     /**
@@ -71,21 +50,7 @@ abstract class AbstractTypeFactory
      */
     protected static function getRequiredType()
     {
-        if (self::$requiredType != null) {
-            return self::$requiredType;
-        }
-
-        if (self::$supportType == self::TYPE_DEFAULT) {
-            if (extension_loaded('gmp')) {
-                self::$requiredType = self::TYPE_GMP;
-            } else {
-                self::$requiredType = self::TYPE_NATIVE;
-            }
-        } else {
-            self::$requiredType = self::$supportType;
-        }
-
-        return self::$requiredType;
+        return RequiredType::getInstance()->get();
     }
 
 }

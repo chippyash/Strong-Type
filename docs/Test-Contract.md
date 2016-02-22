@@ -1,6 +1,8 @@
 # Chippyash Strong Types
 
-## chippyash\Test\Type\AbstractMultiValueType
+## 
+      chippyash\Test\Type\AbstractMultiValueType
+    
 
 *  Magic to string returns empty string
 *  Get invokes get as native type
@@ -9,7 +11,9 @@
 *  Set from types catches invali object types
 *  Set from types catches invali native types
 
-## chippyash\Test\Type\AbstractType
+## 
+      chippyash\Test\Type\AbstractType
+    
 
 *  Constructor will return abstract type
 *  Set followed by get returns a value
@@ -17,20 +21,26 @@
 *  Magic invoke returns value
 *  Clone does clone inner value
 
-## chippyash\Test\Type\BoolType
+## 
+      chippyash\Test\Type\BoolType
+    
 
 *  Construct without value throws exception
 *  Get returns boolean
 *  Get returns only true or false
 *  Magic to string returns string
 
-## chippyash\Test\Type\Number\Complex\AbstractComplexType
+## 
+      chippyash\Test\Type\Number\Complex\AbstractComplexType
+    
 
 *  Radius and abs proxy to modulus
 *  Theta will return value
 *  Polar string will return value
 
-## chippyash\Test\Type\Number\Complex\ComplexTypeFactory
+## 
+      chippyash\Test\Type\Number\Complex\ComplexTypeFactory
+    
 
 *  Create with invalid string as first parameter throws exception
 *  Create with valid string containing float as first parameter returns complex type
@@ -40,7 +50,9 @@
 *  Create with correct param types returns complex type
 *  Create from polar returns complex type
 
-## chippyash\Test\Type\Number\Complex\ComplexType
+## 
+      chippyash\Test\Type\Number\Complex\ComplexType
+    
 
 *  Construct expects first parameter to be float type
 *  Construct expects second parameter to be float type
@@ -94,7 +106,9 @@
 *  Polar string for non zero complex returns non zero string
 *  Clone does clone inner value
 
-## chippyash\Test\Type\Number\Complex\GMPComplexTypeFactory
+## 
+      chippyash\Test\Type\Number\Complex\GMPComplexTypeFactory
+    
 
 *  Create with invalid string as first parameter throws exception
 *  Create with valid string containing float as first parameter returns complex type
@@ -106,7 +120,9 @@
 *  Set bad number type throws eception
 *  Creation will use gmp automatically if it exists
 
-## chippyash\Test\Type\Number\Complex\GMPComplexType
+## 
+      chippyash\Test\Type\Number\Complex\GMPComplexType
+    
 
 *  Construct expects first parameter to be float type
 *  Construct expects second parameter to be rational type
@@ -156,7 +172,9 @@
 *  As gmp rational returns gmp rational for real complex
 *  As gmp rational throws exception for non real complex
 
-## chippyash\Test\Type\Number\FloatType
+## 
+      chippyash\Test\Type\Number\FloatType
+    
 
 *  Float type converts values to float
 *  Can negate the number
@@ -166,7 +184,9 @@
 *  As int type returns int type
 *  Abs returns absolute value
 
-## chippyash\Test\Type\Number\GMPIntType
+## 
+      chippyash\Test\Type\Number\GMPIntType
+    
 
 *  G m p int type converts values to integer
 *  Can negate the number
@@ -181,7 +201,9 @@
 *  As gmp complex returns gmp complex type
 *  As gmp rational returns gmp rational type
 
-## chippyash\Test\Type\Number\IntType
+## 
+      chippyash\Test\Type\Number\IntType
+    
 
 *  Int type converts values to integer
 *  Int type can be used in calculation
@@ -194,13 +216,17 @@
 *  Factors returns an array of factors of the number
 *  Prime factors returns an array of factors of the number
 
-## chippyash\Test\Type\Number\NaturalIntType
+## 
+      chippyash\Test\Type\Number\NaturalIntType
+    
 
 *  Natural int type converts to integer
 *  Construct natural int with integer less than one throws exception
 *  Cannot negate the number
 
-## chippyash\Test\Type\Number\Rational\AbstractRationalType
+## 
+      chippyash\Test\Type\Number\Rational\AbstractRationalType
+    
 
 *  Magic invoke proxies to get
 *  Set returns object
@@ -214,7 +240,9 @@
 *  As float type returns float type
 *  As int type returns int type
 
-## chippyash\Test\Type\Number\Rational\GMPRationalTypeFactory
+## 
+      chippyash\Test\Type\Number\Rational\GMPRationalTypeFactory
+    
 
 *  Create from valid string value returns ratioanal type
 *  Create from numeric value with no denominator specified returns ratioanal type
@@ -234,7 +262,9 @@
 *  Set default from float tolerance is static
 *  Set number type to default will set gmp if available
 
-## chippyash\Test\Type\Number\Rational\GMPRationalType
+## 
+      chippyash\Test\Type\Number\Rational\GMPRationalType
+    
 
 *  Construct expects first parameter to be g m p int type
 *  Construct expects second parameter to be g m p int type
@@ -263,7 +293,9 @@
 *  As gmp rational returns clone of self
 *  As gmp complex returns gmp complex
 
-## chippyash\Test\Type\Number\Rational\RationalTypeFactory
+## 
+      chippyash\Test\Type\Number\Rational\RationalTypeFactory
+    
 
 *  Create from valid string value returns ratioanal type
 *  Create from numeric value with no denominator specified returns ratioanal type
@@ -282,7 +314,9 @@
 *  From float with zero value returns zero as string
 *  Set default from float tolerance is static
 
-## chippyash\Test\Type\Number\Rational\RationalType
+## 
+      chippyash\Test\Type\Number\Rational\RationalType
+    
 
 *  Construct expects first parameter to be int type
 *  Construct expects second parameter to be int type
@@ -296,24 +330,32 @@
 *  Abs returns absolute value
 *  Clone does clone inner value
 
-## chippyash\Test\Type\Number\WholeIntType
+## 
+      chippyash\Test\Type\Number\WholeIntType
+    
 
 *  Whole int type converts to integer
 *  Construct whole int with integer less than zero throws exception
 *  Cannot negate the number
 
-## chippyash\Test\Type\String\DigitType
+## 
+      chippyash\Test\Type\String\DigitType
+    
 
 *  Digit type converts strings with numbers stripping non digits
 *  Convert non stringable type throws exception
 
-## chippyash\Test\Type\String\StringType
+## 
+      chippyash\Test\Type\String\StringType
+    
 
 *  String type converts base types to string
 *  String type proxies magic invoke to get
 *  String type can be used in string concatenation
 
-## chippyash\Test\Type\TypeFactory
+## 
+      chippyash\Test\Type\TypeFactory
+    
 
 *  Factory create method returns correct type
 *  Create invalid type throws exception
@@ -338,4 +380,4 @@
 *  Creating floats via type factory under gmp will return g m p rational type
 
 
-Generated by chippyash/testdox-converter
+Generated by [chippyash/testdox-converter](https://github.com/chippyash/Testdox-Converter)

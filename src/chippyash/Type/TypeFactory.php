@@ -26,25 +26,6 @@ use chippyash\Type\Interfaces\NumericTypeInterface;
 abstract class TypeFactory extends AbstractTypeFactory
 {
     /**
-     * Set the required number type to return
-     * By default this is self::TYPE_DEFAULT  which is 'auto', meaning that
-     * the factory will determine if GMP is installed and use that else use
-     * PHP native types
-     *
-     * @param string $requiredType
-     *
-     * @return void
-     *
-     * @throws \InvalidArgumentException
-     */
-    public static function setNumberType($requiredType)
-    {
-        parent::setNumberType($requiredType);
-        RationalTypeFactory::setNumberType($requiredType);
-        ComplexTypeFactory::setNumberType($requiredType);
-    }
-
-    /**
      * Generic type factory
      *
      * @param string $type

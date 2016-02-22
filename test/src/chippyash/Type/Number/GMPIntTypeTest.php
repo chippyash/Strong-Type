@@ -3,7 +3,7 @@
 namespace chippyash\Test\Type\Number;
 
 use chippyash\Type\Number\GMPIntType;
-use chippyash\Type\TypeFactory;
+use chippyash\Type\RequiredType;
 
 /**
  * @requires extension gmp
@@ -13,7 +13,7 @@ class GMPIntTypeTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp() {
-        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
+        RequiredType::getInstance()->set(RequiredType::TYPE_DEFAULT);
     }
     
     public function testGMPIntTypeConvertsValuesToInteger()

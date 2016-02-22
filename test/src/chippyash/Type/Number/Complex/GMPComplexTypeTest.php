@@ -6,7 +6,7 @@ use chippyash\Type\Number\Complex\GMPComplexType;
 use chippyash\Type\Number\Rational\GMPRationalType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 use chippyash\Type\Number\GMPIntType;
-use chippyash\Type\TypeFactory;
+use chippyash\Type\RequiredType;
 
 /**
  * @requires extension gmp
@@ -15,7 +15,7 @@ use chippyash\Type\TypeFactory;
 class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp() {
-        TypeFactory::setNumberType(TypeFactory::TYPE_GMP);
+        RequiredType::getInstance()->set(RequiredType::TYPE_GMP);
     }
     
     /**
