@@ -13,6 +13,7 @@
 include "../vendor/autoload.php";
 
 use chippyash\Type\TypeFactory;
+use chippyash\Type\RequiredType;
 use chippyash\Type\Number\Rational\RationalTypeFactory;
 
 /**
@@ -33,7 +34,7 @@ RationalTypeFactory::setDefaultFromFloatTolerance(1e-15);
  * Set the required number type.  System will automatically use GMP if
  * it is available.  You can force it to use native PHP thus:
  */
-TypeFactory::setNumberType(TypeFactory::TYPE_NATIVE);
+RequiredType::getInstance()->set(RequiredType::TYPE_NATIVE);
 
 //now create 10000 numbers for the test
 //try playing with this figure to see the results
