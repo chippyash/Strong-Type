@@ -386,6 +386,8 @@ So as long as you stick to GPL V3+ then you are safe. If at all unsure, please s
 If the original copyright owners of the included code items object to this inclusion, please contact the author.
 
 A commercial license is available for this software library, please contact the author. 
+It is normally free to deserving causes, but gets you around the limitation of the GPL
+license, which does not allow unrestricted inclusion of this code in commercial works.
 
 ## History
 
