@@ -1,28 +1,36 @@
 {
-    "name": "chippyash/strong-type",
-    "description": "Strong type support. For when you absolutely want to know what you are getting",
-    "homepage" : "http://the-matrix.github.io/",
-    "license": "GPL 3.0",
-    "keywords": ["strong","hard","declared","types","maths", "complex", "polar"],
-    "authors": [
-        {
-            "name": "Ashley Kitson",
-            "email": "ashley@zf4.biz"
-        }
-    ],
-    "require": {
-        "php":">=5.3"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4.3.0",
-        "codeclimate/php-test-reporter": "dev-master",
-        "satooshi/php-coveralls" : "~0.6.1"
-    },
-    "autoload": {
-        "psr-0": {
-          "chippyash\\Type\\": "src",
-          "chippyash\\Zend\\": "src"
-        }
+  "name": "chippyash/strong-type",
+  "description": "Strong type support. For when you absolutely want to know what you are getting",
+  "homepage": "http://the-matrix.github.io/packages/",
+  "license": "GPL 3.0",
+  "keywords": [
+    "strong",
+    "hard",
+    "declared",
+    "types",
+    "maths",
+    "rational",
+    "fractions",
+    "complex",
+    "polar"
+  ],
+  "authors": [
+    {
+      "name": "Ashley Kitson",
+      "email": "ashley@zf4.biz"
     }
-    
+  ],
+  "require": {
+    "php": ">=5.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.3.0",
+    "codeclimate/php-test-reporter": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "Chippyash\\Type\\": "src",
+      "Chippyash\\Zend\\": "src"
+    }
+  }
 }

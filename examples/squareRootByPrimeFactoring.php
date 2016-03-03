@@ -13,7 +13,7 @@
 
 include "../vendor/autoload.php";
 
-use chippyash\Type\Number\IntType;
+use Chippyash\Type\Number\IntType;
 
 //PHP 5.3
 //$nn = [];

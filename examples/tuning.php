@@ -12,9 +12,9 @@
 
 include "../vendor/autoload.php";
 
-use chippyash\Type\TypeFactory;
-use chippyash\Type\RequiredType;
-use chippyash\Type\Number\Rational\RationalTypeFactory;
+use Chippyash\Type\TypeFactory;
+use Chippyash\Type\RequiredType;
+use Chippyash\Type\Number\Rational\RationalTypeFactory;
 
 /**
  * Tuning

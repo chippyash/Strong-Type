@@ -2,7 +2,7 @@
 
 ## Quality Assurance
 
-Certified for PHP 5.3, 5.4 and 5.5
+Certified for PHP 5.3 - 5.6
 
 [![Build Status](https://travis-ci.org/chippyash/Strong-Type.svg?branch=master)](https://travis-ci.org/chippyash/Strong-Type)
 [![Coverage Status](https://coveralls.io/repos/chippyash/Strong-Type/badge.png)](https://coveralls.io/r/chippyash/Strong-Type)
@@ -56,6 +56,10 @@ The primary purpose of strong typing in this context is to *guard your public
 methods against unwarranted side effects*.  Unwrap the native type at the point
 of use.
 
+The secondary use case is for when you want to start using some missing types fromPHP,
+in particular Rational (fractions) and Complex numeric types.  I've built a reasonably 
+comprehensive Mathematical Matrix library based on the numeric types from this library.
+
 ### PHP 7 warning
 
 PHP 7 introduces type hinting for [native types](https://blog.engineyard.com/2015/what-to-expect-php-7)
@@ -83,7 +87,7 @@ The current library covers basic data types plus some extensions.
 
 If you want more, either suggest it, or better still, fork it and provide a pull request.
 
-See [The Matrix Packages](http://the-matrix.github.io/packages/) for other packages from chippyash
+See [The Matrix Packages](http://the-matrix.github.io/packages/) for other packages from Chippyash
 
 ## How
 
@@ -108,7 +112,7 @@ NB. The integer `1` is going to get converted into a float `1.0` but that is ok
 Create a type via the Type Factory:
 
 <pre>
-    use chippyash\Type\TypeFactory;
+    use Chippyash\Type\TypeFactory;
     $str = TypeFactory::create('string','foo');
     //or
     $str = TypeFactory::createString('foo');
@@ -138,12 +142,12 @@ Supported type tags are:
 Create one directly:
 
 <pre>
-    use chippyash\Type\Number\Complex\ComplexType;
-    use chippyash\Type\Number\Rational\Rationaltype;
-    use chippyash\Type\String\DigitType;
-    use chippyash\Type\String\StringType;
-    use chippyash\Type\Number\FloatType;
-    use chippyash\Type\Number\IntType;
+    use Chippyash\Type\Number\Complex\ComplexType;
+    use Chippyash\Type\Number\Rational\Rationaltype;
+    use Chippyash\Type\String\DigitType;
+    use Chippyash\Type\String\StringType;
+    use Chippyash\Type\Number\FloatType;
+    use Chippyash\Type\Number\IntType;
     $c = new ComplexType(new RationalType(new IntType(-2), new IntType(1)), new RationalType(new IntType(3), new IntType(4));
     $d = new DigitType(34);
     $s = new StringType('foo');
@@ -157,7 +161,7 @@ Create a complex type via the Complex Type Factory (n.b. the Type Factory uses
 this)
 
 <pre>
-    use chippyash\Type\Number\Complex\ComplexTypeFactory;
+    use Chippyash\Type\Number\Complex\ComplexTypeFactory;
     $c = ComplexTypeFactory::create('13-2.67i');
     //same as
     $c = ComplexTypeFactory::fromString('13-2.67i');
@@ -173,7 +177,7 @@ Create a rational type via the Rational Type Factory (n.b. the Type Factory uses
 this, but using it directly may give you finer grain control in some circumstances.)
 
 <pre>
-    use chippyash\Type\Number\Rational\RationalTypeFactory;
+    use Chippyash\Type\Number\Rational\RationalTypeFactory;
     $r = RationalTypeFactory::create(M_1_PI);    //results in 25510582/80143857
     $r = RationalTypeFactory::fromFloat(M_1_PI); //ditto
     $r = RationalTypeFactory::fromFloat(M_1_PI, 1e-5); //results in 113/355
@@ -259,7 +263,7 @@ There is no gmp support for WholeIntType, NaturalIntType or FloatType.
 You can force the library to use PHP native types by calling
 
 <pre>
-    use chippyash\Type\RequiredType; 
+    use Chippyash\Type\RequiredType; 
     RequiredType::getInstance()->set(RequiredType::TYPE_NATIVE);
 </pre>
 
@@ -294,9 +298,9 @@ they will also have:
 *  public function asGMPRational(): Return number as GMPRational number.
 
 Trying to keep track of what types you are actually instantiating is made much easier if
-you use the type factories, as they know which types to create.  Therefore if
+you use the type factories, as they know which types to create.  **Therefore if
 you want your code to be runnable as PHP native or GMP, use the factories to
-create your numeric types.
+create your numeric types.**
 
 ## Further documentation
 
@@ -336,22 +340,12 @@ Install [Composer](https://getcomposer.org/)
 
 #### For production
 
-Use V2 unless you have a strong reason not to.
+Use V3 unless you have a strong reason not to.
 <pre>
-    "chippyash/strong-type": ">=2.0.0"
+    "chippyash/strong-type": ">=3.0.0"
 </pre>
 
-If you are running PHP5.3 use a minimum of V2.1.0:
-<pre>
-    "chippyash/strong-type": "~2.1.0"
-</pre>
-
-If you absolutely do not want GMP support and you are running PHP5.4+ then you can use V1.1.3
-<pre>
-    "chippyash/strong-type": "1.1.3"
-</pre>
-
-The V2 branch is the default, no further development of the V1 branch will take place.
+The V3 branch is the default, no further development of the V1 or V2 branch will take place.
  
 #### For development
 
@@ -383,8 +377,8 @@ This software library contains code items that are:
 
 In particular the code items are:
 
-- elements of chippyash\Type\String\DigitType
-- all of chippyash\Zend\ErrorHandler
+- elements of Chippyash\Type\String\DigitType
+- all of Chippyash\Zend\ErrorHandler
 
 None of the contained code items breaks the overriding license, or vice versa,  as far as I can tell. 
 So as long as you stick to GPL V3+ then you are safe. If at all unsure, please seek appropriate advice.
@@ -471,6 +465,8 @@ V2.1.2 remove dependency on Zend\StdLib
 V2.1.3 refactor for code cleanliness
 
 V2.1.4 deprecate Typefactory::setNumberType() method
+
+V3.0.0 BC Break: Rename namespace from chippyash\Type to Chippyash\Type
 
 ## Request for help
 
