@@ -8,6 +8,12 @@ Certified for PHP 5.3 - 5.6
 [![Test Coverage](https://codeclimate.com/github/chippyash/Strong-Type/badges/coverage.svg)](https://codeclimate.com/github/chippyash/Strong-Type/coverage)
 [![Code Climate](https://codeclimate.com/github/chippyash/Strong-Type/badges/gpa.svg)](https://codeclimate.com/github/chippyash/Strong-Type)
 
+The above badges represent the current development branch.  As a rule, I don't push
+ to GitHub unless tests, coverage and usability are acceptable.  This may not be
+ true for short periods of time; on holiday, need code for some other downstream
+ project etc.  If you need stable code, use a tagged version. Read 'Further Documentation'
+ and 'Installation'.
+ 
 See request for help: gmp is not being tested at the present time by the
 Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
 [Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
