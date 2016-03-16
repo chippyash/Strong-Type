@@ -395,7 +395,7 @@ A commercial license is available for this software library, please contact the 
 It is normally free to deserving causes, but gets you around the limitation of the GPL
 license, which does not allow unrestricted inclusion of this code in commercial works.
 
-This library is supported by [![Jetbrains](https://github.com/chippyash/Strong-Type/blob/master/img/JetBrains.png)](https://www.jetbrains.com)
+This library is supported by [<img src="https://github.com/chippyash/Strong-Type/raw/master/img/JetBrains.png" alt="Jetbrains" style="max-width:100%;height: 200px;vertical-align: middle;">](https://www.jetbrains.com)
 who provide their IDEs to Open Source developers.
 
 
