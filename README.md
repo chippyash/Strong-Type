@@ -18,6 +18,8 @@ See request for help: gmp is not being tested at the present time by the
 Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
 [Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
 
+This project is happily supported by [![Jetbrains](https://github.com/chippyash/Strong-Type/blob/master/img/JetBrains.png)](https://www.jetbrains.com)
+
 ## What?
 
 Provides strong type implementations of base PHP types.  Adds some 'missing'
@@ -478,7 +480,7 @@ V3.0.0 BC Break: Rename namespace from chippyash\Type to Chippyash\Type
 
 ## Request for help
 
-The V2 build of this library can use GMP support. I can't seem to figure out how to add gmp support 
+The V2/3 build of this library can use GMP support. I can't seem to figure out how to add gmp support 
 to the travis ci build system.  If you know how to do this, I'd appreciate your intervention and assistance.  
 The QA is still good, as the gmp tests specify a requirement for gmp and will therefore be passed over. 
 
