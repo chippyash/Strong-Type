@@ -1,5 +1,7 @@
 # chippyash/Type
 
+supported by [![Jetbrains](https://github.com/chippyash/Strong-Type/blob/master/img/JetBrains.png)](https://www.jetbrains.com)
+
 ## Quality Assurance
 
 Certified for PHP 5.3 - 5.6
@@ -17,8 +19,6 @@ The above badges represent the current development branch.  As a rule, I don't p
 See request for help: gmp is not being tested at the present time by the
 Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
 [Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
-
-This project is happily supported by [![Jetbrains](https://github.com/chippyash/Strong-Type/blob/master/img/JetBrains.png)](https://www.jetbrains.com)
 
 ## What?
 
