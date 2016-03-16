@@ -1,7 +1,5 @@
 # chippyash/Type
 
-supported by [![Jetbrains](https://github.com/chippyash/Strong-Type/blob/master/img/JetBrains.png)](https://www.jetbrains.com)
-
 ## Quality Assurance
 
 Certified for PHP 5.3 - 5.6
@@ -396,6 +394,10 @@ If the original copyright owners of the included code items object to this inclu
 A commercial license is available for this software library, please contact the author. 
 It is normally free to deserving causes, but gets you around the limitation of the GPL
 license, which does not allow unrestricted inclusion of this code in commercial works.
+
+This library is supported by [![Jetbrains](https://github.com/chippyash/Strong-Type/blob/master/img/JetBrains.png)](https://www.jetbrains.com)
+who provide their IDEs to Open Source developers.
+
 
 ## History
 
