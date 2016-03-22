@@ -314,6 +314,8 @@ You can find the [API documentation here](http://chippyash.github.io/Strong-Type
 
 [Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
 
+Check out [ZF4 Packages](http://zf4.biz/packages?utm_source=github&utm_medium=web&utm_campaign=blinks&utm_content=strongtype) for more packages
+
 ### UML
 
 ![class diagram](https://github.com/chippyash/Strong-Type/blob/master/docs/strong-type-class.png)
@@ -479,6 +481,8 @@ V2.1.3 refactor for code cleanliness
 V2.1.4 deprecate Typefactory::setNumberType() method
 
 V3.0.0 BC Break: Rename namespace from chippyash\Type to Chippyash\Type
+
+V3.0.1 add link to packages
 
 ## Request for help
 
