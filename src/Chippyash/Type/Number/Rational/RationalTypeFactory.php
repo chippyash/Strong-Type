@@ -15,6 +15,7 @@ use Chippyash\Type\Number\IntType;
 use Chippyash\Type\Number\GMPIntType;
 use Chippyash\Type\Number\FloatType;
 use Chippyash\Type\AbstractTypeFactory;
+use Chippyash\Type\Interfaces\NumericTypeInterface;
 
 /**
  * Static Factory for creating Rational types
@@ -39,10 +40,10 @@ abstract class RationalTypeFactory extends AbstractTypeFactory
     /**
      * Rational type factory
      * Construct and return a rational. You can send in
-     * - a NumericInterface as numerator - will return that as a rational
+     * - a NumericInterface as numerator and no denominator - will return that as a rational
      * - a string conforming to 'n/d'
      * - a float
-     * - two ints (numerator, denominator)
+     * - two ints or two IntTypes (numerator, denominator)
      *
      * @param mixed $numerator
      * @param mixed $denominator
@@ -53,16 +54,16 @@ abstract class RationalTypeFactory extends AbstractTypeFactory
      */
     public static function create($numerator, $denominator = null)
     {
-        if ($numerator instanceof NumericTypeInterface) {
-            return $numerator->asRational();
-        }
-
         if (is_string($numerator)) {
             return self::fromString($numerator);
         }
 
         if (is_float($numerator) || $numerator instanceof FloatType) {
             return self::fromFloat($numerator);
+        }
+
+        if ($numerator instanceof NumericTypeInterface && is_null($denominator)) {
+            return $numerator->asRational();
         }
 
         $denominator = (is_null($denominator) ? 1 : $denominator);

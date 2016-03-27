@@ -13,7 +13,10 @@ namespace Chippyash\Type\Number;
 use Chippyash\Type\AbstractType;
 use Chippyash\Type\Interfaces\NumericTypeInterface;
 use Chippyash\Type\Number\Complex\ComplexType;
+use Chippyash\Type\Number\Rational\GMPRationalType;
 use Chippyash\Type\Number\Rational\RationalType;
+use Chippyash\Type\Number\Rational\RationalTypeFactory;
+use Chippyash\Type\RequiredType;
 
 /**
  * Integer Type
@@ -54,7 +57,11 @@ class IntType extends AbstractType implements NumericTypeInterface
      */
     public function asRational()
     {
-        return new RationalType(clone $this, new static(1));
+        if (RequiredType::getInstance()->get() == RequiredType::TYPE_NATIVE) {
+            return new RationalType(clone $this, new static(1));
+        }
+
+        return new GMPRationalType(new GMPIntType($this->value), new GMPIntType(1));
     }
 
     /**

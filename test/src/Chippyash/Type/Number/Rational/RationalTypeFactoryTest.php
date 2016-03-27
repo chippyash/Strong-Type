@@ -45,9 +45,9 @@ class RationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFromIntTypesReturnsRationalType()
     {
-        $this->assertInstanceOf(
-            self::RAT_TYPE_NAME,
-            RationalTypeFactory::create(new IntType(34), new IntType(15)));
+        $test = RationalTypeFactory::create(new IntType(34), new IntType(15));
+        $this->assertInstanceOf(self::RAT_TYPE_NAME, $test);
+        $this->assertEquals('34/15', (string) $test);
 
     }
 
@@ -94,7 +94,7 @@ class RationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Chippyash\Type\Exceptions\InvalidTypeException
+     * @expectedException \Chippyash\Type\Exceptions\InvalidTypeException
      * @expectedExceptionMessage Invalid Type: integer:object for Rational type construction
      */
     public function testCreateFromUnsupportedTypeForDenominatorThrowsException()

@@ -10,7 +10,7 @@ use Chippyash\Type\TypeFactory;
 
 /**
  * @requires extension gmp
- * @runTestsInSeparateProcesses
+ * runTestsInSeparateProcesses
  */
 class GMPRationalTypeFactoryTest extends \PHPUnit_Framework_TestCase
 {
