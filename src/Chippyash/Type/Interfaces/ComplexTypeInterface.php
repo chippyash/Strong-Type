@@ -15,7 +15,7 @@ use Chippyash\Type\Number\Rational\RationalType;
  * Interface for Chippyash\Type\Number\Complex\ComplexType types
  * Makes it broadly compatible with other types
  */
-interface ComplexTypeInterface extends TypeInterface
+interface ComplexTypeInterface extends NumericTypeInterface
 {
     /**
      * Get the real part

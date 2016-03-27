@@ -13,7 +13,7 @@ namespace Chippyash\Type\Interfaces;
  * Interface for Chippyash\Type\Number\Rational\RationalType types
  * Makes it broadly compatible with other types
  */
-interface RationalTypeInterface extends TypeInterface
+interface RationalTypeInterface extends NumericTypeInterface
 {
     /**
      * Get the numerator

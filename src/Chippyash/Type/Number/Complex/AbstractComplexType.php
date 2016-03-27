@@ -12,14 +12,13 @@ namespace Chippyash\Type\Number\Complex;
 use Chippyash\Type\AbstractMultiValueType;
 use Chippyash\Type\TypeFactory;
 use Chippyash\Type\Interfaces\ComplexTypeInterface;
-use Chippyash\Type\Interfaces\NumericTypeInterface;
 use Chippyash\Type\Number\Rational\RationalType;
 use Chippyash\Type\Exceptions\NotRealComplexException;
 
 /**
  * Abstract complex number type
  */
-abstract class AbstractComplexType extends AbstractMultiValueType implements ComplexTypeInterface, NumericTypeInterface
+abstract class AbstractComplexType extends AbstractMultiValueType implements ComplexTypeInterface
 {
     /**
      * Map of values for this type

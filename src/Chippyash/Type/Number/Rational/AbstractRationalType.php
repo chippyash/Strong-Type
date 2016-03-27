@@ -16,14 +16,13 @@ namespace Chippyash\Type\Number\Rational;
 use Chippyash\Type\AbstractMultiValueType;
 use Chippyash\Type\Number\IntType;
 use Chippyash\Type\Interfaces\RationalTypeInterface;
-use Chippyash\Type\Interfaces\NumericTypeInterface;
 use Chippyash\Type\Number\Complex\ComplexType;
 use Chippyash\Type\Number\FloatType;
 
 /**
  * Abstract rational number type
  */
-abstract class AbstractRationalType extends AbstractMultiValueType implements RationalTypeInterface, NumericTypeInterface
+abstract class AbstractRationalType extends AbstractMultiValueType implements RationalTypeInterface
 {
     /**
      * Do we reduce to lowest form on construct and set?

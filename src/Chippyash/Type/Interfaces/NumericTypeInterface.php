@@ -12,7 +12,7 @@ namespace Chippyash\Type\Interfaces;
 /**
  * A interface to mark numeric types
  */
-interface NumericTypeInterface
+interface NumericTypeInterface extends TypeInterface
 {
 
     /**
