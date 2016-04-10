@@ -126,8 +126,9 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
             $this->value['den']->asIntType()
         );
     }
-    
+
     /**
+     * 
      * Reduce this number to it's lowest form
      */
     protected function reduce()

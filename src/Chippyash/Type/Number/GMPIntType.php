@@ -241,6 +241,19 @@ class GMPIntType extends IntType implements GMPInterface
     }
 
     /**
+     * Return the sign of this number
+     * -1 if < 0
+     * 0 if == 0
+     * 1 if > 0
+     *
+     * @return int
+     */
+    public function sign()
+    {
+        return gmp_sign($this->value);
+    }
+
+    /**
      * Return correctly typed value for this type
      *
      * @param mixed $value

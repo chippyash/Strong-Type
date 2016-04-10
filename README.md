@@ -215,6 +215,7 @@ complex types, simply clones the existing object.
 *  asIntType(): returns number caste as IntType.  For IntType, simply clones the existing objeoct.
 *  asFloatType(): returns number caste as FloatType.  For FloatType, simply clones the existing objeoct.
 *  abs(): return the absolute value of the number
+*  sign(): return sign of number: -1 == negative, 0 == zero, 1 == positive
 
 IntTypes support two additional methods:
 

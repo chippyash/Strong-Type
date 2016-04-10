@@ -89,6 +89,19 @@ class FloatType extends AbstractType implements NumericTypeInterface
     }
 
     /**
+     * Return the sign of this number
+     * -1 if < 0
+     * 0 if == 0
+     * 1 if > 0
+     *
+     * @return int
+     */
+    public function sign()
+    {
+        return ($this->value < 0 ? -1 : $this->value == 0 ? 0 : 1);
+    }
+
+    /**
      * Return correctly typed value for this type
      *
      * @param mixed $value

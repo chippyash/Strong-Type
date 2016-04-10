@@ -3,6 +3,7 @@
 namespace Chippyash\Test\Type\Number\Complex;
 
 use Chippyash\Type\Number\Complex\ComplexType;
+use Chippyash\Type\Number\Complex\ComplexTypeFactory;
 use Chippyash\Type\Number\Rational\RationalType;
 use Chippyash\Type\Number\Rational\RationalTypeFactory;
 use Chippyash\Type\Number\IntType;
@@ -456,6 +457,21 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase {
         $clone = clone $c1;
         $clone->set($this->createRationalType(5), $this->createRationalType(6));
         $this->assertNotEquals($clone(), $c1());
+    }
+
+    public function testYouCanGetTheSignOfAComplexNumber()
+    {
+        $c1 = ComplexTypeFactory::create(1,1);  //unreal positive
+        $c2 = ComplexTypeFactory::create(-1,-3);  //unreal negative
+        $c3 = ComplexTypeFactory::create(1,0);  //real positive
+        $c4 = ComplexTypeFactory::create(-1,0);  //real negative
+        $c5 = ComplexTypeFactory::create(0,0);  //zero
+
+        $this->assertEquals(1, $c1->sign());
+        $this->assertEquals(1, $c2->sign()); //unreal complex use modulus for sign - therefore always positive
+        $this->assertEquals(1, $c3->sign());
+        $this->assertEquals(-1, $c4->sign());
+        $this->assertEquals(0, $c5->sign());
     }
 
     /**

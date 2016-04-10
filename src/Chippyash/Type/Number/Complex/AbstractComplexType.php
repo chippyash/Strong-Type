@@ -194,15 +194,6 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     {
         return $this->value['imaginary'];
     }
-    
-    /**
-     * Is this number equal to zero?
-     * @return boolean
-     */
-    public function isZero()
-    {
-        return ($this->value['real']->get() == 0 && $this->value['imaginary']->get() == 0);
-    }
 
     /**
      * Is this number a real number?  i.e. is it in form n+0i
@@ -335,6 +326,29 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     public function __invoke()
     {
         return $this->get();
+    }
+
+    /**
+     * Return the sign of this number
+     * If Real, then return sign of real part else sign of modulus
+     *
+     * -1 if < 0
+     * 0 if == 0
+     * 1 if > 0
+     *
+     * @return int
+     */
+    public function sign()
+    {
+        if ($this->isZero()) {
+            return 0;
+        }
+
+        if ($this->isReal()) {
+            return $this->value['real']->sign();
+        }
+
+        return $this->modulus()->sign();
     }
     
     /**

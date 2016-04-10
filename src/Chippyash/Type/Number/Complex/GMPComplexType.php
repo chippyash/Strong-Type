@@ -61,6 +61,18 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     }
 
     /**
+     * Is this number equal to zero?
+     * @return boolean
+     */
+    public function isZero()
+    {
+        return (
+            gmp_sign($this->value['real']->numerator()->gmp()) == 0 
+            && gmp_sign($this->value['imaginary']->numerator()->gmp()) == 0
+        );
+    }
+
+    /**
      * Return the modulus, also known as absolute value or magnitude of this number
      * = sqrt(r^2 + i^2);
      *

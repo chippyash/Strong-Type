@@ -80,6 +80,15 @@ class ComplexType extends AbstractComplexType
             throw new NotRealComplexException();
         }
     }
+
+    /**
+     * Is this number equal to zero?
+     * @return boolean
+     */
+    public function isZero()
+    {
+        return ($this->value['real']->get() == 0 && $this->value['imaginary']->get() == 0);
+    }
     
     /**
      * Return the modulus, also known as absolute value or magnitude of this number

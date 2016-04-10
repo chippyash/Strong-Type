@@ -57,4 +57,14 @@ interface NumericTypeInterface extends TypeInterface
      * @return \Chippyash\Type\Interfaces\NumericTypeInterface
      */
     public function abs();
+
+    /**
+     * Return the sign of this number
+     * -1 if < 0
+     * 0 if == 0
+     * 1 if > 0
+     * 
+     * @return int
+     */
+    public function sign();
 }

@@ -169,7 +169,21 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
     {
         return ($this->value['den']->get() === 1);
     }
-          
+
+    /**
+     * Return the sign of this number
+     * -1 if < 0
+     * 0 if == 0
+     * 1 if > 0
+     *
+     * @return int
+     */
+    public function sign()
+    {
+        return $this->value['num']->sign();
+    }
+
+    
     /**
      * Reduce this number to it's lowest form
      * 
