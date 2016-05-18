@@ -2,9 +2,10 @@
 
 ## Quality Assurance
 
-Certified for PHP 5.3 - 5.6
-
-[![Build Status](https://travis-ci.org/chippyash/Strong-Type.svg?branch=master)](https://travis-ci.org/chippyash/Strong-Type)
+![PHP 5.3](https://img.shields.io/badge/PHP-5.3-blue.svg)
+![PHP 5.4](https://img.shields.io/badge/PHP-5.4-blue.svg)
+![PHP 5.5](https://img.shields.io/badge/PHP-5.5-blue.svg)
+![PHP 5.6](https://img.shields.io/badge/PHP-5.6-blue.svg)[![Build Status](https://travis-ci.org/chippyash/Strong-Type.svg?branch=master)](https://travis-ci.org/chippyash/Strong-Type)
 [![Test Coverage](https://codeclimate.com/github/chippyash/Strong-Type/badges/coverage.svg)](https://codeclimate.com/github/chippyash/Strong-Type/coverage)
 [![Code Climate](https://codeclimate.com/github/chippyash/Strong-Type/badges/gpa.svg)](https://codeclimate.com/github/chippyash/Strong-Type)
 
