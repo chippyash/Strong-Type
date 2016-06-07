@@ -18,15 +18,23 @@ class ComplexTypeTest extends \PHPUnit_Framework_TestCase {
     /**
      * @expectedException PHPUnit_Framework_Exception
      */
-    public function testConstructExpectsFirstParameterToBeFloatType() {
-        $c = new ComplexType($this->createRationalType(0));
+    public function testConstructExpectsFirstParameterToABeRationalType() {
+        if (PHP_MAJOR_VERSION < 7) {
+            $c = new ComplexType(new IntType(0), $this->createRationalType(0));
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     /**
      * @expectedException PHPUnit_Framework_Exception
      */
-    public function testConstructExpectsSecondParameterToBeFloatType() {
-        $c = new ComplexType($this->createRationalType(0), 0);
+    public function testConstructExpectsSecondParameterToBeARationalType() {
+        if (PHP_MAJOR_VERSION < 7) {
+            $c = new ComplexType($this->createRationalType(0), 0);
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     public function testConstructWithTwoRationalTypeParametersReturnsComplexType() {

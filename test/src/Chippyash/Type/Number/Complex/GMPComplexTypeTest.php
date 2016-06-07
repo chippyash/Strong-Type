@@ -23,7 +23,11 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructExpectsFirstParameterToBeFloatType()
     {
-        $c = new GMPComplexType($this->createGMPRationalType(0));
+        if (PHP_MAJOR_VERSION < 7) {
+            $c = new GMPComplexType($this->createGMPRationalType(0));
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     /**
@@ -31,7 +35,11 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructExpectsSecondParameterToBeRationalType()
     {
-        $c = new GMPComplexType($this->createGMPRationalType(0), 0);
+        if (PHP_MAJOR_VERSION < 7) {
+            $c = new GMPComplexType($this->createGMPRationalType(0), 0);
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     public function testConstructWithTwoGMPRationalTypeParametersReturnsGMPComplexType()
@@ -46,8 +54,8 @@ class GMPComplexTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetExpectsFirstParameterToBeGMPRationalType()
     {
-        $c = new GMPComplexType($this->createGMPRationalType(0), $this->createGMPRationalType(0));
-        $c->set('foo');
+            $c = new GMPComplexType($this->createGMPRationalType(0), $this->createGMPRationalType(0));
+            $c->set('foo');
     }
 
     /**

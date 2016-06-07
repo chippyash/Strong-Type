@@ -22,7 +22,11 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructExpectsFirstParameterToBeGMPIntType()
     {
-        $r = new GMPRationalType(0);
+        if (PHP_MAJOR_VERSION < 7) {
+            $r = new GMPRationalType(0);
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     /**
@@ -30,7 +34,11 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructExpectsSecondParameterToBeGMPIntType()
     {
-        $r = new GMPRationalType(new GMPIntType(1), 0);
+        if (PHP_MAJOR_VERSION < 7) {
+            $r = new GMPRationalType(new GMPIntType(1), 0);
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     /**
@@ -38,7 +46,11 @@ class GMPRationalTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructExpectsThirdParameterToBeBoolTypeIfGiven()
     {
-        $r = new GMPRationalType(new GMPIntType(1), new GMPIntType(1), 0);
+        if (PHP_MAJOR_VERSION < 7) {
+            $r = new GMPRationalType(new GMPIntType(1), new GMPIntType(1), 0);
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     public function testConstructWithThirdParameterSetFalseWillNotReduce()

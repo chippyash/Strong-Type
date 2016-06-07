@@ -17,21 +17,33 @@ class RationalTypeTest extends \PHPUnit_Framework_TestCase {
      * @expectedException PHPUnit_Framework_Exception
      */
     public function testConstructExpectsFirstParameterToBeIntType() {
-        $r = new RationalType(0);
+        if (PHP_MAJOR_VERSION < 7) {
+            $r = new RationalType(0);
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     /**
      * @expectedException PHPUnit_Framework_Exception
      */
     public function testConstructExpectsSecondParameterToBeIntType() {
-        $r = new RationalType(new IntType(1), 0);
+        if (PHP_MAJOR_VERSION < 7) {
+            $r = new RationalType(new IntType(1), 0);
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     /**
      * @expectedException PHPUnit_Framework_Exception
      */
     public function testConstructExpectsThirdParameterToBeBoolTypeIfGiven() {
-        $r = new RationalType(new IntType(1), new IntType(1), 0);
+        if (PHP_MAJOR_VERSION < 7) {
+            $r = new RationalType(new IntType(1), new IntType(1), 0);
+        } else {
+            $this->markTestSkipped('Test incompatible with PHP 7');
+        }
     }
 
     public function testConstructWithThirdParameterSetFalseWillNotReduce() {
