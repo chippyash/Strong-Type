@@ -83,9 +83,9 @@ abstract class TypeFactory extends AbstractTypeFactory
         }
         if (self::getRequiredType() == self::TYPE_GMP) {
             return new GMPIntType($value);
-        } else {
-            return new IntType($value);
         }
+
+        return new IntType($value);
     }
 
     /**
@@ -107,9 +107,9 @@ abstract class TypeFactory extends AbstractTypeFactory
         
         if (self::getRequiredType() == self::TYPE_GMP) {
             return RationalTypeFactory::create($value);
-        } else {
-            return new FloatType($value);
         }
+        
+        return new FloatType($value);
     }
 
     /**
@@ -218,16 +218,18 @@ abstract class TypeFactory extends AbstractTypeFactory
         if ($value instanceof NumericTypeInterface) {
             $value = $value->asIntType()->get();
         }
+        
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException("'{$value}' is no valid numeric for {$typeClassName}");
         }
 
         if (self::getRequiredType() == self::TYPE_GMP) {
             return new GMPIntType($value);
-        } else {
-            $nsp = __NAMESPACE__;
-            $className = "{$nsp}\\Number\\{$typeClassName}";
-            return new $className($value);
         }
+        
+        $nsp = __NAMESPACE__;
+        $className = "{$nsp}\\Number\\{$typeClassName}";
+
+        return new $className($value);
     }
 }

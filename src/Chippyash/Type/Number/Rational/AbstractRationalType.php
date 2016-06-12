@@ -26,7 +26,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
 {
     /**
      * Do we reduce to lowest form on construct and set?
-     * 
+     *
      * @var boolean
      */
     protected $reduce = true;
@@ -125,7 +125,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
         $this->value['num']->negate();
 
         return $this;
-    }    
+    }
     
 
     /**
@@ -139,10 +139,11 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
         $num = $this->value['num']->get();
         if ($this->isInteger()) {
             return "{$num}";
-        } else {
-            $den = $this->value['den']->get();
-            return "{$num}/{$den}";
         }
+
+        $den = $this->value['den']->get();
+
+        return "{$num}/{$den}";
     }
 
     /**
@@ -155,9 +156,9 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
     {
         if ($this->isInteger()) {
             return intval($this->value['num']->get());
-        } else {
-            return floatval($this->value['num']->get() / $this->value['den']->get());
         }
+
+        return floatval($this->value['num']->get() / $this->value['den']->get());
     }
 
     /**
@@ -186,7 +187,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
     
     /**
      * Reduce this number to it's lowest form
-     * 
+     *
      * @return void
      */
     abstract protected function reduce();
@@ -194,7 +195,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
     /**
      * Maps values passed in as parameters to constructor and set methods into
      * the value array
-     * 
+     *
      * @param array $params
      *
      * @return void
@@ -207,7 +208,7 @@ abstract class AbstractRationalType extends AbstractMultiValueType implements Ra
         
         if ($this->reduce) {
             $this->reduce();
-        }        
+        }
         
         if ($this->value['den']->get() < 0) {
             //normalise the sign

@@ -46,16 +46,16 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     /**
      * Return the angle (sometimes known as the argument) of the number
      * when expressed in polar notation
-     * 
+     *
      * The return value is a rational expressing theta as radians
-     * 
+     *
      * @return \Chippyash\Type\Number\Rational\RationalType
      */
     abstract public function theta();
     
     /**
      * Return the number as a Complex number i.e. n+0i
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\ComplexType
      */
     abstract public function asComplex();
@@ -84,20 +84,15 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
 
         $rho = $this->checkIntType($this->radius()->asFloatType()->get());
         $theta = $this->checkIntType($this->theta()->asFloatType()->get());
-        if (is_int($theta)) {
-            $tpattern = 'cos %1$d + i⋅sin %1$d';
-        } else {
-            $tpattern = 'cos %1$f + i⋅sin %1$f';
-        }
+        $tpattern = (is_int($theta) ? 'cos %1$d + i⋅sin %1$d' : 'cos %1$f + i⋅sin %1$f');
+
         if ($rho == 1) {
             return sprintf($tpattern, $theta);
         }
-        if (is_int($rho)) {
-            $rpattern = '%2$d';
-        } else {
-            $rpattern = '%2$f';
-        }
+        
+        $rpattern = (is_int($rho) ? '%2$d' : '%2$f');
         $pattern = "{$rpattern}({$tpattern})";
+        
         return sprintf($pattern, $theta, $rho);
     }
 
@@ -113,9 +108,9 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
         if ($this->isReal()) {
             /** @noinspection PhpUndefinedMethodInspection */
             return TypeFactory::create('int', floor($this->value['real']->get()));
-        } else {
-            throw new NotRealComplexException();
         }
+        
+        throw new NotRealComplexException();
     }
 
     /**
@@ -145,14 +140,14 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     {
         if ($this->isReal()) {
             return $this->value['real']->get();
-        } else {
-            throw new NotRealComplexException();
         }
+         
+        throw new NotRealComplexException();
     }
     
     /**
      * Return the absolute value of the number
-     * 
+     *
      * @abstract
      *
      * @return \Chippyash\Type\Number\Rational\AbstractRationalType
@@ -213,7 +208,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
      */
     public function isGaussian()
     {
-        return ($this->value['real']->denominator()->get() == 1  && 
+        return ($this->value['real']->denominator()->get() == 1  &&
                 $this->value['imaginary']->denominator()->get() == 1);
     }
     
@@ -230,7 +225,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     /**
      * Return the radius (sometimes known as Rho) of the number
      * when expressed in polar notation
-     * 
+     *
      * @return \Chippyash\Type\Number\Rational\RationalType
      */
     public function radius()
@@ -240,11 +235,11 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
 
     /**
      * Returns complex number expressed in polar form
-     * 
+     *
      * `radius` == this->modulus()
      * `theta` is angle expressed in radians
-     * 
-     * @return array[radius => RationalType, theta => RationalType] 
+     *
+     * @return array[radius => RationalType, theta => RationalType]
      */
     public function asPolar()
     {
@@ -254,7 +249,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     /**
      * Returns the polar quadrant for the complex number
      * Returns 1, 2, 3 or 4 dependent on the quadrant
-     * 
+     *
      * @return int
      */
     public function polarQuadrant()
@@ -353,7 +348,7 @@ abstract class AbstractComplexType extends AbstractMultiValueType implements Com
     
     /**
      * Return multi value as native PHP type
-     * 
+     *
      * @return float|int|string
      */
     protected function getAsNativeType()

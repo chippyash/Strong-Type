@@ -66,7 +66,7 @@ abstract class AbstractMultiValueType extends AbstractType
      * Get the value of the object typed properly as PHP Native type
      *
      * @return mixed
-     */    
+     */
     public function get()
     {
         return $this->getAsNativeType();
@@ -117,7 +117,7 @@ abstract class AbstractMultiValueType extends AbstractType
 
     /**
      * Return multi value as native PHP type
-     * 
+     *
      * @return mixed
      */
     abstract protected function getAsNativeType();
@@ -139,7 +139,7 @@ abstract class AbstractMultiValueType extends AbstractType
     /**
      * Maps values passed in as parameters to constructor and set methods into
      * the value array
-     * 
+     *
      * @param array $params
      *
      * @return void
@@ -161,16 +161,13 @@ abstract class AbstractMultiValueType extends AbstractType
                     throw new \InvalidArgumentException("Invalid Type ({$c}) at position {$key}");
                 }
                 $this->value[$this->valueMap[$key]['name']] = clone $value;
-            } else {
-                $t = gettype($value);
-                if ($t != $this->valueMap[$key]['class']) {
-                    throw new \InvalidArgumentException("Invalid Type ({$t}) at position {$key}");
-                }
-                $this->value[$this->valueMap[$key]['name']] = $value;
+                continue;
             }
-
-            
+            $t = gettype($value);
+            if ($t != $this->valueMap[$key]['class']) {
+                throw new \InvalidArgumentException("Invalid Type ({$t}) at position {$key}");
+            }
+            $this->value[$this->valueMap[$key]['name']] = $value;
         }
-        
     }
 }

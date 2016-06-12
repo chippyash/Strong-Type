@@ -68,16 +68,16 @@ class DigitType extends AbstractType
 
         if (!$this->hasPcreUnicodeSupport()) {
             // POSIX named classes are not supported, use alternative 0-9 match
-            $pattern = '/[^0-9]/';
-        } elseif (extension_loaded('mbstring')) {
-            // Filter for the value with mbstring
-            $pattern = '/[^[:digit:]]/';
-        } else {
-            // Filter for the value without mbstring
-            $pattern = '/[\p{^N}]/';
+            return preg_replace('/[^0-9]/', '', $value);
         }
-
-        return preg_replace($pattern, '', $value);
+        
+        if (extension_loaded('mbstring')) {
+            // Filter for the value with mbstring
+            return preg_replace('/[^[:digit:]]/', '', $value);
+        }
+        
+        // Filter for the value without mbstring
+        return preg_replace('/[\p{^N}]/', '', $value);
     }
 
     /**

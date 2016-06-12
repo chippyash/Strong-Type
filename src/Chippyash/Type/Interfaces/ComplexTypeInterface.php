@@ -68,9 +68,9 @@ interface ComplexTypeInterface extends NumericTypeInterface
     /**
      * Return the angle (sometimes known as the argument) of the number
      * when expressed in polar notation
-     * 
+     *
      * The return value is a rational expressing theta as radians
-     * 
+     *
      * @return \Chippyash\Type\Number\Rational\RationalType
      */
     public function theta();
@@ -78,25 +78,25 @@ interface ComplexTypeInterface extends NumericTypeInterface
     /**
      * Return the radius (sometimes known as Rho) of the number
      * when expressed in polar notation
-     * 
+     *
      * @return \Chippyash\Type\Number\Rational\RationalType
      */
     public function radius();
     
     /**
      * Returns complex number expressed in polar form
-     * 
+     *
      * radius == this->modulus()
      * theta is angle expressed in radians
-     * 
-     * @return array[radius => RationalType, theta => RationalType] 
+     *
+     * @return array[radius => RationalType, theta => RationalType]
      */
     public function asPolar();
     
     /**
      * Returns the polar quadrant for the complex number
      * Returns 1, 2, 3 or 4 dependent on the quadrant
-     * 
+     *
      * @return int
      */
     public function polarQuadrant();

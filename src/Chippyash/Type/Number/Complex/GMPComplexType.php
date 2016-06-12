@@ -67,7 +67,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     public function isZero()
     {
         return (
-            gmp_sign($this->value['real']->numerator()->gmp()) == 0 
+            gmp_sign($this->value['real']->numerator()->gmp()) == 0
             && gmp_sign($this->value['imaginary']->numerator()->gmp()) == 0
         );
     }
@@ -125,7 +125,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     /**
      * Return the angle (sometimes known as the argument) of the number
      * when expressed in polar notation
-     * 
+     *
      * The return value is a rational expressing theta as radians
      *
      * @todo implement gmp atan2 method
@@ -163,15 +163,15 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     {
         if ($this->isReal()) {
             return new GMPIntType(floor($this->value['real']->get()));
-        } else {
-            throw new NotRealComplexException();
         }
+
+        throw new NotRealComplexException();
     }
     
     /**
      * Return the number as a GMPComplex number i.e. a+bi
      * Clones self
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\GMPComplexType
      */
     public function asGMPComplex()
@@ -181,7 +181,7 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     
     /**
      * Return the number as a Complex number i.e. n+0i
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()
@@ -201,9 +201,9 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     {
         if ($this->isReal()) {
             return clone $this->value['real'];
-        } else {
-            throw new NotRealComplexException();
         }
+        
+        throw new NotRealComplexException();
     }
     
     /**
@@ -221,9 +221,9 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
                 $this->value['real']->numerator()->asIntType(),
                 $this->value['real']->denominator()->asIntType()
             );
-        } else {
-            throw new NotRealComplexException();
         }
+        
+        throw new NotRealComplexException();
     }
     
     /**
@@ -236,9 +236,9 @@ class GMPComplexType extends AbstractComplexType implements GMPInterface
     {
         if ($this->isReal()) {
             return new FloatType($this->value['real']->get());
-        } else {
-            throw new NotRealComplexException();
         }
+         
+        throw new NotRealComplexException();
     }
     
     /**

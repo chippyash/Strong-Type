@@ -61,11 +61,12 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
         if ($this->isInteger()) {
             /** @noinspection PhpUndefinedMethodInspection */
             return $this->value['num']->get();
-        } else {
-            $num = intval(gmp_strval($this->value['num']->gmp()));
-            $den = intval(gmp_strval($this->value['den']->gmp()));
-            return $num/$den;
         }
+
+        $num = intval(gmp_strval($this->value['num']->gmp()));
+        $den = intval(gmp_strval($this->value['den']->gmp()));
+
+        return $num/$den;
     }
 
     /**
@@ -91,7 +92,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
     
     /**
      * Return the number as a GMPComplex number i.e. n+0i
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\GMPComplexType
      */
     public function asGMPComplex()
@@ -128,7 +129,7 @@ class GMPRationalType extends AbstractRationalType implements GMPInterface
     }
 
     /**
-     * 
+     *
      * Reduce this number to it's lowest form
      */
     protected function reduce()

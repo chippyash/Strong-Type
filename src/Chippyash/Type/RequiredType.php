@@ -46,11 +46,7 @@ class RequiredType
     public function get()
     {
         if ($this->requiredType == self::TYPE_DEFAULT) {
-            if (extension_loaded('gmp')) {
-                $this->requiredType = self::TYPE_GMP;
-            } else {
-                $this->requiredType = self::TYPE_NATIVE;
-            }
+            $this->requiredType = (extension_loaded('gmp') ? self::TYPE_GMP : self::TYPE_NATIVE);
         }
 
         return $this->requiredType;

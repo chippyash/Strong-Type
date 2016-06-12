@@ -53,8 +53,6 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
                 <directory>./src/chippyash/Type/Interfaces</directory>
                 <!-- don't cover GMP in travis as gmp is not supported and gives
                 a false coverage reading -->
-                <file>./src/chippyash/Type/Number/Complex/AbstractComplexType.php</file>
-                <file>./src/chippyash/Type/Number/Complex/GMPComplexTypeFactory.php</file>
                 <file>./src/chippyash/Type/Number/Complex/GMPComplexType.php</file>
                 <file>./src/chippyash/Type/Number/Rational/GMPRationalType.php</file>
                 <file>./src/chippyash/Type/Number/GMPIntType.php</file>

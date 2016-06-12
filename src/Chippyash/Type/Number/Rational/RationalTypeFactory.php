@@ -186,19 +186,24 @@ abstract class RationalTypeFactory extends AbstractTypeFactory
     
     /**
      * Create and return the correct number type rational
-     * 
+     *
      * @param int $num
      * @param int $den
      *
      * @return \Chippyash\Type\Number\Rational\RationalType|\Chippyash\Type\Number\Rational\GMPRationalType
+     *
+     *
      */
     protected static function createCorrectRational($num, $den)
     {
+
         if (self::getRequiredType() == self::TYPE_GMP) {
+            // @codeCoverageIgnoreStart
             return new GMPRationalType(new GMPIntType($num), new GMPIntType($den));
-        } else {
-            return new RationalType(new IntType($num), new IntType($den));
+            // @codeCoverageIgnoreEnd
         }
+        
+        return new RationalType(new IntType($num), new IntType($den));
     }
 
     /**

@@ -63,7 +63,7 @@ interface NumericTypeInterface extends TypeInterface
      * -1 if < 0
      * 0 if == 0
      * 1 if > 0
-     * 
+     *
      * @return int
      */
     public function sign();

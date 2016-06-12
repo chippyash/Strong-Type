@@ -42,8 +42,8 @@ class NaturalIntType extends IntType
         $val = intval($value);
         if ($val > 0) {
             return $val;
-        } else {
-            throw new InvalidTypeException("{$val} < 1 for natural integer type");
         }
+        
+        throw new InvalidTypeException("{$val} < 1 for natural integer type");
     }
 }

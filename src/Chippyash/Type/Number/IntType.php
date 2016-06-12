@@ -15,7 +15,6 @@ use Chippyash\Type\Interfaces\NumericTypeInterface;
 use Chippyash\Type\Number\Complex\ComplexType;
 use Chippyash\Type\Number\Rational\GMPRationalType;
 use Chippyash\Type\Number\Rational\RationalType;
-use Chippyash\Type\Number\Rational\RationalTypeFactory;
 use Chippyash\Type\RequiredType;
 
 /**
@@ -147,7 +146,7 @@ class IntType extends AbstractType implements NumericTypeInterface
                 }
                 do {
                     $divisor ++;
-                } while ($divisor < $dmax && $sieve[$divisor] != 1 );
+                } while ($divisor < $dmax && $sieve[$divisor] != 1);
                 if ($divisor > $dmax) {
                     $factors[$number] = (isset($factors[$number]) ? $factors[$number] + 1 : 1);
                 }

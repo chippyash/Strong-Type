@@ -56,7 +56,7 @@ class ComplexType extends AbstractComplexType
 
     /**
      * Return the number as a Complex number i.e. n+0i
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\ComplexType
      */
     public function asComplex()
@@ -76,9 +76,9 @@ class ComplexType extends AbstractComplexType
     {
         if ($this->isReal()) {
             return clone $this->value['real'];
-        } else {
-            throw new NotRealComplexException();
         }
+        
+        throw new NotRealComplexException();
     }
 
     /**
@@ -135,9 +135,9 @@ class ComplexType extends AbstractComplexType
     /**
      * Return the angle (sometimes known as the argument) of the number
      * when expressed in polar notation
-     * 
+     *
      * The return value is a rational expressing theta as radians
-     * 
+     *
      * @return \Chippyash\Type\Number\Rational\RationalType
      */
     public function theta()

@@ -154,7 +154,7 @@ class GMPIntType extends IntType implements GMPInterface
                 }
                 do {
                     $divisor ++;
-                } while (gmp_cmp($divisor, $dmax) < 0 && $sieve[$divisor] != 1 );
+                } while (gmp_cmp($divisor, $dmax) < 0 && $sieve[$divisor] != 1);
                 if (gmp_cmp($divisor, $dmax) > 0) {
                     $key = gmp_strval($number);
                     $factors[$key] = (isset($factors[$key]) ? $factors[$key] + 1 : 1);
@@ -208,7 +208,7 @@ class GMPIntType extends IntType implements GMPInterface
     
     /**
      * Return number as IntType
-     * 
+     *
      * @return \Chippyash\Type\Number\IntType
      */
     public function asIntType()
@@ -218,7 +218,7 @@ class GMPIntType extends IntType implements GMPInterface
     
     /**
      * Return the number as a GMPComplex number i.e. n+0i
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\GMPComplexType
      */
     public function asGMPComplex()
@@ -264,9 +264,9 @@ class GMPIntType extends IntType implements GMPInterface
     {
         if ($this->gmpTypeCheck($value)) {
             return $value;
-        } else {
-            return gmp_init(intval($value));
         }
+         
+        return gmp_init(intval($value));
     }
 
     /**

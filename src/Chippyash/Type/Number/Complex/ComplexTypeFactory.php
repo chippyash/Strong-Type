@@ -10,6 +10,7 @@
 
 namespace Chippyash\Type\Number\Complex;
 
+use Chippyash\Type\AbstractType;
 use Chippyash\Type\AbstractTypeFactory;
 use Chippyash\Type\Exceptions\InvalidTypeException;
 use Chippyash\Type\Number\Rational\RationalType;
@@ -37,7 +38,7 @@ abstract class ComplexTypeFactory extends AbstractTypeFactory
      * are integer or float numbers e.g. '-12+0.67i'
      * - mixture of numeric (int,float,'1234' etc), IntType and FloatType corresponding to a & b
      *
-     * @param string|float|int|NumericInterface $realPart
+     * @param string|float|int|AbstractType $realPart
      * @param float|int|FloatType|IntType $imaginaryPart
      *
      * @return \Chippyash\Type\Number\Complex\ComplexType
@@ -62,10 +63,12 @@ abstract class ComplexTypeFactory extends AbstractTypeFactory
         $imaginary = self::convertType($imaginaryPart);
         
         if (self::getRequiredType() == self::TYPE_GMP) {
+            // @codeCoverageIgnoreStart
             return new GMPComplexType($real, $imaginary);
-        } else {
-            return new ComplexType($real, $imaginary);
+            // @codeCoverageIgnoreEnd
         }
+        
+        return new ComplexType($real, $imaginary);
     }
 
     /**
@@ -109,41 +112,42 @@ abstract class ComplexTypeFactory extends AbstractTypeFactory
 
     /**
      * Create complex type from polar co-ordinates
-     * 
+     *
      * Be aware that you may lose a bit of precision e.g.
      * $c = ComplexTypeFactory::create('2/7+3/4i');
      * $c2 = ComplexTypeFactory::fromPolar($c->radius(), $c->theta());
      * returns 132664833738225/464326918083788+3382204885901775/4509606514535696i
      * which is ~0.2857142857142854066 + ~0.75000000000000066525i
-     * whereas the original is 
+     * whereas the original is
      * ~0.28571428571428571429 + 0.75i
-     * 
+     *
      * formula for conversion is z = r(cos(theta) + i.sin(theta))
-     * 
+     *
      * @param \Chippyash\Type\Number\Rational\AbstractRationalType $radius
      * @param \Chippyash\Type\Number\Rational\AbstractRationalType $theta angle expressed in radians
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\ComplexType
      */
     public static function fromPolar(AbstractRationalType $radius, AbstractRationalType $theta)
     {
         if (self::getRequiredType() == self::TYPE_GMP) {
+            /** @noinspection PhpParamsInspection */
             return self::fromGmpPolar($radius, $theta);
-        } else {
-            return self::fromNativePolar($radius, $theta);
         }
+        /** @noinspection PhpParamsInspection */
+        return self::fromNativePolar($radius, $theta);
     }
     
     /**
      * Create complex type from polar co-ordinates - Native version
-     * 
+     *
      * z = radius x (cos(theta) + i.sin(theta))
      *   real = radius x cos(theta)
      *   imag = radius x sin(theta)
-     * 
+     *
      * @param \Chippyash\Type\Number\Rational\RationalType $radius
      * @param \Chippyash\Type\Number\Rational\RationalType $theta angle expressed in radians
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\ComplexType
      */
     public static function fromNativePolar(RationalType $radius, RationalType $theta)
@@ -162,11 +166,13 @@ abstract class ComplexTypeFactory extends AbstractTypeFactory
 
     /**
      * Create complex type from polar co-ordinates - GMP version
-     * 
+     *
      * @param \Chippyash\Type\Number\Rational\GMPRationalType $radius
      * @param \Chippyash\Type\Number\Rational\GMPRationalType $theta angle expressed in radians
-     * 
+     *
      * @return \Chippyash\Type\Number\Complex\GMPComplexType
+     *
+     * @codeCoverageIgnore
      */
     public static function fromGmpPolar(GMPRationalType $radius, GMPRationalType $theta)
     {

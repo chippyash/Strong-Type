@@ -39,11 +39,11 @@ class WholeIntType extends IntType
      */
     protected function typeOf($value)
     {
-        $v = intval($value);
-        if ($v>-1) {
-            return $v;
-        } else {
-            throw new InvalidTypeException("{$v} < 0 for whole integer type");
+        $val = intval($value);
+        if ($val >- 1) {
+            return $val;
         }
+
+        throw new InvalidTypeException("{$val} < 0 for whole integer type");
     }
 }
