@@ -42,7 +42,7 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
      ! blacklist and whitelist for the code coverage reporting.
      !-->
     <filter>
-        <whitelist>
+        <whitelist processUncoveredFilesFromWhitelist="true">
             <directory>./src</directory>
             <exclude>
                 <directory>./docs</directory>
@@ -63,7 +63,9 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
         </whitelist>
     </filter>
 
-
+    <logging>
+        <log type="coverage-clover" target="./build/logs/clover.xml"/>
+    </logging>
 </phpunit>
 
 

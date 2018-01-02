@@ -1,8 +1,6 @@
 # Chippyash Strong Types
 
-## 
-      Chippyash\Test\Type\RequiredType
-    
+## Chippyash\Test\Type\RequiredType
 
 *  You cannot construct class directly
 *  You can get a singleton instance
@@ -10,9 +8,7 @@
 *  You can set the required type
 *  Setting an invalid type will throw an exception
 
-## 
-      Chippyash\Test\Type\AbstractMultiValueType
-    
+## Chippyash\Test\Type\AbstractMultiValueType
 
 *  Magic to string returns empty string
 *  Get invokes get as native type
@@ -21,9 +17,7 @@
 *  Set from types catches invali object types
 *  Set from types catches invali native types
 
-## 
-      Chippyash\Test\Type\AbstractType
-    
+## Chippyash\Test\Type\AbstractType
 
 *  Constructor will return abstract type
 *  Set followed by get returns a value
@@ -31,26 +25,20 @@
 *  Magic invoke returns value
 *  Clone does clone inner value
 
-## 
-      Chippyash\Test\Type\BoolType
-    
+## Chippyash\Test\Type\BoolType
 
 *  Construct without value throws exception
 *  Get returns boolean
 *  Get returns only true or false
 *  Magic to string returns string
 
-## 
-      Chippyash\Test\Type\Number\Complex\AbstractComplexType
-    
+## Chippyash\Test\Type\Number\Complex\AbstractComplexType
 
 *  Radius and abs proxy to modulus
 *  Theta will return value
 *  Polar string will return value
 
-## 
-      Chippyash\Test\Type\Number\Complex\ComplexTypeFactory
-    
+## Chippyash\Test\Type\Number\Complex\ComplexTypeFactory
 
 *  Create with invalid string as first parameter throws exception
 *  Create with valid string containing float as first parameter returns complex type
@@ -59,12 +47,10 @@
 *  Create with correct param types returns complex type
 *  Create from polar returns complex type
 
-## 
-      Chippyash\Test\Type\Number\Complex\ComplexType
-    
+## Chippyash\Test\Type\Number\Complex\ComplexType
 
-*  Construct expects first parameter to be float type
-*  Construct expects second parameter to be float type
+*  Construct expects first parameter to a be rational type
+*  Construct expects second parameter to be a rational type
 *  Construct with two rational type parameters returns complex type
 *  Set expects first parameter to be rational type
 *  Set expects second parameter to be rational type
@@ -114,10 +100,9 @@
 *  Polar string for zero complex returns zero string
 *  Polar string for non zero complex returns non zero string
 *  Clone does clone inner value
+*  You can get the sign of a complex number
 
-## 
-      Chippyash\Test\Type\Number\Complex\GMPComplexTypeFactory
-    
+## Chippyash\Test\Type\Number\Complex\GMPComplexTypeFactory
 
 *  Create with invalid string as first parameter throws exception
 *  Create with valid string containing float as first parameter returns complex type
@@ -127,9 +112,7 @@
 *  Create from polar returns complex type
 *  Creation will use gmp automatically if it exists
 
-## 
-      Chippyash\Test\Type\Number\Complex\GMPComplexType
-    
+## Chippyash\Test\Type\Number\Complex\GMPComplexType
 
 *  Construct expects first parameter to be float type
 *  Construct expects second parameter to be rational type
@@ -179,9 +162,7 @@
 *  As gmp rational returns gmp rational for real complex
 *  As gmp rational throws exception for non real complex
 
-## 
-      Chippyash\Test\Type\Number\FloatType
-    
+## Chippyash\Test\Type\Number\FloatType
 
 *  Float type converts values to float
 *  Can negate the number
@@ -191,9 +172,7 @@
 *  As int type returns int type
 *  Abs returns absolute value
 
-## 
-      Chippyash\Test\Type\Number\GMPIntType
-    
+## Chippyash\Test\Type\Number\GMPIntType
 
 *  G m p int type converts values to integer
 *  Can negate the number
@@ -208,9 +187,7 @@
 *  As gmp complex returns gmp complex type
 *  As gmp rational returns gmp rational type
 
-## 
-      Chippyash\Test\Type\Number\IntType
-    
+## Chippyash\Test\Type\Number\IntType
 
 *  Int type converts values to integer
 *  Int type can be used in calculation
@@ -223,17 +200,13 @@
 *  Factors returns an array of factors of the number
 *  Prime factors returns an array of factors of the number
 
-## 
-      Chippyash\Test\Type\Number\NaturalIntType
-    
+## Chippyash\Test\Type\Number\NaturalIntType
 
 *  Natural int type converts to integer
 *  Construct natural int with integer less than one throws exception
 *  Cannot negate the number
 
-## 
-      Chippyash\Test\Type\Number\Rational\AbstractRationalType
-    
+## Chippyash\Test\Type\Number\Rational\AbstractRationalType
 
 *  Magic invoke proxies to get
 *  Set returns object
@@ -247,9 +220,7 @@
 *  As float type returns float type
 *  As int type returns int type
 
-## 
-      Chippyash\Test\Type\Number\Rational\GMPRationalTypeFactory
-    
+## Chippyash\Test\Type\Number\Rational\GMPRationalTypeFactory
 
 *  Create from valid string value returns ratioanal type
 *  Create from numeric value with no denominator specified returns ratioanal type
@@ -268,9 +239,7 @@
 *  Set default from float tolerance is static
 *  Set number type to default will set gmp if available
 
-## 
-      Chippyash\Test\Type\Number\Rational\GMPRationalType
-    
+## Chippyash\Test\Type\Number\Rational\GMPRationalType
 
 *  Construct expects first parameter to be g m p int type
 *  Construct expects second parameter to be g m p int type
@@ -299,9 +268,7 @@
 *  As gmp rational returns clone of self
 *  As gmp complex returns gmp complex
 
-## 
-      Chippyash\Test\Type\Number\Rational\RationalTypeFactory
-    
+## Chippyash\Test\Type\Number\Rational\RationalTypeFactory
 
 *  Create from valid string value returns ratioanal type
 *  Create from numeric value with no denominator specified returns ratioanal type
@@ -319,9 +286,7 @@
 *  From float with zero value returns zero as string
 *  Set default from float tolerance is static
 
-## 
-      Chippyash\Test\Type\Number\Rational\RationalType
-    
+## Chippyash\Test\Type\Number\Rational\RationalType
 
 *  Construct expects first parameter to be int type
 *  Construct expects second parameter to be int type
@@ -335,32 +300,24 @@
 *  Abs returns absolute value
 *  Clone does clone inner value
 
-## 
-      Chippyash\Test\Type\Number\WholeIntType
-    
+## Chippyash\Test\Type\Number\WholeIntType
 
 *  Whole int type converts to integer
 *  Construct whole int with integer less than zero throws exception
 *  Cannot negate the number
 
-## 
-      Chippyash\Test\Type\String\DigitType
-    
+## Chippyash\Test\Type\String\DigitType
 
 *  Digit type converts strings with numbers stripping non digits
 *  Convert non stringable type throws exception
 
-## 
-      Chippyash\Test\Type\String\StringType
-    
+## Chippyash\Test\Type\String\StringType
 
 *  String type converts base types to string
 *  String type proxies magic invoke to get
 *  String type can be used in string concatenation
 
-## 
-      Chippyash\Test\Type\TypeFactory
-    
+## Chippyash\Test\Type\TypeFactory
 
 *  Factory create method returns correct type
 *  Create invalid type throws exception
