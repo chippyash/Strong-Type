@@ -16,13 +16,15 @@ The above badges represent the current development branch.  As a rule, I don't p
  project etc.  If you need stable code, use a tagged version. Read 'Further Documentation'
  and 'Installation'.
  
-Please note that developer support for PHP5.3 was withdrawn at version 3.0.3 of this library.
+Please note that developer support for PHP5.3 was withdrawn at version 4.0.0 of this library.
 It may be that the code will continue to run for you at later versions, but you must
-ascertain that for yourself.
+ascertain that for yourself. If you need support for PHP 5.3, please use a version
+`>=3,<4`
  
-See request for help: gmp is not being tested at the present time by the
-Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
-[Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
+GMP support is tested on the Travis-ci build servers for PHP V5.6 as that is the only
+version that stable gmp support is available for.   
+
+See the [Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
 
 ## What?
 
@@ -493,12 +495,6 @@ V3.0.1 add link to packages
 
 V3.0.2 verify PHP7 compatibility
 
-V3.1.0 end PHP5.3 support. build script changes
-
-## Request for help
-
-The V2/3 build of this library can use GMP support. I can't seem to figure out how to add gmp support 
-to the travis ci build system.  If you know how to do this, I'd appreciate your intervention and assistance.  
-The QA is still good, as the gmp tests specify a requirement for gmp and will therefore be passed over. 
+V4.0.0 end PHP5.3 support. build script changes
 
 
