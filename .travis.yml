@@ -4,15 +4,22 @@ language: php
 # list any PHP version you want to test against
 php:
   # aliased to a recent 5.4.x version
-  - 5.4
+  #- 5.4
   # aliased to a recent 5.5.x version
-  - 5.5
+  #- 5.5
   # aliased to a recent 5.6.x version
   - 5.6
   # aliased to a recent 7.x version
-  - 7
+  #- 7
   # hhvm
   #- hhvm
+
+before_install:
+  - sudo apt-get update > /dev/null
+
+install:
+  - sudo apt-get install -y --force-yes php-gmp
+  - php -m
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
@@ -23,7 +30,6 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-  - sudo apt search gmp
 
 script:
   - vendor/phpunit/phpunit/phpunit --configuration ./phpunit.travis.xml test
