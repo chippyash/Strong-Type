@@ -16,9 +16,11 @@ php:
 
 before_install:
   - sudo apt-get update > /dev/null
+  - PHPVER=$(php -v | grep  -P --only-matching "\\d+" | head -n 1)
+  - if [ 7 = $PHPVER ]; then GMP="php-gmp"; else GMP="php5-gmp";fi
 
 install:
-  - sudo apt-get install -y --force-yes php-gmp
+  - sudo apt-get install -y --force-yes $GMP
   - php -m
 
 # omitting "script:" will default to phpunit
