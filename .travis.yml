@@ -16,12 +16,11 @@ php:
 
 before_install:
   - sudo apt-get update > /dev/null
-  - PHPVER=$(php -v | grep  -P --only-matching "\\d+" | head -n 1)
-  - if [ 7 = $PHPVER ]; then GMP="php-gmp"; else GMP="php5-gmp";fi
+  - PHPVER=$(php -v | grep  -P --only-matching "\\d+\.\\d+" | head -n 1)
+  - if [ 5.6 = $PHPVER ]; then UNITCFG="phpunit56.travis.xml"; else UNITCFG="phpunit.travis.xml"; fi
 
 install:
-  - sudo apt-get install -y --force-yes $GMP
-  - php -m
+  - if [ 5.6 = $PHPVER ]; then sudo apt-get install -y --force-yes php5-gmp;fi
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
@@ -31,13 +30,13 @@ before_script:
   - mkdir -p build/logs
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+  - if [ 5.6 = $PHPVER ]; then ./cc-test-reporter before-build; fi
 
 script:
-  - vendor/phpunit/phpunit/phpunit --configuration ./phpunit.travis.xml test
+  - vendor/phpunit/phpunit/phpunit --configuration ./$UNITCFG test
 
 after_success:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - if [ 5.6 = $PHPVER ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 
 # configure notifications (email, IRC, campfire etc)
 notifications:

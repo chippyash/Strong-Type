@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
-PHPUnit configuration file to run chippyash\strong-type tests in PHP versions
-not supporting the GMP extension on travis build servers
+PHPUnit configuration file to run chippyash\strong-type tests under PHP5.6 with GMP
+support in the Travis-CI build server
 -->
 
 <!--
@@ -52,12 +52,6 @@ testSuiteLoaderFile="/path/to/StandardTestSuiteLoader.php"
                 <directory>./vendor</directory>
                 <!-- don't cover interfaces -->
                 <directory>./src/chippyash/Type/Interfaces</directory>
-                <!-- don't cover GMP in travis as gmp is not supported and gives
-                a false coverage reading -->
-                <file>./src/chippyash/Type/Number/Complex/GMPComplexType.php</file>
-                <file>./src/chippyash/Type/Number/Rational/GMPRationalType.php</file>
-                <file>./src/chippyash/Type/Number/GMPIntType.php</file>
-                <file>./src/chippyash/Type/Exceptions/GMPNotSupportedException.php</file>
                 <!-- don't cover Zend derived code -->
                 <file>./src/chippyash/Zend/ErrorHandler.php</file>
             </exclude>
