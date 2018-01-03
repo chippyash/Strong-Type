@@ -2,7 +2,6 @@
 
 ## Quality Assurance
 
-![PHP 5.3](https://img.shields.io/badge/PHP-5.3-blue.svg)
 ![PHP 5.4](https://img.shields.io/badge/PHP-5.4-blue.svg)
 ![PHP 5.5](https://img.shields.io/badge/PHP-5.5-blue.svg)
 ![PHP 5.6](https://img.shields.io/badge/PHP-5.6-blue.svg)
@@ -16,6 +15,10 @@ The above badges represent the current development branch.  As a rule, I don't p
  true for short periods of time; on holiday, need code for some other downstream
  project etc.  If you need stable code, use a tagged version. Read 'Further Documentation'
  and 'Installation'.
+ 
+Please note that developer support for PHP5.3 was withdrawn at version 3.0.3 of this library.
+It may be that the code will continue to run for you at later versions, but you must
+ascertain that for yourself.
  
 See request for help: gmp is not being tested at the present time by the
 Travis CI servers.  The gmp specific tests do run locally - I promise!  See the
@@ -489,6 +492,8 @@ V3.0.0 BC Break: Rename namespace from chippyash\Type to Chippyash\Type
 V3.0.1 add link to packages
 
 V3.0.2 verify PHP7 compatibility
+
+V3.1.0 end PHP5.3 support. build script changes
 
 ## Request for help
 
