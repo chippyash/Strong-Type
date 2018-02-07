@@ -504,4 +504,6 @@ V3.0.2 verify PHP7 compatibility
 
 V4.0.0 end PHP5.3 support. build script changes
 
+V4.0.1 update composer - forced by packagist composer.json format change
+
 
