@@ -22,7 +22,7 @@ ascertain that for yourself. If you need support for PHP 5.3, please use a versi
 Also note that developer support for PHP5.4 & 5.5 was withdrawn at version 5.0.0 of this library.
 It may be that the code will continue to run for you at later versions, but you must
 ascertain that for yourself. If you need support for PHP 5.4 or 5.5, please use a version
-`>=5,<6`
+`>=4,<5`
  
 GMP support is tested on the Travis-ci build servers for PHP V5.6 as that is the only
 version that stable gmp support is available for.   
