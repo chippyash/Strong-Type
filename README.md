@@ -2,8 +2,6 @@
 
 ## Quality Assurance
 
-![PHP 5.4](https://img.shields.io/badge/PHP-5.4-blue.svg)
-![PHP 5.5](https://img.shields.io/badge/PHP-5.5-blue.svg)
 ![PHP 5.6](https://img.shields.io/badge/PHP-5.6-blue.svg)
 ![PHP 7](https://img.shields.io/badge/PHP-7-blue.svg)
 [![Build Status](https://travis-ci.org/chippyash/Strong-Type.svg?branch=master)](https://travis-ci.org/chippyash/Strong-Type)
@@ -20,19 +18,17 @@ Please note that developer support for PHP5.3 was withdrawn at version 4.0.0 of 
 It may be that the code will continue to run for you at later versions, but you must
 ascertain that for yourself. If you need support for PHP 5.3, please use a version
 `>=3,<4`
+
+Also note that developer support for PHP5.4 & 5.5 was withdrawn at version 5.0.0 of this library.
+It may be that the code will continue to run for you at later versions, but you must
+ascertain that for yourself. If you need support for PHP 5.4 or 5.5, please use a version
+`>=5,<6`
  
 GMP support is tested on the Travis-ci build servers for PHP V5.6 as that is the only
 version that stable gmp support is available for.   
 
 See the [Test Contract](https://github.com/chippyash/Strong-Type/blob/master/docs/Test-Contract.md) in the docs directory.
 
-### End of life notice
-
-In March 2018, developer support will be withdrawn from this library for PHP <5.6. Older
-versions of PHP are now in such little use that the added effort of maintaining 
-compatibility is not effort effective.  See [PHP Version Stats](https://seld.be/notes/php-versions-stats-2017-1-edition)
- for the numbers.
- 
 ## What?
 
 Provides strong type implementations of base PHP types.  Adds some 'missing'
@@ -364,12 +360,12 @@ Install [Composer](https://getcomposer.org/)
 
 #### For production
 
-Use V3 unless you have a strong reason not to.
+Use V5 unless you have a strong reason not to.
 <pre>
-    "chippyash/strong-type": ">=3.0.0"
+    "chippyash/strong-type": ">=5.0.0,<6"
 </pre>
 
-The V3 branch is the default, no further development of the V1 or V2 branch will take place.
+V5 branch is the default, no further development of ealier versions will take place.
  
 #### For development
 
@@ -392,7 +388,7 @@ To run the tests:
 
 This software library is released under the [GNU GPL V3 or later license](http://www.gnu.org/copyleft/gpl.html)
 
-This software library is Copyright (c) 2014, Ashley Kitson, UK
+This software library is Copyright (c) 2014-2018, Ashley Kitson, UK
 
 This software library contains code items that are: 
 
@@ -502,8 +498,10 @@ V3.0.1 add link to packages
 
 V3.0.2 verify PHP7 compatibility
 
-V4.0.0 end PHP5.3 support. build script changes
+V4.0.0 BC Break: end PHP5.3 support. build script changes
 
 V4.0.1 update composer - forced by packagist composer.json format change
+
+V5.0.0 BC Break: end of support for PHP <5.6
 
 
