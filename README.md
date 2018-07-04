@@ -386,7 +386,7 @@ To run the tests:
 
 ## License
 
-This software library is released under the [GNU GPL V3 or later license](http://www.gnu.org/copyleft/gpl.html)
+This software library is released under the [BSD 3 Clause license](https://opensource.org/licenses/BSD-3-Clause)
 
 This software library is Copyright (c) 2014-2018, Ashley Kitson, UK
 
@@ -400,14 +400,12 @@ In particular the code items are:
 - elements of Chippyash\Type\String\DigitType
 - all of Chippyash\Zend\ErrorHandler
 
-None of the contained code items breaks the overriding license, or vice versa,  as far as I can tell. 
-So as long as you stick to GPL V3+ then you are safe. If at all unsure, please seek appropriate advice.
+None of the contained code items breaks the overriding license, or vice versa,  as 
+far as I can tell. So as long as you stick to BSD license(or comaptible) then you are
+safe. If at all unsure, please seek appropriate advice.
 
-If the original copyright owners of the included code items object to this inclusion, please contact the author.
-
-A commercial license is available for this software library, please contact the author. 
-It is normally free to deserving causes, but gets you around the limitation of the GPL
-license, which does not allow unrestricted inclusion of this code in commercial works.
+If the original copyright owners of the included code items object to this inclusion, 
+please contact the author.
 
 This library is supported by <a href="https://www.jetbrains.com"><img src="https://github.com/chippyash/Strong-Type/raw/master/img/JetBrains.png" alt="Jetbrains" style="height: 200px;vertical-align: middle;"></a>
 who provide their IDEs to Open Source developers.
@@ -503,5 +501,7 @@ V4.0.0 BC Break: end PHP5.3 support. build script changes
 V4.0.1 update composer - forced by packagist composer.json format change
 
 V5.0.0 BC Break: end of support for PHP <5.6
+
+V5.1.0 Change of license from GPL V3 to BSD 3 Clause 
 
 
